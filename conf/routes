@@ -2,6 +2,8 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+*       /                                       module:cmscore
+
 # Home page
 GET     /                                       Application.index
 
@@ -13,3 +15,5 @@ GET     /public/                                staticDir:public
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}
+
+
