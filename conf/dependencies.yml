@@ -1,6 +1,15 @@
 # Application dependencies
 
 require:
+    - play 1.2.3
     - play -> morphia 1.2.4b
     - play -> router 1.1
-    - play -> cobertura 2.4
+
+    - cmscore -> cmscore 0.1
+
+repositories:
+    - modules:
+        type: local
+        artifact: "${application.path}/custom/[module]"
+        contains:
+            - cmscore

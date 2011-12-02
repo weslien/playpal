@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Playpal.iml" filepath="$PROJECT_DIR$/Playpal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/custom/cmscore/cmscore.iml" filepath="$PROJECT_DIR$/custom/cmscore/cmscore.iml" />
     </modules>
   </component>
 </project>
