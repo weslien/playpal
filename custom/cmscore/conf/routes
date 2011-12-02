@@ -1,10 +1,10 @@
 # This file defines all module routes (Higher priority routes first)
 #
 # import these routes in the main app as :
-# *     /                       module:cmscore
+# *     /                           module:cmscore
 #
 # ~~~~
 #Leaf routing
-GET     /leaf/{<[0-9]+>id}                      Leaf.view
+GET     /leaf/{<[0-9]+>id}          Leaf.view
 
-GET     /?                      Module.index
+GET     /?                          Module.index

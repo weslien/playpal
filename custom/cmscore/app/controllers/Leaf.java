@@ -9,7 +9,7 @@ import play.mvc.Controller;
  * Time: 23:46
  * To change this template use File | Settings | File Templates.
  */
-public class Leaf extends Controller{
+public class Leaf extends Controller {
 
     public static void view(int id){
 
