@@ -19,16 +19,9 @@
         <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library name="PlayFramework Dependencies">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../programs/play-current/framework/play-1.2.4.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="library" name="play-1.2.4" level="project" />
+    <orderEntry type="library" name="PlayFramework Dependencies" level="project" />
+    <orderEntry type="module" module-name="cmscore" />
   </component>
 </module>
 
