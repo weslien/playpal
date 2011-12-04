@@ -4,6 +4,9 @@ import play.data.validation.Required;
 import play.db.jpa.Model;
 
 import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,6 +21,12 @@ public class Leaf extends Model {
 
     @Required
     public Integer version;
+
+    @Temporal(value = TemporalType.TIMESTAMP)
+    public Date publish;
+
+    @Temporal(value = TemporalType.TIMESTAMP)
+    public Date unPublish;
 
     public Leaf(Integer version, String title) {
         this.uuid = UUID.randomUUID().toString();
