@@ -57,12 +57,14 @@ public class Leaf extends Model {
         ).bind("uuid", uuid).bind("version", Integer.valueOf(version)).first();
     }
 
-    public static Leaf findWithUuidLatestVersion(String uuid) {
+    public static Leaf findWithUuidLatestPublishedVersion(String uuid, Date today) {
         return Leaf.find(
                 "select distinct l from Leaf l " +
-                "where l.uuid = :uuid " +
+                "where l.uuid = :uuid and " +
+                "(l.publish = null or l.publish < :today) and " +
+                "(l.unPublish = null OR l.unPublish >= :today)" +
                 "order by version desc"
-        ).bind("uuid", uuid).first();
+        ).bind("uuid", uuid).bind("today", today).first();
     }
 
     public static List<Leaf> findWithUuidAllVersions(String uuid) {
