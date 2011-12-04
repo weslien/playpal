@@ -4,6 +4,7 @@ import models.cmscore.Leaf;
 import play.data.validation.Required;
 import play.mvc.Controller;
 
+import java.util.Date;
 import java.util.List;
 
 public class Core extends Controller {
@@ -14,7 +15,7 @@ public class Core extends Controller {
         render(leaves);
     }
 
-    public static void leaf(@Required String uuid){
+    public static void leaf(@Required String uuid) {
 
         //Load leafModel
 
@@ -22,19 +23,19 @@ public class Core extends Controller {
         //LeafHelper.dispatchBeforeLoaded
 
 
-        Leaf leaf = Leaf.findWithUuidLatestVersion(uuid);
+        Leaf leaf = Leaf.findWithUuidLatestPublishedVersion(uuid, new Date());
 
         render(leaf);
     }
 
-    public static void leafVersions(@Required String uuid){
+    public static void leafVersions(@Required String uuid) {
 
         List<Leaf> leaves = Leaf.findWithUuidAllVersions(uuid);
 
         render(leaves);
     }
 
-    public static void leafVersion(@Required String uuid, @Required int version){
+    public static void leafVersion(@Required String uuid, @Required int version) {
 
         Leaf leaf = Leaf.findWithUuidSpecificVersion(uuid, version);
 
