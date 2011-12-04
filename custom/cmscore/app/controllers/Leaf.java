@@ -13,7 +13,10 @@ public class Leaf extends Controller{
 
     public static void view(int id){
 
-        //Find all classes with BeforeNodeLoaded watches
+        //Load leafModel
+
+        //Find all classes with BeforeLeafLoaded watches
+        //LeafHelper.dispatchBeforeLoaded
 
 
         render();
