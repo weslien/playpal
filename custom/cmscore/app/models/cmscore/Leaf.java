@@ -31,18 +31,36 @@ public class Leaf extends Model {
         this.version = version;
     }
     
-    public static Leaf findWithUuidAndVersion(String uuid, Integer version) {
+    public static List<Leaf> findAllCurrentVersions() {
+        return Leaf.find(
+                "select l from Leaf l " +
+                "where l.version = (" +
+                        "select max(l2.version) from Leaf l2 " +
+                        "where l2.uuid = l.uuid " +
+                ")"
+        ).fetch();
+    }
+    
+    public static Leaf findWithUuidSpecificVersion(String uuid, int version) {
         return Leaf.find(
                 "select distinct l from Leaf l " +
                 "where l.uuid = :uuid and l.version = :version"
-        ).bind("uuid", uuid).bind("version", version).first();
+        ).bind("uuid", uuid).bind("version", Integer.valueOf(version)).first();
     }
 
-    public static List<Leaf> findWithUid(String uuid) {
+    public static Leaf findWithUuidLatestVersion(String uuid) {
         return Leaf.find(
                 "select distinct l from Leaf l " +
-                "where l.uuid = :uid"
-        ).bind("uid", uuid).fetch();
+                "where l.uuid = :uuid " +
+                "order by version desc"
+        ).bind("uuid", uuid).first();
+    }
+
+    public static List<Leaf> findWithUuidAllVersions(String uuid) {
+        return Leaf.find(
+                "select distinct l from Leaf l " +
+                "where l.uuid = :uuid"
+        ).bind("uuid", uuid).fetch();
     }
 
     public String toString() {
