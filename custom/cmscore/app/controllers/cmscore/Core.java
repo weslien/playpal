@@ -13,8 +13,14 @@ public class Core extends Controller {
 
         render(leafs);
     }
-    
+
     public static void leaf(@Required String uuid){
+
+        //Load leafModel
+
+        //Find all classes with BeforeLeafLoaded watches
+        //LeafHelper.dispatchBeforeLoaded
+
 
         Leaf leaf = Leaf.findWithUuidLatestVersion(uuid);
 
@@ -34,5 +40,4 @@ public class Core extends Controller {
 
         render(leaf);
     }
-
 }
