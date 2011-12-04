@@ -9,9 +9,9 @@ import java.util.List;
 public class Core extends Controller {
 
     public static void leafList() {
-        List<Leaf> leafs = Leaf.findAllCurrentVersions();
+        List<Leaf> leaves = Leaf.findAllCurrentVersions();
 
-        render(leafs);
+        render(leaves);
     }
 
     public static void leaf(@Required String uuid){
@@ -29,9 +29,9 @@ public class Core extends Controller {
 
     public static void leafVersions(@Required String uuid){
 
-        List<Leaf> leafs = Leaf.findWithUuidAllVersions(uuid);
+        List<Leaf> leaves = Leaf.findWithUuidAllVersions(uuid);
 
-        render(leafs);
+        render(leaves);
     }
 
     public static void leafVersion(@Required String uuid, @Required int version){
