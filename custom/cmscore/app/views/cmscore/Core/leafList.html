@@ -1,0 +1,7 @@
+#{extends 'main.html' /}
+
+<h3>All leafs</h3>
+
+#{list items:leafs, as:'leaf'}
+    <a href="@{cmscore.Core.leaf(leaf.uuid)}">${leaf.title} - ${leaf.uuid}</a><br/>
+#{/list}
