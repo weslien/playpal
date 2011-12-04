@@ -10,7 +10,7 @@ import java.util.List;
 public class Core extends Controller {
 
     public static void leafList() {
-        List<Leaf> leaves = Leaf.findAllCurrentVersions();
+        List<Leaf> leaves = Leaf.findAllCurrentVersions(new Date());
 
         render(leaves);
     }
@@ -35,7 +35,7 @@ public class Core extends Controller {
         render(leaves);
     }
 
-    public static void leafVersion(@Required String uuid, @Required int version) {
+    public static void leafVersion(@Required String uuid, @Required Long version) {
 
         Leaf leaf = Leaf.findWithUuidSpecificVersion(uuid, version);
 

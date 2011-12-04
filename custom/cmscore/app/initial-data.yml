@@ -18,7 +18,7 @@ cmscore.Leaf(Second,2):
     version:        2
     title:          Second Leaf second iteration
     publish:        2007-01-01 10:00:00
-    unpublish:      200-01-01 10:00:00
+    unpublish:      2009-12-31 10:00:00
 
 cmscore.Leaf(Second,3):
     uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
@@ -29,3 +29,9 @@ cmscore.Leaf(Third,1):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        1
     title:          Third Leaf
+
+cmscore.Leaf(Third,2):
+    uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
+    version:        2
+    title:          Third Leaf second iteration
+    publish:        2012-01-01 00:00:00
