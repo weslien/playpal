@@ -19,8 +19,9 @@ public class Leaf extends Model {
     @Required
     public String title;
 
+    // Should only have to be Integer but because of defect #521 in play that doesn't work. Should be fixed in 1.3
     @Required
-    public Integer version;
+    public Long version;
 
     @Temporal(value = TemporalType.TIMESTAMP)
     public Date publish;
@@ -28,33 +29,36 @@ public class Leaf extends Model {
     @Temporal(value = TemporalType.TIMESTAMP)
     public Date unPublish;
 
-    public Leaf(Integer version, String title) {
+    public Leaf(Long version, String title) {
         this.uuid = UUID.randomUUID().toString();
         this.title = title;
         this.version = version;
     }
     
-    public Leaf(String uuid, Integer version, String title) {
+    public Leaf(String uuid, Long version, String title) {
         this.uuid = uuid;
         this.title = title;
         this.version = version;
     }
     
-    public static List<Leaf> findAllCurrentVersions() {
+    public static List<Leaf> findAllCurrentVersions(Date today) {
         return Leaf.find(
                 "select l from Leaf l " +
                 "where l.version = (" +
                         "select max(l2.version) from Leaf l2 " +
-                        "where l2.uuid = l.uuid " +
+                        "where l2.uuid = l.uuid and " +
+                        "(l2.publish = null or l2.publish < :today) and " +
+                        "(l2.unPublish = null OR l2.unPublish >= :today)" +
                 ")"
-        ).fetch();
+        ).bind("today", today).fetch();
     }
     
-    public static Leaf findWithUuidSpecificVersion(String uuid, int version) {
+    public static Leaf findWithUuidSpecificVersion(String uuid, Long version) {
         return Leaf.find(
                 "select distinct l from Leaf l " +
-                "where l.uuid = :uuid and l.version = :version"
-        ).bind("uuid", uuid).bind("version", Integer.valueOf(version)).first();
+                "where l.uuid = :uuid and " +
+                "l.version = :version"
+        ).bind("uuid", uuid).bind("version", version).first();
     }
 
     public static Leaf findWithUuidLatestPublishedVersion(String uuid, Date today) {
