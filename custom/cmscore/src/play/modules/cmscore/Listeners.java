@@ -21,7 +21,7 @@ public class Listeners {
         if (listeners.containsKey(annotationType)) {
             return listeners.get(annotationType);
         } else {
-            return Collections.<CachedAnnotationListener>EMPTY_LIST;
+            return Collections.emptyList();
         }
     }
 

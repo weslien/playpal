@@ -1,4 +1,4 @@
-package play.modules.cmscore.helpers;
+package helpers;
 
 import models.cmscore.Leaf;
 import play.modules.cmscore.CachedAnnotationListener;

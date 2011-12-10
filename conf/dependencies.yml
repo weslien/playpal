@@ -6,6 +6,7 @@ require:
     - play -> router 1.1
 
     - cmscore -> cmscore 0.1
+    - stoopid -> stoopid 0.1
 
 repositories:
     - modules:
@@ -13,3 +14,4 @@ repositories:
         artifact: "${application.path}/custom/[module]"
         contains:
             - cmscore
+            - stoopid

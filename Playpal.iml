@@ -10,8 +10,9 @@
       <sourceFolder url="file://$MODULE_DIR$/custom/cmscore/app" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/custom/cmscore/src" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/modules/router-1.1">
-      <sourceFolder url="file://$MODULE_DIR$/modules/router-1.1/app" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/custom/stoopid">
+      <sourceFolder url="file://$MODULE_DIR$/custom/stoopid/app" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/custom/stoopid/src" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="1.6" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -21,11 +22,14 @@
         <CLASSES>
           <root url="file://$MODULE_DIR$/lib" />
           <root url="file://$MODULE_DIR$/modules/router-1.1/src" />
+          <root url="file://$MODULE_DIR$/custom/stoopid/src" />
           <root url="file://$MODULE_DIR$/custom/cmscore/src" />
           <root url="file://$MODULE_DIR$/modules/router-1.1/lib" />
+          <root url="file://$MODULE_DIR$/custom/cmscore/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/custom/cmscore/lib" recursive="false" />
         <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
         <jarDirectory url="file://$MODULE_DIR$/modules/router-1.1/lib" recursive="false" />
       </library>
@@ -51,6 +55,7 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="library" name="play-cmscore" level="project" />
   </component>
 </module>
 
