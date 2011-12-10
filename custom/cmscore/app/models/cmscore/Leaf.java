@@ -29,6 +29,8 @@ public class Leaf extends Model {
     @Temporal(value = TemporalType.TIMESTAMP)
     public Date unPublish;
 
+    public Class type;
+
     public Leaf(Long version, String title) {
         this.uuid = UUID.randomUUID().toString();
         this.title = title;

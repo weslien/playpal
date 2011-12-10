@@ -8,6 +8,7 @@
     </content>
     <content url="file://$MODULE_DIR$/custom/cmscore">
       <sourceFolder url="file://$MODULE_DIR$/custom/cmscore/app" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/custom/cmscore/src" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/modules/router-1.1">
       <sourceFolder url="file://$MODULE_DIR$/modules/router-1.1/app" isTestSource="false" />
