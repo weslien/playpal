@@ -1,5 +1,6 @@
 package controllers.cmscore;
 
+import helpers.LeafHelper;
 import models.cmscore.Leaf;
 import play.data.validation.Required;
 import play.mvc.Controller;
@@ -18,12 +19,14 @@ public class Core extends Controller {
     public static void leaf(@Required String uuid) {
 
         //Load leafModel
-
-        //Find all classes with BeforeLeafLoaded watches
-        //LeafHelper.dispatchBeforeLoaded
-
-
         Leaf leaf = Leaf.findWithUuidLatestPublishedVersion(uuid, new Date());
+
+        LeafHelper.triggerBeforeLeafLoaded(leaf.type, leaf);
+
+        Object newLeaf = LeafHelper.triggerProvidesListener(leaf.type, leaf);
+
+        // TODO: use newLeaf instead of leaf from this point on
+        LeafHelper.triggerAfterLeafLoaded(leaf.type, leaf);
 
         render(leaf);
     }
