@@ -1,0 +1,4 @@
+self: play -> test-custom 0.1
+
+require:
+    - play

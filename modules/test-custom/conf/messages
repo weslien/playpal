@@ -1,0 +1,5 @@
+# Default test-custom messages
+# You can specialize this file for each language.
+# For exemple, for french create a messages.fr file
+
+#test-custom.name=test-custom
