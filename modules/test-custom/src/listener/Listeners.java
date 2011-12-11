@@ -8,4 +8,11 @@ package listener;
  * To change this template use File | Settings | File Templates.
  */
 public class Listeners {
+    public Object doSomething(){
+        return null;
+    }
+    
+    public Object providesNumberOne(){
+        return null;
+    }
 }
