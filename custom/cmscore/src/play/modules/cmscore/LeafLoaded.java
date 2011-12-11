@@ -7,8 +7,9 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
-public @interface AfterLeafLoaded {
+public @interface LeafLoaded {
     
     Class type() default Object.class;
-    
+    SimpleOrder order() default SimpleOrder.AFTER;
+
 }
