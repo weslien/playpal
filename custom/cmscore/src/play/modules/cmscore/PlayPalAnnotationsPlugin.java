@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaypalAnnotationsPlugin extends PlayPlugin {
+public class PlayPalAnnotationsPlugin extends PlayPlugin {
 
     @Override
     public void onApplicationStart() {
@@ -22,8 +22,7 @@ public class PlaypalAnnotationsPlugin extends PlayPlugin {
 
         List<Class> modifiedJavaClasses = getJavaClasses(modifiedClasses);
         findAndAddAnnotation(Provides.class, modifiedJavaClasses);
-        findAndAddAnnotation(AfterLeafLoaded.class, modifiedJavaClasses);
-        findAndAddAnnotation(BeforeLeafLoaded.class, modifiedJavaClasses);
+        findAndAddAnnotation(LeafLoaded.class, modifiedJavaClasses);
 
         return super.onClassesChange(modifiedClasses);
     }

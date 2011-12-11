@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaypalAnnotationsPlugin extends PlayPlugin {
+public class PlayPalAnnotationsPlugin extends PlayPlugin {
 
     @Override
     public void onApplicationStart() {
