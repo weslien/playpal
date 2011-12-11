@@ -23,7 +23,10 @@ public class Core extends Controller {
 
         LeafHelper.triggerBeforeLeafLoaded(leaf.type, leaf);
 
-        Object newLeaf = LeafHelper.triggerProvidesListener(leaf.type, leaf);
+        Object newLeaf = leaf;
+        if (leaf.type != null && leaf.type != Leaf.class) {
+            newLeaf = LeafHelper.triggerProvidesListener(leaf.type, leaf);
+        }
 
         // TODO: use newLeaf instead of leaf from this point on
         LeafHelper.triggerAfterLeafLoaded(leaf.type, leaf);

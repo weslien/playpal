@@ -12,9 +12,12 @@ public class ProvidesLeafHelper {
     public static Object triggerListener(Class type, Leaf rootLeaf) {
 
         CachedAnnotationListener listener = findListenerForType(type);
-        Class[] parameterTypes = listener.method.getParameterTypes();
-        Object[] parameters = LeafHelper.getInvocationParameters(parameterTypes, rootLeaf);
-        return LeafHelper.invokeMethod(listener.method, parameters);
+        if (listener != null) {
+            Class[] parameterTypes = listener.method.getParameterTypes();
+            Object[] parameters = LeafHelper.getInvocationParameters(parameterTypes, rootLeaf);
+            return LeafHelper.invokeMethod(listener.method, parameters);
+        }
+        throw new RuntimeException("Every type must have a class annotated with @Provides to instantiate an instance");
     }
     
     private static CachedAnnotationListener findListenerForType(Class type) {

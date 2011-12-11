@@ -22,8 +22,7 @@ public class PlaypalAnnotationsPlugin extends PlayPlugin {
 
         List<Class> modifiedJavaClasses = getJavaClasses(modifiedClasses);
         findAndAddAnnotation(Provides.class, modifiedJavaClasses);
-        findAndAddAnnotation(AfterLeafLoaded.class, modifiedJavaClasses);
-        findAndAddAnnotation(BeforeLeafLoaded.class, modifiedJavaClasses);
+        findAndAddAnnotation(LeafLoaded.class, modifiedJavaClasses);
 
         return super.onClassesChange(modifiedClasses);
     }
