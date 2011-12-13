@@ -6,6 +6,8 @@ import play.modules.cmscore.LeafType;
 import play.modules.cmscore.ui.UIElement;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import java.util.*;
 
@@ -19,27 +21,23 @@ import java.util.*;
 @Entity
 public class Page extends Model implements LeafType {
 
-    @Transient
-    private Leaf leaf;
-    
-    private List<UIElement> uiElements = new ArrayList<UIElement>();
-
     @Required
     public String uuid;
 
     @Required
     public String leafUuid;
 
+    @Transient
+    @OneToOne
+    public Leaf leaf;
+
+    @OneToMany
+    private List<UIElement> uiElements = new ArrayList<UIElement>();
+
     @Required
     public String body;
 
-
     /* Interface methods */
-
-    @Override
-    public void setLeaf(final Leaf leaf) {
-        this.leaf = leaf;
-    }
 
     @Override
     public List<UIElement> getUIElements() {
@@ -104,7 +102,7 @@ public class Page extends Model implements LeafType {
 
     @Override
     public String render() {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         for(UIElement elem: this.uiElements){
             buf.append("ID:");
             buf.append(elem.getId());

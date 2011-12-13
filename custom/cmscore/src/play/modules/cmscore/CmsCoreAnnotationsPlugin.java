@@ -3,6 +3,7 @@ package play.modules.cmscore;
 import play.Play;
 import play.PlayPlugin;
 import play.classloading.ApplicationClasses;
+import play.modules.cmscore.annotations.LeafLoaded;
 import play.utils.Java;
 
 import java.lang.annotation.Annotation;
@@ -21,7 +22,7 @@ public class CmsCoreAnnotationsPlugin extends PlayPlugin {
     public List<ApplicationClasses.ApplicationClass> onClassesChange(List<ApplicationClasses.ApplicationClass> modifiedClasses) {
 
         List<Class> modifiedJavaClasses = getJavaClasses(modifiedClasses);
-        findAndAddAnnotation(Provides.class, modifiedJavaClasses);
+        findAndAddAnnotation(play.modules.cmscore.annotations.Provides.class, modifiedJavaClasses);
         findAndAddAnnotation(LeafLoaded.class, modifiedJavaClasses);
 
         return super.onClassesChange(modifiedClasses);

@@ -4,7 +4,7 @@ package helpers;
 import models.cmscore.Leaf;
 import play.Logger;
 import play.modules.cmscore.CachedAnnotationListener;
-import play.modules.cmscore.SimpleOrder;
+import play.modules.cmscore.annotations.LeafLoaded;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -18,11 +18,11 @@ public class LeafHelper {
     }
 
     public static void triggerAfterLeafLoaded(Class type, Leaf leaf) {
-        LeafLoadedHelper.triggerListener(type, leaf, SimpleOrder.AFTER);
+        LeafLoadedHelper.triggerListener(type, leaf, LeafLoaded.Order.AFTER);
     }
 
     public static void triggerBeforeLeafLoaded(Class type, Leaf leaf) {
-        LeafLoadedHelper.triggerListener(type, leaf, SimpleOrder.BEFORE);
+        LeafLoadedHelper.triggerListener(type, leaf, LeafLoaded.Order.BEFORE);
     }
 
     static void invokeListener(Leaf rootLeaf, CachedAnnotationListener listener) {

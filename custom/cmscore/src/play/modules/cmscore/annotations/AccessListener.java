@@ -1,10 +1,10 @@
-package annotations.listener;
+package play.modules.cmscore.annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Lets the module supply the access restriction subsystem with its own list of restrictions.
+ * Lets the module supply the play.modules.cmscore.access restriction subsystem with its own list of restrictions.
  * Implementing methods should take no parmeters and return a <code>Set<RestrictionPolicy></code>
  * that contains all custom restrictions that this module offers/requires
  * User: gustav

@@ -3,7 +3,6 @@ package helpers;
 import models.cmscore.Leaf;
 import play.modules.cmscore.CachedAnnotationListener;
 import play.modules.cmscore.Listeners;
-import play.modules.cmscore.Provides;
 
 import java.util.List;
 
@@ -21,9 +20,9 @@ public class ProvidesLeafHelper {
     }
     
     private static CachedAnnotationListener findListenerForType(Class type) {
-        List<CachedAnnotationListener> listeners = Listeners.getListenersForAnnotationType(Provides.class);
+        List<CachedAnnotationListener> listeners = Listeners.getListenersForAnnotationType(play.modules.cmscore.annotations.Provides.class);
         for (CachedAnnotationListener listener : listeners) {
-            if (((Provides)listener.annotation).type().equals(type)) {
+            if (((play.modules.cmscore.annotations.Provides)listener.annotation).type().equals(type)) {
                 return listener;
             }
         }

@@ -1,4 +1,4 @@
-package annotations.listener;
+package play.modules.cmscore.annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

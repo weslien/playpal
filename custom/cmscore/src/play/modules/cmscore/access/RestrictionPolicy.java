@@ -1,4 +1,4 @@
-package access;
+package play.modules.cmscore.access;
 
 /**
  * Defines a restriction policy to be used in core components as well as custom modules to

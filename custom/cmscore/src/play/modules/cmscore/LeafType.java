@@ -1,6 +1,5 @@
 package play.modules.cmscore;
 
-import models.cmscore.Leaf;
 import play.modules.cmscore.ui.UIElement;
 
 import java.util.Date;
@@ -15,15 +14,13 @@ import java.util.List;
  */
 public interface LeafType {
 
-    void setLeaf(final Leaf leaf);
-
     List<UIElement> getUIElements();
 
-    void addUIElement(final UIElement uiElement);
+    void addUIElement(UIElement uiElement);
 
-    void addUIElement(final UIElement uiElement, final boolean reorderElementsBelow);
+    void addUIElement(UIElement uiElement, boolean reorderElementsBelow);
 
-    boolean removeUIElement(final UIElement uiElement);
+    boolean removeUIElement(UIElement uiElement);
 
     String getTitle();
 
@@ -34,6 +31,5 @@ public interface LeafType {
     Date getDateUnpublished();
 
     String render();
-
 
 }
