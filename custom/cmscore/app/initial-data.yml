@@ -1,28 +1,27 @@
 
 ### Page 1 ###
 #Root leaf
+#Page
 cmscore.Leaf(leaf-first-1):
     uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        1
     title:          First Leaf
-#    type:           !!cmscore.Page
 
 cmscore.Leaf(leaf-first-2):
     uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        2
     title:          First Leaf second iteration
-#    type:           !!cmscore.Page
 
-#Page
-cmscore.Page(page-first-1):
-    uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
-    version:        1
-    body:           <H2>Page 1, Version 1</h2>
+cmscore.Page(page-first-1) {[leaf-first-1]}:
+    body:           |
+        <H2>Page 1, Version 1</h2>
 
-cmscore.Page(page-first-2):
-    uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
-    version:        2
-    body:           <H2>Page 1, Version 2</h2>
+#cmscore.Page(page-first-1):
+#    uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
+#    version:        1
+#    body:           |
+#        <H2>Page 1, Version 1</h2>
+
 
 ### Page 2 ###
 cmscore.Leaf(leaf-second-1):

@@ -33,7 +33,10 @@ public class Page extends Model implements LeafType {
     @Transient
     private List<UIElement> uiElements = new ArrayList<UIElement>();
 
-    public Page() {
+    public Page(Leaf parentLeaf) {
+        uuid = parentLeaf.uuid;
+        version = parentLeaf.version;
+        parentLeaf.type = Page.class;
     }
 
     /* Interface methods */
@@ -104,6 +107,8 @@ public class Page extends Model implements LeafType {
             buf.append("<hr/>");
         }
         buf.append("</div>");
+        buf.append(body);
+        buf.append("<hr/>");
 
         return buf.toString();
     }
