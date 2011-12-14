@@ -1,23 +1,16 @@
 package play.modules.cmscore.ui;
 
-/**
- * Created by IntelliJ IDEA.
- * User: gustav
- * Date: 2011-12-11
- * Time: 19:43
- * To change this template use File | Settings | File Templates.
- */
 public class UIElement {
-    
-    private int weight;
-    
-    private String title;
-    
+
     private String id;
-    
+
+    private String title;
+
     private String body;
 
-    public UIElement(int weight, String title, String id, String body) {
+    private int weight;
+
+    public UIElement(String id, String title, String body, int weight) {
         this.weight = weight;
         this.title = title;
         this.id = id;
@@ -25,7 +18,7 @@ public class UIElement {
     }
 
     public int getWeight() {
-        return this.weight;  //To change body of created methods use File | Settings | File Templates.
+        return this.weight;
     }
 
     public void setWeight(int weight) {

@@ -1,17 +1,20 @@
 package models.cmscore;
 
+import helpers.UIElementHelper;
 import play.data.validation.Required;
 import play.db.jpa.Model;
+import play.modules.cmscore.LeafType;
+import play.modules.cmscore.ui.UIElement;
 
-import javax.persistence.Entity;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
-public class Leaf extends Model {
+@Table(uniqueConstraints = @UniqueConstraint(name = "leafVersion", columnNames = {"uuid", "version"}))
+public class Leaf extends Model implements LeafType {
 
     @Required
     public String uuid;
@@ -31,6 +34,9 @@ public class Leaf extends Model {
 
     public Class type;
 
+    @Transient
+    private List<UIElement> uiElements = new ArrayList<UIElement>();
+
     public Leaf(Long version, String title) {
         this.uuid = UUID.randomUUID().toString();
         this.title = title;
@@ -42,7 +48,78 @@ public class Leaf extends Model {
         this.title = title;
         this.version = version;
     }
-    
+
+    @Override
+    public List<UIElement> getUIElements() {
+        return this.uiElements;
+    }
+
+    @Override
+    public void addUIElement(UIElement uiElement) {
+        addUIElement(uiElement, false);
+    }
+
+    @Override
+    public void addUIElement(UIElement uiElement, boolean reorderElementsBelow) {
+        this.uiElements.add(uiElement);
+        if(reorderElementsBelow){
+            UIElementHelper.repositionUIElements(this.uiElements, uiElement);
+        }
+        UIElementHelper.reorderUIElements(this.uiElements);
+    }
+
+    @Override
+    public boolean removeUIElement(UIElement uiElement) {
+        return this.uiElements.remove(uiElement);
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public String getUniqueId() {
+        return uuid;
+    }
+
+    @Override
+    public Date getDatePublished() {
+        return publish;
+    }
+
+    @Override
+    public Date getDateUnpublished() {
+        return unPublish;
+    }
+
+    @Override
+    public String render() {
+        StringBuilder buf = new StringBuilder();
+        buf.append("Leaf:");
+        buf.append(getUniqueId());
+        buf.append("<br/>");
+        buf.append(getTitle());
+        buf.append("<br/>");
+        buf.append("UIElements");
+        buf.append("<div id=\""+getUniqueId()+"\">");
+        for(UIElement elem: this.uiElements){
+            buf.append("ID:");
+            buf.append(elem.getId());
+            buf.append(" (");
+            buf.append(elem.getWeight());
+            buf.append(")");
+            buf.append("<br/>");
+            buf.append(elem.getTitle());
+            buf.append("<br/>");
+            buf.append(elem.getBody());
+            buf.append("<hr/>");
+        }
+        buf.append("</div>");
+
+        return buf.toString();
+    }
+
     public static List<Leaf> findAllCurrentVersions(Date today) {
         return Leaf.find(
                 "select l from Leaf l " +

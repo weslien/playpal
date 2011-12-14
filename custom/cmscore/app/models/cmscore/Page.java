@@ -1,41 +1,40 @@
 package models.cmscore;
 
+import helpers.UIElementHelper;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import play.modules.cmscore.LeafType;
 import play.modules.cmscore.ui.UIElement;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
-import java.util.*;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-/**
- * Created by IntelliJ IDEA.
- * User: gustav
- * Date: 2011-12-11
- * Time: 20:21
- * To change this template use File | Settings | File Templates.
- */
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(name = "pageVersion", columnNames = {"parentUuid", "parentVersion"}))
 public class Page extends Model implements LeafType {
 
     @Required
+    @Column(name = "parentUuid")
     public String uuid;
 
+    // Should only have to be Integer but because of defect #521 in play that doesn't work. Should be fixed in 1.3
     @Required
-    public String leafUuid;
-
-    @Transient
-    @OneToOne
-    public Leaf leaf;
-
-    @OneToMany
-    private List<UIElement> uiElements = new ArrayList<UIElement>();
+    @Column(name = "parentVersion")
+    public Long version;
 
     @Required
     public String body;
+
+    @Transient
+    public Leaf leaf;
+
+    @Transient
+    private List<UIElement> uiElements = new ArrayList<UIElement>();
+
+    public Page() {
+    }
 
     /* Interface methods */
 
@@ -49,30 +48,13 @@ public class Page extends Model implements LeafType {
         addUIElement(uiElement, false);
     }
 
-    private void reorderUIElements() {
-        Collections.sort(this.uiElements, new Comparator<UIElement>() {
-            @Override
-            public int compare(UIElement uiElement, UIElement uiElement1) {
-                return (uiElement.getWeight() >= uiElement1.getWeight()) ? 1 : 0;
-            }
-        });
-    }
-
     @Override
     public void addUIElement(UIElement uiElement, boolean reorderElementsBelow) {
         this.uiElements.add(uiElement);
         if(reorderElementsBelow){
-            repositionUIElements(uiElement);
+            UIElementHelper.repositionUIElements(this.uiElements, uiElement);
         }
-        reorderUIElements();
-    }
-
-    private void repositionUIElements(UIElement uiElement) {
-        for(UIElement elem : this.uiElements){
-            if(elem.getWeight() >= uiElement.getWeight()){
-                elem.setWeight(elem.getWeight()+1);
-            }
-        }
+        UIElementHelper.reorderUIElements(this.uiElements);
     }
 
     @Override
@@ -103,6 +85,12 @@ public class Page extends Model implements LeafType {
     @Override
     public String render() {
         StringBuilder buf = new StringBuilder();
+        buf.append("ID:");
+        buf.append(getUniqueId());
+        buf.append("<br/>");
+        buf.append(getTitle());
+        buf.append("UIElements");
+        buf.append("<div id=\""+getUniqueId()+"\">");
         for(UIElement elem: this.uiElements){
             buf.append("ID:");
             buf.append(elem.getId());
@@ -115,8 +103,17 @@ public class Page extends Model implements LeafType {
             buf.append(elem.getBody());
             buf.append("<hr/>");
         }
+        buf.append("</div>");
 
         return buf.toString();
-        
     }
+
+    public static Page findWithUuidSpecificVersion(String uuid, Long version) {
+        return Leaf.find(
+                "select distinct p from Page p " +
+                        "where p.uuid = :uuid and " +
+                        "l.version = :version"
+        ).bind("uuid", uuid).bind("version", version).first();
+    }
+
 }

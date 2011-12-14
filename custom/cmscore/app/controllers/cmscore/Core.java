@@ -3,6 +3,7 @@ package controllers.cmscore;
 import helpers.LeafHelper;
 import models.cmscore.Leaf;
 import play.data.validation.Required;
+import play.modules.cmscore.LeafType;
 import play.mvc.Controller;
 
 import java.util.Date;
@@ -23,15 +24,14 @@ public class Core extends Controller {
 
         LeafHelper.triggerBeforeLeafLoaded(leaf.type, leaf);
 
-        Object newLeaf = leaf;
+        LeafType newLeaf = leaf;
         if (leaf.type != null && leaf.type != Leaf.class) {
             newLeaf = LeafHelper.triggerProvidesListener(leaf.type, leaf);
         }
 
-        // TODO: use newLeaf instead of leaf from this point on
-        LeafHelper.triggerAfterLeafLoaded(leaf.type, leaf);
+        LeafHelper.triggerAfterLeafLoaded(leaf.type, newLeaf);
 
-        render(leaf);
+        render(newLeaf);
     }
 
     public static void leafVersions(@Required String uuid) {
