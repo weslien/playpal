@@ -163,6 +163,6 @@ public class Leaf extends Model implements LeafType {
     }
 
     public String toString() {
-        return "(" + uuid + "," + version + ") - " +title;
+        return "(" + uuid + "," + version + ") - " + title;
     }
 }

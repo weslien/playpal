@@ -4,5 +4,5 @@
 <h3>All leaves</h3>
 
 #{list items:leaves, as:'leaf'}
-    <a href="@{cmscore.Core.leaf(leaf.uuid)}">${leaf.title} - ${leaf.uuid}</a><br/>
+    <a href="@{cmscore.LeafController.leaf(leaf.uuid)}">${leaf.title} - ${leaf.uuid}</a><br/>
 #{/list}
