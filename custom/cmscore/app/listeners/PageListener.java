@@ -7,7 +7,7 @@ import play.modules.cmscore.annotations.Provides;
 public class PageListener {
 
     @Provides(type = Page.class)
-    public Page createPage(Leaf rootLeaf) {
+    public static Page createPage(Leaf rootLeaf) {
 
         Page page = Page.findWithUuidSpecificVersion(rootLeaf.uuid, rootLeaf.version);
         page.leaf = rootLeaf;

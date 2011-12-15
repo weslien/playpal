@@ -10,10 +10,10 @@ public class Listeners {
     public static Map<Class<? extends Annotation>, List<CachedAnnotationListener>> listeners = new ConcurrentHashMap<Class<? extends Annotation>, List<CachedAnnotationListener>>();
 
     public static void addListener(Annotation annotation, Method method) {
-        if (!listeners.containsKey(annotation.getClass())) {
-            listeners.put(annotation.getClass(), new ArrayList<CachedAnnotationListener>());
+        if (!listeners.containsKey(annotation.annotationType())) {
+            listeners.put(annotation.annotationType(), new ArrayList<CachedAnnotationListener>());
         }
-        List<CachedAnnotationListener> annotationTypeListeners = listeners.get(annotation.getClass());
+        List<CachedAnnotationListener> annotationTypeListeners = listeners.get(annotation.annotationType());
         annotationTypeListeners.add(new CachedAnnotationListener(annotation, method));
     }
 

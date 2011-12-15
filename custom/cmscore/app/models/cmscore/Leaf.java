@@ -49,6 +49,11 @@ public class Leaf extends Model implements LeafType {
         this.version = version;
     }
 
+    // This is a hack to make yaml work. Maybe need to figure out a different way to do this
+    public void setType(String typeAsString) throws ClassNotFoundException {
+        type = Class.forName(typeAsString);
+    }
+
     @Override
     public List<UIElement> getUIElements() {
         return this.uiElements;

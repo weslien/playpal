@@ -33,12 +33,6 @@ public class Page extends Model implements LeafType {
     @Transient
     private List<UIElement> uiElements = new ArrayList<UIElement>();
 
-    public Page(Leaf parentLeaf) {
-        uuid = parentLeaf.uuid;
-        version = parentLeaf.version;
-        parentLeaf.type = Page.class;
-    }
-
     /* Interface methods */
 
     @Override
@@ -117,7 +111,7 @@ public class Page extends Model implements LeafType {
         return Leaf.find(
                 "select distinct p from Page p " +
                         "where p.uuid = :uuid and " +
-                        "l.version = :version"
+                        "p.version = :version"
         ).bind("uuid", uuid).bind("version", version).first();
     }
 

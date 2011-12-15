@@ -12,7 +12,7 @@ public class LeafLoadedHelper {
     public static void triggerListener(Class type, LeafType rootLeaf, LeafLoaded.Order order) {
         CachedAnnotationListener listener = findListenerForType(type, order);
         if (listener != null) {
-            LeafHelper.invokeListener(rootLeaf, listener);
+            ReflectionHelper.invokeListener(listener, rootLeaf);
         }
     }
 
