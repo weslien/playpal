@@ -108,17 +108,21 @@ public class Leaf extends Model implements LeafType {
         buf.append("<br/>");
         buf.append("UIElements");
         buf.append("<div id=\""+getUniqueId()+"\">");
-        for(UIElement elem: this.uiElements){
-            buf.append("ID:");
-            buf.append(elem.getId());
-            buf.append(" (");
-            buf.append(elem.getWeight());
-            buf.append(")");
-            buf.append("<br/>");
-            buf.append(elem.getTitle());
-            buf.append("<br/>");
-            buf.append(elem.getBody());
-            buf.append("<hr/>");
+        if (this.uiElements != null) {
+            for(UIElement elem: this.uiElements){
+                buf.append("ID:");
+                buf.append(elem.getId());
+                buf.append(" (");
+                buf.append(elem.getWeight());
+                buf.append(")");
+                buf.append("<br/>");
+                buf.append(elem.getTitle());
+                buf.append("<br/>");
+                buf.append(elem.getBody());
+                buf.append("<hr/>");
+            }
+        } else {
+            buf.append("NONE");
         }
         buf.append("</div>");
 
