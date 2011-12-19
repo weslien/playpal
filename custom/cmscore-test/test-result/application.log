@@ -1,6 +1,0 @@
-19 Dec 2011 20:25:00,729 INFO  ~ Starting /Users/jens/java/projects/playpal/custom/cmscore-test
-19 Dec 2011 20:25:00,733 INFO  ~ Module cmscore is available (/Users/jens/java/projects/playpal/custom/cmscore)
-19 Dec 2011 20:25:01,753 WARN  ~ You're running Play! in DEV mode
-19 Dec 2011 20:25:01,909 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
-19 Dec 2011 20:25:05,970 INFO  ~ Connected to jdbc:h2:mem:play;MODE=MYSQL;LOCK_MODE=0
-19 Dec 2011 20:25:06,693 INFO  ~ Application 'cmscore-test' is now started !
