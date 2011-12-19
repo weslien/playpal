@@ -1,11 +1,13 @@
 # Application dependencies
 
 require:
-    - play  [1.2,)
+    - play [1.2,)
 #    - play -> morphia 1.2.4b
 #    - play -> router 1.1
+    - play -> cobertura
 
     - cmscore -> cmscore 0.1
+    - cmscore-test -> cmscore-test 0.1
     - test-custom -> test-custom 0.1
 
 repositories:
@@ -14,4 +16,5 @@ repositories:
         artifact: "${application.path}/custom/[module]/"
         contains:
             - cmscore
+            - cmscore-test
             - test-custom

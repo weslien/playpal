@@ -1,0 +1,11 @@
+Listening for transport dt_socket at address: 8000
+20:25:00,729 INFO  ~ Starting /Users/jens/java/projects/playpal/custom/cmscore-test
+20:25:00,733 INFO  ~ Module cmscore is available (/Users/jens/java/projects/playpal/custom/cmscore)
+20:25:01,753 WARN  ~ You're running Play! in DEV mode
+~
+~ Go to http://localhost:9000/@tests to run the tests
+~
+20:25:01,909 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+20:25:05,970 INFO  ~ Connected to jdbc:h2:mem:play;MODE=MYSQL;LOCK_MODE=0
+20:25:06,693 INFO  ~ Application 'cmscore-test' is now started !
+@KILLED

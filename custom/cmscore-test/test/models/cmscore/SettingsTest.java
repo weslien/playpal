@@ -1,19 +1,19 @@
 package models.cmscore;
 
 import org.junit.Test;
+import play.test.UnitTest;
 
-import static junit.framework.Assert.assertEquals;
-
-public class SettingsTest {
+public class SettingsTest extends UnitTest {
     
     @Test
     public void changingSettingsShouldWork() {
         Settings settings = Settings.load();
-        settings.setValue("bla", "1.0");
+        settings.setValue("bla", "111");
         settings.save();
         Settings settingsAfter = Settings.load();
-        double v = settingsAfter.getValueAsDouble("bla");
-        assertEquals("Value returned is wrong", 1.0, v);
+        Integer v = settingsAfter.getValueAsInteger("bla");
+        assertNotNull("Value returned is null", v);
+        assertEquals("Value returned is wrong", 111, v.intValue());
     }
     
     @Test(expected = RuntimeException.class)
