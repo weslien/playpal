@@ -5,7 +5,7 @@
 *       /                                       module:cmscore
 
 # Home page
-#GET     /                                       Application.index
+GET     /                                       Application.index
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
