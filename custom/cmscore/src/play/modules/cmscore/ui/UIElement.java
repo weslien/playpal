@@ -1,36 +1,27 @@
 package play.modules.cmscore.ui;
 
+import java.util.Map;
+import java.util.WeakHashMap;
+
 public class UIElement {
 
     private String id;
 
-    private String title;
+    private String name;
 
-    private String body;
+    private Map<String, String> attributes;
 
     private int weight;
 
-    public UIElement(String id, String title, String body, int weight) {
-        this.weight = weight;
-        this.title = title;
+    public UIElement(String id, String name, int weight) {
+        this(id, name, new WeakHashMap<String, String>(), weight);
+    }
+    
+    public UIElement(String id, String name, Map<String, String> attributes, int weight) {
         this.id = id;
-        this.body = body;
-    }
-
-    public int getWeight() {
-        return this.weight;
-    }
-
-    public void setWeight(int weight) {
+        this.name = name;
+        this.attributes = attributes;
         this.weight = weight;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getId() {
@@ -41,11 +32,28 @@ public class UIElement {
         this.id = id;
     }
 
-    public String getBody() {
-        return body;
+    public String getName() {
+        return name;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setName(String name) {
+        this.name = name;
     }
+
+    public Map<String, String> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(Map<String, String> attributes) {
+        this.attributes = attributes;
+    }
+
+    public int getWeight() {
+        return this.weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
 }

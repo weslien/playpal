@@ -8,7 +8,7 @@ import play.modules.cmscore.annotations.LeafLoaded;
 public class LeafHelper {
 
     public static LeafType triggerProvidesListener(Class type, Leaf rootLeaf) {
-        return ProvidesLeafHelper.triggerListener(type, rootLeaf);
+        return ProvidesHelper.triggerListener(type, rootLeaf);
     }
 
     public static void triggerAfterLeafLoaded(Class type, LeafType leaf) {

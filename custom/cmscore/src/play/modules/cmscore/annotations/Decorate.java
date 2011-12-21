@@ -5,10 +5,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Hooks/Listeners for each element of the UI rendering process.
+ *
+ * The \@Decorate can only be used in a class with \@Theme annotation.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
-public @interface Provides {
+public @interface Decorate {
 
-    Class type();
-    
+    DecorateType type();
+
 }

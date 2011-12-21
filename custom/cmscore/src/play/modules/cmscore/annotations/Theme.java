@@ -5,10 +5,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Marker for a class that has \@Decorate method(s). This annotation does nothing by itself.
+ */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD})
-public @interface Provides {
-
-    Class type();
+@Target({ElementType.TYPE})
+public @interface Theme {
     
+    String name();
+
 }

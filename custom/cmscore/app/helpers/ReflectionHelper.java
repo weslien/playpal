@@ -1,21 +1,23 @@
 package helpers;
 
 import models.cmscore.Leaf;
-import play.Logger;
-import play.modules.cmscore.CachedAnnotationListener;
+import play.modules.cmscore.CachedAnnotation;
 import play.modules.cmscore.LeafType;
+import play.utils.Java;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ReflectionHelper {
 
-    public static Object invokeListener(CachedAnnotationListener listener, LeafType rootLeaf) {
+    public static Object invokeListener(CachedAnnotation listener, LeafType rootLeaf) {
         Class[] parameterTypes = listener.method.getParameterTypes();
         Object[] parameters = getInvocationParameters(parameterTypes, rootLeaf);
-        return invokeMethod(listener.method, parameters);
+        try {
+            return Java.invokeStatic(listener.method, parameters);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -31,18 +33,6 @@ public class ReflectionHelper {
         }
 
         return parameters.toArray();
-    }
-
-    public static Object invokeMethod(Method m, Object... parameters) {
-        try {
-            return m.invoke(m.getDeclaringClass(), parameters);
-        } catch (IllegalAccessException e) {
-            Logger.error(e.getMessage(), e);
-            throw new RuntimeException(e.getMessage(), e);
-        } catch (InvocationTargetException e) {
-            Logger.error(e.getTargetException().getMessage(), e);
-            throw new RuntimeException(e.getTargetException().getMessage(), e);
-        }
     }
 
 }

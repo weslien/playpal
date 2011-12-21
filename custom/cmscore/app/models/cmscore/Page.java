@@ -95,9 +95,9 @@ public class Page extends Model implements LeafType {
             buf.append(elem.getWeight());
             buf.append(")");
             buf.append("<br/>");
-            buf.append(elem.getTitle());
+            buf.append(elem.getName());
             buf.append("<br/>");
-            buf.append(elem.getBody());
+            buf.append(elem.getAttributes());
             buf.append("<hr/>");
         }
         buf.append("</div>");
