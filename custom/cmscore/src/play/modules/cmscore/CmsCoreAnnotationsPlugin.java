@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * Scans classes that are compiled for methods annotated with trigger/add-ons/listener annotations and caches them.
- * At startup in scans all classes in the classpath.
+ * At startup it scans all classes in the classpath.
  */
 public class CmsCoreAnnotationsPlugin extends PlayPlugin {
 
