@@ -80,31 +80,12 @@ public class Page extends Model implements LeafType {
     }
 
     @Override
-    public String render() {
-        StringBuilder buf = new StringBuilder();
-        buf.append("ID:");
-        buf.append(getUniqueId());
-        buf.append("<br/>");
-        buf.append(getTitle());
-        buf.append("UIElements");
-        buf.append("<div id=\""+getUniqueId()+"\">");
-        for(UIElement elem: this.uiElements){
-            buf.append("ID:");
-            buf.append(elem.getId());
-            buf.append(" (");
-            buf.append(elem.getWeight());
-            buf.append(")");
-            buf.append("<br/>");
-            buf.append(elem.getName());
-            buf.append("<br/>");
-            buf.append(elem.getAttributes());
-            buf.append("<hr/>");
-        }
-        buf.append("</div>");
-        buf.append(body);
-        buf.append("<hr/>");
+    public String getTemplate() {
+        return "cmscore/CoreController/index.html";
+    }
 
-        return buf.toString();
+    public String toString() {
+        return "Page (" + uuid + "," + version + ") - " + leaf.getTitle();
     }
 
     public static Page findWithUuidSpecificVersion(String uuid, Long version) {

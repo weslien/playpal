@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Entity
 public class Settings extends Model {
-
+    
     @MapKeyColumn(name = "name")
     @ElementCollection
     @JoinTable(name = "settings_values")

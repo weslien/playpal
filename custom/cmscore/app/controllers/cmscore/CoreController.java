@@ -11,9 +11,9 @@ import java.util.Date;
 public class CoreController extends Controller {
 
     //@Get("/core/{uuid}")
-    public static void index(@Required String uuid) {
+    public static LeafType index(@Required String uuid) {
         LeafType leaf = load(uuid);
-        render(leaf);
+        return leaf;
     }
 
     private static LeafType load(String uuid) {

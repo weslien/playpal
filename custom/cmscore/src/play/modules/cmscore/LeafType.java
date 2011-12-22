@@ -23,6 +23,6 @@ public interface LeafType {
 
     Date getDateUnpublished();
 
-    String render();
+    String getTemplate();
 
 }

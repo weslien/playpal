@@ -59,3 +59,9 @@ cmscore.Leaf(leaf-third-2):
     title:          Third Leaf second iteration
     publish:        2012-01-01 00:00:00
 
+
+### Settings ###
+cmscore.Settings(settings):
+    values:
+        ? start_page
+        : c9615819-0556-4e70-b6a9-a66c5b8d4c1a

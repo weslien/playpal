@@ -98,37 +98,6 @@ public class Leaf extends Model implements LeafType {
         return unPublish;
     }
 
-    @Override
-    public String render() {
-        StringBuilder buf = new StringBuilder();
-        buf.append("Leaf:");
-        buf.append(getUniqueId());
-        buf.append("<br/>");
-        buf.append(getTitle());
-        buf.append("<br/>");
-        buf.append("UIElements");
-        buf.append("<div id=\""+getUniqueId()+"\">");
-        if (this.uiElements != null) {
-            for(UIElement elem: this.uiElements){
-                buf.append("ID:");
-                buf.append(elem.getId());
-                buf.append(" (");
-                buf.append(elem.getWeight());
-                buf.append(")");
-                buf.append("<br/>");
-                buf.append(elem.getName());
-                buf.append("<br/>");
-                buf.append(elem.getAttributes());
-                buf.append("<hr/>");
-            }
-        } else {
-            buf.append("NONE");
-        }
-        buf.append("</div>");
-
-        return buf.toString();
-    }
-
     public static List<Leaf> findAllCurrentVersions(Date today) {
         return Leaf.find(
                 "select l from Leaf l " +
@@ -166,7 +135,12 @@ public class Leaf extends Model implements LeafType {
         ).bind("uuid", uuid).fetch();
     }
 
+    @Override
+    public String getTemplate() {
+        return "cmscore/CoreController/index.html";
+    }
+
     public String toString() {
-        return "(" + uuid + "," + version + ") - " + title;
+        return "Leaf (" + uuid + "," + version + ") - " + title;
     }
 }
