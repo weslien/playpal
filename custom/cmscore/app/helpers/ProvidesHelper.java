@@ -8,6 +8,11 @@ import play.modules.cmscore.annotations.Provides;
 
 import java.util.List;
 
+/**
+ * Helper to trigger \@Provides listeners. Should not be used directly, use LeafHelper instead.
+ * @see LeafHelper
+ * @see Provides
+ */
 public class ProvidesHelper {
 
     public static LeafType triggerListener(Class type, Leaf rootLeaf) {

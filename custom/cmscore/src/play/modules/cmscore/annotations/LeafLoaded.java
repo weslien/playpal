@@ -5,16 +5,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Called after a leaf is loaded. Modules/Add-ons/Plugins can use this to modify a leaf.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
 public @interface LeafLoaded {
-    
+
+    // TODO: Should this be a string instead with a unique code for each type?
     Class type() default Object.class;
-    Order order() default Order.AFTER;
 
-    enum Order {
-
-        BEFORE, AFTER
-
-    }
 }

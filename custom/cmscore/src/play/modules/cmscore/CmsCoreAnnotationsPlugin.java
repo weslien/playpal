@@ -11,6 +11,10 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.List;
 
+/**
+ * Scans classes that are compiled for methods annotated with trigger/add-ons/listener annotations and caches them.
+ * At startup in scans all classes in the classpath.
+ */
 public class CmsCoreAnnotationsPlugin extends PlayPlugin {
 
     @Override
@@ -28,6 +32,12 @@ public class CmsCoreAnnotationsPlugin extends PlayPlugin {
         return super.onClassesChange(modifiedClasses);
     }
 
+    /**
+     * Finds all methods annotated with the specified annotationClass and adds it to the cache.
+     * @param annotationClass a method annotation that provides a hook/trigger/listener.
+     * @param modifiedClasses all classes modified in this compile (or on startup).
+     */
+    // TODO: should take a method to be triggered for additional checks of validity (checking return type, checking parameter types, etc).
     private void findAndAddListenerAnnotation(Class<? extends Annotation> annotationClass, List<Class> modifiedClasses) {
         List<Method> provides = Java.findAllAnnotatedMethods(modifiedClasses, annotationClass);
         for (Method m : provides) {

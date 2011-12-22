@@ -7,6 +7,10 @@ import javax.persistence.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Key/Value based store for system-wide settings.
+ * @see SettingsKeys
+ */
 @Entity
 public class Settings extends Model {
     

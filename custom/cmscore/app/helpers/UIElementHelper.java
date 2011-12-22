@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Helper methods to organize child UIElements in each UIElement.
+ */
 public class UIElementHelper {
 
     public static void reorderUIElements(List<UIElement> elements) {

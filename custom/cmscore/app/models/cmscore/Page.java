@@ -11,6 +11,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The basic type for a page. Directly linked to a Leaf, both it's version and id.
+ * @see LeafType
+ * @see Leaf
+ * @see listeners.PageListener
+ */
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "pageVersion", columnNames = {"parentUuid", "parentVersion"}))
 public class Page extends Model implements LeafType {
