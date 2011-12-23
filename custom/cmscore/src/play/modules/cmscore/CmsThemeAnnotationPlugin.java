@@ -3,14 +3,19 @@ package play.modules.cmscore;
 import play.Play;
 import play.PlayPlugin;
 import play.classloading.ApplicationClasses;
-import play.modules.cmscore.annotations.Decorate;
 import play.modules.cmscore.annotations.Theme;
+import play.modules.cmscore.annotations.ThemeVariant;
 import play.utils.Java;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.List;
 
+/**
+ * Scans updated classes for \@Theme and \@ThemeVariant annotations.
+ * At startup it scans all the classes in the classpath.
+ * @see Theme
+ * @see ThemeVariant
+ */
 public class CmsThemeAnnotationPlugin extends PlayPlugin {
 
     @Override
@@ -20,22 +25,24 @@ public class CmsThemeAnnotationPlugin extends PlayPlugin {
 
     @Override
     public List<ApplicationClasses.ApplicationClass> onClassesChange(List<ApplicationClasses.ApplicationClass> modifiedClasses) {
-
         List<Class> modifiedJavaClasses = AnnotationPluginHelper.getJavaClasses(modifiedClasses);
-        for (Class cls : modifiedJavaClasses) {
-            if (cls.isAnnotationPresent(Theme.class)) {
-                //noinspection unchecked
-                findAndCacheAnnotation((Theme)cls.getAnnotation(Theme.class), Decorate.class, modifiedJavaClasses);
-            }
-        }
-
-        return super.onClassesChange(modifiedClasses);
+        findAndCacheAnnotation(modifiedJavaClasses);
+        return modifiedClasses;
     }
 
-    private void findAndCacheAnnotation(Theme theme, Class<? extends Annotation> annotationClass, List<Class> modifiedClasses) {
-        List<Method> provides = Java.findAllAnnotatedMethods(modifiedClasses, annotationClass);
-        for (Method m : provides) {
-            Themes.addDecorator(theme, m.getAnnotation(annotationClass), m);
+    private void findAndCacheAnnotation(List<Class> modifiedClasses) {
+        for (Class cls : modifiedClasses) {
+            if (cls.isAnnotationPresent(Theme.class)) {
+                @SuppressWarnings("unchecked")
+                Theme theme = (Theme)cls.getAnnotation(Theme.class);
+                List<Method> annotatedMethods = Java.findAllAnnotatedMethods(cls, ThemeVariant.class);
+                for (Method m : annotatedMethods) {
+                    ThemeVariant themeVariant = m.getAnnotation(ThemeVariant.class);
+                    // TODO: check that the return type of the method is a String (template)
+                    // TODO: check that at least 1 content area is supplied
+                    Themes.addTheme(theme.id(), m, themeVariant.contentAreas());
+                }
+            }
         }
     }
 

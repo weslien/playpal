@@ -6,13 +6,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Marker for a class that has \@ThemeVariant method(s). A class annotated must have at least 1 method
- * annotated with \@ThemeVariant as well.
+ * Adds a variant for a theme, the method it annotates returns a String path to a template.
+ * Only valid in a class annotated by \@Theme.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE})
-public @interface Theme {
+@Target({ElementType.METHOD})
+public @interface ThemeVariant {
     
-    String id();
-
+    String[] contentAreas();
+    
 }

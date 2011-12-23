@@ -1,8 +1,8 @@
 package play.modules.cmscore;
 
-import play.modules.cmscore.annotations.Theme;
+import play.modules.cmscore.annotations.Decorate;
+import play.modules.cmscore.annotations.DecorateType;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,20 +12,24 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Themes {
 
-    public static Map<Class<? extends Annotation>, List<CachedAnnotation>> decorators = new ConcurrentHashMap<Class<? extends Annotation>, List<CachedAnnotation>>();
+    public static Map<String, List<CachedAnnotation>> themes = new ConcurrentHashMap<String, List<CachedAnnotation>>();
+    public static Map<DecorateType, List<CachedAnnotation>> decorators = new ConcurrentHashMap<DecorateType, List<CachedAnnotation>>();
 
-    public static void addDecorator(Theme theme, Annotation annotation, Method method) {
-        if (!decorators.containsKey(annotation.annotationType())) {
-            decorators.put(annotation.annotationType(), new ArrayList<CachedAnnotation>());
+    public static void addTheme(String themeId, Method templateMethod, String[] contentAreas) {
+
+    }
+    
+    public static void addDecorator(Decorate annotation, Method method) {
+        if (!decorators.containsKey(annotation.type())) {
+            decorators.put(annotation.type(), new ArrayList<CachedAnnotation>());
         }
-        List<CachedAnnotation> annotationTypes = decorators.get(annotation.annotationType());
-        annotationTypes.add(new ThemeCachedAnnotation(theme, annotation, method));
+        List<CachedAnnotation> annotationTypes = decorators.get(annotation.type());
+        annotationTypes.add(new CachedAnnotation(annotation, method));
     }
 
-    public static List<CachedAnnotation> getListenersForAnnotationType(Class<? extends Annotation> annotationType) {
-        if (decorators.containsKey(annotationType)) {
-            //noinspection unchecked
-            return decorators.get(annotationType);
+    public static List<CachedAnnotation> getListenersForAnnotationType(DecorateType decorateType) {
+        if (decorators.containsKey(decorateType)) {
+            return decorators.get(decorateType);
         } else {
             return Collections.emptyList();
         }

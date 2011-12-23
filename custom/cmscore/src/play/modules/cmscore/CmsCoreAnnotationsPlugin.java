@@ -3,6 +3,7 @@ package play.modules.cmscore;
 import play.Play;
 import play.PlayPlugin;
 import play.classloading.ApplicationClasses;
+import play.modules.cmscore.annotations.Decorate;
 import play.modules.cmscore.annotations.LeafLoaded;
 import play.modules.cmscore.annotations.Provides;
 import play.utils.Java;
@@ -27,6 +28,7 @@ public class CmsCoreAnnotationsPlugin extends PlayPlugin {
 
         List<Class> modifiedJavaClasses = AnnotationPluginHelper.getJavaClasses(modifiedClasses);
         findAndAddListenerAnnotation(Provides.class, modifiedJavaClasses);
+        findAndAddListenerAnnotation(Decorate.class, modifiedJavaClasses);
         findAndAddListenerAnnotation(LeafLoaded.class, modifiedJavaClasses);
 
         return super.onClassesChange(modifiedClasses);
@@ -39,8 +41,8 @@ public class CmsCoreAnnotationsPlugin extends PlayPlugin {
      */
     // TODO: should take a method to be triggered for additional checks of validity (checking return type, checking parameter types, etc).
     private void findAndAddListenerAnnotation(Class<? extends Annotation> annotationClass, List<Class> modifiedClasses) {
-        List<Method> provides = Java.findAllAnnotatedMethods(modifiedClasses, annotationClass);
-        for (Method m : provides) {
+        List<Method> annotatedMethods = Java.findAllAnnotatedMethods(modifiedClasses, annotationClass);
+        for (Method m : annotatedMethods) {
             Listeners.addListener(m.getAnnotation(annotationClass), m);
         }
     }
