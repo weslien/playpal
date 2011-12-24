@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Called after a leaf is loaded. Modules/Add-ons/Plugins can use this to modify a leaf.
+ * Called after a rootLeaf is loaded. Modules/Add-ons/Plugins can use this to modify a rootLeaf.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})

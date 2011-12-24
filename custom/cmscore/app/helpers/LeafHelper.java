@@ -1,45 +1,45 @@
 package helpers;
 
 
-import models.cmscore.Leaf;
-import play.modules.cmscore.LeafType;
+import models.cmscore.RootLeaf;
+import play.modules.cmscore.Leaf;
 import play.modules.cmscore.annotations.LeafLoaded;
 
 import java.util.Date;
 
 public class LeafHelper {
 
-    public static LeafType load(String uuid) {
+    public static Leaf load(String uuid) {
         //Load leafModel
-        Leaf rootLeaf = Leaf.findWithUuidLatestPublishedVersion(uuid, new Date());
+        RootLeaf rootRootLeaf = RootLeaf.findWithUuidLatestPublishedVersion(uuid, new Date());
 
-        boolean hasType = rootLeaf.type != null && rootLeaf.type != Leaf.class;
+        boolean hasType = rootRootLeaf.type != null && rootRootLeaf.type != RootLeaf.class;
         if (hasType) {
-            triggerBeforeLeafLoaded(rootLeaf.type, rootLeaf);
+            triggerBeforeLeafLoaded(rootRootLeaf.type, rootRootLeaf);
         }
 
-        LeafType leaf = rootLeaf;
+        Leaf leaf = rootRootLeaf;
         if (hasType) {
-            leaf = triggerProvidesListener(rootLeaf.type, rootLeaf);
+            leaf = triggerProvidesListener(rootRootLeaf.type, rootRootLeaf);
         }
 
         if (hasType) {
-            triggerAfterLeafLoaded(rootLeaf.type, leaf);
+            triggerAfterLeafLoaded(rootRootLeaf.type, leaf);
         }
 
         return leaf;
     }
 
-    public static LeafType triggerProvidesListener(Class type, Leaf rootLeaf) {
-        return ProvidesHelper.triggerListener(type, rootLeaf);
+    public static Leaf triggerProvidesListener(Class type, RootLeaf rootRootLeaf) {
+        return ProvidesHelper.triggerListener(type, rootRootLeaf);
     }
 
-    public static void triggerAfterLeafLoaded(Class type, LeafType leaf) {
+    public static void triggerAfterLeafLoaded(Class type, Leaf leaf) {
         LeafLoadedHelper.triggerListener(type, leaf, LeafLoaded.Order.AFTER);
     }
 
-    public static void triggerBeforeLeafLoaded(Class type, Leaf leaf) {
-        LeafLoadedHelper.triggerListener(type, leaf, LeafLoaded.Order.BEFORE);
+    public static void triggerBeforeLeafLoaded(Class type, RootLeaf rootLeaf) {
+        LeafLoadedHelper.triggerListener(type, rootLeaf, LeafLoaded.Order.BEFORE);
     }
 
 }

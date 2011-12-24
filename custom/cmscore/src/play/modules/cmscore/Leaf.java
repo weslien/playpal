@@ -8,10 +8,10 @@ import java.util.Set;
 
 /**
  * An interface that each module/add-ons/plugin should implement if it adds a type with a \@Provides annotation.
- * While the modules/add-ons/plugins handle a leaf and modifiy it it will be of this type. When rendering starts this will be turned into a RenderedLeaf.
+ * While the modules/add-ons/plugins handle a rootLeaf and modifiy it it will be of this type. When rendering starts this will be turned into a RenderedLeaf.
  * @see play.modules.cmscore.annotations.Provides
  */
-public interface LeafType {
+public interface Leaf {
 
     String getLeafId();
 

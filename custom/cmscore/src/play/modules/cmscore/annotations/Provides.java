@@ -6,8 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Adds a new LeafType to the system. A method annotated with \@Provides will
- * be called to instantiate a new instance of this type each time a leaf of
+ * Adds a new Leaf to the system. A method annotated with \@Provides will
+ * be called to instantiate a new instance of this type each time a rootLeaf of
  * this type is loaded from the database.
  */
 @Retention(RetentionPolicy.RUNTIME)

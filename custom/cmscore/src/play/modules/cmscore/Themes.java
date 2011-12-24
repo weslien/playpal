@@ -8,8 +8,8 @@ import java.util.*;
 
 /**
  * Themes are used to render Leafs. A theme has multiple theme variants, for example 2-columns, 3-columns, top-middle-bottom, etc.
- * Each leaf has a chosen theme variant to use for rendering.
- * Decorators are applied to each UIElement a Leaf has before rendering.
+ * Each rootLeaf has a chosen theme variant to use for rendering.
+ * Decorators are applied to each UIElement a RootLeaf has before rendering.
  */
 public class Themes {
 

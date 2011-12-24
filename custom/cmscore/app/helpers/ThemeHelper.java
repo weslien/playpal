@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class ThemeHelper {
 
-    public static RenderedLeaf decorate(LeafType leaf) {
+    public static RenderedLeaf decorate(Leaf leaf) {
         RenderedLeaf renderedLeaf = new RenderedLeaf();
         CachedThemeVariant themeVariant = Themes.getThemeVariant(leaf.getThemeVariant());
         //TODO: Add a fallback for leaves without a set theme, settings?

@@ -3,7 +3,7 @@ package models.cmscore;
 import helpers.UIElementHelper;
 import play.data.validation.Required;
 import play.db.jpa.Model;
-import play.modules.cmscore.LeafType;
+import play.modules.cmscore.Leaf;
 import play.modules.cmscore.ui.UIElement;
 
 import javax.persistence.*;
@@ -11,7 +11,7 @@ import java.util.*;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "leafVersion", columnNames = {"uuid", "version"}))
-public final class Leaf extends Model implements LeafType {
+public final class RootLeaf extends Model implements Leaf {
 
     @Required
     public String uuid;
@@ -36,13 +36,13 @@ public final class Leaf extends Model implements LeafType {
     @Transient
     private Map<String, List<UIElement>> uiElements = new WeakHashMap<String, List<UIElement>>();
 
-    public Leaf(Long version, String title) {
+    public RootLeaf(Long version, String title) {
         this.uuid = UUID.randomUUID().toString();
         this.title = title;
         this.version = version;
     }
     
-    public Leaf(String uuid, Long version, String title) {
+    public RootLeaf(String uuid, Long version, String title) {
         this.uuid = uuid;
         this.title = title;
         this.version = version;
@@ -103,40 +103,40 @@ public final class Leaf extends Model implements LeafType {
         return uiElements.get(contentArea).remove(uiElement);
     }
 
-    public static List<Leaf> findAllCurrentVersions(Date today) {
-        return Leaf.find(
-                "select l from Leaf l " +
-                "where l.version = (" +
-                        "select max(l2.version) from Leaf l2 " +
+    public static List<RootLeaf> findAllCurrentVersions(Date today) {
+        return RootLeaf.find(
+                "select l from RootLeaf l " +
+                        "where l.version = (" +
+                        "select max(l2.version) from RootLeaf l2 " +
                         "where l2.uuid = l.uuid and " +
                         "(l2.publish = null or l2.publish < :today) and " +
                         "(l2.unPublish = null OR l2.unPublish >= :today)" +
-                ")"
+                        ")"
         ).bind("today", today).fetch();
     }
     
-    public static Leaf findWithUuidSpecificVersion(String uuid, Long version) {
-        return Leaf.find(
-                "select distinct l from Leaf l " +
-                "where l.uuid = :uuid and " +
-                "l.version = :version"
+    public static RootLeaf findWithUuidSpecificVersion(String uuid, Long version) {
+        return RootLeaf.find(
+                "select distinct l from RootLeaf l " +
+                        "where l.uuid = :uuid and " +
+                        "l.version = :version"
         ).bind("uuid", uuid).bind("version", version).first();
     }
 
-    public static Leaf findWithUuidLatestPublishedVersion(String uuid, Date today) {
-        return Leaf.find(
-                "select distinct l from Leaf l " +
-                "where l.uuid = :uuid and " +
-                "(l.publish = null or l.publish < :today) and " +
-                "(l.unPublish = null OR l.unPublish >= :today)" +
-                "order by version desc"
+    public static RootLeaf findWithUuidLatestPublishedVersion(String uuid, Date today) {
+        return RootLeaf.find(
+                "select distinct l from RootLeaf l " +
+                        "where l.uuid = :uuid and " +
+                        "(l.publish = null or l.publish < :today) and " +
+                        "(l.unPublish = null OR l.unPublish >= :today)" +
+                        "order by version desc"
         ).bind("uuid", uuid).bind("today", today).first();
     }
 
-    public static List<Leaf> findWithUuidAllVersions(String uuid) {
-        return Leaf.find(
-                "select distinct l from Leaf l " +
-                "where l.uuid = :uuid"
+    public static List<RootLeaf> findWithUuidAllVersions(String uuid) {
+        return RootLeaf.find(
+                "select distinct l from RootLeaf l " +
+                        "where l.uuid = :uuid"
         ).bind("uuid", uuid).fetch();
     }
 

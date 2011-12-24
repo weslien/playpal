@@ -1,6 +1,6 @@
 package controllers.cmscore;
 
-import models.cmscore.Leaf;
+import models.cmscore.RootLeaf;
 import play.data.validation.Required;
 import play.mvc.Controller;
 
@@ -9,38 +9,38 @@ import java.util.List;
 
 public class LeafController extends Controller {
 
-    //@Get("/leaf")
+    //@Get("/rootLeaf")
     public static void leafList() {
 
         //Load leafModel
-        List<Leaf> leaves = Leaf.findAllCurrentVersions(new Date());
+        List<RootLeaf> leaves = RootLeaf.findAllCurrentVersions(new Date());
 
         render(leaves);
     }
 
-    //@Get("/leaf/{uuid}")
+    //@Get("/rootLeaf/{uuid}")
     public static void leaf(@Required String uuid) {
 
         //Load leafModel
-        Leaf leaf = Leaf.findWithUuidLatestPublishedVersion(uuid, new Date());
+        RootLeaf rootLeaf = RootLeaf.findWithUuidLatestPublishedVersion(uuid, new Date());
 
-        render(leaf);
+        render(rootLeaf);
     }
 
-    //@Get("/leaf/{uuid}/all")
+    //@Get("/rootLeaf/{uuid}/all")
     public static void leafVersions(@Required String uuid) {
 
-        List<Leaf> leaves = Leaf.findWithUuidAllVersions(uuid);
+        List<RootLeaf> leaves = RootLeaf.findWithUuidAllVersions(uuid);
 
         render(leaves);
     }
 
-    //@Get("/leaf/{uuid}/{<[0-9]+>version}")
+    //@Get("/rootLeaf/{uuid}/{<[0-9]+>version}")
     public static void leafVersion(@Required String uuid, @Required Long version) {
 
-        Leaf leaf = Leaf.findWithUuidSpecificVersion(uuid, version);
+        RootLeaf rootLeaf = RootLeaf.findWithUuidSpecificVersion(uuid, version);
 
-        render(leaf);
+        render(rootLeaf);
     }
 
 }

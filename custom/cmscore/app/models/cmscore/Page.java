@@ -2,7 +2,7 @@ package models.cmscore;
 
 import play.data.validation.Required;
 import play.db.jpa.Model;
-import play.modules.cmscore.LeafType;
+import play.modules.cmscore.Leaf;
 import play.modules.cmscore.ui.UIElement;
 
 import javax.persistence.*;
@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * The basic type for a page. Directly linked to a Leaf, both it's version and id.
- * @see LeafType
- * @see Leaf
+ * The basic type for a page. Directly linked to a RootLeaf, both it's version and id.
+ * @see play.modules.cmscore.Leaf
+ * @see RootLeaf
  * @see listeners.PageListener
  */
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "pageVersion", columnNames = {"parentUuid", "parentVersion"}))
-public class Page extends Model implements LeafType {
+public class Page extends Model implements Leaf {
 
     @Required
     @Column(name = "parentUuid")
@@ -30,7 +30,7 @@ public class Page extends Model implements LeafType {
     public Long version;
 
     @Transient
-    public Leaf leaf;
+    public RootLeaf rootLeaf;
 
     @Override
     public String getLeafId() {
@@ -39,58 +39,58 @@ public class Page extends Model implements LeafType {
 
     @Override
     public Date getDatePublished() {
-        return this.leaf.publish;
+        return this.rootLeaf.publish;
     }
 
     @Override
     public Date getDateUnpublished() {
-        return this.leaf.unPublish;
+        return this.rootLeaf.unPublish;
     }
 
     @Override
     public String getTitle() {
-        return leaf.title;
+        return rootLeaf.title;
     }
 
     @Override
     public String getThemeVariant() {
-        return leaf.themeVariant;
+        return rootLeaf.themeVariant;
     }
 
     /* Interface methods */
 
     @Override
     public Set<String> getContentAreas() {
-        return leaf.getContentAreas();
+        return rootLeaf.getContentAreas();
     }
 
     @Override
     public List<UIElement> getUIElements(String contentArea) {
-        return leaf.getUIElements(contentArea);
+        return rootLeaf.getUIElements(contentArea);
     }
 
     @Override
     public void addUIElement(String contentArea, UIElement uiElement) {
-        leaf.addUIElement(contentArea, uiElement, false);
+        rootLeaf.addUIElement(contentArea, uiElement, false);
     }
 
     @Override
     public void addUIElement(String contentArea, UIElement uiElement, boolean reorderElementsBelow) {
-        leaf.addUIElement(contentArea, uiElement, reorderElementsBelow);
+        rootLeaf.addUIElement(contentArea, uiElement, reorderElementsBelow);
     }
 
     @Override
     public boolean removeUIElement(String contentArea, UIElement uiElement) {
-        return leaf.removeUIElement(contentArea, uiElement);
+        return rootLeaf.removeUIElement(contentArea, uiElement);
     }
 
     @Override
     public String toString() {
-        return "Page (" + uuid + "," + version + ") - " + leaf.getTitle();
+        return "Page (" + uuid + "," + version + ") - " + rootLeaf.getTitle();
     }
 
     public static Page findWithUuidSpecificVersion(String uuid, Long version) {
-        return Leaf.find(
+        return RootLeaf.find(
                 "select distinct p from Page p " +
                         "where p.uuid = :uuid and " +
                         "p.version = :version"

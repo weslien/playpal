@@ -1,16 +1,16 @@
 
 ### Page 1 ###
-#Root leaf
-cmscore.Leaf(leaf-first-1):
+#Root rootLeaf
+cmscore.RootLeaf(leaf-first-1):
     uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        1
-    title:          First Leaf
+    title:          First RootLeaf
     type:           models.cmscore.Page
 
-cmscore.Leaf(leaf-first-2):
+cmscore.RootLeaf(leaf-first-2):
     uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        2
-    title:          First Leaf second iteration
+    title:          First RootLeaf second iteration
     type:           models.cmscore.Page
 
 #Page
@@ -28,35 +28,35 @@ cmscore.Page(page-first-2):
 
 
 ### Page 2 ###
-cmscore.Leaf(leaf-second-1):
-#Root leaf
+cmscore.RootLeaf(leaf-second-1):
+#Root rootLeaf
     uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        1
-    title:          Second Leaf
+    title:          Second RootLeaf
 
-cmscore.Leaf(leaf-second-2):
+cmscore.RootLeaf(leaf-second-2):
     uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        2
-    title:          Second Leaf second iteration
+    title:          Second RootLeaf second iteration
     publish:        2007-01-01 10:00:00
     unpublish:      2009-12-31 10:00:00
 
-cmscore.Leaf(leaf-second-3):
+cmscore.RootLeaf(leaf-second-3):
     uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        3
-    title:          Second Leaf third iteration
+    title:          Second RootLeaf third iteration
 
 ### Page 3 ###
-#Root Leaf
-cmscore.Leaf(leaf-third-1):
+#Root RootLeaf
+cmscore.RootLeaf(leaf-third-1):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        1
-    title:          Third Leaf
+    title:          Third RootLeaf
 
-cmscore.Leaf(leaf-third-2):
+cmscore.RootLeaf(leaf-third-2):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        2
-    title:          Third Leaf second iteration
+    title:          Third RootLeaf second iteration
     publish:        2012-01-01 00:00:00
 
 

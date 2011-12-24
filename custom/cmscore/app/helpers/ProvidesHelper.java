@@ -1,8 +1,8 @@
 package helpers;
 
-import models.cmscore.Leaf;
+import models.cmscore.RootLeaf;
 import play.modules.cmscore.CachedAnnotation;
-import play.modules.cmscore.LeafType;
+import play.modules.cmscore.Leaf;
 import play.modules.cmscore.Listeners;
 import play.modules.cmscore.annotations.Provides;
 
@@ -15,11 +15,11 @@ import java.util.List;
  */
 public class ProvidesHelper {
 
-    public static LeafType triggerListener(Class type, Leaf rootLeaf) {
+    public static Leaf triggerListener(Class type, RootLeaf rootRootLeaf) {
 
         CachedAnnotation listener = findListenerForType(type);
         if (listener != null) {
-            return (LeafType) ReflectionHelper.invokeMethod(listener, rootLeaf);
+            return (Leaf) ReflectionHelper.invokeMethod(listener.method, rootRootLeaf);
         }
         throw new RuntimeException("Every type must have a class annotated with @Provides to instantiate an instance");
     }

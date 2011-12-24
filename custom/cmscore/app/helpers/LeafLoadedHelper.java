@@ -1,7 +1,7 @@
 package helpers;
 
 import play.modules.cmscore.CachedAnnotation;
-import play.modules.cmscore.LeafType;
+import play.modules.cmscore.Leaf;
 import play.modules.cmscore.Listeners;
 import play.modules.cmscore.annotations.LeafLoaded;
 
@@ -14,10 +14,10 @@ import java.util.List;
  */
 public class LeafLoadedHelper {
 
-    public static void triggerListener(Class type, LeafType rootLeaf, LeafLoaded.Order order) {
+    public static void triggerListener(Class type, Leaf rootLeaf, LeafLoaded.Order order) {
         CachedAnnotation listener = findListenerForType(type, order);
         if (listener != null) {
-            ReflectionHelper.invokeMethod(listener, rootLeaf);
+            ReflectionHelper.invokeMethod(listener.method, rootLeaf);
         }
     }
 
