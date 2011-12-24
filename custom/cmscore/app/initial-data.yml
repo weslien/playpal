@@ -1,6 +1,6 @@
 
 ### Page 1 ###
-#Root rootLeaf
+#Root
 cmscore.RootLeaf(leaf-first-1):
     uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        1
@@ -29,7 +29,7 @@ cmscore.Page(page-first-2):
 
 ### Page 2 ###
 cmscore.RootLeaf(leaf-second-1):
-#Root rootLeaf
+#Root
     uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        1
     title:          Second RootLeaf
@@ -47,7 +47,7 @@ cmscore.RootLeaf(leaf-second-3):
     title:          Second RootLeaf third iteration
 
 ### Page 3 ###
-#Root RootLeaf
+#Root
 cmscore.RootLeaf(leaf-third-1):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        1
@@ -65,3 +65,7 @@ cmscore.Settings(settings):
     values:
         ? start_page
         : c9615819-0556-4e70-b6a9-a66c5b8d4c1a
+        ? theme_variant
+        : default
+
+

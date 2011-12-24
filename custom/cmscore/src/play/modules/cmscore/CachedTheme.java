@@ -27,7 +27,7 @@ public class CachedTheme {
     /**
      * Collection of decorators for each theme that can transform UIElements into elements in a RenderedLeaf.
      * @see play.modules.cmscore.ui.UIElement
-     * @see RenderedLeaf
+     * @see play.modules.cmscore.ui.RenderedLeaf
      */
     public final Map<UIElementType, CachedDecorator> decorators = new HashMap<UIElementType, CachedDecorator>();
 

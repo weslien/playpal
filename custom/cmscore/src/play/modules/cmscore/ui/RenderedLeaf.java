@@ -1,19 +1,19 @@
-package play.modules.cmscore;
+package play.modules.cmscore.ui;
 
 import java.util.Map;
 
 public class RenderedLeaf {
-    
+
     private String id;
-    
+
     private String template;
-    
+
     private String title;
 
     private String meta;
-    
+
     private String script;
-    
+
     private Map<String, String> contentAreas;
 
     public RenderedLeaf() {
@@ -65,5 +65,10 @@ public class RenderedLeaf {
 
     public void setContentAreas(Map<String, String> contentAreas) {
         this.contentAreas = contentAreas;
+    }
+
+    @Override
+    public String toString() {
+        return "RenderedLeaf (" + id + ", template=" + template + ") - " + title;
     }
 }

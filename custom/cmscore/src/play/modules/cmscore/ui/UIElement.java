@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+// TODO: Should UIElement's be separated into two types, one with body and one without?
 public class UIElement {
 
     public String id;
@@ -17,7 +18,7 @@ public class UIElement {
     private int weight;
 
     private List<UIElement> children;
-    
+
     private String body;
 
     public UIElement(String id, UIElementType type, int weight) {

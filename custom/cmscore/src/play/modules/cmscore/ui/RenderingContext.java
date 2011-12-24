@@ -1,6 +1,7 @@
-package play.modules.cmscore;
+package play.modules.cmscore.ui;
 
-import play.modules.cmscore.ui.UIElement;
+import play.modules.cmscore.CachedThemeVariant;
+import play.modules.cmscore.Leaf;
 
 import java.util.Stack;
 
