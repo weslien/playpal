@@ -3,8 +3,6 @@ package play.modules.cmscore;
 import play.classloading.ApplicationClasses;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 public class AnnotationPluginHelper {
@@ -18,17 +16,6 @@ public class AnnotationPluginHelper {
             }
         }
         return returnValues;
-    }
-
-    public static void invalidate(Class cls, Collection<List<CachedAnnotation>> listeners) {
-        for (List<CachedAnnotation> annotationTypes : listeners) {
-            for (Iterator<CachedAnnotation> listenerIterator = annotationTypes.iterator(); listenerIterator.hasNext(); ) {
-                CachedAnnotation listener = listenerIterator.next();
-                if (listener.method.getDeclaringClass().equals(cls)) {
-                    listenerIterator.remove();
-                }
-            }
-        }
     }
 
 }

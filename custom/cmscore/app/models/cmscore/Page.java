@@ -1,15 +1,14 @@
 package models.cmscore;
 
-import helpers.UIElementHelper;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import play.modules.cmscore.LeafType;
 import play.modules.cmscore.ui.UIElement;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The basic type for a page. Directly linked to a Leaf, both it's version and id.
@@ -30,48 +29,11 @@ public class Page extends Model implements LeafType {
     @Column(name = "parentVersion")
     public Long version;
 
-    @Required
-    public String body;
-
     @Transient
     public Leaf leaf;
 
-    @Transient
-    private List<UIElement> uiElements = new ArrayList<UIElement>();
-
-    /* Interface methods */
-
     @Override
-    public List<UIElement> getUIElements() {
-        return this.uiElements;
-    }
-
-    @Override
-    public void addUIElement(UIElement uiElement) {
-        addUIElement(uiElement, false);
-    }
-
-    @Override
-    public void addUIElement(UIElement uiElement, boolean reorderElementsBelow) {
-        this.uiElements.add(uiElement);
-        if(reorderElementsBelow){
-            UIElementHelper.repositionUIElements(this.uiElements, uiElement);
-        }
-        UIElementHelper.reorderUIElements(this.uiElements);
-    }
-
-    @Override
-    public boolean removeUIElement(UIElement uiElement) {
-        return this.uiElements.remove(uiElement);
-    }
-
-    @Override
-    public String getTitle() {
-        return this.leaf.title;
-    }
-
-    @Override
-    public String getUniqueId() {
+    public String getLeafId() {
         return this.uuid;
     }
 
@@ -86,10 +48,43 @@ public class Page extends Model implements LeafType {
     }
 
     @Override
-    public String getTemplate() {
-        return "cmscore/CoreController/index.html";
+    public String getTitle() {
+        return leaf.title;
     }
 
+    @Override
+    public String getThemeVariant() {
+        return leaf.themeVariant;
+    }
+
+    /* Interface methods */
+
+    @Override
+    public Set<String> getContentAreas() {
+        return leaf.getContentAreas();
+    }
+
+    @Override
+    public List<UIElement> getUIElements(String contentArea) {
+        return leaf.getUIElements(contentArea);
+    }
+
+    @Override
+    public void addUIElement(String contentArea, UIElement uiElement) {
+        leaf.addUIElement(contentArea, uiElement, false);
+    }
+
+    @Override
+    public void addUIElement(String contentArea, UIElement uiElement, boolean reorderElementsBelow) {
+        leaf.addUIElement(contentArea, uiElement, reorderElementsBelow);
+    }
+
+    @Override
+    public boolean removeUIElement(String contentArea, UIElement uiElement) {
+        return leaf.removeUIElement(contentArea, uiElement);
+    }
+
+    @Override
     public String toString() {
         return "Page (" + uuid + "," + version + ") - " + leaf.getTitle();
     }

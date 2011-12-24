@@ -14,5 +14,7 @@ public @interface LeafLoaded {
 
     // TODO: Should this be a string instead with a unique code for each type?
     Class type() default Object.class;
+    Order order() default Order.AFTER;
 
+    public enum Order { BEFORE, AFTER }
 }

@@ -40,7 +40,7 @@ public class CmsThemeAnnotationPlugin extends PlayPlugin {
                     ThemeVariant themeVariant = m.getAnnotation(ThemeVariant.class);
                     // TODO: check that the return type of the method is a String (template)
                     // TODO: check that at least 1 content area is supplied
-                    Themes.addTheme(theme.id(), m, themeVariant.contentAreas());
+                    Themes.addThemeVariant(theme.id(), themeVariant.id(), m, themeVariant.contentAreas());
                 }
             }
         }

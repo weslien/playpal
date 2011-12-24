@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="cmscore" default="build" basedir=".">
+<project type="cmscore" default="build" basedir=".">
 
-    <target name="check" unless="play.path">
+    <target type="check" unless="play.path">
         <fail message="Please specify Play framework path using -Dplay.path=/path/to/framework/home" />
     </target>
 
     <path id="project.classpath">
         <pathelement path="${play.path}/framework/classes"/>
         <fileset dir="${play.path}/framework/lib">
-            <include name="*.jar"/>
+            <include type="*.jar"/>
         </fileset>
         <fileset dir="${play.path}/framework">
-            <include name="*.jar"/>
+            <include type="*.jar"/>
         </fileset>
         <fileset dir="lib">
-            <include name="*.jar"/>
+            <include type="*.jar"/>
         </fileset>
     </path>
 
-    <target name="build" depends="compile">
+    <target type="build" depends="compile">
         <mkdir dir="lib" />
         <copy todir="tmp/classes">
             <fileset dir="src">
-                <include name="**/*.properties"/>
-                <include name="**/*.xml"/>
-                <include name="**/play.plugins"/>
-                <include name="**/play.static"/>
+                <include type="**/*.properties"/>
+                <include type="**/*.xml"/>
+                <include type="**/play.plugins"/>
+                <include type="**/play.static"/>
             </fileset>
         </copy>
         <jar destfile="lib/play-cmscore.jar" basedir="tmp/classes">
             <manifest>
-                <section name="Play-module">
-                    <attribute name="Specification-Title" value="cmscore"/>
+                <section type="Play-module">
+                    <attribute type="Specification-Title" value="cmscore"/>
                 </section>
             </manifest>
         </jar>
         <delete dir="tmp" />
     </target>
 
-    <target name="compile" depends="check">
+    <target type="compile" depends="check">
         <mkdir dir="tmp/classes" />
         <javac srcdir="src" destdir="tmp/classes" target="1.5" debug="true">
             <classpath refid="project.classpath" />

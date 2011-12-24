@@ -1,10 +1,10 @@
 package helpers;
 
 import models.cmscore.Leaf;
-import play.modules.cmscore.CachedAnnotation;
 import play.modules.cmscore.LeafType;
 import play.utils.Java;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,18 +15,22 @@ public class ReflectionHelper {
 
     /**
      * Uses reflection to invoke the annotated method.
-     * @param listener a cached annotated method
+     * @param method a cached annotated method
      * @param rootLeaf the root leaf of this request
      * @return whatever object the listener/trigger/hook returns, if any.
      */
-    public static Object invokeListener(CachedAnnotation listener, LeafType rootLeaf) {
-        Class[] parameterTypes = listener.method.getParameterTypes();
+    public static Object invokeMethod(Method method, LeafType rootLeaf) {
+        Class[] parameterTypes = method.getParameterTypes();
         Object[] parameters = getInvocationParameters(parameterTypes, rootLeaf);
         try {
-            return Java.invokeStatic(listener.method, parameters);
+            return Java.invokeStatic(method, parameters);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage(), e);
         }
+    }
+    
+    public static String invokeDecorator(Method method, LeafType rootLeaf) {
+        return (String) invokeMethod(method, rootLeaf);
     }
 
     /**

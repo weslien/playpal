@@ -14,19 +14,22 @@ import java.util.List;
  */
 public class LeafLoadedHelper {
 
-    public static void triggerListener(Class type, LeafType rootLeaf) {
-        CachedAnnotation listener = findListenerForType(type);
+    public static void triggerListener(Class type, LeafType rootLeaf, LeafLoaded.Order order) {
+        CachedAnnotation listener = findListenerForType(type, order);
         if (listener != null) {
-            ReflectionHelper.invokeListener(listener, rootLeaf);
+            ReflectionHelper.invokeMethod(listener, rootLeaf);
         }
     }
 
-    private static CachedAnnotation findListenerForType(Class type) {
-        List<CachedAnnotation> listeners = Listeners.getListenersForAnnotationType(play.modules.cmscore.annotations.LeafLoaded.class);
+    private static CachedAnnotation findListenerForType(Class type, LeafLoaded.Order order) {
+        List<CachedAnnotation> listeners = Listeners.getListenersForAnnotationType(LeafLoaded.class);
         for (CachedAnnotation listener : listeners) {
-            Class annotationType = ((play.modules.cmscore.annotations.LeafLoaded) listener.annotation).type();
+            Class annotationType = ((LeafLoaded) listener.annotation).type();
             if (annotationType.equals(type) || annotationType.equals(Object.class)) {
-                return listener;
+                LeafLoaded.Order annotationOrder = ((LeafLoaded) listener.annotation).order();
+                if (annotationOrder == order) {
+                    return listener;
+                }
             }
         }
         return null;

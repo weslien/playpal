@@ -19,7 +19,7 @@ public class ProvidesHelper {
 
         CachedAnnotation listener = findListenerForType(type);
         if (listener != null) {
-            return (LeafType) ReflectionHelper.invokeListener(listener, rootLeaf);
+            return (LeafType) ReflectionHelper.invokeMethod(listener, rootLeaf);
         }
         throw new RuntimeException("Every type must have a class annotated with @Provides to instantiate an instance");
     }

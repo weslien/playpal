@@ -5,13 +5,13 @@ package play.modules.cmscore.annotations;
  * A method with the \@Decorate(type=FORM) will be called with a Form UIElement so the theme
  * can decorate it and return the HTML to be rendered.
  */
-public enum DecorateType {
+public enum UIElementType {
 
-    META, SCRIPT, TITLE, BODY,
+    HEAD, META, SCRIPT, TITLE, BODY,
 
-    LIST_BULLET, LIST_ORDERED,
+    LIST_BULLET, LIST_ORDERED, LIST_ITEM,
 
-    FORM, INPUT_HIDDEN, INPUT_TEXT, INPUT_TEXTAREA, INPUT_RADIO_BUTTON, INPUT_BUTTON, INPUT_SUBMIT, INPUT_RESET, INPUT_IMAGE, INPUT_PASSWORD,
+    FORM, INPUT_HIDDEN, INPUT_TEXT, INPUT_TEXTAREA, INPUT_RADIO_BUTTON, INPUT_BUTTON, INPUT_SUBMIT, INPUT_RESET, INPUT_IMAGE, INPUT_FILE, INPUT_PASSWORD,
 
     PANEL
     

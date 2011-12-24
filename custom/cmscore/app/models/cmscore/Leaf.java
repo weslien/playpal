@@ -7,14 +7,11 @@ import play.modules.cmscore.LeafType;
 import play.modules.cmscore.ui.UIElement;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "leafVersion", columnNames = {"uuid", "version"}))
-public class Leaf extends Model implements LeafType {
+public final class Leaf extends Model implements LeafType {
 
     @Required
     public String uuid;
@@ -33,9 +30,11 @@ public class Leaf extends Model implements LeafType {
     public Date unPublish;
 
     public Class type;
+    
+    public String themeVariant;
 
     @Transient
-    private List<UIElement> uiElements = new ArrayList<UIElement>();
+    private Map<String, List<UIElement>> uiElements = new WeakHashMap<String, List<UIElement>>();
 
     public Leaf(Long version, String title) {
         this.uuid = UUID.randomUUID().toString();
@@ -54,48 +53,54 @@ public class Leaf extends Model implements LeafType {
         type = Class.forName(typeAsString);
     }
 
-    @Override
-    public List<UIElement> getUIElements() {
-        return this.uiElements;
-    }
-
-    @Override
-    public void addUIElement(UIElement uiElement) {
-        addUIElement(uiElement, false);
-    }
-
-    @Override
-    public void addUIElement(UIElement uiElement, boolean reorderElementsBelow) {
-        this.uiElements.add(uiElement);
-        if(reorderElementsBelow){
-            UIElementHelper.repositionUIElements(this.uiElements, uiElement);
-        }
-        UIElementHelper.reorderUIElements(this.uiElements);
-    }
-
-    @Override
-    public boolean removeUIElement(UIElement uiElement) {
-        return this.uiElements.remove(uiElement);
-    }
-
-    @Override
     public String getTitle() {
         return title;
     }
 
-    @Override
-    public String getUniqueId() {
+    public String getLeafId() {
         return uuid;
     }
 
-    @Override
     public Date getDatePublished() {
         return publish;
     }
 
-    @Override
     public Date getDateUnpublished() {
         return unPublish;
+    }
+
+    @Override
+    public String getThemeVariant() {
+        return themeVariant;
+    }
+
+    @Override
+    public Set<String> getContentAreas() {
+        return this.uiElements.keySet();
+    }
+
+    /* Interface methods */
+    public List<UIElement> getUIElements(String contentArea) {
+        return this.uiElements.get(contentArea);
+    }
+
+    public void addUIElement(String contentArea, UIElement uiElement) {
+        addUIElement(contentArea, uiElement, false);
+    }
+
+    public void addUIElement(String contentArea, UIElement uiElement, boolean reorderElementsBelow) {
+        if (!uiElements.containsKey(contentArea)) {
+            uiElements.put(contentArea, new ArrayList<UIElement>());
+        }
+        uiElements.get(contentArea).add(uiElement);
+        if(reorderElementsBelow){
+            UIElementHelper.repositionUIElements(uiElements.get(contentArea), uiElement);
+        }
+        UIElementHelper.reorderUIElements(uiElements.get(contentArea));
+    }
+
+    public boolean removeUIElement(String contentArea, UIElement uiElement) {
+        return uiElements.get(contentArea).remove(uiElement);
     }
 
     public static List<Leaf> findAllCurrentVersions(Date today) {
@@ -133,11 +138,6 @@ public class Leaf extends Model implements LeafType {
                 "select distinct l from Leaf l " +
                 "where l.uuid = :uuid"
         ).bind("uuid", uuid).fetch();
-    }
-
-    @Override
-    public String getTemplate() {
-        return "cmscore/CoreController/index.html";
     }
 
     public String toString() {

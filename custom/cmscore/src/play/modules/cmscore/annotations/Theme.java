@@ -12,7 +12,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
 public @interface Theme {
-    
+
+    /**
+     * A unique id for referencing this theme. Used as the key when caching this theme.
+     * @return a unique id for this theme.
+     */
     String id();
 
 }

@@ -1,25 +1,32 @@
 package play.modules.cmscore.ui;
 
+import play.modules.cmscore.annotations.UIElementType;
+
+import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
 public class UIElement {
 
-    private String id;
+    public String id;
 
-    private String name;
+    public UIElementType type;
 
-    private Map<String, String> attributes;
+    public Map<String, String> attributes;
 
     private int weight;
 
-    public UIElement(String id, String name, int weight) {
-        this(id, name, new WeakHashMap<String, String>(), weight);
+    private List<UIElement> children;
+    
+    private String body;
+
+    public UIElement(String id, UIElementType type, int weight) {
+        this(id, type, new WeakHashMap<String, String>(), weight);
     }
     
-    public UIElement(String id, String name, Map<String, String> attributes, int weight) {
+    public UIElement(String id, UIElementType type, Map<String, String> attributes, int weight) {
         this.id = id;
-        this.name = name;
+        this.type = type;
         this.attributes = attributes;
         this.weight = weight;
     }
@@ -32,12 +39,12 @@ public class UIElement {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public UIElementType getType() {
+        return type;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setType(UIElementType type) {
+        this.type = type;
     }
 
     public Map<String, String> getAttributes() {
@@ -56,4 +63,19 @@ public class UIElement {
         this.weight = weight;
     }
 
+    public List<UIElement> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<UIElement> children) {
+        this.children = children;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
 }

@@ -1,40 +1,29 @@
 package controllers.cmscore;
 
 import helpers.LeafHelper;
-import models.cmscore.Leaf;
-import play.data.validation.Required;
+import helpers.ThemeHelper;
+import org.apache.log4j.Logger;
 import play.modules.cmscore.LeafType;
+import play.modules.cmscore.RenderedLeaf;
 import play.mvc.Controller;
-
-import java.util.Date;
 
 public class CoreController extends Controller {
 
-    //@Get("/core/{uuid}")
-    public static LeafType index(@Required String uuid) {
-        LeafType leaf = load(uuid);
-        return leaf;
+    private final static Logger LOG = Logger.getLogger(CoreController.class); 
+    
+    public static RenderedLeaf getPage(String uuid) {
+        LeafType leaf = LeafHelper.load(uuid);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Loaded " + leaf.toString());
+        }
+        RenderedLeaf renderedLeaf = ThemeHelper.decorate(leaf);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Decorated " + renderedLeaf);
+        }
+        return renderedLeaf;
     }
 
-    private static LeafType load(String uuid) {
-        //Load leafModel
-        Leaf rootLeaf = Leaf.findWithUuidLatestPublishedVersion(uuid, new Date());
 
-        boolean hasType = rootLeaf.type != null && rootLeaf.type != Leaf.class;
-        if (hasType) {
-            LeafHelper.triggerBeforeLeafLoaded(rootLeaf.type, rootLeaf);
-        }
-
-        LeafType leaf = rootLeaf;
-        if (hasType) {
-            leaf = LeafHelper.triggerProvidesListener(rootLeaf.type, rootLeaf);
-        }
-
-        if (hasType) {
-            LeafHelper.triggerAfterLeafLoaded(rootLeaf.type, leaf);
-        }
-
-        return leaf;
-    }
+    
 
 }

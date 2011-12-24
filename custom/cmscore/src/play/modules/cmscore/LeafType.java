@@ -4,6 +4,7 @@ import play.modules.cmscore.ui.UIElement;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * An interface that each module/add-ons/plugin should implement if it adds a type with a \@Provides annotation.
@@ -12,22 +13,24 @@ import java.util.List;
  */
 public interface LeafType {
 
-    List<UIElement> getUIElements();
-
-    void addUIElement(UIElement uiElement);
-
-    void addUIElement(UIElement uiElement, boolean reorderElementsBelow);
-
-    boolean removeUIElement(UIElement uiElement);
+    String getLeafId();
 
     String getTitle();
-
-    String getUniqueId();
 
     Date getDatePublished();
 
     Date getDateUnpublished();
 
-    String getTemplate();
+    String getThemeVariant();
+
+    Set<String> getContentAreas();
+    
+    List<UIElement> getUIElements(String contentArea);
+
+    void addUIElement(String contentArea, UIElement uiElement);
+
+    void addUIElement(String contentArea, UIElement uiElement, boolean reorderElementsBelow);
+
+    boolean removeUIElement(String contentArea, UIElement uiElement);
 
 }
