@@ -27,5 +27,9 @@ public @interface ThemeVariant {
      * @return an array of content area names
      */
     String[] contentAreas();
-    
+
+    /**
+     * XML, HTML, TEXT, PDF, etc.
+     */
+    String output() default "HTML";
 }

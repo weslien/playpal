@@ -3,6 +3,7 @@ package controllers;
 import controllers.cmscore.CoreController;
 import models.cmscore.Settings;
 import models.cmscore.SettingsKeys;
+import play.modules.cmscore.ui.RenderedLeaf;
 import play.mvc.Controller;
 
 public class Application extends Controller {
@@ -13,7 +14,7 @@ public class Application extends Controller {
         Settings settings = Settings.load();
         String startPage = settings.getValue(SettingsKeys.Core.START_PAGE);
 
-        play.modules.cmscore.ui.RenderedLeaf leaf = CoreController.getPage(startPage);
+        RenderedLeaf leaf = CoreController.getPage(startPage);
         renderArgs.put("leaf", leaf);
         render(leaf.getTemplate());
     }
