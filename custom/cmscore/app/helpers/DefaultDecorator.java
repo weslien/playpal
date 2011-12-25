@@ -60,7 +60,7 @@ public class DefaultDecorator {
 
     public static String decorateHead(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
         StringBuilder sb = new StringBuilder().append(writeStartTag("head", uiElement));
-        sb.append(ThemeHelper.decorate(uiElement.getChildren(), renderingContext));
+        sb.append(ThemeHelper.decorateChildren(uiElement, renderingContext));
         sb.append(writeEndTag("head"));
         return sb.toString();
     }
@@ -79,46 +79,36 @@ public class DefaultDecorator {
     
     public static String decorateBody(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
         StringBuilder sb = new StringBuilder().append(writeStartTag("body", uiElement));
-        renderingContext.nestle(uiElement);
-        sb.append(ThemeHelper.decorate(uiElement.getChildren(), renderingContext));
-        renderingContext.unNestle();
+        sb.append(ThemeHelper.decorateChildren(uiElement, renderingContext));
         sb.append(writeEndTag("body"));
         return sb.toString();
     }
 
     public static String decorateForm(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
         StringBuilder sb = new StringBuilder().append(writeStartTag("form", uiElement));
-        renderingContext.nestle(uiElement);
-        sb.append(ThemeHelper.decorate(uiElement.getChildren(), renderingContext));
-        renderingContext.unNestle();
+        sb.append(ThemeHelper.decorateChildren(uiElement, renderingContext));
         sb.append(writeEndTag("form"));
         return sb.toString();
     }
 
     public static String decorateListBulleted(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
         StringBuilder sb = new StringBuilder().append(writeStartTag("ul", uiElement));
-        renderingContext.nestle(uiElement);
-        sb.append(ThemeHelper.decorate(uiElement.getChildren(), renderingContext));
-        renderingContext.unNestle();
+        sb.append(ThemeHelper.decorateChildren(uiElement, renderingContext));
         sb.append(writeEndTag("ul"));
         return sb.toString();
     }
     
     public static String decorateListNumbered(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
         StringBuilder sb = new StringBuilder().append(writeStartTag("ol", uiElement));
-        renderingContext.nestle(uiElement);
-        sb.append(ThemeHelper.decorate(uiElement.getChildren(), renderingContext));
-        renderingContext.unNestle();
+        sb.append(ThemeHelper.decorateChildren(uiElement, renderingContext));
         sb.append(writeEndTag("ol"));
         return sb.toString();
     }
 
     public static String decorateListItem(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
         StringBuilder sb = new StringBuilder().append(writeStartTag("li", uiElement));
-        renderingContext.nestle(uiElement);
-        sb.append(ThemeHelper.decorate(uiElement.getChildren(), renderingContext));
+        sb.append(ThemeHelper.decorateChildren(uiElement, renderingContext));
         sb.append(writeEndTag("li"));
-        renderingContext.unNestle();
         return sb.toString();
     }
 
@@ -132,9 +122,7 @@ public class DefaultDecorator {
 
     public static String decorateInputTextArea(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
         StringBuilder sb = new StringBuilder().append(writeStartTag("textarea", uiElement));
-        renderingContext.nestle(uiElement);
-        sb.append(ThemeHelper.decorate(uiElement.getChildren(), renderingContext));
-        renderingContext.nestle(uiElement);
+        sb.append(ThemeHelper.decorateChildren(uiElement, renderingContext));
         sb.append(writeEndTag("textarea"));
         return sb.toString();
     }
@@ -169,10 +157,8 @@ public class DefaultDecorator {
 
     public static String decoratePanel(UIElement uiElement, RenderingContext renderingContext) {
         StringBuilder sb = new StringBuilder().append(writeStartTag("div", uiElement));
-        renderingContext.nestle(uiElement);
-        sb.append(ThemeHelper.decorate(uiElement.getChildren(), renderingContext));
+        sb.append(ThemeHelper.decorateChildren(uiElement, renderingContext));
         sb.append(writeEndTag("div"));
-        renderingContext.unNestle();
         return sb.toString();
     }
     

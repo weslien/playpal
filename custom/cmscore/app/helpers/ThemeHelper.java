@@ -11,7 +11,6 @@ import play.modules.cmscore.annotations.CachedDecorator;
 import play.modules.cmscore.annotations.UIElementType;
 import play.modules.cmscore.ui.UIElement;
 
-import java.util.List;
 import java.util.Map;
 
 public class ThemeHelper {
@@ -45,11 +44,13 @@ public class ThemeHelper {
         return decoratedOutput;
     }
 
-    public static String decorate(List<UIElement> uiElements, play.modules.cmscore.ui.RenderingContext renderingContext) {
+    public static String decorateChildren(UIElement parent, play.modules.cmscore.ui.RenderingContext renderingContext) {
         StringBuilder sb = new StringBuilder();
-        for (UIElement childElement : uiElements) {
+        renderingContext.nestle(parent);
+        for (UIElement childElement : parent.getChildren()) {
             sb.append(decorate(childElement, renderingContext));
         }
+        renderingContext.unNestle();
         return sb.toString();
     }
 
