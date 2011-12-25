@@ -1,6 +1,7 @@
 package helpers;
 
 import models.cmscore.RootLeaf;
+import play.modules.cmscore.CachedThemeVariant;
 import play.modules.cmscore.Leaf;
 import play.utils.Java;
 
@@ -54,4 +55,11 @@ public class ReflectionHelper {
         return parameters.toArray();
     }
 
+    public static String getTemplate(CachedThemeVariant themeVariant) {
+        try {
+            return (String)Java.invokeStatic(themeVariant.templateMethod, new Object[]{});
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
 }

@@ -9,6 +9,8 @@ import play.modules.cmscore.Leaf;
 import play.modules.cmscore.Themes;
 import play.modules.cmscore.annotations.CachedDecorator;
 import play.modules.cmscore.annotations.UIElementType;
+import play.modules.cmscore.ui.RenderedLeaf;
+import play.modules.cmscore.ui.RenderingContext;
 import play.modules.cmscore.ui.UIElement;
 
 import java.util.Map;
@@ -17,10 +19,11 @@ public class ThemeHelper {
     
     private static final Logger LOG = Logger.getLogger(ThemeHelper.class);
 
-    public static play.modules.cmscore.ui.RenderedLeaf decorate(Leaf leaf) {
+    public static RenderedLeaf decorate(Leaf leaf) {
         play.modules.cmscore.ui.RenderedLeaf renderedLeaf = new play.modules.cmscore.ui.RenderedLeaf();
         CachedThemeVariant themeVariant = loadTheme(leaf, renderedLeaf);
-        play.modules.cmscore.ui.RenderingContext renderingContext = new play.modules.cmscore.ui.RenderingContext(themeVariant, leaf);
+        renderedLeaf.setTemplate(ReflectionHelper.getTemplate(themeVariant));
+        RenderingContext renderingContext = new RenderingContext(themeVariant, leaf);
         for (String contentArea : leaf.getContentAreas()) {
             for (UIElement uiElement : leaf.getUIElements(contentArea)) {
                 decorate(uiElement, renderingContext);
