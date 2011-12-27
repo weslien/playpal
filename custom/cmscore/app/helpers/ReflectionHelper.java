@@ -3,6 +3,7 @@ package helpers;
 import models.cmscore.RootLeaf;
 import play.modules.cmscore.CachedThemeVariant;
 import play.modules.cmscore.Leaf;
+import play.modules.cmscore.annotations.CachedDecorator;
 import play.utils.Java;
 
 import java.lang.reflect.Method;
@@ -30,10 +31,6 @@ public class ReflectionHelper {
         }
     }
     
-    public static String invokeDecorator(Method method, Leaf rootLeaf) {
-        return (String) invokeMethod(method, rootLeaf);
-    }
-
     /**
      * Tries to match up the parameter types to known entities and constructs the list of parameters.
      * @param parameterTypes an array of types this trigger method takes
@@ -55,9 +52,13 @@ public class ReflectionHelper {
         return parameters.toArray();
     }
 
+    public static String invokeDecorator(CachedDecorator decorator, Leaf rootLeaf) {
+        return (String) invokeMethod(decorator.method, rootLeaf);
+    }
+
     public static String getTemplate(CachedThemeVariant themeVariant) {
         try {
-            return (String)Java.invokeStatic(themeVariant.templateMethod, new Object[]{});
+            return (String)invokeMethod(themeVariant.templateMethod, null);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage(), e);
         }

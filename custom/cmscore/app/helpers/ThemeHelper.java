@@ -38,7 +38,7 @@ public class ThemeHelper {
         String decoratedOutput = null;
         if (decorators.containsKey(uiElement.getType())) {
             CachedDecorator decorator = decorators.get(uiElement.getType());
-            decoratedOutput = ReflectionHelper.invokeDecorator(decorator.method, null);
+            decoratedOutput = ReflectionHelper.invokeDecorator(decorator, null);
         }
         if (decoratedOutput == null) {
             decoratedOutput = DefaultDecorator.decorate(uiElement, renderingContext);
@@ -69,6 +69,7 @@ public class ThemeHelper {
             themeVariant = Themes.getThemeVariant(themeVariantId);
         }
         if (themeVariant == null) {
+            // TODO: Add some sort of fallback for when a theme is removed
             throw new RuntimeException("No theme selected for "+renderedLeaf.toString());
         }
         return themeVariant;

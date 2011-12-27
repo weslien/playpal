@@ -16,7 +16,7 @@ import java.util.List;
  * @see Theme
  * @see ThemeVariant
  */
-public class CmsThemeAnnotationPlugin extends PlayPlugin {
+public class CmsThemeAnnotationsPlugin extends PlayPlugin {
 
     @Override
     public void onApplicationStart() {
@@ -33,8 +33,10 @@ public class CmsThemeAnnotationPlugin extends PlayPlugin {
     private void findAndCacheAnnotation(List<Class> modifiedClasses) {
         for (Class cls : modifiedClasses) {
             if (cls.isAnnotationPresent(Theme.class)) {
+                Themes.invalidate(cls);
                 @SuppressWarnings("unchecked")
                 Theme theme = (Theme)cls.getAnnotation(Theme.class);
+                Themes.addTheme(theme.id(), cls);
                 List<Method> annotatedMethods = Java.findAllAnnotatedMethods(cls, ThemeVariant.class);
                 for (Method m : annotatedMethods) {
                     ThemeVariant themeVariant = m.getAnnotation(ThemeVariant.class);

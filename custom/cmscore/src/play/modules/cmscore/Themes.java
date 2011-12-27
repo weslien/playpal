@@ -23,6 +23,14 @@ public class Themes {
      */
     private static Map<String, String> themeVariantsToThemeMapping = new HashMap<String, String>();
     
+    public static void addTheme(String themeId, Class declaringClass) {
+        if (themes.containsKey(themeId)) {
+            throw new RuntimeException("Theme ["+themeId+"] declared in both "+declaringClass.getSimpleName()+" and "+themes.get(themeId).getDeclaringClass().getSimpleName());
+        }
+        themes.put(themeId, new CachedTheme(themeId, declaringClass));
+        
+    }
+    
     public static void addThemeVariant(String themeId, String variantId, Method templateMethod, String[] contentAreas) {
         // Themes are declared on the class level and should be parsed first so we don't need to check if the themeId exists before accessing
         Map<String, CachedThemeVariant> themeVariants = themes.get(themeId).getThemeVariants();

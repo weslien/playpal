@@ -1,4 +1,12 @@
 self: play -> cmscore 0.1
 
 require:
-    - play 1.2(
+    - play [1.2,)
+    - cmstheme-default -> cmstheme-default 0.1
+
+repositories:
+    - localModules:
+        type: local
+        artifact: "${application.path}/../[module]/"
+        contains:
+            - cmstheme-default

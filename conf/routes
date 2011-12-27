@@ -7,6 +7,8 @@
 # Home page
 GET     /                                       Application.index
 
+*       /                                       module:cmstheme-default
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

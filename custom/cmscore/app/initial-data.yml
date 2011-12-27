@@ -66,6 +66,6 @@ cmscore.Settings(settings):
         ? start_page
         : c9615819-0556-4e70-b6a9-a66c5b8d4c1a
         ? theme_variant
-        : default
+        : default-main_and_left_columns
 
 
