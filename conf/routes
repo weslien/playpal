@@ -6,6 +6,7 @@
 
 # Home page
 GET     /                                       Application.index
+GET     /{uuid}                                 Application.page
 
 *       /                                       module:cmstheme-default
 

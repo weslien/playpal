@@ -14,7 +14,6 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 public @interface Provides {
 
-    // TODO: Should this be a string instead with a unique code for each type?
     Class type();
     
 }

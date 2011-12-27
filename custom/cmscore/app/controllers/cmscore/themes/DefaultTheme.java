@@ -8,12 +8,12 @@ public class DefaultTheme {
 
     @ThemeVariant(id = "default-main_and_left_columns", contentAreas = {"main", "left"})
     public static String getDefaultMainAndLeftColumnTemplate() {
-        return "themes/DefaultTheme/main_and_left_columns.html";
+        return "cmscore/themes/DefaultTheme/main_and_left_columns.html";
     }
 
     @ThemeVariant(id = "default-three_columns", contentAreas = {"main", "left", "right"})
     public static String getDefaultThreeColumnTemplate() {
-        return "themes/DefaultTheme/three_columns.html";
+        return "cmscore/themes/DefaultTheme/three_columns.html";
     }
 
 }

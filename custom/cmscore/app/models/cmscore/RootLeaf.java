@@ -29,7 +29,7 @@ public final class RootLeaf extends Model implements Leaf {
     @Temporal(value = TemporalType.TIMESTAMP)
     public Date unPublish;
 
-    public Class type;
+    public String type;
     
     public String themeVariant;
 
@@ -48,11 +48,6 @@ public final class RootLeaf extends Model implements Leaf {
         this.version = version;
     }
 
-    // This is a hack to make yaml work. Maybe need to figure out a different way to do this
-    public void setType(String typeAsString) throws ClassNotFoundException {
-        type = Class.forName(typeAsString);
-    }
-
     public String getTitle() {
         return title;
     }
@@ -69,6 +64,14 @@ public final class RootLeaf extends Model implements Leaf {
         return unPublish;
     }
 
+    public Class getTypeClass() {
+        try {
+            return Class.forName(type);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Unable to find the class for leaf type ["+type+"]: "+e.getMessage(), e);
+        }
+    }
+    
     @Override
     public String getThemeVariant() {
         return themeVariant;
@@ -77,6 +80,10 @@ public final class RootLeaf extends Model implements Leaf {
     @Override
     public Set<String> getContentAreas() {
         return this.uiElements.keySet();
+    }
+
+    public void init() {
+        this.uiElements = new HashMap<String, List<UIElement>>();
     }
 
     /* Interface methods */

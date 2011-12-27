@@ -1,6 +1,5 @@
 package helpers;
 
-
 import models.cmscore.RootLeaf;
 import play.modules.cmscore.Leaf;
 import play.modules.cmscore.annotations.LeafLoaded;
@@ -11,20 +10,21 @@ public class LeafHelper {
 
     public static Leaf load(String uuid) {
         //Load leafModel
-        RootLeaf rootRootLeaf = RootLeaf.findWithUuidLatestPublishedVersion(uuid, new Date());
+        RootLeaf rootLeaf = RootLeaf.findWithUuidLatestPublishedVersion(uuid, new Date());
+        rootLeaf.init();
 
-        boolean hasType = rootRootLeaf.type != null && rootRootLeaf.type != RootLeaf.class;
+        boolean hasType = rootLeaf.type != null && !rootLeaf.getTypeClass().equals(RootLeaf.class);
         if (hasType) {
-            triggerBeforeLeafLoaded(rootRootLeaf.type, rootRootLeaf);
+            triggerBeforeLeafLoaded(rootLeaf.getTypeClass(), rootLeaf);
         }
 
-        Leaf leaf = rootRootLeaf;
+        Leaf leaf = rootLeaf;
         if (hasType) {
-            leaf = triggerProvidesListener(rootRootLeaf.type, rootRootLeaf);
+            leaf = triggerProvidesListener(rootLeaf.getTypeClass(), rootLeaf);
         }
 
         if (hasType) {
-            triggerAfterLeafLoaded(rootRootLeaf.type, leaf);
+            triggerAfterLeafLoaded(rootLeaf.getTypeClass(), leaf);
         }
 
         return leaf;

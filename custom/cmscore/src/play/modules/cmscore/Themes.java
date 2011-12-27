@@ -5,6 +5,7 @@ import play.modules.cmscore.annotations.UIElementType;
 
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Themes are used to render Leafs. A theme has multiple theme variants, for example 2-columns, 3-columns, top-middle-bottom, etc.
@@ -16,7 +17,7 @@ public class Themes {
     /**
      * Collection of theme variants id's that a theme offers.
      */
-    public static Map<String, CachedTheme> themes = new HashMap<String, CachedTheme>();
+    public static Map<String, CachedTheme> themes = new ConcurrentHashMap<String, CachedTheme> ();
 
     /**
      * Maps variant id's to it's parent theme id.
@@ -94,14 +95,14 @@ public class Themes {
     public static void invalidate(Class cls) {
         for (Iterator<CachedTheme> themeIterator = themes.values().iterator(); themeIterator.hasNext(); ) {
             CachedTheme theme = themeIterator.next();
-            if (theme.getDeclaringClass().equals(cls)) {
+            if (theme.getDeclaringClass().getCanonicalName().equals(cls.getCanonicalName())) {
                 themeIterator.remove();
-            }
-            for (Iterator<CachedThemeVariant> themeVariantIterator = theme.getThemeVariants().values().iterator(); themeVariantIterator.hasNext(); ) {
-                CachedThemeVariant themeVariant = themeVariantIterator.next();
-                if (themeVariant.templateMethod.getDeclaringClass().equals(cls)) {
-                    themeVariantsToThemeMapping.remove(themeVariant.variantId);
-                    themeVariantIterator.remove();
+                for (Iterator<CachedThemeVariant> themeVariantIterator = theme.getThemeVariants().values().iterator(); themeVariantIterator.hasNext(); ) {
+                    CachedThemeVariant themeVariant = themeVariantIterator.next();
+                    if (themeVariant.templateMethod.getDeclaringClass().getCanonicalName().equals(cls.getCanonicalName())) {
+                        themeVariantsToThemeMapping.remove(themeVariant.variantId);
+                        themeVariantIterator.remove();
+                    }
                 }
             }
         }

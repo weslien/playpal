@@ -20,8 +20,9 @@ public class ThemeHelper {
     private static final Logger LOG = Logger.getLogger(ThemeHelper.class);
 
     public static RenderedLeaf decorate(Leaf leaf) {
-        play.modules.cmscore.ui.RenderedLeaf renderedLeaf = new play.modules.cmscore.ui.RenderedLeaf();
+        RenderedLeaf renderedLeaf = new RenderedLeaf();
         CachedThemeVariant themeVariant = loadTheme(leaf, renderedLeaf);
+        renderedLeaf.setTitle(leaf.getTitle());
         renderedLeaf.setTemplate(ReflectionHelper.getTemplate(themeVariant));
         RenderingContext renderingContext = new RenderingContext(themeVariant, leaf);
         for (String contentArea : leaf.getContentAreas()) {

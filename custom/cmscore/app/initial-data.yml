@@ -33,11 +33,13 @@ cmscore.RootLeaf(leaf-second-1):
     uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        1
     title:          Second RootLeaf
+    type:           models.cmscore.Page
 
 cmscore.RootLeaf(leaf-second-2):
     uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        2
     title:          Second RootLeaf second iteration
+    type:           models.cmscore.Page
     publish:        2007-01-01 10:00:00
     unpublish:      2009-12-31 10:00:00
 
@@ -45,6 +47,26 @@ cmscore.RootLeaf(leaf-second-3):
     uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        3
     title:          Second RootLeaf third iteration
+    type:           models.cmscore.Page
+
+#Page
+cmscore.Page(page-second-1):
+    uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
+    version:        1
+    body:           |
+        <H2>Page Not Found, Version 1</h2>
+
+cmscore.Page(page-second-2):
+    uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
+    version:        2
+    body:           |
+        <H2>Page Not Found, Version 2</h2>
+
+cmscore.Page(page-second-3):
+    uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
+    version:        3
+    body:           |
+        <H2>Page Not Found, Version 3</h2>
 
 ### Page 3 ###
 #Root
@@ -52,20 +74,34 @@ cmscore.RootLeaf(leaf-third-1):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        1
     title:          Third RootLeaf
+    type:           models.cmscore.Page
 
 cmscore.RootLeaf(leaf-third-2):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        2
     title:          Third RootLeaf second iteration
     publish:        2012-01-01 00:00:00
+    type:           models.cmscore.Page
 
+cmscore.Page(page-third-1):
+    uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
+    version:        1
+    body:           |
+        <H2>Third Page, Version 1</h2>
+
+cmscore.Page(page-third-2):
+    uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
+    version:        2
+    body:           |
+        <H2>Third Page, Version 2</h2>
 
 ### Settings ###
 cmscore.Settings(settings):
     values:
         ? start_page
+        : aa1755dd-18c4-4b78-956e-eef7e562c36c
+        ? page_not_found_page
         : c9615819-0556-4e70-b6a9-a66c5b8d4c1a
         ? theme_variant
         : default-main_and_left_columns
-
 
