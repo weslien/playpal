@@ -2,10 +2,7 @@ package play.modules.cmscore;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Listeners {
@@ -30,7 +27,6 @@ public class Listeners {
     }
     
     public static void invalidate(Class cls) {
-        /*
         for (List<CachedAnnotation> annotationTypes : listeners.values()) {
             for (Iterator<CachedAnnotation> listenerIterator = annotationTypes.iterator(); listenerIterator.hasNext(); ) {
                 CachedAnnotation listener = listenerIterator.next();
@@ -39,7 +35,6 @@ public class Listeners {
                 }
             }
         }
-        */
     }
 
 }

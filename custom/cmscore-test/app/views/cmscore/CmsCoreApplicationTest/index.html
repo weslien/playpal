@@ -1,4 +1,7 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-#{welcome /}
+<h2>Pages</h2>
+#{list items:pages, as:'page'}
+<a href="@{cmscore.CoreController.getPage(page.uuid)}">${page.uuid}</a><br>
+#{/list}

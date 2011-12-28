@@ -86,7 +86,26 @@ public class Page extends Model implements Leaf {
 
     @Override
     public String toString() {
-        return "Page (" + uuid + "," + version + ") - " + rootLeaf.getTitle();
+        return new StringBuilder().append("Page (")
+                .append(uuid).append(",")
+                .append(version).append(") - ")
+                .append(rootLeaf != null ? rootLeaf.getTitle() : "")
+                .toString();
+    }
+
+    public static List<Page> findAllCurrentVersions(Date today) {
+        return Page.find(
+                "select p from Page p " +
+                "where p.id in (" +
+                    "select l.id from RootLeaf l " +
+                    "where l.version = (" +
+                    "select max(l2.version) from RootLeaf l2 " +
+                    "where l2.uuid = l.uuid and " +
+                    "(l2.publish = null or l2.publish < :today) and " +
+                    "(l2.unPublish = null or l2.unPublish >= :today)" +
+                    ")" +
+                ")"
+        ).bind("today", today).fetch();
     }
 
     public static Page findWithUuidSpecificVersion(String uuid, Long version) {

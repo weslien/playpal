@@ -117,7 +117,7 @@ public final class RootLeaf extends Model implements Leaf {
                         "select max(l2.version) from RootLeaf l2 " +
                         "where l2.uuid = l.uuid and " +
                         "(l2.publish = null or l2.publish < :today) and " +
-                        "(l2.unPublish = null OR l2.unPublish >= :today)" +
+                        "(l2.unPublish = null or l2.unPublish >= :today)" +
                         ")"
         ).bind("today", today).fetch();
     }
