@@ -12,4 +12,10 @@ public class CmsCoreApplicationTest extends Controller {
         List<Page> pages = Page.findAllCurrentVersions(new Date());
         render(pages);
     }
+
+    public static void page(String uuid) {
+        Page page = Page.findCurrentVersion(uuid, new Date());
+        render(page);
+    }
+    
 }

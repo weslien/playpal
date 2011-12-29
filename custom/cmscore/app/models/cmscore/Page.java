@@ -108,6 +108,21 @@ public class Page extends Model implements Leaf {
         ).bind("today", today).fetch();
     }
 
+    public static Page findCurrentVersion(String uuid, Date today) {
+        return Page.find(
+                "select p from Page p " +
+                "where p.uuid = :uuid and p.id in (" +
+                    "select l.id from RootLeaf l " +
+                    "where l.version = (" +
+                    "select max(l2.version) from RootLeaf l2 " +
+                    "where l2.uuid = l.uuid and " +
+                    "(l2.publish = null or l2.publish < :today) and " +
+                    "(l2.unPublish = null or l2.unPublish >= :today)" +
+                    ")" +
+                ")"
+        ).bind("uuid", uuid).bind("today", today).first();
+    }
+
     public static Page findWithUuidSpecificVersion(String uuid, Long version) {
         return RootLeaf.find(
                 "select distinct p from Page p " +

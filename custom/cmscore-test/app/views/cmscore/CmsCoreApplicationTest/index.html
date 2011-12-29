@@ -3,5 +3,5 @@
 
 <h2>Pages</h2>
 #{list items:pages, as:'page'}
-<a href="@{cmscore.CoreController.getPage(page.uuid)}">${page.uuid}</a><br>
+<a href="@{page(page.uuid)}">${page.uuid}</a><br>
 #{/list}
