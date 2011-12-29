@@ -33,7 +33,7 @@ public class ThemeHelper {
         return renderedLeaf;
     }
 
-    public static String decorate(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
+    public static String decorate(UIElement uiElement, RenderingContext renderingContext) {
         Map<UIElementType, CachedDecorator> decorators = Themes.getDecoratorsForTheme(renderingContext.getThemeVariant().themeId);
         renderingContext.nestle(uiElement);
         String decoratedOutput = null;
@@ -48,7 +48,7 @@ public class ThemeHelper {
         return decoratedOutput;
     }
 
-    public static String decorateChildren(UIElement parent, play.modules.cmscore.ui.RenderingContext renderingContext) {
+    public static String decorateChildren(UIElement parent, RenderingContext renderingContext) {
         StringBuilder sb = new StringBuilder();
         renderingContext.nestle(parent);
         for (UIElement childElement : parent.getChildren()) {
@@ -58,7 +58,7 @@ public class ThemeHelper {
         return sb.toString();
     }
 
-    private static CachedThemeVariant loadTheme(Leaf leaf, play.modules.cmscore.ui.RenderedLeaf renderedLeaf) {
+    private static CachedThemeVariant loadTheme(Leaf leaf, RenderedLeaf renderedLeaf) {
         CachedThemeVariant themeVariant = Themes.getThemeVariant(leaf.getThemeVariant());
         if (themeVariant == null) {
             Settings settings = Settings.load();

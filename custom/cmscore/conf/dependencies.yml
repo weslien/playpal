@@ -2,7 +2,6 @@ self: play -> cmscore 0.1
 
 require:
     - play [1.2,)
-    - cmstheme-default -> cmstheme-default 0.1
 
 repositories:
     - localModules:

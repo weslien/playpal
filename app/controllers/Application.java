@@ -1,6 +1,6 @@
 package controllers;
 
-import controllers.cmscore.CoreController;
+import controllers.cmscore.CoreLoader;
 import play.modules.cmscore.ui.RenderedLeaf;
 import play.mvc.Controller;
 
@@ -9,16 +9,14 @@ public class Application extends Controller {
     public static void index() {
         //TODO: Check for if config !exists and redirect to wizard
 
-        RenderedLeaf leaf = CoreController.getStartPage();
-        renderArgs.put("leaf", leaf);
+        RenderedLeaf leaf = CoreLoader.getStartPage();
         render(leaf.getTemplate(), leaf);
     }
     
-    public static void page(String uuid) {
+    public static void page(String identifier) {
         //TODO: Check for if config !exists and redirect to wizard
 
-        RenderedLeaf leaf = CoreController.getPage(uuid);
-        renderArgs.put("leaf", leaf);
+        RenderedLeaf leaf = CoreLoader.getPage(identifier);
         render(leaf.getTemplate(), leaf);
     }
 

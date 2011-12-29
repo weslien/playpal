@@ -12,7 +12,7 @@ public class Bootstrap extends Job {
     private static final Logger LOG = Logger.getLogger(Bootstrap.class);
 
     public void doJob() {
-        // TODO: remove the deleteDatabase call
+        // TODO: remove the Fixtures.deleteDatabase call
         LOG.info("Clearing database");
         Fixtures.deleteDatabase();
         // Check if the database is empty

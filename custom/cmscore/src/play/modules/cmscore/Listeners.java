@@ -2,11 +2,14 @@ package play.modules.cmscore;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Listeners {
-    
+
     public static Map<Class<? extends Annotation>, List<CachedAnnotation>> listeners = new HashMap<Class<? extends Annotation>, List<CachedAnnotation>>();
 
     public static void addListener(Annotation annotation, Method method) {
@@ -27,14 +30,17 @@ public class Listeners {
     }
     
     public static void invalidate(Class cls) {
+        /*
         for (List<CachedAnnotation> annotationTypes : listeners.values()) {
-            for (Iterator<CachedAnnotation> listenerIterator = annotationTypes.iterator(); listenerIterator.hasNext(); ) {
-                CachedAnnotation listener = listenerIterator.next();
+            List<CachedAnnotation> toBeRemoved = new ArrayList<CachedAnnotation>();
+            for (CachedAnnotation listener : annotationTypes) {
                 if (listener.method.getDeclaringClass().equals(cls)) {
-                    listenerIterator.remove();
+                    toBeRemoved.add(listener);
                 }
             }
+            annotationTypes.removeAll(toBeRemoved);
         }
+        */
     }
 
 }

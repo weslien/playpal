@@ -89,7 +89,7 @@ public class Page extends Model implements Leaf {
         return new StringBuilder().append("Page (")
                 .append(uuid).append(",")
                 .append(version).append(") - ")
-                .append(rootLeaf != null ? rootLeaf.getTitle() : "")
+                .append(rootLeaf != null ? rootLeaf.getTitle() : "<No title set>")
                 .toString();
     }
 

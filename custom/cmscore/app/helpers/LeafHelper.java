@@ -1,5 +1,6 @@
 package helpers;
 
+import listeners.PageNotFoundException;
 import models.cmscore.RootLeaf;
 import play.modules.cmscore.Leaf;
 import play.modules.cmscore.annotations.LeafLoaded;
@@ -11,6 +12,10 @@ public class LeafHelper {
     public static Leaf load(String uuid) {
         //Load leafModel
         RootLeaf rootLeaf = RootLeaf.findWithUuidLatestPublishedVersion(uuid, new Date());
+        if (rootLeaf == null) {
+            throw new PageNotFoundException(uuid);
+        }
+
         rootLeaf.init();
 
         boolean hasType = rootLeaf.type != null && !rootLeaf.getTypeClass().equals(RootLeaf.class);
