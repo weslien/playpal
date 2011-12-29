@@ -113,7 +113,7 @@ public final class RootLeaf extends Model implements Leaf {
     public static List<RootLeaf> findAllCurrentVersions(Date today) {
         return RootLeaf.find(
                 "select l from RootLeaf l " +
-                        "where l.version = (" +
+                "where l.version = (" +
                         "select max(l2.version) from RootLeaf l2 " +
                         "where l2.uuid = l.uuid and " +
                         "(l2.publish = null or l2.publish < :today) and " +
@@ -125,15 +125,15 @@ public final class RootLeaf extends Model implements Leaf {
     public static RootLeaf findWithUuidSpecificVersion(String uuid, Long version) {
         return RootLeaf.find(
                 "select distinct l from RootLeaf l " +
-                        "where l.uuid = :uuid and " +
-                        "l.version = :version"
+                "where l.uuid = :uuid and " +
+                "l.version = :version"
         ).bind("uuid", uuid).bind("version", version).first();
     }
 
     public static RootLeaf findWithUuidLatestPublishedVersion(String uuid, Date today) {
         return RootLeaf.find(
                 "select distinct l from RootLeaf l " +
-                        "where l.uuid = :uuid and " +
+                "where l.uuid = :uuid and " +
                         "(l.publish = null or l.publish < :today) and " +
                         "(l.unPublish = null OR l.unPublish >= :today)" +
                         "order by version desc"
@@ -142,8 +142,7 @@ public final class RootLeaf extends Model implements Leaf {
 
     public static List<RootLeaf> findWithUuidAllVersions(String uuid) {
         return RootLeaf.find(
-                "select distinct l from RootLeaf l " +
-                        "where l.uuid = :uuid"
+                "select distinct l from RootLeaf l where l.uuid = :uuid"
         ).bind("uuid", uuid).fetch();
     }
 

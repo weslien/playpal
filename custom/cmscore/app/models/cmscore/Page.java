@@ -111,8 +111,8 @@ public class Page extends Model implements Leaf {
     public static Page findWithUuidSpecificVersion(String uuid, Long version) {
         return RootLeaf.find(
                 "select distinct p from Page p " +
-                        "where p.uuid = :uuid and " +
-                        "p.version = :version"
+                "where p.uuid = :uuid and " +
+                "p.version = :version"
         ).bind("uuid", uuid).bind("version", version).first();
     }
 
