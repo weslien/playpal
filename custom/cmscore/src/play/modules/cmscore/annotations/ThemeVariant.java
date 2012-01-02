@@ -26,10 +26,12 @@ public @interface ThemeVariant {
      * The content areas this theme variant offers.
      * @return an array of content area names
      */
-    String[] contentAreas();
+    String[] regions();
 
     /**
-     * XML, HTML, TEXT, PDF, etc.
+     * Each theme can define several different outputs with the same design/look. Types can
+     * be XML, HTML, TEXT, PDF, etc.
+     * @return the type of output this theme variant produces
      */
     String output() default "HTML";
 }

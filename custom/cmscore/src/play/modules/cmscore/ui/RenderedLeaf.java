@@ -14,7 +14,7 @@ public class RenderedLeaf {
 
     private String script;
 
-    private Map<String, String> contentAreas;
+    private Map<String, String> region;
 
     public RenderedLeaf() {
     }
@@ -59,12 +59,12 @@ public class RenderedLeaf {
         this.script = script;
     }
 
-    public Map<String, String> getContentAreas() {
-        return contentAreas;
+    public Map<String, String> getRegion() {
+        return region;
     }
 
-    public void setContentAreas(Map<String, String> contentAreas) {
-        this.contentAreas = contentAreas;
+    public void setRegion(Map<String, String> region) {
+        this.region = region;
     }
 
     @Override

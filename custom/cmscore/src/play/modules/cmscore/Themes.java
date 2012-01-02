@@ -32,7 +32,7 @@ public class Themes {
         
     }
     
-    public static void addThemeVariant(String themeId, String variantId, Method templateMethod, String[] contentAreas) {
+    public static void addThemeVariant(String themeId, String variantId, Method templateMethod, String[] regions) {
         // Themes are declared on the class level and should be parsed first so we don't need to check if the themeId exists before accessing
         Map<String, CachedThemeVariant> themeVariants = themes.get(themeId).getThemeVariants();
         
@@ -40,7 +40,7 @@ public class Themes {
             throw new RuntimeException("Duplicate theme variant id [" + variantId + "]");
         }
         themeVariantsToThemeMapping.put(variantId, themeId);
-        themeVariants.put(variantId, new CachedThemeVariant(themeId, variantId, templateMethod, new HashSet<String>(Arrays.asList(contentAreas))));
+        themeVariants.put(variantId, new CachedThemeVariant(themeId, variantId, templateMethod, new HashSet<String>(Arrays.asList(regions))));
     }
     
     public static void addDecorator(String themeId, UIElementType UIElementType, Method method) {

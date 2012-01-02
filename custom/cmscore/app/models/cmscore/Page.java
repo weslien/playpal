@@ -57,31 +57,29 @@ public class Page extends Model implements Leaf {
         return rootLeaf.themeVariant;
     }
 
-    /* Interface methods */
-
     @Override
-    public Set<String> getContentAreas() {
-        return rootLeaf.getContentAreas();
+    public Set<String> getRegions() {
+        return rootLeaf.getRegions();
     }
 
     @Override
-    public List<UIElement> getUIElements(String contentArea) {
-        return rootLeaf.getUIElements(contentArea);
+    public List<UIElement> getUIElements(String region) {
+        return rootLeaf.getUIElements(region);
     }
 
     @Override
-    public void addUIElement(String contentArea, UIElement uiElement) {
-        rootLeaf.addUIElement(contentArea, uiElement, false);
+    public void addUIElement(String region, UIElement uiElement) {
+        rootLeaf.addUIElement(region, uiElement, false);
     }
 
     @Override
-    public void addUIElement(String contentArea, UIElement uiElement, boolean reorderElementsBelow) {
-        rootLeaf.addUIElement(contentArea, uiElement, reorderElementsBelow);
+    public void addUIElement(String region, UIElement uiElement, boolean reorderElementsBelow) {
+        rootLeaf.addUIElement(region, uiElement, reorderElementsBelow);
     }
 
     @Override
-    public boolean removeUIElement(String contentArea, UIElement uiElement) {
-        return rootLeaf.removeUIElement(contentArea, uiElement);
+    public boolean removeUIElement(String region, UIElement uiElement) {
+        return rootLeaf.removeUIElement(region, uiElement);
     }
 
     @Override

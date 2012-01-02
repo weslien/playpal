@@ -78,7 +78,7 @@ public final class RootLeaf extends Model implements Leaf {
     }
 
     @Override
-    public Set<String> getContentAreas() {
+    public Set<String> getRegions() {
         return this.uiElements.keySet();
     }
 
@@ -87,27 +87,27 @@ public final class RootLeaf extends Model implements Leaf {
     }
 
     /* Interface methods */
-    public List<UIElement> getUIElements(String contentArea) {
-        return this.uiElements.get(contentArea);
+    public List<UIElement> getUIElements(String region) {
+        return this.uiElements.get(region);
     }
 
-    public void addUIElement(String contentArea, UIElement uiElement) {
-        addUIElement(contentArea, uiElement, false);
+    public void addUIElement(String region, UIElement uiElement) {
+        addUIElement(region, uiElement, false);
     }
 
-    public void addUIElement(String contentArea, UIElement uiElement, boolean reorderElementsBelow) {
-        if (!uiElements.containsKey(contentArea)) {
-            uiElements.put(contentArea, new ArrayList<UIElement>());
+    public void addUIElement(String region, UIElement uiElement, boolean reorderElementsBelow) {
+        if (!uiElements.containsKey(region)) {
+            uiElements.put(region, new ArrayList<UIElement>());
         }
-        uiElements.get(contentArea).add(uiElement);
+        uiElements.get(region).add(uiElement);
         if(reorderElementsBelow){
-            UIElementHelper.repositionUIElements(uiElements.get(contentArea), uiElement);
+            UIElementHelper.repositionUIElements(uiElements.get(region), uiElement);
         }
-        UIElementHelper.reorderUIElements(uiElements.get(contentArea));
+        UIElementHelper.reorderUIElements(uiElements.get(region));
     }
 
-    public boolean removeUIElement(String contentArea, UIElement uiElement) {
-        return uiElements.get(contentArea).remove(uiElement);
+    public boolean removeUIElement(String region, UIElement uiElement) {
+        return uiElements.get(region).remove(uiElement);
     }
 
     public static List<RootLeaf> findAllCurrentVersions(Date today) {

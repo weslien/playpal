@@ -25,8 +25,8 @@ public class ThemeHelper {
         renderedLeaf.setTitle(leaf.getTitle());
         renderedLeaf.setTemplate(ReflectionHelper.getTemplate(themeVariant));
         RenderingContext renderingContext = new RenderingContext(themeVariant, leaf);
-        for (String contentArea : leaf.getContentAreas()) {
-            for (UIElement uiElement : leaf.getUIElements(contentArea)) {
+        for (String region : leaf.getRegions()) {
+            for (UIElement uiElement : leaf.getUIElements(region)) {
                 decorate(uiElement, renderingContext);
             }
         }

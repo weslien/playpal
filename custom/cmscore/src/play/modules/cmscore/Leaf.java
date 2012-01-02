@@ -23,14 +23,14 @@ public interface Leaf {
 
     String getThemeVariant();
 
-    Set<String> getContentAreas();
+    Set<String> getRegions();
     
-    List<UIElement> getUIElements(String contentArea);
+    List<UIElement> getUIElements(String region);
 
-    void addUIElement(String contentArea, UIElement uiElement);
+    void addUIElement(String region, UIElement uiElement);
 
-    void addUIElement(String contentArea, UIElement uiElement, boolean reorderElementsBelow);
+    void addUIElement(String region, UIElement uiElement, boolean reorderElementsBelow);
 
-    boolean removeUIElement(String contentArea, UIElement uiElement);
+    boolean removeUIElement(String region, UIElement uiElement);
 
 }
