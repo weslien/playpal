@@ -3,32 +3,35 @@
 === Description ===
 Play! framework adaptation of the drupal CMS
 
-==== How to run ====
+=== How to run ===
 To run the application you first need to build the CMS core module.
 <code>play build-module custom/cmscore</code>
+
 And any other custom modules you might like to build or include.
 <code>play build-module custom/test-custom #optional</code>
+
 After this you need to sync the dependencies of the application.
 <code>play deps --sync</code>
+
 Start your application.
 <code>play run</code>
 
-==== How to access ====
+=== How to access ===
 
-===== Patterns =====
-Leaves are available undecorated with the following pattern:
+==== Patterns ====
+Leaves are available undecorated with the following pattern:<br/>
 <code>http://localhost:9000/leaf/{uuid}</code>
 
-Accessing a specific version of a leaf would be the following pattern:
+Accessing a specific version of a leaf would be the following pattern:<br/>
 <code>http://localhost:9000/leaf/{uuid}/{version}</code>
 
-Fully decorated pages are available with the following pattern:
+Fully decorated pages are available with the following pattern:<br/>
 <code>http://localhost:9000/{uuid}</code>
 
-And similarly you can access a specific version by the following pattern:
+And similarly you can access a specific version by the following pattern:<br/>
 <code>http://localhost:9000/{uuid}/{version}</code>
 
-===== Examples =====
+==== Examples ====
 A couple of examples from the default data is:<br/>
 :: Leaf 1 - [http://localhost:9000/leaf/aa1755dd-18c4-4b78-956e-eef7e562c36c]<br/>
 :: Leaf 3 - [http://localhost:9000/leaf/1cf699a7-a0c4-4be0-855f-466042a36a8d]<br/>
@@ -57,19 +60,19 @@ There is also a 404 page set in settings, it will be shown any time a page is no
 : or
 :: [http://localhost:9000/c9615819-0556-4e70-b6a9-a66c5b8d4c1a]<br/>
 
-===== Aliases =====
+==== Aliases ====
 There are also aliases, they can have any path, for example:<br/>
 :: Page 3 [http://localhost:9000/third]<br/>
 :: Page 4 [http://localhost:9000/fourth]<br/>
 :: Page 5 [http://localhost:9000/fifth]<br/>
 
-==== How to test ====
+=== How to test ===
 
-To test the CMS core module you run autotest on a separate application bundled with the application.
+To test the CMS core module you run autotest on a separate application bundled with the application.<br/>
 <code>play autotest custom/cmscore-test</code>
 
-To test the application itself you only need run autotest.
+To test the application itself you only need run autotest.<br/>
 <code>play autotest</code>
 
-==== How to Contribute ====
+=== How to contribute ===
 Please contact one of the developers and we will gladly let any qualified developer contribute to the project.
