@@ -4,13 +4,13 @@
 Play! framework adaptation of the drupal CMS
 
 === How to run ===
-To run the application you first need to build the CMS core module.
+To run the application you first need to build the CMS core module.<br/>
 <code>play build-module custom/cmscore</code>
 
-And any other custom modules you might like to build or include.
+And any other custom modules you might like to build or include.<br/>
 <code>play build-module custom/test-custom #optional</code>
 
-After this you need to sync the dependencies of the application.
+After this you need to sync the dependencies of the application.<br/>
 <code>play deps --sync</code>
 
 Start your application.
