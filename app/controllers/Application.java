@@ -20,4 +20,11 @@ public class Application extends Controller {
         render(leaf.getTemplate(), leaf);
     }
 
+    public static void pageVersion(String identifier, long version) {
+        //TODO: Check if config !exists and redirect to wizard
+
+        RenderedLeaf leaf = CoreLoader.getPage(identifier, version);
+        render(leaf.getTemplate(), leaf);
+    }
+
 }

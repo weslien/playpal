@@ -16,6 +16,20 @@ public class LeafHelper {
             throw new PageNotFoundException(uuid);
         }
 
+        return load(rootLeaf);
+    }
+
+    public static Leaf load(String uuid, long version) {
+        //Load leafModel
+        RootLeaf rootLeaf = RootLeaf.findWithUuidSpecificVersion(uuid, version);
+        if (rootLeaf == null) {
+            throw new PageNotFoundException(uuid);
+        }
+
+        return load(rootLeaf);
+    }
+
+    private static Leaf load(RootLeaf rootLeaf) {
         boolean hasType = rootLeaf.type != null && !rootLeaf.getTypeClass().equals(RootLeaf.class);
         if (hasType) {
             triggerBeforeLeafLoaded(rootLeaf.getTypeClass(), rootLeaf);
