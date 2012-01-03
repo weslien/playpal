@@ -5,7 +5,9 @@ import play.modules.cmscore.Leaf;
 import play.modules.cmscore.Listeners;
 import play.modules.cmscore.annotations.LeafLoaded;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Helper to trigger \@LeafLoaded listeners. Should not be used directly, use LeafHelper instead.
@@ -14,10 +16,12 @@ import java.util.List;
  */
 public class LeafLoadedHelper {
 
-    public static void triggerListener(Class type, Leaf rootLeaf, LeafLoaded.Order order) {
+    public static void triggerListener(Class type, Leaf leaf, LeafLoaded.Order order) {
         CachedAnnotation listener = findListenerForType(type, order);
         if (listener != null) {
-            ReflectionHelper.invokeMethod(listener.method, rootLeaf);
+            Map<Class, Object> parameters = new HashMap<Class, Object>();
+            parameters.put(Leaf.class, leaf);
+            ReflectionHelper.invokeMethod(listener.method, parameters);
         }
     }
 

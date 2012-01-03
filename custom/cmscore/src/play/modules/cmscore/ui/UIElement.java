@@ -21,15 +21,36 @@ public class UIElement {
 
     private String body;
 
-    public UIElement(String id, UIElementType type, int weight) {
-        this(id, type, new WeakHashMap<String, String>(), weight);
+    public UIElement(UIElementType type, int weight) {
+        this("", type, new WeakHashMap<String, String>(), weight, null);
     }
     
-    public UIElement(String id, UIElementType type, Map<String, String> attributes, int weight) {
+    public UIElement(UIElementType type, int weight, String body) {
+        this("", type, new WeakHashMap<String, String>(), weight, body);
+    }
+    
+    public UIElement(String id, UIElementType type, int weight) {
+        this(id, type, new WeakHashMap<String, String>(), weight, null);
+    }
+
+    public UIElement(String id, UIElementType type, int weight, String body) {
+        this(id, type, new WeakHashMap<String, String>(), weight, body);
+    }
+
+    public UIElement(UIElementType type, Map<String, String> attributes, int weight) {
+        this("", type, attributes, weight, null);
+    }
+
+    public UIElement(UIElementType type, Map<String, String> attributes, int weight, String body) {
+        this("", type, attributes, weight, body);
+    }
+
+    public UIElement(String id, UIElementType type, Map<String, String> attributes, int weight, String body) {
         this.id = id;
         this.type = type;
         this.attributes = attributes;
         this.weight = weight;
+        this.body = body;
     }
 
     public String getId() {
@@ -70,6 +91,15 @@ public class UIElement {
 
     public void setChildren(List<UIElement> children) {
         this.children = children;
+    }
+
+    public UIElement addChild(UIElement uiElement) {
+        this.children.add(uiElement);
+        return uiElement;
+    }
+
+    public boolean removeChild(UIElement uiElement) {
+        return this.children.remove(uiElement);
     }
 
     public String getBody() {

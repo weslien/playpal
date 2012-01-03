@@ -13,6 +13,7 @@ import play.modules.cmscore.ui.RenderedLeaf;
 import play.modules.cmscore.ui.RenderingContext;
 import play.modules.cmscore.ui.UIElement;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class ThemeHelper {
@@ -21,16 +22,32 @@ public class ThemeHelper {
 
     public static RenderedLeaf decorate(Leaf leaf) {
         RenderedLeaf renderedLeaf = new RenderedLeaf();
-        CachedThemeVariant themeVariant = loadTheme(leaf, renderedLeaf);
+        CachedThemeVariant themeVariant = loadTheme(leaf);
+        setupRegions(themeVariant, renderedLeaf);
         renderedLeaf.setTitle(leaf.getTitle());
         renderedLeaf.setTemplate(ReflectionHelper.getTemplate(themeVariant));
         RenderingContext renderingContext = new RenderingContext(themeVariant, leaf);
         for (String region : leaf.getRegions()) {
             for (UIElement uiElement : leaf.getUIElements(region)) {
-                decorate(uiElement, renderingContext);
+                String decoratedContent = decorate(uiElement, renderingContext);
+                renderedLeaf.add(region, decoratedContent);
             }
         }
         return renderedLeaf;
+    }
+
+    /**
+     * Sets all the regions in the rendered leaf so the template can access them without
+     * nullpointer even if thepage has no ui elements.
+     * @param themeVariant the theme variant that holds the regions available
+     * @param renderedLeaf the leaf about to rendered
+     */
+    private static void setupRegions(CachedThemeVariant themeVariant, RenderedLeaf renderedLeaf) {
+        Map<String, String> regions = new HashMap<String, String>();
+        for(String region : themeVariant.regions) {
+            regions.put(region, "");
+        }
+        renderedLeaf.setRegions(regions);
     }
 
     public static String decorate(UIElement uiElement, RenderingContext renderingContext) {
@@ -58,7 +75,7 @@ public class ThemeHelper {
         return sb.toString();
     }
 
-    private static CachedThemeVariant loadTheme(Leaf leaf, RenderedLeaf renderedLeaf) {
+    private static CachedThemeVariant loadTheme(Leaf leaf) {
         CachedThemeVariant themeVariant = Themes.getThemeVariant(leaf.getThemeVariant());
         if (themeVariant == null) {
             Settings settings = Settings.load();
@@ -71,7 +88,7 @@ public class ThemeHelper {
         }
         if (themeVariant == null) {
             // TODO: Add some sort of fallback for when a theme is removed
-            throw new RuntimeException("No theme selected for "+renderedLeaf.toString());
+            throw new RuntimeException("No theme selected for "+leaf.toString());
         }
         return themeVariant;
     }

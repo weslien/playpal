@@ -38,6 +38,11 @@ public class Page extends Model implements Leaf {
     }
 
     @Override
+    public Long getLeafVersion() {
+        return this.version;
+    }
+
+    @Override
     public Date getDatePublished() {
         return this.rootLeaf.publish;
     }
@@ -68,13 +73,13 @@ public class Page extends Model implements Leaf {
     }
 
     @Override
-    public void addUIElement(String region, UIElement uiElement) {
-        rootLeaf.addUIElement(region, uiElement, false);
+    public UIElement addUIElement(String region, UIElement uiElement) {
+        return rootLeaf.addUIElement(region, uiElement, false);
     }
 
     @Override
-    public void addUIElement(String region, UIElement uiElement, boolean reorderElementsBelow) {
-        rootLeaf.addUIElement(region, uiElement, reorderElementsBelow);
+    public UIElement addUIElement(String region, UIElement uiElement, boolean reorderElementsBelow) {
+        return rootLeaf.addUIElement(region, uiElement, reorderElementsBelow);
     }
 
     @Override

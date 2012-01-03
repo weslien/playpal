@@ -16,8 +16,6 @@ public class LeafHelper {
             throw new PageNotFoundException(uuid);
         }
 
-        rootLeaf.init();
-
         boolean hasType = rootLeaf.type != null && !rootLeaf.getTypeClass().equals(RootLeaf.class);
         if (hasType) {
             triggerBeforeLeafLoaded(rootLeaf.getTypeClass(), rootLeaf);

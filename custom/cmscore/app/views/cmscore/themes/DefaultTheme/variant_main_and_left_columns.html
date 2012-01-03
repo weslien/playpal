@@ -1,0 +1,13 @@
+#{extends 'cmscore/themes/DefaultTheme/theme.html' /}
+#{set title:leaf.title /}
+
+<h3>${leaf.title}</h3>
+
+<div style="width: 30%; float: left; clear: none;">
+#{verbatim}${leaf.get('left')}#{/verbatim}
+</div>
+
+<div style="width: 70%; float: right">
+#{verbatim}${leaf.get('main')}#{/verbatim}
+</div>
+

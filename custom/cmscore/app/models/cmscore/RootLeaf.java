@@ -48,18 +48,27 @@ public final class RootLeaf extends Model implements Leaf {
         this.version = version;
     }
 
+    @Override
     public String getTitle() {
         return title;
     }
 
+    @Override
     public String getLeafId() {
         return uuid;
     }
 
+    @Override
+    public Long getLeafVersion() {
+        return version;
+    }
+
+    @Override
     public Date getDatePublished() {
         return publish;
     }
 
+    @Override
     public Date getDateUnpublished() {
         return unPublish;
     }
@@ -82,70 +91,94 @@ public final class RootLeaf extends Model implements Leaf {
         return this.uiElements.keySet();
     }
 
-    public void init() {
-        this.uiElements = new HashMap<String, List<UIElement>>();
-    }
-
     /* Interface methods */
+    @Override
     public List<UIElement> getUIElements(String region) {
-        return this.uiElements.get(region);
+        return this.uiElements.get(region.toLowerCase());
     }
 
-    public void addUIElement(String region, UIElement uiElement) {
-        addUIElement(region, uiElement, false);
-    }
+    @Override
+    public UIElement addUIElement(String region, UIElement uiElement) {
+        return addUIElement(region, uiElement, false);
+    }          
 
-    public void addUIElement(String region, UIElement uiElement, boolean reorderElementsBelow) {
-        if (!uiElements.containsKey(region)) {
-            uiElements.put(region, new ArrayList<UIElement>());
+    @Override
+    public UIElement addUIElement(String region, UIElement uiElement, boolean reorderElementsBelow) {
+        String regionKey = region.toLowerCase();
+        if (!uiElements.containsKey(regionKey)) {
+            uiElements.put(regionKey, new ArrayList<UIElement>());
         }
-        uiElements.get(region).add(uiElement);
+        uiElements.get(regionKey).add(uiElement);
         if(reorderElementsBelow){
-            UIElementHelper.repositionUIElements(uiElements.get(region), uiElement);
+            UIElementHelper.repositionUIElements(uiElements.get(regionKey), uiElement);
         }
-        UIElementHelper.reorderUIElements(uiElements.get(region));
+        UIElementHelper.reorderUIElements(uiElements.get(regionKey));
+        return uiElement;
     }
 
+    @Override
     public boolean removeUIElement(String region, UIElement uiElement) {
-        return uiElements.get(region).remove(uiElement);
+        String regionKey = region.toLowerCase();
+        if (uiElements.get(regionKey).remove(uiElement)) {
+            UIElementHelper.reorderUIElements(uiElements.get(regionKey));
+            return true;
+        }
+        return false;
     }
 
     public static List<RootLeaf> findAllCurrentVersions(Date today) {
-        return RootLeaf.find(
+        List<RootLeaf> leaves = RootLeaf.find(
                 "select l from RootLeaf l " +
-                "where l.version = (" +
+                        "where l.version = (" +
                         "select max(l2.version) from RootLeaf l2 " +
                         "where l2.uuid = l.uuid and " +
                         "(l2.publish = null or l2.publish < :today) and " +
                         "(l2.unPublish = null or l2.unPublish >= :today)" +
                         ")"
         ).bind("today", today).fetch();
+        for (RootLeaf leaf : leaves) {
+            leaf.uiElements = new HashMap<String, List<UIElement>>();
+        }
+        return leaves;
     }
     
     public static RootLeaf findWithUuidSpecificVersion(String uuid, Long version) {
-        return RootLeaf.find(
+        RootLeaf leaf = RootLeaf.find(
                 "select distinct l from RootLeaf l " +
-                "where l.uuid = :uuid and " +
-                "l.version = :version"
+                        "where l.uuid = :uuid and " +
+                        "l.version = :version"
         ).bind("uuid", uuid).bind("version", version).first();
+        if (leaf != null) {
+            leaf.uiElements = new HashMap<String, List<UIElement>>();
+        }
+        return leaf;
     }
 
     public static RootLeaf findWithUuidLatestPublishedVersion(String uuid, Date today) {
-        return RootLeaf.find(
+        RootLeaf leaf = RootLeaf.find(
                 "select distinct l from RootLeaf l " +
-                "where l.uuid = :uuid and " +
+                        "where l.uuid = :uuid and " +
                         "(l.publish = null or l.publish < :today) and " +
                         "(l.unPublish = null OR l.unPublish >= :today)" +
                         "order by version desc"
         ).bind("uuid", uuid).bind("today", today).first();
+        if (leaf != null) {
+            leaf.uiElements = new HashMap<String, List<UIElement>>();
+        }
+        return leaf;
     }
 
     public static List<RootLeaf> findWithUuidAllVersions(String uuid) {
-        return RootLeaf.find(
+        List<RootLeaf> leaves = RootLeaf.find(
                 "select distinct l from RootLeaf l where l.uuid = :uuid"
         ).bind("uuid", uuid).fetch();
+        for (RootLeaf leaf : leaves) {
+            leaf.uiElements = new HashMap<String, List<UIElement>>();
+        }
+        return leaves;
     }
 
+    @Override
     public String toString() {
         return "Leaf (" + uuid + "," + version + ") - " + title;
     }

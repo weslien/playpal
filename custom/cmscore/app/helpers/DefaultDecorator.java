@@ -1,5 +1,6 @@
 package helpers;
 
+import org.apache.commons.lang.StringUtils;
 import play.modules.cmscore.ui.RenderingContext;
 import play.modules.cmscore.ui.UIElement;
 
@@ -9,18 +10,12 @@ import java.util.Map;
 
 public class DefaultDecorator {
 
-    public static String decorate(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
+    public static String decorate(UIElement uiElement, RenderingContext renderingContext) {
         switch (uiElement.getType()) {
-            case HEAD:
-                return decorateHead(uiElement, renderingContext);
-            case SCRIPT:
-                return decorateScript(uiElement, renderingContext);
-            case TITLE:
-                return decorateTitle(uiElement, renderingContext);
             case META:
                 return decorateMeta(uiElement, renderingContext);
-            case BODY:
-                return decorateBody(uiElement, renderingContext);
+            case SCRIPT:
+                return decorateScript(uiElement, renderingContext);
             case FORM:
                 return decorateForm(uiElement, renderingContext);
             case INPUT_TEXT:
@@ -58,100 +53,82 @@ public class DefaultDecorator {
         }
     }
 
-    public static String decorateHead(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
-        StringBuilder sb = new StringBuilder().append(writeStartTag("head", uiElement));
-        sb.append(ThemeHelper.decorateChildren(uiElement, renderingContext));
-        sb.append(writeEndTag("head"));
-        return sb.toString();
-    }
-
-    public static String decorateMeta(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
+    public static String decorateMeta(UIElement uiElement, RenderingContext renderingContext) {
         return writeClosedTag("meta", uiElement);
     }
 
-    public static String decorateScript(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
+    public static String decorateScript(UIElement uiElement, RenderingContext renderingContext) {
         return writeClosedTag("script", uiElement);
     }
 
-    public static String decorateTitle(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
-        return writeClosedTag("title", uiElement);
-    }
-    
-    public static String decorateBody(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
-        StringBuilder sb = new StringBuilder().append(writeStartTag("body", uiElement));
-        sb.append(ThemeHelper.decorateChildren(uiElement, renderingContext));
-        sb.append(writeEndTag("body"));
-        return sb.toString();
-    }
-
-    public static String decorateForm(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
+    public static String decorateForm(UIElement uiElement, RenderingContext renderingContext) {
         StringBuilder sb = new StringBuilder().append(writeStartTag("form", uiElement));
         sb.append(ThemeHelper.decorateChildren(uiElement, renderingContext));
         sb.append(writeEndTag("form"));
         return sb.toString();
     }
 
-    public static String decorateListBulleted(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
+    public static String decorateListBulleted(UIElement uiElement, RenderingContext renderingContext) {
         StringBuilder sb = new StringBuilder().append(writeStartTag("ul", uiElement));
         sb.append(ThemeHelper.decorateChildren(uiElement, renderingContext));
         sb.append(writeEndTag("ul"));
         return sb.toString();
     }
     
-    public static String decorateListNumbered(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
+    public static String decorateListNumbered(UIElement uiElement, RenderingContext renderingContext) {
         StringBuilder sb = new StringBuilder().append(writeStartTag("ol", uiElement));
         sb.append(ThemeHelper.decorateChildren(uiElement, renderingContext));
         sb.append(writeEndTag("ol"));
         return sb.toString();
     }
 
-    public static String decorateListItem(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
+    public static String decorateListItem(UIElement uiElement, RenderingContext renderingContext) {
         StringBuilder sb = new StringBuilder().append(writeStartTag("li", uiElement));
         sb.append(ThemeHelper.decorateChildren(uiElement, renderingContext));
         sb.append(writeEndTag("li"));
         return sb.toString();
     }
 
-    public static String decorateInputText(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
+    public static String decorateInputText(UIElement uiElement, RenderingContext renderingContext) {
         return writeClosedTag("input", uiElement, Collections.singletonMap("type", "text"));
     }
 
-    public static String decorateInputHidden(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
+    public static String decorateInputHidden(UIElement uiElement, RenderingContext renderingContext) {
         return writeClosedTag("input", uiElement, Collections.singletonMap("type", "hidden"));
     }
 
-    public static String decorateInputTextArea(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
+    public static String decorateInputTextArea(UIElement uiElement, RenderingContext renderingContext) {
         StringBuilder sb = new StringBuilder().append(writeStartTag("textarea", uiElement));
         sb.append(ThemeHelper.decorateChildren(uiElement, renderingContext));
         sb.append(writeEndTag("textarea"));
         return sb.toString();
     }
 
-    public static String decorateInputRadioButton(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
+    public static String decorateInputRadioButton(UIElement uiElement, RenderingContext renderingContext) {
         return writeClosedTag("input", uiElement, Collections.singletonMap("type", "radiobutton"));
     }
 
-    public static String decorateInputButton(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
+    public static String decorateInputButton(UIElement uiElement, RenderingContext renderingContext) {
         return writeClosedTag("input", uiElement, Collections.singletonMap("type", "button"));
     }
 
-    public static String decorateInputSubmit(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
+    public static String decorateInputSubmit(UIElement uiElement, RenderingContext renderingContext) {
         return writeClosedTag("input", uiElement, Collections.singletonMap("type", "submit"));
     }
 
-    public static String decorateInputReset(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
+    public static String decorateInputReset(UIElement uiElement, RenderingContext renderingContext) {
         return writeClosedTag("input", uiElement, Collections.singletonMap("type", "reset"));
     }
 
-    public static String decorateInputImage(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
+    public static String decorateInputImage(UIElement uiElement, RenderingContext renderingContext) {
         return writeClosedTag("input", uiElement, Collections.singletonMap("type", "image"));
     }
 
-    public static String decorateInputFile(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
+    public static String decorateInputFile(UIElement uiElement, RenderingContext renderingContext) {
         return writeClosedTag("input", uiElement, Collections.singletonMap("type", "file"));
     }
 
-    public static String decorateInputPassword(UIElement uiElement, play.modules.cmscore.ui.RenderingContext renderingContext) {
+    public static String decorateInputPassword(UIElement uiElement, RenderingContext renderingContext) {
         return writeClosedTag("input", uiElement, Collections.singletonMap("type", "password"));
     }
 
@@ -163,7 +140,10 @@ public class DefaultDecorator {
     }
     
     public static String decorateText(UIElement uiElement, RenderingContext renderingContext) {
-        return uiElement.getBody();
+        StringBuilder sb = new StringBuilder().append(writeStartTag("p", uiElement));
+        sb.append(uiElement.getBody());
+        sb.append(writeEndTag("p"));
+        return sb.toString();
     }
 
     public static String writeClosedTag(String name, UIElement uiElement) {
@@ -172,22 +152,30 @@ public class DefaultDecorator {
 
     public static String writeClosedTag(String name, UIElement uiElement, Map<String, String> additionalAttributes) {
         StringBuilder sb = new StringBuilder("<").append(name);
-        sb.append(writeAttribute("id", uiElement.getId()));
+        sb.append(writeIdAttribute(uiElement));
         sb.append(writeAttributes(uiElement.getAttributes()));
         sb.append(writeAttributes(additionalAttributes));
         return sb.append("/>").toString();
     }
-    
+
     public static String writeStartTag(String name, UIElement uiElement) {
         return writeStartTag(name, uiElement, new HashMap<String, String>());
     }
-    
+
     public static String writeStartTag(String name, UIElement uiElement, Map<String, String> additionalAttributes) {
         StringBuilder sb = new StringBuilder("<").append(name);
-        sb.append(writeAttribute("id", uiElement.getId()));
+        sb.append(writeIdAttribute(uiElement));
         sb.append(writeAttributes(uiElement.getAttributes()));
         sb.append(writeAttributes(additionalAttributes));
         return sb.append(">").toString();
+    }
+
+    private static String writeIdAttribute(UIElement uiElement) {
+        if (StringUtils.isEmpty(uiElement.getId())) {
+            return writeAttribute("id", uiElement.getId());
+        } else {
+            return "";
+        }
     }
 
     public static String writeAttributes(Map<String, String> additionalAttributes) {
