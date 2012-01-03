@@ -10,6 +10,3 @@ GET     /leaf/{uuid}/{<[0-9]+>version}      cmscore.LeafController.leafVersion
 GET     /leaf/{uuid}/all                    cmscore.LeafController.leafVersions
 GET     /leaf/{uuid}                        cmscore.LeafController.leaf
 GET     /leaf                               cmscore.LeafController.leafList
-
-#Core routing
-GET     /core/{uuid}                        cmscore.CoreController.index
