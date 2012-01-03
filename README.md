@@ -20,67 +20,48 @@ How to access
 -------------
 
 Leaves are available undecorated with the following pattern:
-
 `http://localhost:9000/leaf/{uuid}`
 
 Accessing a specific version of a leaf would be the following pattern:
-
 `http://localhost:9000/leaf/{uuid}/{version}`
 
 Fully decorated pages are available with the following pattern:
-
 `http://localhost:9000/{uuid}`
 
 And similarly you can access a specific version by the following pattern:
-
 `http://localhost:9000/{uuid}/{version}`
 
 A couple of examples from the default data is:
-
 Leaf 1 - [http://localhost:9000/leaf/aa1755dd-18c4-4b78-956e-eef7e562c36c](http://localhost:9000/leaf/aa1755dd-18c4-4b78-956e-eef7e562c36c)
-
 Leaf 3 - [http://localhost:9000/leaf/1cf699a7-a0c4-4be0-855f-466042a36a8d](http://localhost:9000/leaf/1cf699a7-a0c4-4be0-855f-466042a36a8d)
 
 
 Accessing the same leaves but other versions would be:
-
 Leaf 1 - [http://localhost:9000/leaf/aa1755dd-18c4-4b78-956e-eef7e562c36c/2](http://localhost:9000/leaf/aa1755dd-18c4-4b78-956e-eef7e562c36c/2)
-
 Leaf 3 - [http://localhost:9000/leaf/1cf699a7-a0c4-4be0-855f-466042a36a8d/3](http://localhost:9000/leaf/1cf699a7-a0c4-4be0-855f-466042a36a8d/3)
 
 
 Accessing the same leaves but as decorated full pages:
-
 Page 1 - [http://localhost:9000/aa1755dd-18c4-4b78-956e-eef7e562c36c](http://localhost:9000/aa1755dd-18c4-4b78-956e-eef7e562c36c)
-
 Page 3 - [http://localhost:9000/1cf699a7-a0c4-4be0-855f-466042a36a8d](http://localhost:9000/1cf699a7-a0c4-4be0-855f-466042a36a8d)
 
 
 Accessing the same decorated pages but other versions:
-
 Page 1 - [http://localhost:9000/aa1755dd-18c4-4b78-956e-eef7e562c36c/2](http://localhost:9000/aa1755dd-18c4-4b78-956e-eef7e562c36c/2)
-
 Page 3 - [http://localhost:9000/1cf699a7-a0c4-4be0-855f-466042a36a8d/3](http://localhost:9000/1cf699a7-a0c4-4be0-855f-466042a36a8d/3)
 
 
 There is a start page set in the system settings, in the example data it is pointed at Leaf A listed above. It can be accessed at:
-
 [http://localhost:9000/](http://localhost:9000/)
 
 There is also a 404 page set in settings, it will be shown any time a page is not found or by accessing it by:
-
 [http://localhost:9000/page-not-found](http://localhost:9000/page-not-found) - This is an alias, explained below.
-
 or
-
 [http://localhost:9000/c9615819-0556-4e70-b6a9-a66c5b8d4c1a](http://localhost:9000/c9615819-0556-4e70-b6a9-a66c5b8d4c1a)
 
 
 There are also aliases, they can have any path, for example:
-
 Page 3 [http://localhost:9000/third](http://localhost:9000/third)
-
 Page 4 [http://localhost:9000/fourth](http://localhost:9000/fourth)
-
 Page 5 [http://localhost:9000/fifth](http://localhost:9000/fifth)
 
