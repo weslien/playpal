@@ -22,9 +22,9 @@ public class LeafController extends Controller {
     public static void leaf(@Required String uuid) {
 
         //Load leafModel
-        RootLeaf rootLeaf = RootLeaf.findWithUuidLatestPublishedVersion(uuid, new Date());
+        RootLeaf leaf = RootLeaf.findWithUuidLatestPublishedVersion(uuid, new Date());
 
-        render(rootLeaf);
+        render(leaf);
     }
 
     //@Get("/rootLeaf/{uuid}/all")
@@ -38,9 +38,9 @@ public class LeafController extends Controller {
     //@Get("/rootLeaf/{uuid}/{<[0-9]+>version}")
     public static void leafVersion(@Required String uuid, @Required Long version) {
 
-        RootLeaf rootLeaf = RootLeaf.findWithUuidSpecificVersion(uuid, version);
+        RootLeaf leaf = RootLeaf.findWithUuidSpecificVersion(uuid, version);
 
-        render(rootLeaf);
+        render(leaf);
     }
 
 }
