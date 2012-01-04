@@ -1,4 +1,4 @@
-self: play -> cmscore 0.1
+self: play -> cmsadmin 0.1
 
 require:
     - play [1.2,)
