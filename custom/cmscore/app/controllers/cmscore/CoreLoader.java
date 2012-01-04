@@ -38,6 +38,7 @@ public class CoreLoader {
     }
 
     // TODO: This should be a redirect to the /page-not-found page so that it is not cached incorrectly downstream
+    // TODO: this method should also be readily accessible by third party modules to all 404 management is streamlined
     private static RenderedLeaf loadAndDecoratePageNotFoundPage() {
         Settings settings = Settings.load();
         String pageNotFoundPage = settings.getValue(SettingsKeys.Core.PAGE_NOT_FOUND_PAGE);
