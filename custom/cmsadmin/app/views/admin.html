@@ -10,13 +10,46 @@
 </head>
 <body>
 
+<div id="header">
+    <div id="logo">
+        PlayPal! <span>administration</span>
+    </div>
+    *{
+    <ul id="tools">
+    <li>
+            <a href="@{Secure.logout()}">Log out</a>
+        </li>
+    </ul>
+    }*
+</div>
+
 <div id="main">
 
-    <h3>PlayPal! Adminstration</h3>
+    <ul id="adminMenu">
+        <li class="${request.controller == 'Dashboard' ? 'selected' : ''}">
+            <a href="@{cmsadmin.Dashboard.index()}">Dashboard</a>
+        </li>
+    *{#{secure.check 'admin'}}*
+        <li class="${request.controller == 'Pages' ? 'selected' : ''}">
+            <a href="@{cmsadmin.Pages.list()}">Pages</a>
+        </li>
+        <li class="${request.controller == 'Blocks' ? 'selected' : ''}">
+        <a href="@{cmsadmin.Blocks.list()}">Blocks</a>
+        </li>
+        <li class="${request.controller == 'Alias' ? 'selected' : ''}">
+        <a href="@{cmsadmin.Aliases.list()}">Alias</a>
+        </li>
+    *{#{/secure.check}}*
+    </ul>
 
     #{doLayout /}
 
 </div>
+
+
+<p id="footer">
+    PlayPal! is a <a href="http://www.playframework.org">Play framework</a> framework adaptation of Drupal.
+</p>
 
 </body>
 </html>

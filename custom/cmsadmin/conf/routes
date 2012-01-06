@@ -5,5 +5,7 @@
 #
 # ~~~~
 
-*       /admin                                       module:crud
+*       /admin/crud                                 module:crud
 
+*       /admin                                      cmsadmin.Dashboard.index
+*       /admin/dashboard                            cmsadmin.Dashboard.index

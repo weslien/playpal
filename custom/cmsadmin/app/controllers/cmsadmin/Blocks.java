@@ -1,5 +1,6 @@
-package controllers;
+package controllers.cmsadmin;
 
+import controllers.CRUD;
 import models.cmscore.Block;
 
 @CRUD.For(Block.class)
