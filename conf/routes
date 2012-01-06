@@ -2,12 +2,15 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+# Modules
+#*       /admin                                  module:crud
+*       /                                       module:cmsadmin
 *       /                                       module:cmscore
 
 # Home page
-GET     /                                       Application.index
-GET     /{identifier}                           Application.page
-GET     /{identifier}/{<[0-9]+>version}         Application.pageVersion
+#GET     /                                       Application.index
+#GET     /{identifier}                           Application.page
+#GET     /{identifier}/{<[0-9]+>version}         Application.pageVersion
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

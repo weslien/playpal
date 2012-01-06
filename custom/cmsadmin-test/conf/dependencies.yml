@@ -8,7 +8,6 @@ require:
 ### Internal modules
     - cmscore -> cmscore 0.1
     - cmsadmin -> cmsadmin 0.1
-    - test-custom -> test-custom 0.1
 
 repositories:
     - localModules:

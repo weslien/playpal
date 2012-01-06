@@ -5,4 +5,5 @@
 #
 # ~~~~
 
-GET     /?                      Module.index
+*       /admin                                       module:crud
+
