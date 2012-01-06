@@ -1,4 +1,4 @@
-package controllers;
+package controllers.cmsadmin;
 
 import play.mvc.Controller;
 
