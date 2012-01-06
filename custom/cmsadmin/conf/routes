@@ -9,3 +9,5 @@
 
 *       /admin                                      cmsadmin.Dashboard.index
 *       /admin/dashboard                            cmsadmin.Dashboard.index
+
+*       /admin/public/javascripts/tiny_mce/         staticDir:public/javascripts/tiny_mce/
