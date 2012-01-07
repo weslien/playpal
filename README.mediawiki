@@ -13,7 +13,7 @@ And any other custom modules you might like to build or include.<br/>
 After this you need to sync the dependencies of the application.<br/>
 <code>play deps --sync</code>
 
-Start your application.
+Start your application.<br/>
 <code>play run</code>
 
 === How to access ===

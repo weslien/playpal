@@ -1,0 +1,13 @@
+# This file defines all module routes (Higher priority routes first)
+#
+# import these routes in the main app as :
+# *     /                       module:cmsadmin
+#
+# ~~~~
+
+*       /admin/crud                                 module:crud
+
+*       /admin                                      cmsadmin.Dashboard.index
+*       /admin/dashboard                            cmsadmin.Dashboard.index
+
+*       /admin/public/javascripts/tiny_mce/         staticDir:public/javascripts/tiny_mce/

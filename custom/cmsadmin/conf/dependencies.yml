@@ -1,0 +1,21 @@
+self: play -> cmsadmin 0.1
+
+require:
+    - play [1.2,)
+    - play -> crud
+    - play -> deadbolt [1.4,)
+
+### Internal modules
+    - cmscore -> cmscore 0.1
+    - cmsadmin -> cmsadmin 0.1
+
+repositories:
+    - localModules:
+        type: local
+        artifact: "${application.path}/../[module]/"
+        contains:
+            - cmscore
+            - cmscore-test
+            - cmsadmin
+            - cmsadmin-test
+            - test-custom

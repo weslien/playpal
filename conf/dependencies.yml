@@ -2,13 +2,23 @@
 
 require:
     - play [1.2,)
+
+### Modules from the play repository
 #    - play -> morphia [1.2.4)
 #    - play -> router 1.1
     - play -> cobertura
 
+    - play -> crud
+#    - play -> deadbolt [1.4,)
+
+### Internal modules
     - cmscore -> cmscore 0.1
-#    - cmscore-test -> cmscore-test 0.1
+    - cmsadmin -> cmsadmin 0.1
     - test-custom -> test-custom 0.1
+
+### Only needed when generating the IDEA project
+#    - cmscore-test -> cmscore-test 0.1
+#    - cmsadmin-test -> cmsadmin-test 0.1
 
 repositories:
     - localModules:
@@ -17,4 +27,6 @@ repositories:
         contains:
             - cmscore
             - cmscore-test
+            - cmsadmin
+            - cmsadmin-test
             - test-custom
