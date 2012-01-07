@@ -1,14 +1,20 @@
 #{extends 'cmscore/themes/DefaultTheme/theme.html' /}
 #{set title:leaf.title /}
-#{set blabla: '/public/cmscore/stylesheets/test.css'/}
+#{set nestledMainStyle: '/public/cmscore/stylesheets/main_and_left_columns.css'/}
+<div class="main-and-left-layout">
+    <div class="head">
+        <h3>${leaf.title}</h3>
+    </div>
+    <div class="left-column">
+        <div class="content">
+        #{verbatim}${leaf.get('left')}#{/verbatim}
+        </div>
+    </div>
 
-<h3>${leaf.title}</h3>
-
-<div class="left-column">
-#{verbatim}${leaf.get('left')}#{/verbatim}
-</div>
-
-<div style="width: 70%; float: right" class="main-column">
-#{verbatim}${leaf.get('main')}#{/verbatim}
+    <div class="main-column">
+        <div class="content">
+        #{verbatim}${leaf.get('main')}#{/verbatim}
+        </div>
+    </div>
 </div>
 
