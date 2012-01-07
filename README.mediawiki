@@ -66,6 +66,9 @@ There are also aliases, they can have any path, for example:<br/>
 :: Page 4 [http://localhost:9000/fourth]<br/>
 :: Page 5 [http://localhost:9000/fifth]<br/>
 
+=== How to edit ===
+Just access the <i>very</i> basic admin application by going to [http://localhost:9000/admin/]
+
 === How to test ===
 
 To test the CMS core module you run autotest on a separate application bundled with the application.<br/>
