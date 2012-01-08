@@ -5,9 +5,11 @@
 #
 # ~~~~
 
+GET     /admin/public/                              staticDir:/custom/cmsadmin/public/
+
 *       /admin/crud                                 module:crud
 
 *       /admin                                      cmsadmin.Dashboard.index
+*       /admin/                                     cmsadmin.Dashboard.index
 *       /admin/dashboard                            cmsadmin.Dashboard.index
 
-*       /admin/public/javascripts/tiny_mce/         staticDir:public/javascripts/tiny_mce/

@@ -3,7 +3,6 @@
 # ~~~~
 
 # Modules
-#*       /admin                                  module:crud
 *       /                                       module:cmsadmin
 *       /                                       module:cmscore
 

@@ -1,6 +1,8 @@
 #{extends 'cmscore/themes/DefaultTheme/theme.html' /}
 #{set title:leaf.title /}
-#{set nestledMainStyle: '/public/cmscore/stylesheets/main_and_left_columns.css'/}
+#{set 'nestledMainStyle'}
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main_and_left_columns.css'}"/>
+#{/set}
 <div class="main-and-left-layout">
     <div class="head">
         <h3>${leaf.title}</h3>
