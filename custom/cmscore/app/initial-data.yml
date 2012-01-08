@@ -64,23 +64,23 @@ cmscore.Content(content-side-4):
 cmscore.RootLeaf(leaf-first-1):
     uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        1
-    title:          Start Page
     type:           models.cmscore.Page
 
 cmscore.RootLeaf(leaf-first-2):
     uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        2
-    title:          Start Page
     type:           models.cmscore.Page
 
 # Page 1 -> Page
 cmscore.Page(page-first-1):
     uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        1
+    title:          Start Page
 
 cmscore.Page(page-first-2):
     uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        2
+    title:          Start Page
 
 # Page 1 -> Block
 cmscore.Block(page-first-1-block-1):
@@ -119,13 +119,13 @@ cmscore.Block(page-first-2-block-3):
 cmscore.RootLeaf(leaf-second-1):
     uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        1
-    title:          Page Not Found
     type:           models.cmscore.Page
 
 # Page 2 -> Page
 cmscore.Page(page-second-1):
     uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        1
+    title:          Page Not Found
 
 # Page 2 -> Block
 cmscore.Block(page-second-block-1):
@@ -146,13 +146,11 @@ cmscore.Block(page-second-block-3):
 cmscore.RootLeaf(leaf-third-1):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        1
-    title:          Third Page
     type:           models.cmscore.Page
 
 cmscore.RootLeaf(leaf-third-2):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        2
-    title:          Third Page second iteration
     publish:        2011-01-01 00:00:00
     unpublish:      2012-01-01 00:00:00
     type:           models.cmscore.Page
@@ -160,7 +158,6 @@ cmscore.RootLeaf(leaf-third-2):
 cmscore.RootLeaf(leaf-third-3):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        3
-    title:          Third Page third iteration
     publish:        2012-01-01 00:00:00
     type:           models.cmscore.Page
 
@@ -168,14 +165,17 @@ cmscore.RootLeaf(leaf-third-3):
 cmscore.Page(page-third-1):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        1
+    title:          Third Page
 
 cmscore.Page(page-third-2):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        2
+    title:          Third Page second iteration
 
 cmscore.Page(page-third-3):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        3
+    title:          Third Page third iteration
 
 # Page 3 -> Block
 cmscore.Block(page-third-1-block-1):
@@ -226,13 +226,13 @@ cmscore.Block(page-third-3-block-2):
 cmscore.RootLeaf(leaf-fourth-1):
     uuid:           1c7a35d1-5e50-4dc8-8ef9-392745b3c6f9
     version:        1
-    title:          Fourth Page
     type:           models.cmscore.Page
 
 # Page 4 -> Page
 cmscore.Page(page-fourth-1):
     uuid:           1c7a35d1-5e50-4dc8-8ef9-392745b3c6f9
     version:        1
+    title:          Fourth Page
 
 # Page 4 -> Block
 cmscore.Block(page-fourth-1-block-1):
@@ -259,13 +259,13 @@ cmscore.Block(page-fourth-1-block-3):
 cmscore.RootLeaf(leaf-fifth-1):
     uuid:           c6d14b95-a3a8-4103-a04f-a0eb5b0c2bfa
     version:        1
-    title:          Fifth Page
     type:           models.cmscore.Page
 
 # Page 5 -> Page
 cmscore.Page(page-fifth-1):
     uuid:           c6d14b95-a3a8-4103-a04f-a0eb5b0c2bfa
     version:        1
+    title:          Fifth Page
 
 # Page 5 -> Block
 cmscore.Block(page-fifth-1-block-1):

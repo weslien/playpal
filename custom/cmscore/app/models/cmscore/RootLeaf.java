@@ -16,9 +16,6 @@ public final class RootLeaf extends Model implements Leaf {
     @Required
     public String uuid;
     
-    @Required
-    public String title;
-
     // Should only have to be Integer but because of defect #521 in play that doesn't work. Should be fixed in 1.3
     @Required
     public Long version;
@@ -36,21 +33,19 @@ public final class RootLeaf extends Model implements Leaf {
     @Transient
     private Map<String, List<UIElement>> uiElements = new WeakHashMap<String, List<UIElement>>();
 
-    public RootLeaf(Long version, String title) {
+    public RootLeaf(Long version) {
         this.uuid = UUID.randomUUID().toString();
-        this.title = title;
         this.version = version;
     }
     
-    public RootLeaf(String uuid, Long version, String title) {
+    public RootLeaf(String uuid, Long version) {
         this.uuid = uuid;
-        this.title = title;
         this.version = version;
     }
 
     @Override
     public String getTitle() {
-        return title;
+        return toString();
     }
 
     @Override
@@ -180,6 +175,6 @@ public final class RootLeaf extends Model implements Leaf {
 
     @Override
     public String toString() {
-        return "Leaf (" + uuid + "," + version + ") - " + title;
+        return "Leaf (" + uuid + "," + version + ")";
     }
 }

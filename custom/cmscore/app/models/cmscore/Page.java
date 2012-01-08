@@ -32,6 +32,9 @@ public class Page extends Model implements Leaf {
     @Transient
     public RootLeaf rootLeaf;
 
+    @Required
+    public String title;
+
     @Override
     public String getLeafId() {
         return this.uuid;
@@ -54,7 +57,7 @@ public class Page extends Model implements Leaf {
 
     @Override
     public String getTitle() {
-        return rootLeaf.title;
+        return title;
     }
 
     @Override
@@ -92,7 +95,7 @@ public class Page extends Model implements Leaf {
         return new StringBuilder().append("Page (")
                 .append(uuid).append(",")
                 .append(version).append(") - ")
-                .append(rootLeaf != null ? rootLeaf.getTitle() : "<No title set>")
+                .append(title)
                 .toString();
     }
 
