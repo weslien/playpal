@@ -1,6 +1,7 @@
 html, body{
     font-family: Helvetica, Arial, sans-serif;
     font-size: 0.9em;
+    color:#2E2E2E;
 }
 
 /* wrapper div */
@@ -14,8 +15,8 @@ html, body{
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 10px;
-    background-color: #111;
-    color:#eee;
+    background-color: #4F7D50;
+    color:#FFEF00;
 }
 
 h1{
@@ -33,7 +34,7 @@ h3{
 
 .left-column{
     width: 30%; float: left; clear: none;
-    background: #2B6FB6;
+    background: #99BF38;
 
 
 
@@ -41,6 +42,8 @@ h3{
 
 .main-column{
     width: 70%; float: right;
+    background: #404F48;
+    color: #fff;
 
 }
 
