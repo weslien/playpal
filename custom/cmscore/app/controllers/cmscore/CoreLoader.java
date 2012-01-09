@@ -59,7 +59,7 @@ public class CoreLoader {
         Alias alias = Alias.findWithPath(identifier);
         if (alias != null) {
             LOG.trace("Found alias: "+ alias.toString());
-            Leaf leaf = loadByUUIDAndVersion(alias.uuid, version);
+            Leaf leaf = loadByUUIDAndVersion(alias.page, version);
             return decorateLeaf(leaf);
         } else {
             LOG.trace("Trying to find page with uuid ["+identifier+"]");

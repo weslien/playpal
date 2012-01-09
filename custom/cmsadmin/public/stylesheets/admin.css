@@ -66,11 +66,9 @@ body {
 }
 
 #main {
-    background: #A2BD9F;
-    background: -webkit-gradient(linear, left top, left 30%, from(#71877B), to(#D7D7AD));
-    -webkit-border-radius: 16px;
-    -moz-border-radius: 16px;
-    padding: 20px;
+    padding: 10px;
+    border: 1px solid #c3c3c3;
+    margin: 10px 20px;
 }
 
 /** Form **/
@@ -131,12 +129,10 @@ form label {
 /** Footer **/
 
 #footer {
-    border-top: 1px solid #45597A;
     font-size: 70%;
     padding: 10px 30px;
     text-align: center;
     color: #869AB1;
-    margin-top: 30px;
 }
 
 #footer a {
@@ -180,15 +176,19 @@ form label {
 }
 
 #crudContent h2 {
-    color: #EDC3CD !important;
+    color: #71877B !important;
 }
 
 #crudContent thead tr {
-    background: #C7B573 !important;
+    background: #c3c3c3 !important;
+}
+
+#crudContent tr {
+    border: 1px solid #b3b3b3;
 }
 
 #crudContent table {
-    border: none !important;
+    border: 1px solid #b3b3b3;
 }
 
 #crudContent table td {
@@ -206,7 +206,7 @@ tr.odd {
 }
 
 #crudListTable {
-    margin: 10px 0;
+    margin: 10px 0 0 0;
 }
 
 .crudField, .objectForm {
@@ -215,11 +215,11 @@ tr.odd {
 }
 
 .crudField label {
-    color: #B8FA5C;
+    color: #000;
 }
 
 .crudHelp {
-    color: #fff !important;
+    color: #000 !important;
 }
 
 .crudField .tag {

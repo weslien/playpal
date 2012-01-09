@@ -14,11 +14,11 @@ public class Alias extends Model {
     public String path;
 
     @Required
-    public String uuid;
+    public String page;
 
-    public Alias(String path, String uuid) {
+    public Alias(String path, String page) {
         this.path = path;
-        this.uuid = uuid;
+        this.page = page;
     }
 
     public static Alias findWithPath(String path) {
@@ -29,7 +29,7 @@ public class Alias extends Model {
     public String toString() {
         return "Alias{" +
                 "path='" + path + '\'' +
-                ", uuid='" + uuid + '\'' +
+                ", page='" + page + '\'' +
                 '}';
     }
 }
