@@ -4,7 +4,7 @@ import models.cmscore.Block;
 import models.cmscore.Page;
 import models.cmscore.RootLeaf;
 import play.modules.cmscore.Leaf;
-import play.modules.cmscore.annotations.LeafLoaded;
+import play.modules.cmscore.annotations.AfterLeafLoaded;
 import play.modules.cmscore.annotations.Provides;
 import play.modules.cmscore.annotations.UIElementType;
 import play.modules.cmscore.ui.UIElement;
@@ -25,7 +25,7 @@ public class PageListener {
         return page;
     }
     
-    @LeafLoaded(type = Page.class, order = LeafLoaded.Order.AFTER)
+    @AfterLeafLoaded(type = Page.class)
     public static void buildPageContent(Leaf leaf) {
 
         Collection<Block> blocks = Block.findWithUuidSpecificVersion(leaf.getLeafId(), leaf.getLeafVersion());

@@ -20,22 +20,31 @@ public class ProvidesHelper {
     public static Leaf triggerListener(Class type, RootLeaf leaf) {
 
         CachedAnnotation listener = findListenerForType(type);
-        if (listener != null) {
-            Map<Class, Object> parameters = new HashMap<Class, Object>();
-            parameters.put(Leaf.class, leaf);
-            return (Leaf) ReflectionHelper.invokeMethod(listener.method, parameters);
+        if (listener == null) {
+            throw new RuntimeException("Every type must have a class annotated with @Provides to instantiate an instance");
         }
-        throw new RuntimeException("Every type must have a class annotated with @Provides to instantiate an instance");
+
+        Map<Class, Object> parameters = new HashMap<Class, Object>();
+        parameters.put(Leaf.class, leaf);
+        return (Leaf) ReflectionHelper.invokeMethod(listener.method, parameters);
     }
-    
-    private static CachedAnnotation findListenerForType(Class type) {
-        List<CachedAnnotation> listeners = Listeners.getListenersForAnnotationType(Provides.class);
-        for (CachedAnnotation listener : listeners) {
-            if (((Provides)listener.annotation).type().equals(type)) {
-                return listener;
+
+    private static CachedAnnotation findListenerForType(final Class type) {
+        List<CachedAnnotation> listeners = Listeners.getListenersForAnnotationType(Provides.class, new Listeners.ListenerSelector() {
+            @Override
+            public boolean isCorrectListener(CachedAnnotation listener) {
+                return ((Provides) listener.annotation).type().equals(type);
             }
+        });
+        if (!listeners.isEmpty()) {
+            // TODO: Probably will need a way to override the type
+            if (listeners.size() > 1) {
+                throw new RuntimeException("Only one @Provides per type is allowed");
+            }
+            return listeners.iterator().next();
+        } else {
+            return null;
         }
-        return null;
     }
 
 }

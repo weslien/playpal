@@ -3,7 +3,7 @@ package helpers;
 import listeners.PageNotFoundException;
 import models.cmscore.RootLeaf;
 import play.modules.cmscore.Leaf;
-import play.modules.cmscore.annotations.LeafLoaded;
+import play.modules.cmscore.ui.UIElement;
 
 import java.util.Date;
 
@@ -52,11 +52,20 @@ public class LeafHelper {
     }
 
     public static void triggerAfterLeafLoaded(Class type, Leaf leaf) {
-        LeafLoadedHelper.triggerListener(type, leaf, LeafLoaded.Order.AFTER);
+        AfterLeafLoadedHelper.triggerListener(type, leaf);
     }
 
     public static void triggerBeforeLeafLoaded(Class type, RootLeaf rootLeaf) {
-        LeafLoadedHelper.triggerListener(type, rootLeaf, LeafLoaded.Order.BEFORE);
+        BeforeLeafLoadedHelper.triggerListener(type, rootLeaf);
     }
+
+    public static void triggerAfterForm(String formId, UIElement formElement) {
+        FormStartHelper.triggerListener(formId, formElement);
+    }
+
+    public static void triggerBeforeForm(String formId, UIElement formElement) {
+        FormEndHelper.triggerListener(formId, formElement);
+    }
+
 
 }
