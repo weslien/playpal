@@ -15,6 +15,8 @@ public class RenderedLeaf {
 
     private String script;
 
+    private String style;
+
     private Map<String, String> regions;
 
     public RenderedLeaf() {
@@ -71,6 +73,24 @@ public class RenderedLeaf {
     
     public String get(String region) {
         return regions.get(region);
+    }
+
+    public void addMeta(String additionalContent) {
+        StringBuilder sb = new StringBuilder(meta != null ? meta : "");
+        sb.append(additionalContent);
+        meta = sb.toString();
+    }
+    
+    public void addScript(String additionalContent) {
+        StringBuilder sb = new StringBuilder(script != null ? script : "");
+        sb.append(additionalContent);
+        script = sb.toString();
+    }
+
+    public void addStyle(String additionalContent) {
+        StringBuilder sb = new StringBuilder(style != null ? style : "");
+        sb.append(additionalContent);
+        style = sb.toString();
     }
 
     public void add(String region, String additionalContent) {

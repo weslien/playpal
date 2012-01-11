@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ThemeHelper {
-    
+
     private static final Logger LOG = Logger.getLogger(ThemeHelper.class);
 
     public static RenderedLeaf decorate(Leaf leaf) {
@@ -30,7 +30,19 @@ public class ThemeHelper {
         for (String region : leaf.getRegions()) {
             for (UIElement uiElement : leaf.getUIElements(region)) {
                 String decoratedContent = decorate(uiElement, renderingContext);
-                renderedLeaf.add(region, decoratedContent);
+                switch (uiElement.getType()) {
+                    case META:
+                        renderedLeaf.addMeta(decoratedContent);
+                        break;
+                    case SCRIPT:
+                        renderedLeaf.addScript(decoratedContent);
+                        break;
+                    case STYLE:
+                        renderedLeaf.addStyle(decoratedContent);
+                        break;
+                    default:
+                        renderedLeaf.add(region, decoratedContent);
+                }
             }
         }
         return renderedLeaf;
@@ -39,12 +51,13 @@ public class ThemeHelper {
     /**
      * Sets all the regions in the rendered leaf so the template can access them without
      * nullpointer even if thepage has no ui elements.
+     *
      * @param themeVariant the theme variant that holds the regions available
      * @param renderedLeaf the leaf about to rendered
      */
     private static void setupRegions(CachedThemeVariant themeVariant, RenderedLeaf renderedLeaf) {
         Map<String, String> regions = new HashMap<String, String>();
-        for(String region : themeVariant.regions) {
+        for (String region : themeVariant.regions) {
             regions.put(region, "");
         }
         renderedLeaf.setRegions(regions);
@@ -83,12 +96,12 @@ public class ThemeHelper {
             if (StringUtils.isEmpty(themeVariantId)) {
                 throw new RuntimeException("No theme set for leaf and no default theme variant set");
             }
-            LOG.debug("Using default theme variant ["+themeVariantId+"]");
+            LOG.debug("Using default theme variant [" + themeVariantId + "]");
             themeVariant = Themes.getThemeVariant(themeVariantId);
         }
         if (themeVariant == null) {
             // TODO: Add some sort of fallback for when a theme is removed
-            throw new RuntimeException("No theme selected for "+leaf.toString());
+            throw new RuntimeException("No theme selected for " + leaf.toString());
         }
         return themeVariant;
     }

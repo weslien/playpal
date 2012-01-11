@@ -1,5 +1,6 @@
 package helpers;
 
+import controllers.cmscore.fragments.FragmentLoader;
 import org.apache.commons.lang.StringUtils;
 import play.modules.cmscore.ui.RenderingContext;
 import play.modules.cmscore.ui.UIElement;
@@ -10,12 +11,16 @@ import java.util.Map;
 
 public class DefaultDecorator {
 
+    private static final String FRAGMENT_PREFIX = "cmscore.";
+
     public static String decorate(UIElement uiElement, RenderingContext renderingContext) {
         switch (uiElement.getType()) {
             case META:
                 return decorateMeta(uiElement, renderingContext);
             case SCRIPT:
                 return decorateScript(uiElement, renderingContext);
+            case STYLE:
+                return decorateStyle(uiElement, renderingContext);
             case FORM:
                 return decorateForm(uiElement, renderingContext);
             case INPUT_TEXT:
@@ -54,7 +59,15 @@ public class DefaultDecorator {
     }
 
     public static String decorateMeta(UIElement uiElement, RenderingContext renderingContext) {
-        return writeClosedTag("meta", uiElement);
+        return loadFragment("meta", uiElement, renderingContext);
+    }
+
+    public static String decorateStyle(UIElement uiElement, RenderingContext renderingContext) {
+        return loadFragment("style", uiElement, renderingContext);
+    }
+
+    private static String loadFragment(String tagName, UIElement uiElement, RenderingContext renderingContext) {
+        return FragmentLoader.loadHtmlFragment(FRAGMENT_PREFIX + tagName, uiElement.getAttributes());
     }
 
     public static String decorateScript(UIElement uiElement, RenderingContext renderingContext) {

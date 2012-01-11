@@ -28,6 +28,11 @@ public class PageListener {
     @AfterLeafLoaded(type = Page.class)
     public static void buildPageContent(Leaf leaf) {
 
+        UIElement metaElement = new UIElement(UIElementType.META, 10);
+        metaElement.getAttributes().put("http-equiv", "Content-Type");
+        metaElement.getAttributes().put("content", "text/html; charset=utf-8");
+        leaf.addUIElement("head", metaElement);
+        
         Collection<Block> blocks = Block.findWithUuidSpecificVersion(leaf.getLeafId(), leaf.getLeafVersion());
         for (Block block : blocks) {
             // TODO: Remove block.weight.intValue when the long/int defect (#521) is fixed
