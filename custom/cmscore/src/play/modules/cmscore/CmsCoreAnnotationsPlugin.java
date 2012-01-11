@@ -29,8 +29,7 @@ public class CmsCoreAnnotationsPlugin extends PlayPlugin {
         findAndAddListenerAnnotation(Decorate.class, modifiedJavaClasses);
         findAndAddListenerAnnotation(AfterLeafLoaded.class, modifiedJavaClasses);
         findAndAddListenerAnnotation(BeforeLeafLoaded.class, modifiedJavaClasses);
-        findAndAddListenerAnnotation(FormStart.class, modifiedJavaClasses);
-        findAndAddListenerAnnotation(FormEnd.class, modifiedJavaClasses);
+        findAndAddListenerAnnotation(FormProvider.class, modifiedJavaClasses);
 
         return super.onClassesChange(modifiedClasses);
     }

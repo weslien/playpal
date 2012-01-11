@@ -3,14 +3,13 @@ package helpers;
 import listeners.PageNotFoundException;
 import models.cmscore.RootLeaf;
 import play.modules.cmscore.Leaf;
-import play.modules.cmscore.ui.UIElement;
 
 import java.util.Date;
 
 public class LeafHelper {
 
     public static Leaf load(String uuid) {
-        //Load leafModel
+        //Load RootLeaf model
         RootLeaf rootLeaf = RootLeaf.findWithUuidLatestPublishedVersion(uuid, new Date());
         if (rootLeaf == null) {
             throw new PageNotFoundException(uuid);
@@ -20,7 +19,7 @@ public class LeafHelper {
     }
 
     public static Leaf load(String uuid, long version) {
-        //Load leafModel
+        //Load RootLeaf model
         RootLeaf rootLeaf = RootLeaf.findWithUuidSpecificVersion(uuid, version);
         if (rootLeaf == null) {
             throw new PageNotFoundException(uuid);
@@ -59,12 +58,8 @@ public class LeafHelper {
         BeforeLeafLoadedHelper.triggerListener(type, rootLeaf);
     }
 
-    public static void triggerAfterForm(String formId, UIElement formElement) {
-        FormStartHelper.triggerListener(formId, formElement);
-    }
-
-    public static void triggerBeforeForm(String formId, UIElement formElement) {
-        FormEndHelper.triggerListener(formId, formElement);
+    public static void triggerFormProvider(Leaf leaf) {
+        FormProviderHelper.triggerListener(leaf);
     }
 
 
