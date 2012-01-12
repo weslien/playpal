@@ -67,7 +67,14 @@ public class DefaultDecorator {
     }
 
     private static String loadFragment(String tagName, UIElement uiElement, RenderingContext renderingContext) {
-        return FragmentLoader.loadHtmlFragment(FRAGMENT_PREFIX + tagName, uiElement.getAttributes());
+        return loadFragment(tagName, uiElement, Collections.<String, String>emptyMap(), renderingContext);
+    }
+    
+    private static String loadFragment(String tagName, UIElement uiElement, Map<String, String> additionalAttributes, RenderingContext renderingContext) {
+        Map<String, String> attributes = new HashMap<String, String>();
+        attributes.putAll(additionalAttributes);
+        attributes.putAll(uiElement.getAttributes());
+        return FragmentLoader.loadHtmlFragment(FRAGMENT_PREFIX + tagName, uiElement, attributes);
     }
 
     public static String decorateScript(UIElement uiElement, RenderingContext renderingContext) {

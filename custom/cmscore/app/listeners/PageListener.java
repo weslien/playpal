@@ -32,7 +32,17 @@ public class PageListener {
         metaElement.getAttributes().put("http-equiv", "Content-Type");
         metaElement.getAttributes().put("content", "text/html; charset=utf-8");
         leaf.addUIElement("head", metaElement);
+
+        UIElement styleElementWithContent = new UIElement(UIElementType.STYLE, 10);
+        styleElementWithContent.put("type", "text/css");
+        styleElementWithContent.setBody("\n\tbody \n\t{\n\t\tbackground-color: #ff0000;\n\t}");
+        leaf.addUIElement("head", styleElementWithContent);
         
+        UIElement styleElementWithSrc = new UIElement(UIElementType.STYLE, 10);
+        styleElementWithSrc.put("type", "text/css");
+        styleElementWithSrc.put("src", "test/css/style.css");
+        leaf.addUIElement("head", styleElementWithSrc);
+
         Collection<Block> blocks = Block.findWithUuidSpecificVersion(leaf.getLeafId(), leaf.getLeafVersion());
         for (Block block : blocks) {
             // TODO: Remove block.weight.intValue when the long/int defect (#521) is fixed

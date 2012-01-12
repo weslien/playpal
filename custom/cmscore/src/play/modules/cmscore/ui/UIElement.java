@@ -1,5 +1,6 @@
 package play.modules.cmscore.ui;
 
+import org.apache.commons.lang.StringUtils;
 import play.modules.cmscore.annotations.UIElementType;
 
 import java.util.List;
@@ -69,12 +70,20 @@ public class UIElement {
         this.type = type;
     }
 
+    public boolean hasAttributes() {
+        return getAttributes() != null && !getAttributes().isEmpty();
+    }
+
     public Map<String, String> getAttributes() {
         return attributes;
     }
 
     public void setAttributes(Map<String, String> attributes) {
         this.attributes = attributes;
+    }
+    
+    public void put(String name, String value) {
+        this.attributes.put(name, value);
     }
 
     public int getWeight() {
@@ -85,6 +94,10 @@ public class UIElement {
         this.weight = weight;
     }
 
+    public boolean hasChildren() {
+        return getChildren() != null && !getChildren().isEmpty();
+    }
+    
     public List<UIElement> getChildren() {
         return children;
     }
@@ -102,6 +115,10 @@ public class UIElement {
         return this.children.remove(uiElement);
     }
 
+    public boolean hasBody() {
+        return !StringUtils.isBlank(getBody());
+    }
+    
     public String getBody() {
         return body;
     }

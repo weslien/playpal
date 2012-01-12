@@ -4,6 +4,7 @@ import play.Play;
 import play.data.validation.Validation;
 import play.exceptions.PlayException;
 import play.exceptions.TemplateNotFoundException;
+import play.modules.cmscore.ui.UIElement;
 import play.mvc.Http;
 import play.mvc.Scope;
 import play.templates.Template;
@@ -16,7 +17,7 @@ public class FragmentLoader {
 
     private static final String FRAGMENT_PREFIX = "fragments/";
 
-    public static String loadHtmlFragment(String fragmentName, Map<String, String> attributes) {
+    public static String loadHtmlFragment(String fragmentName, UIElement element, Map<String, String> attributes) {
 
         // Template datas
         Scope.RenderArgs templateBinding = Scope.RenderArgs.current();
@@ -29,15 +30,16 @@ public class FragmentLoader {
         try {
             Template template = TemplateLoader.load(template(fragmentName));
             HashMap<String, Object> args = new HashMap<String, Object>();
+            args.put("element", element);
             args.put("attributes", attributes);
             return template.render(args);
         } catch (TemplateNotFoundException ex) {
             if (ex.isSourceAvailable()) {
                 throw ex;
             }
-            StackTraceElement element = PlayException.getInterestingStrackTraceElement(ex);
-            if (element != null) {
-                throw new TemplateNotFoundException(fragmentName, Play.classes.getApplicationClass(element.getClassName()), element.getLineNumber());
+            StackTraceElement stackTraceElement = PlayException.getInterestingStrackTraceElement(ex);
+            if (stackTraceElement != null) {
+                throw new TemplateNotFoundException(fragmentName, Play.classes.getApplicationClass(stackTraceElement.getClassName()), stackTraceElement.getLineNumber());
             } else {
                 throw ex;
             }
