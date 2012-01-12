@@ -73,19 +73,8 @@ public class DefaultDecorator {
         return loadFragment("style", uiElement, renderingContext);
     }
 
-    private static String loadFragment(String tagName, UIElement uiElement, RenderingContext renderingContext) {
-        return loadFragment(tagName, uiElement, Collections.<String, String>emptyMap(), renderingContext);
-    }
-    
-    private static String loadFragment(String tagName, UIElement uiElement, Map<String, String> additionalAttributes, RenderingContext renderingContext) {
-        Map<String, String> attributes = new HashMap<String, String>();
-        attributes.putAll(additionalAttributes);
-        attributes.putAll(uiElement.getAttributes());
-        return FragmentLoader.loadHtmlFragment(FRAGMENT_PREFIX + tagName, uiElement, attributes);
-    }
-
     public static String decorateScript(UIElement uiElement, RenderingContext renderingContext) {
-        return writeClosedTag("script", uiElement);
+        return loadFragment("script", uiElement, renderingContext);
     }
 
     public static String decorateForm(UIElement uiElement, RenderingContext renderingContext) {
@@ -171,6 +160,17 @@ public class DefaultDecorator {
         sb.append(uiElement.getBody());
         sb.append(writeEndTag("p"));
         return sb.toString();
+    }
+
+    private static String loadFragment(String tagName, UIElement uiElement, RenderingContext renderingContext) {
+        return loadFragment(tagName, uiElement, Collections.<String, String>emptyMap(), renderingContext);
+    }
+
+    private static String loadFragment(String tagName, UIElement uiElement, Map<String, String> additionalAttributes, RenderingContext renderingContext) {
+        Map<String, String> attributes = new HashMap<String, String>();
+        attributes.putAll(additionalAttributes);
+        attributes.putAll(uiElement.getAttributes());
+        return FragmentLoader.loadHtmlFragment(FRAGMENT_PREFIX + tagName, uiElement, attributes);
     }
 
     public static String writeClosedTag(String name, UIElement uiElement) {
