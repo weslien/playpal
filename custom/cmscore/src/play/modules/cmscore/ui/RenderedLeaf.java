@@ -12,9 +12,8 @@ public class RenderedLeaf {
     private String title;
 
     private String meta;
-
+    private String link;
     private String script;
-
     private String style;
 
     private Map<String, String> regions;
@@ -81,6 +80,12 @@ public class RenderedLeaf {
         meta = sb.toString();
     }
     
+    public void addLink(String additionalContent) {
+        StringBuilder sb = new StringBuilder(link != null ? link : "");
+        sb.append(additionalContent);
+        link = sb.toString();
+    }
+
     public void addScript(String additionalContent) {
         StringBuilder sb = new StringBuilder(script != null ? script : "");
         sb.append(additionalContent);

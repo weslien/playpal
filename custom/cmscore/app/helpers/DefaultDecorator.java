@@ -13,6 +13,7 @@ public class DefaultDecorator {
 
     private static final String FRAGMENT_PREFIX = "cmscore.";
 
+
     public static String decorate(UIElement uiElement, RenderingContext renderingContext) {
         switch (uiElement.getType()) {
             case META:
@@ -21,6 +22,8 @@ public class DefaultDecorator {
                 return decorateScript(uiElement, renderingContext);
             case STYLE:
                 return decorateStyle(uiElement, renderingContext);
+            case LINK:
+                return decorateLink(uiElement, renderingContext);
             case FORM:
                 return decorateForm(uiElement, renderingContext);
             case INPUT_TEXT:
@@ -60,6 +63,10 @@ public class DefaultDecorator {
 
     public static String decorateMeta(UIElement uiElement, RenderingContext renderingContext) {
         return loadFragment("meta", uiElement, renderingContext);
+    }
+
+    public static String decorateLink(UIElement uiElement, RenderingContext renderingContext) {
+        return loadFragment("link", uiElement, renderingContext);
     }
 
     public static String decorateStyle(UIElement uiElement, RenderingContext renderingContext) {

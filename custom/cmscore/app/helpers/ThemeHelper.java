@@ -37,6 +37,9 @@ public class ThemeHelper {
                     case SCRIPT:
                         renderedLeaf.addScript(decoratedContent);
                         break;
+                    case LINK:
+                        renderedLeaf.addLink(decoratedContent);
+                        break;
                     case STYLE:
                         renderedLeaf.addStyle(decoratedContent);
                         break;
