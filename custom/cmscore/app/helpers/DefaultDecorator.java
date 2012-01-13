@@ -13,7 +13,6 @@ public class DefaultDecorator {
 
     private static final String FRAGMENT_PREFIX = "cmscore.";
 
-
     public static String decorate(UIElement uiElement, RenderingContext renderingContext) {
         switch (uiElement.getType()) {
             case META:
@@ -66,19 +65,19 @@ public class DefaultDecorator {
     }
 
     public static String decorateMeta(UIElement uiElement, RenderingContext renderingContext) {
-        return loadFragment("meta", uiElement, null);
+        return loadFragment(getFragmentPrefix(), "meta", uiElement, null);
     }
 
     public static String decorateLink(UIElement uiElement, RenderingContext renderingContext) {
-        return loadFragment("link", uiElement, null);
+        return loadFragment(getFragmentPrefix(), "link", uiElement, null);
     }
 
     public static String decorateStyle(UIElement uiElement, RenderingContext renderingContext) {
-        return loadFragment("style", uiElement, uiElement.getBody());
+        return loadFragment(getFragmentPrefix(), "style", uiElement, uiElement.getBody());
     }
 
     public static String decorateScript(UIElement uiElement, RenderingContext renderingContext) {
-        return loadFragment("script", uiElement, uiElement.getBody());
+        return loadFragment(getFragmentPrefix(), "script", uiElement, uiElement.getBody());
     }
 
     public static String decorateForm(UIElement uiElement, RenderingContext renderingContext) {
@@ -130,15 +129,15 @@ public class DefaultDecorator {
 
     private static String decorateInputSelect(UIElement uiElement, RenderingContext renderingContext) {
         String body = ThemeHelper.decorateChildren(uiElement, renderingContext);
-        return loadFragment("select", uiElement, body);
+        return loadFragment(getFragmentPrefix(), "select", uiElement, body);
     }
 
     private static String decorateInputSelectOption(UIElement uiElement, RenderingContext renderingContext) {
         if (uiElement.hasChildren()) {
             String body = ThemeHelper.decorateChildren(uiElement, renderingContext);
-            return loadFragment("select_option", uiElement, body);
+            return loadFragment(getFragmentPrefix(), "select_option", uiElement, body);
         } else {
-            return loadFragment("select_option", uiElement, uiElement.getBody());
+            return loadFragment(getFragmentPrefix(), "select_option", uiElement, uiElement.getBody());
         }
     }
 
@@ -168,7 +167,7 @@ public class DefaultDecorator {
 
     public static String decoratePanel(UIElement uiElement, RenderingContext renderingContext) {
         String body = ThemeHelper.decorateChildren(uiElement, renderingContext);
-        return loadFragment("panel", uiElement, body);
+        return loadFragment(getFragmentPrefix(), "panel", uiElement, body);
     }
     
     public static String decorateText(UIElement uiElement, RenderingContext renderingContext) {
@@ -178,15 +177,15 @@ public class DefaultDecorator {
         return sb.toString();
     }
 
-    private static String loadFragment(String tagName, UIElement uiElement, String body) {
-        return loadFragment(tagName, uiElement, body, Collections.<String, String>emptyMap());
+    protected static String loadFragment(String prefix, String tagName, UIElement uiElement, String body) {
+        return loadFragment(prefix, tagName, uiElement, body, Collections.<String, String>emptyMap());
     }
 
-    private static String loadFragment(String tagName, UIElement uiElement, String body, Map<String, String> additionalAttributes) {
+    protected static String loadFragment(String prefix, String tagName, UIElement uiElement, String body, Map<String, String> additionalAttributes) {
         Map<String, String> attributes = new HashMap<String, String>();
         attributes.putAll(additionalAttributes);
         attributes.putAll(uiElement.getAttributes());
-        return FragmentLoader.loadHtmlFragment(FRAGMENT_PREFIX + tagName, uiElement, attributes, body);
+        return FragmentLoader.loadHtmlFragment(prefix + tagName, uiElement, attributes, body);
     }
 
     public static String writeClosedTag(String name, UIElement uiElement, Map<String, String> additionalAttributes) {
@@ -228,9 +227,12 @@ public class DefaultDecorator {
     public static String writeEndTag(String name) {
         return new StringBuilder().append("</").append(name).append(">").toString();
     }
-    
+
     public static String writeAttribute(String name, String value) {
         return new StringBuilder().append(" ").append(name).append("=\"").append(value).append("\"").toString();
     }
 
+    public static String getFragmentPrefix() {
+        return FRAGMENT_PREFIX;
+    }
 }
