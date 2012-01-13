@@ -51,11 +51,11 @@ public class LeafHelper {
     }
 
     public static void triggerAfterLeafLoaded(Class type, Leaf leaf) {
-        AfterLeafLoadedHelper.triggerListener(type, leaf);
+        LeafLoadedHelper.triggerAfterListener(type, leaf);
     }
 
     public static void triggerBeforeLeafLoaded(Class type, RootLeaf rootLeaf) {
-        BeforeLeafLoadedHelper.triggerListener(type, rootLeaf);
+        LeafLoadedHelper.triggerBeforeListener(type, rootLeaf);
     }
 
     public static void triggerFormProvider(Leaf leaf) {
