@@ -33,15 +33,19 @@ public class PageListener {
         metaElement.getAttributes().put("content", "text/html; charset=utf-8");
         leaf.addUIElement("head", metaElement);
 
-        UIElement styleElementWithContent = new UIElement(UIElementType.STYLE, 10);
+        UIElement styleElementWithContent = new UIElement(UIElementType.STYLE, 10, "\n\tbody {\n\t\tbackground-color: #ff0000;}");
         styleElementWithContent.put("type", "text/css");
-        styleElementWithContent.setBody("\n\tbody \n\t{\n\t\tbackground-color: #ff0000;\n\t}");
         leaf.addUIElement("head", styleElementWithContent);
         
         UIElement styleElementWithSrc = new UIElement(UIElementType.STYLE, 10);
         styleElementWithSrc.put("type", "text/css");
         styleElementWithSrc.put("src", "test/css/style.css");
         leaf.addUIElement("head", styleElementWithSrc);
+
+        UIElement panel = new UIElement(UIElementType.PANEL, 10);
+        leaf.addUIElement("left", panel);
+
+        panel.addChild(new UIElement(UIElementType.TEXT, 12, "Bla bla"));
 
         Collection<Block> blocks = Block.findWithUuidSpecificVersion(leaf.getLeafId(), leaf.getLeafVersion());
         for (Block block : blocks) {

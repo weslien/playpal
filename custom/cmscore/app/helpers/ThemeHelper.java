@@ -82,6 +82,9 @@ public class ThemeHelper {
     }
 
     public static String decorateChildren(UIElement parent, RenderingContext renderingContext) {
+        if (!parent.hasChildren()) {
+            return null;
+        }
         StringBuilder sb = new StringBuilder();
         renderingContext.nestle(parent);
         for (UIElement childElement : parent.getChildren()) {

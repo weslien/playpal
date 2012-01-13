@@ -1,3 +1,3 @@
-<script #{list items:attributes, as:"attribute"}${attribute.key}="${attribute.value}" #{/list}>
-#{if element.hasBody()}#{verbatim}${element.getBody()}#{/verbatim}#{/if}
+<script #{cmscore.attributes attributes:attributes /}>
+#{if element.hasBody()}#{verbatim}${body}#{/verbatim}#{/if}
 </script>

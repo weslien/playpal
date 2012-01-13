@@ -3,6 +3,7 @@ package play.modules.cmscore.ui;
 import org.apache.commons.lang.StringUtils;
 import play.modules.cmscore.annotations.UIElementType;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -18,7 +19,7 @@ public class UIElement {
 
     private int weight;
 
-    private List<UIElement> children;
+    private List<UIElement> children = new ArrayList<UIElement>();
 
     private String body;
 

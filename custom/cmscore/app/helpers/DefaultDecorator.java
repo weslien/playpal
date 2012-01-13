@@ -40,6 +40,10 @@ public class DefaultDecorator {
                 return decorateInputImage(uiElement, renderingContext);
             case INPUT_RADIO_BUTTON:
                 return decorateInputRadioButton(uiElement, renderingContext);
+            case INPUT_SELECT:
+                return decorateInputSelect(uiElement, renderingContext);
+            case INPUT_SELECT_OPTION:
+                return decorateInputSelectOption(uiElement, renderingContext);
             case INPUT_BUTTON:
                 return decorateInputButton(uiElement, renderingContext);
             case INPUT_SUBMIT:
@@ -62,19 +66,19 @@ public class DefaultDecorator {
     }
 
     public static String decorateMeta(UIElement uiElement, RenderingContext renderingContext) {
-        return loadFragment("meta", uiElement, renderingContext);
+        return loadFragment("meta", uiElement, null);
     }
 
     public static String decorateLink(UIElement uiElement, RenderingContext renderingContext) {
-        return loadFragment("link", uiElement, renderingContext);
+        return loadFragment("link", uiElement, null);
     }
 
     public static String decorateStyle(UIElement uiElement, RenderingContext renderingContext) {
-        return loadFragment("style", uiElement, renderingContext);
+        return loadFragment("style", uiElement, uiElement.getBody());
     }
 
     public static String decorateScript(UIElement uiElement, RenderingContext renderingContext) {
-        return loadFragment("script", uiElement, renderingContext);
+        return loadFragment("script", uiElement, uiElement.getBody());
     }
 
     public static String decorateForm(UIElement uiElement, RenderingContext renderingContext) {
@@ -90,7 +94,7 @@ public class DefaultDecorator {
         sb.append(writeEndTag("ul"));
         return sb.toString();
     }
-    
+
     public static String decorateListNumbered(UIElement uiElement, RenderingContext renderingContext) {
         StringBuilder sb = new StringBuilder().append(writeStartTag("ol", uiElement));
         sb.append(ThemeHelper.decorateChildren(uiElement, renderingContext));
@@ -124,6 +128,20 @@ public class DefaultDecorator {
         return writeClosedTag("input", uiElement, Collections.singletonMap("type", "radiobutton"));
     }
 
+    private static String decorateInputSelect(UIElement uiElement, RenderingContext renderingContext) {
+        String body = ThemeHelper.decorateChildren(uiElement, renderingContext);
+        return loadFragment("select", uiElement, body);
+    }
+
+    private static String decorateInputSelectOption(UIElement uiElement, RenderingContext renderingContext) {
+        if (uiElement.hasChildren()) {
+            String body = ThemeHelper.decorateChildren(uiElement, renderingContext);
+            return loadFragment("select_option", uiElement, body);
+        } else {
+            return loadFragment("select_option", uiElement, uiElement.getBody());
+        }
+    }
+
     public static String decorateInputButton(UIElement uiElement, RenderingContext renderingContext) {
         return writeClosedTag("input", uiElement, Collections.singletonMap("type", "button"));
     }
@@ -149,10 +167,8 @@ public class DefaultDecorator {
     }
 
     public static String decoratePanel(UIElement uiElement, RenderingContext renderingContext) {
-        StringBuilder sb = new StringBuilder().append(writeStartTag("div", uiElement));
-        sb.append(ThemeHelper.decorateChildren(uiElement, renderingContext));
-        sb.append(writeEndTag("div"));
-        return sb.toString();
+        String body = ThemeHelper.decorateChildren(uiElement, renderingContext);
+        return loadFragment("panel", uiElement, body);
     }
     
     public static String decorateText(UIElement uiElement, RenderingContext renderingContext) {
@@ -162,19 +178,15 @@ public class DefaultDecorator {
         return sb.toString();
     }
 
-    private static String loadFragment(String tagName, UIElement uiElement, RenderingContext renderingContext) {
-        return loadFragment(tagName, uiElement, Collections.<String, String>emptyMap(), renderingContext);
+    private static String loadFragment(String tagName, UIElement uiElement, String body) {
+        return loadFragment(tagName, uiElement, body, Collections.<String, String>emptyMap());
     }
 
-    private static String loadFragment(String tagName, UIElement uiElement, Map<String, String> additionalAttributes, RenderingContext renderingContext) {
+    private static String loadFragment(String tagName, UIElement uiElement, String body, Map<String, String> additionalAttributes) {
         Map<String, String> attributes = new HashMap<String, String>();
         attributes.putAll(additionalAttributes);
         attributes.putAll(uiElement.getAttributes());
-        return FragmentLoader.loadHtmlFragment(FRAGMENT_PREFIX + tagName, uiElement, attributes);
-    }
-
-    public static String writeClosedTag(String name, UIElement uiElement) {
-        return writeClosedTag(name, uiElement, new HashMap<String, String>());
+        return FragmentLoader.loadHtmlFragment(FRAGMENT_PREFIX + tagName, uiElement, attributes, body);
     }
 
     public static String writeClosedTag(String name, UIElement uiElement, Map<String, String> additionalAttributes) {

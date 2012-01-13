@@ -17,7 +17,7 @@ public class FragmentLoader {
 
     private static final String FRAGMENT_PREFIX = "fragments/";
 
-    public static String loadHtmlFragment(String fragmentName, UIElement element, Map<String, String> attributes) {
+    public static String loadHtmlFragment(String fragmentName, UIElement element, Map<String, String> attributes, String body) {
 
         // Template datas
         Scope.RenderArgs templateBinding = Scope.RenderArgs.current();
@@ -32,6 +32,7 @@ public class FragmentLoader {
             HashMap<String, Object> args = new HashMap<String, Object>();
             args.put("element", element);
             args.put("attributes", attributes);
+            args.put("body", body);
             return template.render(args);
         } catch (TemplateNotFoundException ex) {
             if (ex.isSourceAvailable()) {
