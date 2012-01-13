@@ -7,7 +7,7 @@
     <div class="head">
         <h3>${leaf.title}</h3>
     </div>
-    <div class="navigation">${leaf.get('navigation')}</div>
+    #{cmscore.mainNavigation /}
     <div class="left-column">
         <div class="content">
         #{verbatim}${leaf.get('left')}#{/verbatim}

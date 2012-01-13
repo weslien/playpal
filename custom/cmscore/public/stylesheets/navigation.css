@@ -1,0 +1,22 @@
+.mainNavigation{
+
+    height:23px;
+    margin:1px 0 1px 0;
+}
+
+.mainNavigation > ul{
+
+}
+
+.mainNavigation > ul > li{
+    float:left;
+    padding: 5px 10px 5px 10px;
+    background-color: #f8f8f8;
+    margin-left:2px;
+    cursor: pointer;
+
+
+}
+.mainNavigation > ul > li:hover {
+    background-color: #d8d8d8;
+}

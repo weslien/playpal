@@ -12,11 +12,17 @@ html, body{
 }
 
 .head{
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    background-color: #4F7D50;
+
+    background-color: #2E2E2E;
     color:#FFEF00;
+    height: 150px;
+}
+
+.head > h3{
+    position:relative;
+    top:50px;
+    left:70px;
+    font-size: 2em;
 }
 
 h1{
@@ -33,7 +39,10 @@ h3{
 }
 
 .left-column{
-    width: 30%; float: left; clear: none;
+
+    width: 30%;
+    float: left;
+    clear: left;
     background: #99BF38;
 
 
