@@ -55,10 +55,21 @@ public class LeafHelper {
     private static void addBlocks(Leaf leaf) {
         Collection<Block> blocks = Block.findWithUuidSpecificVersion(leaf.getLeafId(), leaf.getLeafVersion());
         for (Block block : blocks) {
+            triggerBeforeBlockLoaded(block.getTypeClass(), leaf, block);
             Renderable renderable = LeafHelper.triggerProvidesBlockListener(block.getTypeClass(), leaf, block);
             // TODO: Remove block.weight.intValue when the long/int defect (#521) is fixed
-            leaf.addUIElement(block.region, new UIElement(block.leafId, renderable.getType(), block.weight.intValue(), renderable.getContent()));
+            UIElement uiElement = new UIElement(block.leafId, renderable.getType(), block.weight.intValue(), renderable.getContent());
+            triggerAfterBlockLoaded(block.getTypeClass(), leaf, block, uiElement);
+            leaf.addUIElement(block.region, uiElement);
         }
+    }
+
+    private static void triggerBeforeBlockLoaded(Class blockType, Leaf leaf, Block block) {
+        BlockLoadedHelper.triggerBeforeListener(blockType, leaf, block);
+    }
+
+    private static void triggerAfterBlockLoaded(Class blockType, Leaf leaf, Block block, UIElement uiElement) {
+        BlockLoadedHelper.triggerAfterListener(blockType, leaf, block, uiElement);
     }
 
     public static Leaf triggerProvidesLeafListener(Class withType, RootLeaf rootLeaf) {
@@ -69,12 +80,12 @@ public class LeafHelper {
         return ProvidesHelper.triggerBlockListener(withType, leaf, block);
     }
 
-    public static void triggerAfterLeafLoaded(Class type, Leaf leaf) {
-        LeafLoadedHelper.triggerAfterListener(type, leaf);
-    }
-
     public static void triggerBeforeLeafLoaded(Class type, RootLeaf rootLeaf) {
         LeafLoadedHelper.triggerBeforeListener(type, rootLeaf);
+    }
+
+    public static void triggerAfterLeafLoaded(Class type, Leaf leaf) {
+        LeafLoadedHelper.triggerAfterListener(type, leaf);
     }
 
     public static void triggerProvidesFormListener(Class withType, Leaf leaf) {

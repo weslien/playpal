@@ -1,35 +1,37 @@
 package helpers;
 
+import models.cmscore.Block;
 import play.modules.cmscore.CachedAnnotation;
 import play.modules.cmscore.Leaf;
 import play.modules.cmscore.Listeners;
-import play.modules.cmscore.annotations.LeafLoaded;
+import play.modules.cmscore.annotations.BlockLoaded;
+import play.modules.cmscore.ui.UIElement;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Helper to trigger \@LeafLoaded listeners. Should not be used directly, use LeafHelper instead.
- * @see LeafHelper
- * @see play.modules.cmscore.annotations.LeafLoaded
- */
-public class LeafLoadedHelper {
+public class BlockLoadedHelper {
 
-    public static void triggerBeforeListener(Class type, Leaf leaf) {
+    public static void triggerBeforeListener(Class type, Leaf leaf, Block block) {
         List<CachedAnnotation> listeners = findListenerForType(type, false);
-        applyListener(leaf, listeners);
-    }
-
-    public static void triggerAfterListener(Class type, Leaf leaf) {
-        List<CachedAnnotation> listeners = findListenerForType(type, true);
-        applyListener(leaf, listeners);
-    }
-
-    private static void applyListener(Leaf leaf, List<CachedAnnotation> listeners) {
         if (listeners != null && !listeners.isEmpty()) {
             Map<Class, Object> parameters = new HashMap<Class, Object>();
             parameters.put(Leaf.class, leaf);
+            parameters.put(Block.class, block);
+            for (CachedAnnotation listener : listeners) {
+                ReflectionHelper.invokeMethod(listener.method, parameters);
+            }
+        }
+    }
+
+    public static void triggerAfterListener(Class type, Leaf leaf, Block block, UIElement uiElement) {
+        List<CachedAnnotation> listeners = findListenerForType(type, true);
+        if (listeners != null && !listeners.isEmpty()) {
+            Map<Class, Object> parameters = new HashMap<Class, Object>();
+            parameters.put(Leaf.class, leaf);
+            parameters.put(Block.class, block);
+            parameters.put(UIElement.class, uiElement);
             for (CachedAnnotation listener : listeners) {
                 ReflectionHelper.invokeMethod(listener.method, parameters);
             }
@@ -37,13 +39,12 @@ public class LeafLoadedHelper {
     }
 
     private static List<CachedAnnotation> findListenerForType(final Class type, final boolean after) {
-        return Listeners.getListenersForAnnotationType(LeafLoaded.class, new Listeners.ListenerSelector() {
+        return Listeners.getListenersForAnnotationType(BlockLoaded.class, new Listeners.ListenerSelector() {
             @Override
             public boolean isCorrectListener(CachedAnnotation listener) {
-                LeafLoaded annotation = ((LeafLoaded) listener.annotation);
+                BlockLoaded annotation = ((BlockLoaded) listener.annotation);
                 return (annotation.type().equals(type) || annotation.type().equals(Object.class)) && annotation.after() == after;
             }
         });
     }
-
 }
