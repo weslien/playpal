@@ -1,9 +1,13 @@
 package helpers;
 
 import listeners.PageNotFoundException;
+import models.cmscore.Block;
 import models.cmscore.RootLeaf;
 import play.modules.cmscore.Leaf;
+import play.modules.cmscore.Renderable;
+import play.modules.cmscore.ui.UIElement;
 
+import java.util.Collection;
 import java.util.Date;
 
 public class LeafHelper {
@@ -36,18 +40,33 @@ public class LeafHelper {
 
         Leaf leaf = rootLeaf;
         if (hasType) {
-            leaf = triggerProvidesListener(rootLeaf.getTypeClass(), rootLeaf);
+            leaf = triggerProvidesLeafListener(rootLeaf.getTypeClass(), rootLeaf);
         }
 
         if (hasType) {
             triggerAfterLeafLoaded(rootLeaf.getTypeClass(), leaf);
         }
 
+        addBlocks(leaf);
+
         return leaf;
     }
 
-    public static Leaf triggerProvidesListener(Class type, RootLeaf rootRootLeaf) {
-        return ProvidesHelper.triggerListener(type, rootRootLeaf);
+    private static void addBlocks(Leaf leaf) {
+        Collection<Block> blocks = Block.findWithUuidSpecificVersion(leaf.getLeafId(), leaf.getLeafVersion());
+        for (Block block : blocks) {
+            Renderable renderable = LeafHelper.triggerProvidesBlockListener(block.getTypeClass(), leaf, block);
+            // TODO: Remove block.weight.intValue when the long/int defect (#521) is fixed
+            leaf.addUIElement(block.region, new UIElement(block.leafId, renderable.getType(), block.weight.intValue(), renderable.getContent()));
+        }
+    }
+
+    public static Leaf triggerProvidesLeafListener(Class withType, RootLeaf rootLeaf) {
+        return ProvidesHelper.triggerLeafListener(withType, rootLeaf);
+    }
+
+    public static Renderable triggerProvidesBlockListener(Class withType, Leaf leaf, Block block) {
+        return ProvidesHelper.triggerBlockListener(withType, leaf, block);
     }
 
     public static void triggerAfterLeafLoaded(Class type, Leaf leaf) {
@@ -58,9 +77,7 @@ public class LeafHelper {
         LeafLoadedHelper.triggerBeforeListener(type, rootLeaf);
     }
 
-    public static void triggerFormProvider(Leaf leaf) {
-        FormProviderHelper.triggerListener(leaf);
+    public static void triggerProvidesFormListener(Class withType, Leaf leaf) {
+        ProvidesHelper.triggerFormListener(withType, leaf);
     }
-
-
 }

@@ -4,7 +4,6 @@ import play.data.validation.Required;
 import play.db.jpa.Model;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import java.util.Collection;
 
 @Entity
@@ -25,8 +24,18 @@ public class Block extends Model {
     public String region;
 
     @Required
-    @ManyToOne
-    public Content content;
+    public String type;
+
+    @Required
+    public String referenceId;
+
+    public Class getTypeClass() {
+        try {
+            return Class.forName(type);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Unable to find the class for leaf type ["+type+"]: "+e.getMessage(), e);
+        }
+    }
 
     public static Collection<Block> findWithUuidSpecificVersion(String leafId, Long version) {
         return Block.
