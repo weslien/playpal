@@ -3,6 +3,7 @@ package models.cmscore;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import play.modules.cmscore.Leaf;
+import play.modules.cmscore.ui.NavigationElement;
 import play.modules.cmscore.ui.UIElement;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.util.Set;
 
 /**
  * The basic type for a page. Directly linked to a RootLeaf, both it's version and id.
+ *
  * @see play.modules.cmscore.Leaf
  * @see RootLeaf
  * @see listeners.PageListener
@@ -24,7 +26,7 @@ public class Page extends Model implements Leaf {
     @Column(name = "parentUuid")
     public String uuid;
 
-    // Should only have to be Integer but because of defect #521 in play that doesn't work. Should be fixed in 1.3
+    // TODO: Should only have to be Integer but because of defect #521 in play that doesn't work. Should be fixed in 1.3 (2.0?)
     @Required
     @Column(name = "parentVersion")
     public Long version;
@@ -71,6 +73,21 @@ public class Page extends Model implements Leaf {
     }
 
     @Override
+    public List<NavigationElement> getNavigation() {
+        return rootLeaf.getNavigation();
+    }
+
+    @Override
+    public NavigationElement addNavigation(NavigationElement navigationElement) {
+        return rootLeaf.addNavigation(navigationElement);
+    }
+
+    @Override
+    public boolean removeNavigation(NavigationElement navigationElement) {
+        return rootLeaf.removeNavigation(navigationElement);
+    }
+
+    @Override
     public List<UIElement> getUIElements(String region) {
         return rootLeaf.getUIElements(region);
     }
@@ -104,42 +121,50 @@ public class Page extends Model implements Leaf {
                 .toString();
     }
 
-    public static List<Page> findAllCurrentVersions(Date today) {
-        return Page.find(
-                "select p from Page p " +
-                "where p.id in (" +
-                    "select l.id from RootLeaf l " +
-                    "where l.version = (" +
-                    "select max(l2.version) from RootLeaf l2 " +
-                    "where l2.uuid = l.uuid and " +
-                    "(l2.publish = null or l2.publish < :today) and " +
-                    "(l2.unPublish = null or l2.unPublish >= :today)" +
-                    ")" +
-                ")"
-        ).bind("today", today).fetch();
+    public static List<Page> findAllCurrentVersions(Date asOfDate) {
+        return Page.
+                find(
+                        "select p from Page p " +
+                                "where p.id in (" +
+                                "select l.id from RootLeaf l " +
+                                "where l.version = (" +
+                                "select max(l2.version) from RootLeaf l2 " +
+                                "where l2.uuid = l.uuid and " +
+                                "(l2.publish = null or l2.publish < :today) and " +
+                                "(l2.unPublish = null or l2.unPublish >= :today)" +
+                                ")" +
+                                ")").
+                bind("today", asOfDate).
+                fetch();
     }
 
-    public static Page findCurrentVersion(String uuid, Date today) {
-        return Page.find(
-                "select p from Page p " +
-                "where p.uuid = :uuid and p.id in (" +
-                    "select l.id from RootLeaf l " +
-                    "where l.version = (" +
-                    "select max(l2.version) from RootLeaf l2 " +
-                    "where l2.uuid = l.uuid and " +
-                    "(l2.publish = null or l2.publish < :today) and " +
-                    "(l2.unPublish = null or l2.unPublish >= :today)" +
-                    ")" +
-                ")"
-        ).bind("uuid", uuid).bind("today", today).first();
+    public static Page findCurrentVersion(String uuid, Date asOfDate) {
+        return Page.
+                find(
+                        "select p from Page p " +
+                                "where p.uuid = :uuid and p.id in (" +
+                                "select l.id from RootLeaf l " +
+                                "where l.version = (" +
+                                "select max(l2.version) from RootLeaf l2 " +
+                                "where l2.uuid = l.uuid and " +
+                                "(l2.publish = null or l2.publish < :today) and " +
+                                "(l2.unPublish = null or l2.unPublish >= :today)" +
+                                ")" +
+                                ")").
+                bind("uuid", uuid).
+                bind("today", asOfDate).
+                first();
     }
 
     public static Page findWithUuidSpecificVersion(String uuid, Long version) {
-        return RootLeaf.find(
-                "select distinct p from Page p " +
-                "where p.uuid = :uuid and " +
-                "p.version = :version"
-        ).bind("uuid", uuid).bind("version", version).first();
+        return RootLeaf.
+                find(
+                        "select distinct p from Page p " +
+                                "where p.uuid = :uuid and " +
+                                "p.version = :version").
+                bind("uuid", uuid).
+                bind("version", version).
+                first();
     }
 
 }

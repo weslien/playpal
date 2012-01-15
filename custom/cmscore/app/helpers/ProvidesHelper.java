@@ -2,11 +2,13 @@ package helpers;
 
 import models.cmscore.Block;
 import models.cmscore.RootLeaf;
+import models.cmscore.navigation.Navigation;
 import play.modules.cmscore.CachedAnnotation;
 import play.modules.cmscore.Leaf;
 import play.modules.cmscore.Listeners;
 import play.modules.cmscore.annotations.Provides;
 import play.modules.cmscore.annotations.ProvidesType;
+import play.modules.cmscore.ui.NavigationElement;
 import play.modules.cmscore.ui.UIElement;
 
 import java.util.HashMap;
@@ -15,6 +17,7 @@ import java.util.Map;
 
 /**
  * Helper to trigger \@Provides listeners. Should not be used directly, use LeafHelper instead.
+ *
  * @see LeafHelper
  * @see Provides
  */
@@ -32,14 +35,22 @@ public class ProvidesHelper {
         Map<Class, Object> parameters = new HashMap<Class, Object>();
         parameters.put(Leaf.class, leaf);
         parameters.put(Block.class, block);
-        return (UIElement)ReflectionHelper.invokeMethod(listener.method, parameters);
+        return (UIElement) ReflectionHelper.invokeMethod(listener.method, parameters);
     }
 
     public static UIElement triggerFormListener(Class withType, Leaf leaf) {
         CachedAnnotation listener = findListener(ProvidesType.FORM, withType);
         Map<Class, Object> parameters = new HashMap<Class, Object>();
         parameters.put(Leaf.class, leaf);
-        return (UIElement)ReflectionHelper.invokeMethod(listener.method, parameters);
+        return (UIElement) ReflectionHelper.invokeMethod(listener.method, parameters);
+    }
+
+    public static NavigationElement triggerNavigationListener(Class withType, Leaf leaf, Navigation navigation) {
+        CachedAnnotation listener = findListener(ProvidesType.NAVIGATION, withType);
+        Map<Class, Object> parameters = new HashMap<Class, Object>();
+        parameters.put(Leaf.class, leaf);
+        parameters.put(Navigation.class, navigation);
+        return (NavigationElement) ReflectionHelper.invokeMethod(listener.method, parameters);
     }
 
     private static CachedAnnotation findListener(ProvidesType type, Class withType) {

@@ -33,7 +33,7 @@ public class Block extends Model {
         try {
             return Class.forName(type);
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Unable to find the class for leaf type ["+type+"]: "+e.getMessage(), e);
+            throw new RuntimeException("Unable to find the class for block type [" + type + "]: " + e.getMessage(), e);
         }
     }
 

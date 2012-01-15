@@ -4,6 +4,7 @@ import helpers.UIElementHelper;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import play.modules.cmscore.Leaf;
+import play.modules.cmscore.ui.NavigationElement;
 import play.modules.cmscore.ui.UIElement;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ public final class RootLeaf extends Model implements Leaf {
 
     @Required
     public String uuid;
-    
+
     // Should only have to be Integer but because of defect #521 in play that doesn't work. Should be fixed in 1.3
     @Required
     public Long version;
@@ -27,17 +28,20 @@ public final class RootLeaf extends Model implements Leaf {
     public Date unPublish;
 
     public String type;
-    
+
     public String themeVariant;
 
     @Transient
-    private Map<String, List<UIElement>> uiElements = new WeakHashMap<String, List<UIElement>>();
+    private List<NavigationElement> navigationElements = new ArrayList<NavigationElement>();
+
+    @Transient
+    private Map<String, List<UIElement>> uiElements = new HashMap<String, List<UIElement>>();
 
     public RootLeaf(Long version) {
         this.uuid = UUID.randomUUID().toString();
         this.version = version;
     }
-    
+
     public RootLeaf(String uuid, Long version) {
         this.uuid = uuid;
         this.version = version;
@@ -72,10 +76,10 @@ public final class RootLeaf extends Model implements Leaf {
         try {
             return Class.forName(type);
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Unable to find the class for leaf type ["+type+"]: "+e.getMessage(), e);
+            throw new RuntimeException("Unable to find the class for leaf type [" + type + "]: " + e.getMessage(), e);
         }
     }
-    
+
     @Override
     public String getThemeVariant() {
         return themeVariant;
@@ -84,6 +88,22 @@ public final class RootLeaf extends Model implements Leaf {
     @Override
     public Set<String> getRegions() {
         return this.uiElements.keySet();
+    }
+
+    @Override
+    public List<NavigationElement> getNavigation() {
+        return navigationElements;
+    }
+
+    @Override
+    public NavigationElement addNavigation(NavigationElement navigationElement) {
+        navigationElements.add(navigationElement);
+        return navigationElement;
+    }
+
+    @Override
+    public boolean removeNavigation(NavigationElement navigationElement) {
+        return navigationElements.remove(navigationElement);
     }
 
     /* Interface methods */
@@ -95,7 +115,7 @@ public final class RootLeaf extends Model implements Leaf {
     @Override
     public UIElement addUIElement(UIElement uiElement) {
         return addUIElement(HEAD, uiElement, false);
-    }          
+    }
 
     @Override
     public UIElement addUIElement(String region, UIElement uiElement) {
@@ -109,7 +129,7 @@ public final class RootLeaf extends Model implements Leaf {
             uiElements.put(regionKey, new ArrayList<UIElement>());
         }
         uiElements.get(regionKey).add(uiElement);
-        if(reorderElementsBelow){
+        if (reorderElementsBelow) {
             UIElementHelper.repositionUIElements(uiElements.get(regionKey), uiElement);
         }
         UIElementHelper.reorderUIElements(uiElements.get(regionKey));
@@ -137,11 +157,11 @@ public final class RootLeaf extends Model implements Leaf {
                         ")"
         ).bind("today", today).fetch();
         for (RootLeaf leaf : leaves) {
-            leaf.uiElements = new HashMap<String, List<UIElement>>();
+            initializeLeaf(leaf);
         }
         return leaves;
     }
-    
+
     public static RootLeaf findWithUuidSpecificVersion(String uuid, Long version) {
         RootLeaf leaf = RootLeaf.find(
                 "select distinct l from RootLeaf l " +
@@ -149,7 +169,7 @@ public final class RootLeaf extends Model implements Leaf {
                         "l.version = :version"
         ).bind("uuid", uuid).bind("version", version).first();
         if (leaf != null) {
-            leaf.uiElements = new HashMap<String, List<UIElement>>();
+            initializeLeaf(leaf);
         }
         return leaf;
     }
@@ -163,7 +183,7 @@ public final class RootLeaf extends Model implements Leaf {
                         "order by version desc"
         ).bind("uuid", uuid).bind("today", today).first();
         if (leaf != null) {
-            leaf.uiElements = new HashMap<String, List<UIElement>>();
+            initializeLeaf(leaf);
         }
         return leaf;
     }
@@ -173,9 +193,14 @@ public final class RootLeaf extends Model implements Leaf {
                 "select distinct l from RootLeaf l where l.uuid = :uuid"
         ).bind("uuid", uuid).fetch();
         for (RootLeaf leaf : leaves) {
-            leaf.uiElements = new HashMap<String, List<UIElement>>();
+            initializeLeaf(leaf);
         }
         return leaves;
+    }
+
+    private static void initializeLeaf(RootLeaf leaf) {
+        leaf.uiElements = new HashMap<String, List<UIElement>>();
+        leaf.navigationElements = new ArrayList<NavigationElement>();
     }
 
     @Override

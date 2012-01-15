@@ -41,7 +41,7 @@ public class CoreLoader {
     private static RenderedLeaf loadAndDecorateStartPage() {
         Settings settings = Settings.load();
         String startPage = settings.getValue(SettingsKeys.Core.START_PAGE);
-        LOG.debug("Loading Start Page ["+startPage+"]");
+        LOG.debug("Loading Start Page [" + startPage + "]");
         return CoreLoader.loadAndDecoratePage(startPage, 0);
     }
 
@@ -50,7 +50,7 @@ public class CoreLoader {
     private static RenderedLeaf loadAndDecoratePageNotFoundPage() {
         Settings settings = Settings.load();
         String pageNotFoundPage = settings.getValue(SettingsKeys.Core.PAGE_NOT_FOUND_PAGE);
-        LOG.debug("Loading Start Page ["+pageNotFoundPage+"]");
+        LOG.debug("Loading Start Page [" + pageNotFoundPage + "]");
         return CoreLoader.loadAndDecoratePage(pageNotFoundPage, 0);
     }
 
@@ -58,11 +58,11 @@ public class CoreLoader {
         LOG.debug("Trying to find alias for [" + identifier + "]");
         Alias alias = Alias.findWithPath(identifier);
         if (alias != null) {
-            LOG.trace("Found alias: "+ alias.toString());
-            Leaf leaf = loadByUUIDAndVersion(alias.page, version);
+            LOG.trace("Found alias: " + alias.toString());
+            Leaf leaf = loadByUUIDAndVersion(alias.pageId, version);
             return decorateLeaf(leaf);
         } else {
-            LOG.trace("Trying to find page with uuid ["+identifier+"]");
+            LOG.trace("Trying to find page with uuid [" + identifier + "]");
             Leaf leaf = loadByUUIDAndVersion(identifier, version);
             return decorateLeaf(leaf);
         }

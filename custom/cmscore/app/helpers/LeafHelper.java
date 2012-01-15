@@ -3,7 +3,9 @@ package helpers;
 import listeners.PageNotFoundException;
 import models.cmscore.Block;
 import models.cmscore.RootLeaf;
+import models.cmscore.navigation.Navigation;
 import play.modules.cmscore.Leaf;
+import play.modules.cmscore.ui.NavigationElement;
 import play.modules.cmscore.ui.UIElement;
 
 import java.util.Collection;
@@ -46,6 +48,7 @@ public class LeafHelper {
             triggerAfterLeafLoaded(rootLeaf.getTypeClass(), leaf);
         }
 
+        addNavigation(leaf);
         addBlocks(leaf);
 
         return leaf;
@@ -55,9 +58,23 @@ public class LeafHelper {
         Collection<Block> blocks = Block.findWithUuidSpecificVersion(leaf.getLeafId(), leaf.getLeafVersion());
         for (Block block : blocks) {
             triggerBeforeBlockLoaded(block.getTypeClass(), leaf, block);
-            UIElement uiElement = LeafHelper.triggerProvidesBlockListener(block.getTypeClass(), leaf, block);
+            UIElement uiElement = triggerProvidesBlockListener(block.getTypeClass(), leaf, block);
             triggerAfterBlockLoaded(block.getTypeClass(), leaf, block, uiElement);
             leaf.addUIElement(block.region, uiElement);
+        }
+    }
+
+    private static void addNavigation(Leaf leaf) {
+        loadNavigation(leaf, null);
+    }
+
+    private static void loadNavigation(Leaf leaf, Navigation parent) {
+        Collection<Navigation> navigationModels = Navigation.findTopWithSection(NavigationElement.FRONT, parent);
+        for (Navigation navigationModel : navigationModels) {
+            triggerBeforeNavigationLoaded(navigationModel.getTypeClass(), leaf, navigationModel);
+            NavigationElement navigationElement = triggerProvidesNavigationListener(navigationModel.getTypeClass(), leaf, navigationModel);
+            triggerAfterNavigationLoaded(navigationModel.getTypeClass(), leaf, navigationElement);
+            leaf.addNavigation(navigationElement);
         }
     }
 
@@ -77,12 +94,26 @@ public class LeafHelper {
         return ProvidesHelper.triggerBlockListener(withType, leaf, block);
     }
 
-    public static void triggerBeforeLeafLoaded(Class type, RootLeaf rootLeaf) {
-        LeafLoadedHelper.triggerBeforeListener(type, rootLeaf);
+    public static NavigationElement triggerProvidesNavigationListener(Class withType, Leaf leaf, Navigation navigation) {
+        return ProvidesHelper.triggerNavigationListener(withType, leaf, navigation);
     }
 
-    public static void triggerAfterLeafLoaded(Class type, Leaf leaf) {
-        LeafLoadedHelper.triggerAfterListener(type, leaf);
+    public static void triggerBeforeLeafLoaded(Class withType, RootLeaf rootLeaf) {
+        LeafLoadedHelper.triggerBeforeListener(withType, rootLeaf);
+    }
+
+    public static void triggerAfterLeafLoaded(Class withType, Leaf leaf) {
+        LeafLoadedHelper.triggerAfterListener(withType, leaf);
+    }
+
+    public static void triggerBeforeNavigationLoaded(Class withType, Leaf leaf, Navigation navigation) {
+        //TODO: add the NavigationLoadedHelper
+        //NavigationLoadedHelper.triggerBeforeListener(leaf, navigation);
+    }
+
+    public static void triggerAfterNavigationLoaded(Class withType, Leaf leaf, NavigationElement navigationElement) {
+        //TODO: add the NavigationLoadedHelper
+        //NavigationLoadedHelper.triggerAfterListener(leaf, navigation);
     }
 
     public static void triggerProvidesFormListener(Class withType, Leaf leaf) {
