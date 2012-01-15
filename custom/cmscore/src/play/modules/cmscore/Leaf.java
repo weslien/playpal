@@ -15,6 +15,8 @@ import java.util.Set;
  */
 public interface Leaf {
 
+    public static final String HEAD = "head";
+
     /**
      * The uuid of the leaf
      * @return a unique key for this leaf
@@ -64,6 +66,14 @@ public interface Leaf {
      * @return all uiElements for the region
      */
     List<UIElement> getUIElements(String region);
+
+    /**
+     * Add an element that should be rendered in the HEAD of the page. Regions are determined by the theme variant used.
+     * @param uiElement the element to be rendered
+     * @see play.modules.cmscore.annotations.ThemeVariant
+     * @return the newly added UIElement
+     */
+    UIElement addUIElement(UIElement uiElement);
 
     /**
      * Add an element that should be rendered on the page. Regions are determined by the theme variant used.

@@ -76,6 +76,11 @@ public class Page extends Model implements Leaf {
     }
 
     @Override
+    public UIElement addUIElement(UIElement uiElement) {
+        return rootLeaf.addUIElement(HEAD, uiElement, false);
+    }
+
+    @Override
     public UIElement addUIElement(String region, UIElement uiElement) {
         return rootLeaf.addUIElement(region, uiElement, false);
     }

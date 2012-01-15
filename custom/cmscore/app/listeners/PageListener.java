@@ -24,23 +24,32 @@ public class PageListener {
 
         return page;
     }
-    
+
+    /**
+     * TODO: Just for testing, remove eventually
+     * @param leaf
+     */
     @LeafLoaded(type = Page.class)
     public static void buildPageContent(Leaf leaf) {
 
         UIElement metaElement = new UIElement(UIElementType.META, 10);
         metaElement.getAttributes().put("http-equiv", "Content-Type");
         metaElement.getAttributes().put("content", "text/html; charset=utf-8");
-        leaf.addUIElement("head", metaElement);
+        leaf.addUIElement(metaElement);
 
         UIElement styleElementWithContent = new UIElement(UIElementType.STYLE, 10, "\n\tbody {\n\t\tbackground-color: #ff0000;}");
         styleElementWithContent.put("type", "text/css");
-        leaf.addUIElement("head", styleElementWithContent);
+        leaf.addUIElement(styleElementWithContent);
         
         UIElement styleElementWithSrc = new UIElement(UIElementType.STYLE, 10);
         styleElementWithSrc.put("type", "text/css");
-        styleElementWithSrc.put("src", "test/css/style.css");
+        styleElementWithSrc.put("src", "test/css/style_head.css");
         leaf.addUIElement("head", styleElementWithSrc);
+
+        UIElement inlineStyleElement = new UIElement(UIElementType.STYLE, 10);
+        inlineStyleElement.put("type", "text/css");
+        inlineStyleElement.put("src", "test/css/style_inline.css");
+        leaf.addUIElement("main", inlineStyleElement);
 
         UIElement panel = new UIElement(UIElementType.PANEL, 10);
         leaf.addUIElement("left", panel);

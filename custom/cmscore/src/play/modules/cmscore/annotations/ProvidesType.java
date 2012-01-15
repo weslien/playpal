@@ -1,5 +1,5 @@
 package play.modules.cmscore.annotations;
 
 public enum ProvidesType {
-    LEAF, BLOCK, FORM
+    LEAF, BLOCK, FORM, NAVIGATION
 }

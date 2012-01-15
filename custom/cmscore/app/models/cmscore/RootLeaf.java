@@ -93,9 +93,14 @@ public final class RootLeaf extends Model implements Leaf {
     }
 
     @Override
+    public UIElement addUIElement(UIElement uiElement) {
+        return addUIElement(HEAD, uiElement, false);
+    }          
+
+    @Override
     public UIElement addUIElement(String region, UIElement uiElement) {
         return addUIElement(region, uiElement, false);
-    }          
+    }
 
     @Override
     public UIElement addUIElement(String region, UIElement uiElement, boolean reorderElementsBelow) {

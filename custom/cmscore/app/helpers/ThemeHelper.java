@@ -32,17 +32,29 @@ public class ThemeHelper {
                 String decoratedContent = decorate(uiElement, renderingContext);
                 switch (uiElement.getType()) {
                     case META:
-                        renderedLeaf.addMeta(decoratedContent);
-                        break;
-                    case SCRIPT:
-                        renderedLeaf.addScript(decoratedContent);
-                        break;
+                        if (Leaf.HEAD.equalsIgnoreCase(region)) {
+                            renderedLeaf.addMeta(decoratedContent);
+                            break;
+                        } else {
+                            throw new RuntimeException("META is not allowed outside of head");
+                        }
                     case LINK:
-                        renderedLeaf.addLink(decoratedContent);
-                        break;
+                        if (Leaf.HEAD.equalsIgnoreCase(region)) {
+                            renderedLeaf.addLink(decoratedContent);
+                            break;
+                        } else {
+                            throw new RuntimeException("LINK is not allowed outside of head");
+                        }
+                    case SCRIPT:
+                        if (Leaf.HEAD.equalsIgnoreCase(region)) {
+                            renderedLeaf.addScript(decoratedContent);
+                            break;
+                        }
                     case STYLE:
-                        renderedLeaf.addStyle(decoratedContent);
-                        break;
+                        if (Leaf.HEAD.equalsIgnoreCase(region)) {
+                            renderedLeaf.addStyle(decoratedContent);
+                            break;
+                        }
                     default:
                         renderedLeaf.add(region, decoratedContent);
                 }
@@ -53,7 +65,7 @@ public class ThemeHelper {
 
     /**
      * Sets all the regions in the rendered leaf so the template can access them without
-     * nullpointer even if thepage has no ui elements.
+     * nullpointer even if the page has no ui elements.
      *
      * @param themeVariant the theme variant that holds the regions available
      * @param renderedLeaf the leaf about to rendered
