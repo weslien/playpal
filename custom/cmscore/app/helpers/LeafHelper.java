@@ -4,7 +4,6 @@ import listeners.PageNotFoundException;
 import models.cmscore.Block;
 import models.cmscore.RootLeaf;
 import play.modules.cmscore.Leaf;
-import play.modules.cmscore.Renderable;
 import play.modules.cmscore.ui.UIElement;
 
 import java.util.Collection;
@@ -56,9 +55,7 @@ public class LeafHelper {
         Collection<Block> blocks = Block.findWithUuidSpecificVersion(leaf.getLeafId(), leaf.getLeafVersion());
         for (Block block : blocks) {
             triggerBeforeBlockLoaded(block.getTypeClass(), leaf, block);
-            Renderable renderable = LeafHelper.triggerProvidesBlockListener(block.getTypeClass(), leaf, block);
-            // TODO: Remove block.weight.intValue when the long/int defect (#521) is fixed
-            UIElement uiElement = new UIElement(block.leafId, renderable.getType(), block.weight.intValue(), renderable.getContent());
+            UIElement uiElement = LeafHelper.triggerProvidesBlockListener(block.getTypeClass(), leaf, block);
             triggerAfterBlockLoaded(block.getTypeClass(), leaf, block, uiElement);
             leaf.addUIElement(block.region, uiElement);
         }
@@ -76,7 +73,7 @@ public class LeafHelper {
         return ProvidesHelper.triggerLeafListener(withType, rootLeaf);
     }
 
-    public static Renderable triggerProvidesBlockListener(Class withType, Leaf leaf, Block block) {
+    public static UIElement triggerProvidesBlockListener(Class withType, Leaf leaf, Block block) {
         return ProvidesHelper.triggerBlockListener(withType, leaf, block);
     }
 

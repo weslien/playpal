@@ -5,7 +5,6 @@ import models.cmscore.RootLeaf;
 import play.modules.cmscore.CachedAnnotation;
 import play.modules.cmscore.Leaf;
 import play.modules.cmscore.Listeners;
-import play.modules.cmscore.Renderable;
 import play.modules.cmscore.annotations.Provides;
 import play.modules.cmscore.annotations.ProvidesType;
 import play.modules.cmscore.ui.UIElement;
@@ -28,12 +27,12 @@ public class ProvidesHelper {
         return (Leaf) ReflectionHelper.invokeMethod(listener.method, parameters);
     }
 
-    public static Renderable triggerBlockListener(Class withType, Leaf leaf, Block block) {
+    public static UIElement triggerBlockListener(Class withType, Leaf leaf, Block block) {
         CachedAnnotation listener = findListener(ProvidesType.BLOCK, withType);
         Map<Class, Object> parameters = new HashMap<Class, Object>();
         parameters.put(Leaf.class, leaf);
         parameters.put(Block.class, block);
-        return (Renderable)ReflectionHelper.invokeMethod(listener.method, parameters);
+        return (UIElement)ReflectionHelper.invokeMethod(listener.method, parameters);
     }
 
     public static UIElement triggerFormListener(Class withType, Leaf leaf) {

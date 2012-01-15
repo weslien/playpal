@@ -5,7 +5,6 @@ import models.cmscore.Content;
 import models.cmscore.Page;
 import models.cmscore.RootLeaf;
 import play.modules.cmscore.Leaf;
-import play.modules.cmscore.Renderable;
 import play.modules.cmscore.annotations.LeafLoaded;
 import play.modules.cmscore.annotations.Provides;
 import play.modules.cmscore.annotations.ProvidesType;
@@ -51,8 +50,10 @@ public class PageListener {
     }
     
     @Provides(type = ProvidesType.BLOCK, with = Content.class)
-    public static Renderable createContent(Block block) {
-        return Content.findByIdentifier(block.referenceId);
+    public static UIElement createContent(Block block) {
+        Content content = Content.findByIdentifier(block.referenceId);
+        // TODO: Remove block.weight.intValue when the long/int defect (#521) is fixed
+        return new UIElement(block.leafId, UIElementType.TEXT, block.weight.intValue(), content.value);
     }
 
 }
