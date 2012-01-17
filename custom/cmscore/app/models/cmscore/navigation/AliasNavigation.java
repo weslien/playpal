@@ -1,6 +1,7 @@
 package models.cmscore.navigation;
 
-import play.Logger;
+import helpers.SettingsHelper;
+import models.cmscore.Alias;
 import play.data.validation.Required;
 import play.data.validation.Unique;
 import play.db.jpa.Model;
@@ -20,14 +21,15 @@ public class AliasNavigation extends Model {
     public String alias;
 
     public String getLink() {
-        return "@Application.page(\'" + alias + "\')";
+        Alias aliasModel = Alias.findWithPath(alias);
+        if (aliasModel != null && SettingsHelper.getStartPage().equals(aliasModel.pageId)) {
+            return SettingsHelper.getBaseUrl();
+        }
+        return SettingsHelper.getBaseUrl() + alias;
     }
 
     public static AliasNavigation findWithIdentifier(String identifier) {
         Collection<AliasNavigation> aliases = AliasNavigation.findAll();
-        for (AliasNavigation alias : aliases) {
-            Logger.error("Alias : " + alias);
-        }
         return AliasNavigation.find("select distinct n from AliasNavigation n where identifier=:identifier").
                 bind("identifier", identifier).
                 first();

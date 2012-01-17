@@ -1,11 +1,10 @@
 package controllers.cmscore;
 
 import helpers.LeafHelper;
+import helpers.SettingsHelper;
 import helpers.ThemeHelper;
 import listeners.PageNotFoundException;
 import models.cmscore.Alias;
-import models.cmscore.Settings;
-import models.cmscore.SettingsKeys;
 import org.apache.log4j.Logger;
 import play.modules.cmscore.Leaf;
 import play.modules.cmscore.ui.RenderedLeaf;
@@ -39,8 +38,7 @@ public class CoreLoader {
     }
 
     private static RenderedLeaf loadAndDecorateStartPage() {
-        Settings settings = Settings.load();
-        String startPage = settings.getValue(SettingsKeys.Core.START_PAGE);
+        String startPage = SettingsHelper.getStartPage();
         LOG.debug("Loading Start Page [" + startPage + "]");
         return CoreLoader.loadAndDecoratePage(startPage, 0);
     }
@@ -48,8 +46,7 @@ public class CoreLoader {
     // TODO: This should be a redirect to the /page-not-found page so that it is not cached incorrectly downstream
     // TODO: this method should also be readily accessible by third party modules to all 404 management is streamlined
     private static RenderedLeaf loadAndDecoratePageNotFoundPage() {
-        Settings settings = Settings.load();
-        String pageNotFoundPage = settings.getValue(SettingsKeys.Core.PAGE_NOT_FOUND_PAGE);
+        String pageNotFoundPage = SettingsHelper.getPageNotFoundPage();
         LOG.debug("Loading Start Page [" + pageNotFoundPage + "]");
         return CoreLoader.loadAndDecoratePage(pageNotFoundPage, 0);
     }

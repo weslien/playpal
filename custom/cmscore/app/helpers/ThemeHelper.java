@@ -1,7 +1,5 @@
 package helpers;
 
-import models.cmscore.Settings;
-import models.cmscore.SettingsKeys;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import play.modules.cmscore.CachedThemeVariant;
@@ -24,6 +22,7 @@ public class ThemeHelper {
         RenderedLeaf renderedLeaf = new RenderedLeaf();
         CachedThemeVariant themeVariant = loadTheme(leaf);
         setupRegions(themeVariant, renderedLeaf);
+        renderedLeaf.setNavigation(leaf.getNavigation());
         renderedLeaf.setTitle(leaf.getTitle());
         renderedLeaf.setTemplate(ReflectionHelper.getTemplate(themeVariant));
         RenderingContext renderingContext = new RenderingContext(themeVariant, leaf);
@@ -109,8 +108,7 @@ public class ThemeHelper {
     private static CachedThemeVariant loadTheme(Leaf leaf) {
         CachedThemeVariant themeVariant = Themes.getThemeVariant(leaf.getThemeVariant());
         if (themeVariant == null) {
-            Settings settings = Settings.load();
-            String themeVariantId = settings.getValue(SettingsKeys.Core.THEME_VARIANT);
+            String themeVariantId = SettingsHelper.getThemeVariant();
             if (StringUtils.isEmpty(themeVariantId)) {
                 throw new RuntimeException("No theme set for leaf and no default theme variant set");
             }

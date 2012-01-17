@@ -59,8 +59,10 @@ public class LeafHelper {
         for (Block block : blocks) {
             triggerBeforeBlockLoaded(block.getTypeClass(), leaf, block);
             UIElement uiElement = triggerProvidesBlockListener(block.getTypeClass(), leaf, block);
-            triggerAfterBlockLoaded(block.getTypeClass(), leaf, block, uiElement);
-            leaf.addUIElement(block.region, uiElement);
+            if (uiElement != null) {
+                triggerAfterBlockLoaded(block.getTypeClass(), leaf, block, uiElement);
+                leaf.addUIElement(block.region, uiElement);
+            }
         }
     }
 

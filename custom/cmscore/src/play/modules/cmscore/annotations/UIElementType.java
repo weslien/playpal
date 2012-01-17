@@ -7,8 +7,6 @@ package play.modules.cmscore.annotations;
  */
 public enum UIElementType {
 
-    NAVIGATION,
-
     META, SCRIPT, STYLE, LINK,
 
     LIST_BULLET, LIST_ORDERED, LIST_ITEM,

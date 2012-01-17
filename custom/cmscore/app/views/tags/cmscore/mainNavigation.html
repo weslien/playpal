@@ -1,10 +1,9 @@
-
 <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/navigation.css'}"/>
 
 <div class="mainNavigation">
     <ul>
-        <li>First main nav</li>
-        <li>Second main nav</li>
-        <li>Third main nav</li>
+    #{list items:_links, as:'link'}
+        <li><a href="#{verbatim }${link.link.raw()}#{/verbatim}">${link.title}</a></li>
+    #{/list}
     </ul>
 </div>

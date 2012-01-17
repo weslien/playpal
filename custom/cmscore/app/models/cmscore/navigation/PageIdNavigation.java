@@ -1,5 +1,6 @@
 package models.cmscore.navigation;
 
+import helpers.SettingsHelper;
 import models.cmscore.Alias;
 import models.cmscore.Page;
 import play.data.validation.Required;
@@ -23,10 +24,13 @@ public class PageIdNavigation extends Model {
     public String getLink() {
         Collection<Alias> aliases = Alias.findWithPageId(pageId);
         if (aliases == null || aliases.isEmpty()) {
-            return "@Application.page(\'" + Page.findCurrentVersion(pageId, new Date()) + "\')";
+            if (SettingsHelper.getStartPage().equals(pageId)) {
+                return SettingsHelper.getBaseUrl();
+            }
+            return SettingsHelper.getBaseUrl() + Page.findCurrentVersion(pageId, new Date()).getLeafId();
         } else {
             Alias alias = aliases.iterator().next();
-            return "@Application.page(\'" + alias.path + "\')";
+            return SettingsHelper.getBaseUrl() + alias.path;
         }
     }
 

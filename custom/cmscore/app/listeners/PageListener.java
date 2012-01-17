@@ -5,6 +5,7 @@ import models.cmscore.navigation.AliasNavigation;
 import models.cmscore.navigation.ExternalLinkNavigation;
 import models.cmscore.navigation.Navigation;
 import models.cmscore.navigation.PageIdNavigation;
+import org.apache.commons.lang.StringUtils;
 import play.modules.cmscore.Leaf;
 import play.modules.cmscore.annotations.LeafLoaded;
 import play.modules.cmscore.annotations.Provides;
@@ -65,9 +66,14 @@ public class PageListener {
 
     @Provides(type = ProvidesType.BLOCK, with = Content.class)
     public static UIElement createContent(Block block) {
-        Content content = Content.findWithIdentifier(block.referenceId);
-        // TODO: Remove block.weight.intValue when the long/int defect (#521) is fixed
-        return new UIElement(block.leafId, UIElementType.TEXT, block.weight.intValue(), content.value);
+        if (!StringUtils.isBlank(block.referenceId)) {
+            Content content = Content.findWithIdentifier(block.referenceId);
+            // TODO: Remove block.weight.intValue when the long/int defect (#521) is fixed
+            return new UIElement(block.leafId, UIElementType.TEXT, block.weight.intValue(), content.value);
+        } else {
+            //TODO: Handle this somehow, in dev/admin maybe show a message and in prod swallow error?
+            return null;
+        }
     }
 
     @Provides(type = ProvidesType.NAVIGATION, with = AliasNavigation.class)
