@@ -75,7 +75,7 @@ public class PageListener {
         }
     }
 
-    @Provides(type = Provides.Type.NAVIGATION, with = AliasNavigation.class)
+    @Provides(type = Provides.Type.NAVIGATION_ITEM, with = AliasNavigation.class)
     public static NavigationElement createAliasNavigation(Navigation navigation) {
         AliasNavigation navigationModel = AliasNavigation.findWithIdentifier(navigation.referenceId);
         Alias alias = Alias.findWithPath(navigationModel.alias);
@@ -91,7 +91,7 @@ public class PageListener {
         }
     }
 
-    @Provides(type = Provides.Type.NAVIGATION, with = PageIdNavigation.class)
+    @Provides(type = Provides.Type.NAVIGATION_ITEM, with = PageIdNavigation.class)
     public static NavigationElement createPageIdNavigation(Navigation navigation) {
         PageIdNavigation navigationModel = PageIdNavigation.findWithIdentifier(navigation.referenceId);
         Page page = Page.findCurrentVersion(navigationModel.pageId, new Date());
@@ -102,7 +102,7 @@ public class PageListener {
         }
     }
 
-    @Provides(type = Provides.Type.NAVIGATION, with = ExternalLinkNavigation.class)
+    @Provides(type = Provides.Type.NAVIGATION_ITEM, with = ExternalLinkNavigation.class)
     public static NavigationElement createExternalLinkNavigation(Navigation navigation) {
         ExternalLinkNavigation navigationModel = ExternalLinkNavigation.findWithIdentifier(navigation.referenceId);
         return new NavigationElement(navigation.section, navigationModel.title, navigationModel.getLink());

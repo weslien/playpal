@@ -5,6 +5,7 @@ import models.cmscore.RootNode;
 import models.cmscore.Segment;
 import play.modules.cmscore.Node;
 import play.modules.cmscore.annotations.OnLoad;
+import play.modules.cmscore.annotations.Provides;
 import play.modules.cmscore.ui.UIElement;
 
 import java.util.Collection;
@@ -64,6 +65,13 @@ public class NodeHelper {
         }
     }
 
+    /*
+     * Convenience methods for hooks with SEGMENT type
+     */
+    public static UIElement triggerProvidesSegmentListener(Class withType, Node node, Segment segment) {
+        return ProvidesHelper.triggerListener(Provides.Type.SEGMENT, withType, node, Segment.class, segment);
+    }
+
     private static void triggerBeforeSegmentLoaded(Class nodeType, Node node, Segment segment) {
         OnLoadHelper.triggerBeforeListener(OnLoad.Type.SEGMENT, nodeType, node, Segment.class, segment);
     }
@@ -72,12 +80,11 @@ public class NodeHelper {
         OnLoadHelper.triggerAfterListener(OnLoad.Type.SEGMENT, nodeType, node, Segment.class, segment, uiElement);
     }
 
+    /*
+     * Convenience methods for hooks with NODE type
+     */
     public static Node triggerProvidesNodeListener(Class withType, RootNode rootNode) {
-        return ProvidesHelper.triggerNodeListener(withType, rootNode);
-    }
-
-    public static UIElement triggerProvidesSegmentListener(Class withType, Node node, Segment segment) {
-        return ProvidesHelper.triggerSegmentListener(withType, node, segment);
+        return ProvidesHelper.triggerListener(Provides.Type.NODE, withType, rootNode);
     }
 
     public static void triggerBeforeNodeLoaded(Class withType, RootNode rootNode) {
@@ -88,7 +95,4 @@ public class NodeHelper {
         OnLoadHelper.triggerAfterListener(OnLoad.Type.NODE, withType, node);
     }
 
-    public static void triggerProvidesFormListener(Class withType, Node node) {
-        ProvidesHelper.triggerFormListener(withType, node);
-    }
 }

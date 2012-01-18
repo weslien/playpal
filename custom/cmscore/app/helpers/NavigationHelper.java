@@ -2,10 +2,14 @@ package helpers;
 
 import models.cmscore.navigation.Navigation;
 import play.modules.cmscore.Node;
+import play.modules.cmscore.annotations.OnLoad;
+import play.modules.cmscore.annotations.Provides;
 import play.modules.cmscore.ui.NavigationElement;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class NavigationHelper {
 
@@ -13,26 +17,30 @@ public class NavigationHelper {
         Collection<NavigationElement> navigationLinks = new ArrayList<NavigationElement>();
         Collection<Navigation> navigationModels = Navigation.findTopWithSection(NavigationElement.FRONT);
         for (Navigation navigationModel : navigationModels) {
-            triggerBeforeNavigationLoaded(navigationModel.getTypeClass(), node, navigationModel);
-            NavigationElement navigationElement = triggerProvidesNavigationListener(navigationModel.getTypeClass(), node, navigationModel);
-            triggerAfterNavigationLoaded(navigationModel.getTypeClass(), node, navigationElement);
+            triggerBeforeNavigationItemLoaded(navigationModel.getTypeClass(), node, navigationModel);
+            NavigationElement navigationElement = ProvidesHelper.triggerListener(Provides.Type.NAVIGATION_ITEM, navigationModel.getTypeClass(), node, Navigation.class, navigationModel);
+            triggerAfterNavigationItemLoaded(navigationModel.getTypeClass(), node, navigationModel, navigationElement);
             navigationLinks.add(navigationElement);
         }
         return navigationLinks;
     }
 
-    public static NavigationElement triggerProvidesNavigationListener(Class withType, Node node, Navigation navigation) {
-        return ProvidesHelper.triggerNavigationListener(withType, node, navigation);
+    /*
+     * Convenience methods for hooks with NAVIGATION_ITEM type
+     */
+    public static Node triggerProvidesNavigationItemListener(Class withType, Node node, Navigation navigation) {
+        return ProvidesHelper.triggerListener(Provides.Type.NODE, withType, node, Navigation.class, navigation);
     }
 
-    public static void triggerBeforeNavigationLoaded(Class withType, Node node, Navigation navigation) {
-        //TODO: add the NavigationLoadedHelper
-        //NavigationLoadedHelper.triggerBeforeListener(node, navigation);
+    public static void triggerBeforeNavigationItemLoaded(Class withType, Node node, Navigation navigation) {
+        OnLoadHelper.triggerBeforeListener(OnLoad.Type.NODE, withType, node, Navigation.class, navigation);
     }
 
-    public static void triggerAfterNavigationLoaded(Class withType, Node node, NavigationElement navigationElement) {
-        //TODO: add the NavigationLoadedHelper
-        //NavigationLoadedHelper.triggerAfterListener(node, navigation);
+    public static void triggerAfterNavigationItemLoaded(Class withType, Node node, Navigation navigation, NavigationElement navigationElement) {
+        Map<Class, Object> args = new HashMap<Class, Object>();
+        args.put(Navigation.class, navigation);
+        args.put(NavigationElement.class, navigationElement);
+        OnLoadHelper.triggerAfterListener(OnLoad.Type.NAVIGATION_ITEM, withType, node, args);
     }
 
 }

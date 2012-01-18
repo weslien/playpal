@@ -6,6 +6,7 @@ import play.modules.cmscore.Node;
 import play.modules.cmscore.annotations.OnLoad;
 import play.modules.cmscore.ui.UIElement;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,18 +23,20 @@ public class OnLoadHelper {
         triggerBeforeListener(type, null, node, argType, arg);
     }
 
-    public static void triggerBeforeListener(OnLoad.Type type, Class nodeType, Node node) {
-        triggerBeforeListener(type, nodeType, node, null, null);
+    public static void triggerBeforeListener(OnLoad.Type type, Class withType, Node node) {
+        triggerBeforeListener(type, withType, node, Collections.<Class, Object>emptyMap());
     }
 
-    public static void triggerBeforeListener(OnLoad.Type type, Class nodeType, Node node, Class argType, Object arg) {
-        List<CachedAnnotation> listeners = findListenerForType(type, nodeType, false);
+    public static void triggerBeforeListener(OnLoad.Type type, Class withType, Node node, Class argType, Object arg) {
+        triggerBeforeListener(type, withType, node, Collections.<Class, Object>singletonMap(argType, arg));
+    }
+
+    public static void triggerBeforeListener(OnLoad.Type type, Class withType, Node node, Map<Class, Object> args) {
+        List<CachedAnnotation> listeners = findListenerForType(type, withType != null ? withType : node.getClass(), false);
         if (listeners != null && !listeners.isEmpty()) {
             Map<Class, Object> parameters = new HashMap<Class, Object>();
             parameters.put(Node.class, node);
-            if (argType != null && arg != null) {
-                parameters.put(argType, arg);
-            }
+            parameters.putAll(args);
             for (CachedAnnotation listener : listeners) {
                 ReflectionHelper.invokeMethod(listener.method, parameters);
             }
@@ -44,25 +47,27 @@ public class OnLoadHelper {
         triggerAfterListener(onLoadType, null, node, argType, arg, uiElement);
     }
 
+    public static void triggerAfterListener(OnLoad.Type onLoadType, Class withType, Node node, Class argType, Object arg, UIElement uiElement) {
+        Map<Class, Object> args = new HashMap<Class, Object>();
+        args.put(argType, arg);
+        args.put(UIElement.class, uiElement);
+        triggerAfterListener(onLoadType, withType, node, args);
+    }
+
     public static void triggerAfterListener(OnLoad.Type onLoadType, Class withType, Node node, UIElement uiElement) {
-        triggerAfterListener(onLoadType, withType, node, null, null, uiElement);
+        triggerAfterListener(onLoadType, withType, node, Collections.<Class, Object>singletonMap(UIElement.class, uiElement));
     }
 
     public static void triggerAfterListener(OnLoad.Type onLoadType, Class withType, Node node) {
-        triggerAfterListener(onLoadType, withType, node, null);
+        triggerAfterListener(onLoadType, withType, node, Collections.<Class, Object>emptyMap());
     }
 
-    public static void triggerAfterListener(OnLoad.Type onLoadType, Class withType, Node node, Class argType, Object arg, UIElement uiElement) {
-        List<CachedAnnotation> listeners = findListenerForType(onLoadType, withType, true);
+    public static void triggerAfterListener(OnLoad.Type onLoadType, Class withType, Node node, Map<Class, Object> args) {
+        List<CachedAnnotation> listeners = findListenerForType(onLoadType, withType != null ? withType : node.getClass(), true);
         if (listeners != null && !listeners.isEmpty()) {
             Map<Class, Object> parameters = new HashMap<Class, Object>();
             parameters.put(Node.class, node);
-            if (argType != null && arg != null) {
-                parameters.put(argType, arg);
-            }
-            if (uiElement != null) {
-                parameters.put(UIElement.class, uiElement);
-            }
+            parameters.putAll(args);
             for (CachedAnnotation listener : listeners) {
                 ReflectionHelper.invokeMethod(listener.method, parameters);
             }
