@@ -3,13 +3,13 @@
 <head>
     <title>PlayPal! Administration</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="/public/stylesheets/admin.css" />
-    #{get 'moreStyles' /}
-    *{
+    <link rel="stylesheet" type="text/css" media="screen" href="/public/stylesheets/admin.css"/>
+#{get 'moreStyles' /}
+*{
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="http://cdn.jquerytools.org/1.2.6/jquery.tools.min.js"></script>
     }*
-    #{get 'moreScripts' /}
+#{get 'moreScripts' /}
 </head>
 <body>
 
@@ -17,7 +17,7 @@
     <div id="logo">
         PlayPal! <span>administration</span>
     </div>
-    *{
+*{
     <ul id="tools">
     <li>
             <a href="@{Secure.logout()}">Log out</a>
@@ -36,19 +36,19 @@
         <li class="${request.controller == 'Pages' ? 'selected' : ''}">
             <a href="@{cmsadmin.Pages.list()}">Pages</a>
         </li>
-        <li class="${request.controller == 'Blocks' ? 'selected' : ''}">
-        <a href="@{cmsadmin.Blocks.list()}">Blocks</a>
+        <li class="${request.controller == 'Segments' ? 'selected' : ''}">
+            <a href="@{cmsadmin.Segments.list()}">Segments</a>
         </li>
         <li class="${request.controller == 'Contents' ? 'selected' : ''}">
-        <a href="@{cmsadmin.Contents.list()}">Content</a>
+            <a href="@{cmsadmin.Contents.list()}">Content</a>
         </li>
         <li class="${request.controller == 'Alias' ? 'selected' : ''}">
-        <a href="@{cmsadmin.Aliases.list()}">Alias</a>
+            <a href="@{cmsadmin.Aliases.list()}">Alias</a>
         </li>
     *{#{/secure.check}}*
     </ul>
 
-    #{doLayout /}
+#{doLayout /}
 
 </div>
 

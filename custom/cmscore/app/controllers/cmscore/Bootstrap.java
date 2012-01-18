@@ -1,6 +1,6 @@
 package controllers.cmscore;
 
-import models.cmscore.RootLeaf;
+import models.cmscore.RootNode;
 import org.apache.log4j.Logger;
 import play.Play;
 import play.jobs.Job;
@@ -19,7 +19,7 @@ public class Bootstrap extends Job {
     }
 
     private void addFragmentsViewPath() {
-        VirtualFile appRoot = VirtualFile.open(Play.applicationPath+"/custom/cmscore");
+        VirtualFile appRoot = VirtualFile.open(Play.applicationPath + "/custom/cmscore");
         Play.templatesPath.add(appRoot.child("app/views/fragments"));
     }
 
@@ -28,7 +28,7 @@ public class Bootstrap extends Job {
         LOG.info("Clearing database");
         Fixtures.deleteDatabase();
         // Check if the database is empty
-        if(RootLeaf.count() == 0) {
+        if (RootNode.count() == 0) {
             LOG.info("Loading initial-data.yml");
             Fixtures.loadModels("initial-data.yml");
         }

@@ -1,62 +1,67 @@
 <!DOCTYPE html>
 
 <html>
-<head #{get 'leaf.head_attributes'/}>
+<head #{get 'node.head_attributes'/}>
     <title>#{get 'title' /}</title>
     <meta charset="${_response_encoding}">
-    #{verbatim}${leaf.meta}#{/verbatim}
-    #{verbatim}${leaf.link}#{/verbatim}
+#{verbatim}${node.meta}#{/verbatim}
+#{verbatim}${node.link}#{/verbatim}
     <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
     <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
-    #{get 'moreStyles' /}
-    #{verbatim}${leaf.style}#{/verbatim}
+#{get 'moreStyles' /}
+#{verbatim}${node.style}#{/verbatim}
     <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-    <script src="@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-    #{get 'moreScripts' /}
-    #{verbatim}${leaf.script}#{/verbatim}
+    <script src="@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript"
+            charset="${_response_encoding}"></script>
+#{get 'moreScripts' /}
+#{verbatim}${node.script}#{/verbatim}
 </head>
 <body>
 
 #{doLayout /}
 
 <div style="clear:both;">
-<p>GW Suggestion 1:</p>
-<div class="theme-picker" style="background-color:#2E2E2E;"></div>
-<div class="theme-picker" style="background-color:#404F48;"></div>
-<div class="theme-picker" style="background-color:#4F7D50;"></div>
-<div class="theme-picker" style="background-color:#99BF38;"></div>
-<div class="theme-picker" style="background-color:#FFEF00;"></div>
-<div style="clear: both;"></div>
+    <p>GW Suggestion 1:</p>
+
+    <div class="theme-picker" style="background-color:#2E2E2E;"></div>
+    <div class="theme-picker" style="background-color:#404F48;"></div>
+    <div class="theme-picker" style="background-color:#4F7D50;"></div>
+    <div class="theme-picker" style="background-color:#99BF38;"></div>
+    <div class="theme-picker" style="background-color:#FFEF00;"></div>
+    <div style="clear: both;"></div>
 </div>
 
 <div style="clear:both;">
-<p>Jens suggestion 1:</p>
-<div class="theme-picker" style="background-color:#71877B;"></div>
-<div class="theme-picker" style="background-color:#A2BD9F;"></div>
-<div class="theme-picker" style="background-color:#D7D7AD;"></div>
-<div class="theme-picker" style="background-color:#C7B573;"></div>
-<div class="theme-picker" style="background-color:#918C69;"></div>
-<div style="clear: both;"></div>
+    <p>Jens suggestion 1:</p>
+
+    <div class="theme-picker" style="background-color:#71877B;"></div>
+    <div class="theme-picker" style="background-color:#A2BD9F;"></div>
+    <div class="theme-picker" style="background-color:#D7D7AD;"></div>
+    <div class="theme-picker" style="background-color:#C7B573;"></div>
+    <div class="theme-picker" style="background-color:#918C69;"></div>
+    <div style="clear: both;"></div>
 </div>
 
 <div style="clear:both;">
-<p>Jens suggestion 2:</p>
-<div class="theme-picker" style="background-color:#352D40;"></div>
-<div class="theme-picker" style="background-color:#425559;"></div>
-<div class="theme-picker" style="background-color:#97A699;"></div>
-<div class="theme-picker" style="background-color:#D6D9BF;"></div>
-<div class="theme-picker" style="background-color:#BFBC8A;"></div>
-<div style="clear: both;"></div>
+    <p>Jens suggestion 2:</p>
+
+    <div class="theme-picker" style="background-color:#352D40;"></div>
+    <div class="theme-picker" style="background-color:#425559;"></div>
+    <div class="theme-picker" style="background-color:#97A699;"></div>
+    <div class="theme-picker" style="background-color:#D6D9BF;"></div>
+    <div class="theme-picker" style="background-color:#BFBC8A;"></div>
+    <div style="clear: both;"></div>
 </div>
 
 <div style="clear:both;">
-<p>Jens suggestion 3:</p>
-<div class="theme-picker" style="background-color:#F7F2C4;"></div>
-<div class="theme-picker" style="background-color:#574024;"></div>
-<div class="theme-picker" style="background-color:#7DAFCC;"></div>
-<div class="theme-picker" style="background-color:#A6B886;"></div>
-<div class="theme-picker" style="background-color:#586133;"></div>
-<div style="clear: both;"></div>
+    <p>Jens suggestion 3:</p>
+
+    <div class="theme-picker" style="background-color:#F7F2C4;"></div>
+    <div class="theme-picker" style="background-color:#574024;"></div>
+    <div class="theme-picker" style="background-color:#7DAFCC;"></div>
+    <div class="theme-picker" style="background-color:#A6B886;"></div>
+    <div class="theme-picker" style="background-color:#586133;"></div>
+    <div style="clear: both;"></div>
 </div>
 
 </body>

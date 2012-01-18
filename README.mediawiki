@@ -20,10 +20,10 @@ Start your application.<br/>
 
 ==== Patterns ====
 Leaves are available undecorated with the following pattern:<br/>
-<code>http://localhost:9000/leaf/{uuid}</code>
+<code>http://localhost:9000/node/{uuid}</code>
 
-Accessing a specific version of a leaf would be the following pattern:<br/>
-<code>http://localhost:9000/leaf/{uuid}/{version}</code>
+Accessing a specific version of a node would be the following pattern:<br/>
+<code>http://localhost:9000/node/{uuid}/{version}</code>
 
 Fully decorated pages are available with the following pattern:<br/>
 <code>http://localhost:9000/{uuid}</code>
@@ -33,13 +33,13 @@ And similarly you can access a specific version by the following pattern:<br/>
 
 ==== Examples ====
 A couple of examples from the default data is:<br/>
-:: Leaf 1 - [http://localhost:9000/leaf/aa1755dd-18c4-4b78-956e-eef7e562c36c]<br/>
-:: Leaf 3 - [http://localhost:9000/leaf/1cf699a7-a0c4-4be0-855f-466042a36a8d]<br/>
+:: Node 1 - [http://localhost:9000/node/aa1755dd-18c4-4b78-956e-eef7e562c36c]<br/>
+:: Node 3 - [http://localhost:9000/node/1cf699a7-a0c4-4be0-855f-466042a36a8d]<br/>
 
 
 Accessing the same leaves but other versions would be:<br/>
-:: Leaf 1 - [http://localhost:9000/leaf/aa1755dd-18c4-4b78-956e-eef7e562c36c/2]<br/>
-:: Leaf 3 - [http://localhost:9000/leaf/1cf699a7-a0c4-4be0-855f-466042a36a8d/3]<br/>
+:: Node 1 - [http://localhost:9000/node/aa1755dd-18c4-4b78-956e-eef7e562c36c/2]<br/>
+:: Node 3 - [http://localhost:9000/node/1cf699a7-a0c4-4be0-855f-466042a36a8d/3]<br/>
 
 
 Accessing the same leaves but as decorated full pages:<br/>
@@ -52,7 +52,7 @@ Accessing the same decorated pages but other versions:<br/>
 :: Page 3 - [http://localhost:9000/1cf699a7-a0c4-4be0-855f-466042a36a8d/3]<br/>
 
 
-There is a start page set in the system settings, in the example data it is pointed at Leaf A listed above. It can be accessed at:<br/>
+There is a start page set in the system settings, in the example data it is pointed at Node A listed above. It can be accessed at:<br/>
 :: [http://localhost:9000/]<br/>
 
 There is also a 404 page set in settings, it will be shown any time a page is not found or by accessing it by:<br/>

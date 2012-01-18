@@ -1,0 +1,8 @@
+#{extends 'main.html' /}
+#{set title:nodes[0].uuid /}
+
+<h3>Node ${nodes[0].uuid}</h3>
+
+#{list items:nodes, as:'node'}
+Version ${node.version} <a href="@{cmscore.Core.nodeVersion(node.uuid, node.version)}">${node.title}</a><br/>
+#{/list}

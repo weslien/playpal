@@ -1,8 +1,0 @@
-#{extends 'main.html' /}
-#{set title:leaves[0].uuid /}
-
-<h3>Leaf ${leaves[0].uuid}</h3>
-
-#{list items:leaves, as:'leaf'}
-    Version ${leaf.version} <a href="@{cmscore.Core.leafVersion(leaf.uuid, leaf.version)}">${leaf.title}</a><br/>
-#{/list}

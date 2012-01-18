@@ -20,14 +20,16 @@ public class CachedTheme {
 
     /**
      * Collection of cached theme variants, with their template method and the content areas they contain.
+     *
      * @see CachedThemeVariant
      */
     public final Map<String, CachedThemeVariant> themeVariants = new HashMap<String, CachedThemeVariant>();
 
     /**
-     * Collection of decorators for each theme that can transform UIElements into elements in a RenderedLeaf.
+     * Collection of decorators for each theme that can transform UIElements into elements in a RenderedNode.
+     *
      * @see play.modules.cmscore.ui.UIElement
-     * @see play.modules.cmscore.ui.RenderedLeaf
+     * @see play.modules.cmscore.ui.RenderedNode
      */
     public final Map<UIElementType, CachedDecorator> decorators = new HashMap<UIElementType, CachedDecorator>();
 

@@ -3,8 +3,8 @@ package play.modules.cmscore;
 import play.Play;
 import play.PlayPlugin;
 import play.classloading.ApplicationClasses;
-import play.modules.cmscore.annotations.Decorate;
-import play.modules.cmscore.annotations.LeafLoaded;
+import play.modules.cmscore.annotations.Decorates;
+import play.modules.cmscore.annotations.OnLoad;
 import play.modules.cmscore.annotations.Provides;
 import play.utils.Java;
 
@@ -28,14 +28,15 @@ public class CmsCoreAnnotationsPlugin extends PlayPlugin {
 
         List<Class> modifiedJavaClasses = AnnotationPluginHelper.getJavaClasses(modifiedClasses);
         findAndAddListenerAnnotation(Provides.class, modifiedJavaClasses);
-        findAndAddListenerAnnotation(Decorate.class, modifiedJavaClasses);
-        findAndAddListenerAnnotation(LeafLoaded.class, modifiedJavaClasses);
+        findAndAddListenerAnnotation(Decorates.class, modifiedJavaClasses);
+        findAndAddListenerAnnotation(OnLoad.class, modifiedJavaClasses);
 
         return super.onClassesChange(modifiedClasses);
     }
 
     /**
      * Finds all methods annotated with the specified annotationClass and adds it to the cache.
+     *
      * @param annotationClass a method annotation that provides a hook/trigger/listener.
      * @param modifiedClasses all classes modified in this compile (or on startup).
      */

@@ -1,16 +1,16 @@
 
 ### Page 1 ###
 #Root
-cmscore.RootLeaf(leaf-first-1):
+cmscore.RootNode(node-first-1):
     uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        1
-    title:          First RootLeaf
+    title:          First RootNode
     type:           models.cmscore.Page
 
-cmscore.RootLeaf(leaf-first-2):
+cmscore.RootNode(node-first-2):
     uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        2
-    title:          First RootLeaf second iteration
+    title:          First RootNode second iteration
     type:           models.cmscore.Page
 
 #Page
@@ -28,25 +28,25 @@ cmscore.Page(page-first-2):
 
 
 ### Page 2 ###
-cmscore.RootLeaf(leaf-second-1):
+cmscore.RootNode(node-second-1):
 #Root
     uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        1
-    title:          Second RootLeaf
+    title:          Second RootNode
     type:           models.cmscore.Page
 
-cmscore.RootLeaf(leaf-second-2):
+cmscore.RootNode(node-second-2):
     uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        2
-    title:          Second RootLeaf second iteration
+    title:          Second RootNode second iteration
     type:           models.cmscore.Page
     publish:        2007-01-01 10:00:00
     unpublish:      2009-12-31 10:00:00
 
-cmscore.RootLeaf(leaf-second-3):
+cmscore.RootNode(node-second-3):
     uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        3
-    title:          Second RootLeaf third iteration
+    title:          Second RootNode third iteration
     type:           models.cmscore.Page
 
 #Page
@@ -70,16 +70,16 @@ cmscore.Page(page-second-3):
 
 ### Page 3 ###
 #Root
-cmscore.RootLeaf(leaf-third-1):
+cmscore.RootNode(node-third-1):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        1
-    title:          Third RootLeaf
+    title:          Third RootNode
     type:           models.cmscore.Page
 
-cmscore.RootLeaf(leaf-third-2):
+cmscore.RootNode(node-third-2):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        2
-    title:          Third RootLeaf second iteration
+    title:          Third RootNode second iteration
     publish:        2012-01-01 00:00:00
     type:           models.cmscore.Page
 

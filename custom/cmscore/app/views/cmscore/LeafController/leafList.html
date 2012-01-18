@@ -1,8 +1,0 @@
-#{extends 'main.html' /}
-#{set title:'All Leaves' /}
-
-<h3>All leaves</h3>
-
-#{list items:leaves, as:'leaf'}
-    <a href="@{cmscore.LeafController.leaf(leaf.uuid)}">${leaf.title} - ${leaf.uuid}</a><br/>
-#{/list}

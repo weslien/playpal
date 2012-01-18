@@ -7,12 +7,12 @@ import java.lang.annotation.Target;
 
 /**
  * Hooks/Listeners for each element of the UI rendering process.
- *
- * The \@Decorate can only be used in a class with \@Theme annotation.
+ * <p/>
+ * The \@Decorates can only be used in a class with \@Theme annotation.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
-public @interface Decorate {
+public @interface Decorates {
 
     UIElementType type();
 

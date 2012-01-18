@@ -27,7 +27,7 @@ public class PageIdNavigation extends Model {
             if (SettingsHelper.getStartPage().equals(pageId)) {
                 return SettingsHelper.getBaseUrl();
             }
-            return SettingsHelper.getBaseUrl() + Page.findCurrentVersion(pageId, new Date()).getLeafId();
+            return SettingsHelper.getBaseUrl() + Page.findCurrentVersion(pageId, new Date()).getNodeId();
         } else {
             Alias alias = aliases.iterator().next();
             return SettingsHelper.getBaseUrl() + alias.path;

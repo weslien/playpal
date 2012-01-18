@@ -7,10 +7,10 @@ import javax.persistence.Entity;
 import java.util.Collection;
 
 @Entity
-public class Block extends Model {
+public class Segment extends Model {
 
     @Required
-    public String leafId;
+    public String nodeId;
 
     // Should only have to be Integer but because of defect #521 in play that doesn't work. Should be fixed in 1.3
     @Required
@@ -33,14 +33,14 @@ public class Block extends Model {
         try {
             return Class.forName(type);
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Unable to find the class for block type [" + type + "]: " + e.getMessage(), e);
+            throw new RuntimeException("Unable to find the class for segment type [" + type + "]: " + e.getMessage(), e);
         }
     }
 
-    public static Collection<Block> findWithUuidSpecificVersion(String leafId, Long version) {
-        return Block.
-                find("select distinct b from Block b where b.leafId = :leafId and b.version = :version").
-                bind("leafId", leafId).
+    public static Collection<Segment> findWithUuidSpecificVersion(String nodeId, Long version) {
+        return Segment.
+                find("select distinct b from Segment b where b.nodeId = :nodeId and b.version = :version").
+                bind("nodeId", nodeId).
                 bind("version", version).
                 fetch();
     }

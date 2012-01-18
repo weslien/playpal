@@ -5,11 +5,11 @@
 #
 # ~~~~
 
-#Leaf routing
-GET     /leaf/{uuid}/{<[0-9]+>version}      cmscore.LeafController.leafVersion
-GET     /leaf/{uuid}/all                    cmscore.LeafController.leafVersions
-GET     /leaf/{uuid}                        cmscore.LeafController.leaf
-GET     /leaf                               cmscore.LeafController.leafList
+#Node routing
+GET     /node/{uuid}/{<[0-9]+>version}      cmscore.NodeController.nodeVersion
+GET     /node/{uuid}/all                    cmscore.NodeController.nodeVersions
+GET     /node/{uuid}                        cmscore.NodeController.node
+GET     /node                               cmscore.NodeController.nodeList
 
 #the public dir for this module
 GET     /cmscore/public/                    staticDir:custom/cmscore/public

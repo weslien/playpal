@@ -1,8 +1,8 @@
 package play.modules.cmscore.annotations;
 
 /**
- * Used in conjunction with the \@Decorate annotation.
- * A method with the \@Decorate(type=FORM) will be called with a Form UIElement so the theme
+ * Used in conjunction with the \@Decorates annotation.
+ * A method with the \@Decorates(type=FORM) will be called with a Form UIElement so the theme
  * can decorate it and return the HTML to be rendered.
  */
 public enum UIElementType {

@@ -1,19 +1,19 @@
 #{extends 'cmscore/themes/DefaultTheme/theme.html' /}
-#{set title:leaf.title /}
+#{set title:node.title /}
 
 <div class="head">
-    <h3>${leaf.title}</h3>
+    <h3>${node.title}</h3>
 </div>
 #{cmscore.mainNavigation links:navigation/}
 
 <div style="width: 25%; float: left; clear: none;">
-#{verbatim}${leaf.get('left')}#{/verbatim}
+#{verbatim}${node.get('left')}#{/verbatim}
 </div>
 
 <div style="width: 50%; float: right">
-#{verbatim}${leaf.get('main')}#{/verbatim}
+#{verbatim}${node.get('main')}#{/verbatim}
 </div>
 
 <div style="width: 25%; float: right; clear: none;">
-#{verbatim}${leaf.get('right')}#{/verbatim}
+#{verbatim}${node.get('right')}#{/verbatim}
 </div>

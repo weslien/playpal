@@ -1,22 +1,22 @@
 #{extends 'cmscore/themes/DefaultTheme/theme.html' /}
-#{set title:leaf.title /}
+#{set title:node.title /}
 #{set 'moreStyles'}
 <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main_and_left_columns.css'}"/>
 #{/set}
 <div class="main-and-left-layout">
     <div class="head">
-        <h3>${leaf.title}</h3>
+        <h3>${node.title}</h3>
     </div>
 #{cmscore.mainNavigation links:navigation/}
     <div class="left-column">
         <div class="content">
-        #{verbatim}${leaf.get('left')}#{/verbatim}
+        #{verbatim}${node.get('left')}#{/verbatim}
         </div>
     </div>
 
     <div class="main-column">
         <div class="content">
-        #{verbatim}${leaf.get('main')}#{/verbatim}
+        #{verbatim}${node.get('main')}#{/verbatim}
         </div>
     </div>
 </div>

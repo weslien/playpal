@@ -3,7 +3,7 @@ package play.modules.cmscore.ui;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RenderedLeaf {
+public class RenderedNode {
 
     private String id;
 
@@ -18,7 +18,7 @@ public class RenderedLeaf {
 
     private Map<String, String> regions;
 
-    public RenderedLeaf(String id) {
+    public RenderedNode(String id) {
         this.id = id;
         regions = new HashMap<String, String>();
     }
@@ -107,6 +107,6 @@ public class RenderedLeaf {
 
     @Override
     public String toString() {
-        return "RenderedLeaf (" + id + ", template=" + template + ") - " + title;
+        return "RenderedNode (" + id + ", template=" + template + ") - " + title;
     }
 }

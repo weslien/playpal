@@ -2,7 +2,7 @@ package models.cmscore;
 
 import play.data.validation.Required;
 import play.db.jpa.Model;
-import play.modules.cmscore.Leaf;
+import play.modules.cmscore.Node;
 import play.modules.cmscore.ui.UIElement;
 
 import javax.persistence.*;
@@ -11,15 +11,15 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * The basic type for a page. Directly linked to a RootLeaf, both it's version and id.
+ * The basic type for a page. Directly linked to a RootNode, both it's version and id.
  *
- * @see play.modules.cmscore.Leaf
- * @see RootLeaf
+ * @see play.modules.cmscore.Node
+ * @see RootNode
  * @see listeners.PageListener
  */
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "pageVersion", columnNames = {"parentUuid", "parentVersion"}))
-public class Page extends Model implements Leaf {
+public class Page extends Model implements Node {
 
     @Required
     @Column(name = "parentUuid")
@@ -31,29 +31,29 @@ public class Page extends Model implements Leaf {
     public Long version;
 
     @Transient
-    public RootLeaf rootLeaf;
+    public RootNode rootNode;
 
     @Required
     public String title;
 
     @Override
-    public String getLeafId() {
+    public String getNodeId() {
         return this.uuid;
     }
 
     @Override
-    public Long getLeafVersion() {
+    public Long getVersion() {
         return this.version;
     }
 
     @Override
     public Date getDatePublished() {
-        return this.rootLeaf.publish;
+        return this.rootNode.publish;
     }
 
     @Override
     public Date getDateUnpublished() {
-        return this.rootLeaf.unPublish;
+        return this.rootNode.unPublish;
     }
 
     @Override
@@ -63,37 +63,37 @@ public class Page extends Model implements Leaf {
 
     @Override
     public String getThemeVariant() {
-        return rootLeaf.themeVariant;
+        return rootNode.themeVariant;
     }
 
     @Override
     public Set<String> getRegions() {
-        return rootLeaf.getRegions();
+        return rootNode.getRegions();
     }
 
     @Override
     public List<UIElement> getUIElements(String region) {
-        return rootLeaf.getUIElements(region);
+        return rootNode.getUIElements(region);
     }
 
     @Override
     public UIElement addUIElement(UIElement uiElement) {
-        return rootLeaf.addUIElement(HEAD, uiElement, false);
+        return rootNode.addUIElement(HEAD, uiElement, false);
     }
 
     @Override
     public UIElement addUIElement(String region, UIElement uiElement) {
-        return rootLeaf.addUIElement(region, uiElement, false);
+        return rootNode.addUIElement(region, uiElement, false);
     }
 
     @Override
     public UIElement addUIElement(String region, UIElement uiElement, boolean reorderElementsBelow) {
-        return rootLeaf.addUIElement(region, uiElement, reorderElementsBelow);
+        return rootNode.addUIElement(region, uiElement, reorderElementsBelow);
     }
 
     @Override
     public boolean removeUIElement(String region, UIElement uiElement) {
-        return rootLeaf.removeUIElement(region, uiElement);
+        return rootNode.removeUIElement(region, uiElement);
     }
 
     @Override
@@ -110,9 +110,9 @@ public class Page extends Model implements Leaf {
                 find(
                         "select p from Page p " +
                                 "where p.id in (" +
-                                "select l.id from RootLeaf l " +
+                                "select l.id from RootNode l " +
                                 "where l.version = (" +
-                                "select max(l2.version) from RootLeaf l2 " +
+                                "select max(l2.version) from RootNode l2 " +
                                 "where l2.uuid = l.uuid and " +
                                 "(l2.publish = null or l2.publish < :today) and " +
                                 "(l2.unPublish = null or l2.unPublish >= :today)" +
@@ -127,9 +127,9 @@ public class Page extends Model implements Leaf {
                 find(
                         "select p from Page p " +
                                 "where p.uuid = :uuid and p.id in (" +
-                                "select l.id from RootLeaf l " +
+                                "select l.id from RootNode l " +
                                 "where l.version = (" +
-                                "select max(l2.version) from RootLeaf l2 " +
+                                "select max(l2.version) from RootNode l2 " +
                                 "where l2.uuid = l.uuid and " +
                                 "(l2.publish = null or l2.publish < :today) and " +
                                 "(l2.unPublish = null or l2.unPublish >= :today)" +
@@ -141,7 +141,7 @@ public class Page extends Model implements Leaf {
     }
 
     public static Page findWithUuidSpecificVersion(String uuid, Long version) {
-        return RootLeaf.
+        return RootNode.
                 find(
                         "select distinct p from Page p " +
                                 "where p.uuid = :uuid and " +

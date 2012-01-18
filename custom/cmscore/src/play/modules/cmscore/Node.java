@@ -7,33 +7,34 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * An interface that each module/add-ons/plugin should implement if it adds a type with a \@Provides annotation.
- * While the modules/add-ons/plugins handle a rootLeaf and modifiy it it will be of this type. When rendering starts this will be turned into a RenderedLeaf.
+ * An interface that each module/add-on/plugin should implement if it adds a type with a \@Provides annotation.
+ * While the modules/add-ons/plugins handle a rootNode and modify it, it will be of this type. When rendering
+ * starts this will be turned into a RenderedNode.
  *
  * @see play.modules.cmscore.annotations.Provides
  * @see play.modules.cmscore.annotations.ThemeVariant
  * @see UIElement
  */
-public interface Leaf {
+public interface Node {
 
     static final String HEAD = "head";
 
     /**
-     * The uuid of the leaf
+     * The uuid of the node
      *
-     * @return a unique key for this leaf
+     * @return a unique key for this node
      */
-    String getLeafId();
+    String getNodeId();
 
     /**
-     * The version of this leaf
+     * The version of this node
      *
      * @return a version number
      */
-    Long getLeafVersion();
+    Long getVersion();
 
     /**
-     * A title for this leaf
+     * A title for this node
      *
      * @return a title
      */
@@ -62,7 +63,7 @@ public interface Leaf {
     String getThemeVariant();
 
     /**
-     * All the available regions stored on this leaf.
+     * All the available regions stored on this node.
      *
      * @return a set of region names that can be used for showing content
      * @see play.modules.cmscore.annotations.ThemeVariant

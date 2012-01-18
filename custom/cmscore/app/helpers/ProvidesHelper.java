@@ -1,13 +1,12 @@
 package helpers;
 
-import models.cmscore.Block;
-import models.cmscore.RootLeaf;
+import models.cmscore.RootNode;
+import models.cmscore.Segment;
 import models.cmscore.navigation.Navigation;
 import play.modules.cmscore.CachedAnnotation;
-import play.modules.cmscore.Leaf;
 import play.modules.cmscore.Listeners;
+import play.modules.cmscore.Node;
 import play.modules.cmscore.annotations.Provides;
-import play.modules.cmscore.annotations.ProvidesType;
 import play.modules.cmscore.ui.NavigationElement;
 import play.modules.cmscore.ui.UIElement;
 
@@ -16,44 +15,44 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Helper to trigger \@Provides listeners. Should not be used directly, use LeafHelper instead.
+ * Helper to trigger \@Provides listeners. Should not be used directly, use NodeHelper instead.
  *
- * @see LeafHelper
+ * @see NodeHelper
  * @see Provides
  */
 public class ProvidesHelper {
 
-    public static Leaf triggerLeafListener(Class withType, RootLeaf rootLeaf) {
-        CachedAnnotation listener = findListener(ProvidesType.LEAF, withType);
+    public static Node triggerNodeListener(Class withType, RootNode rootNode) {
+        CachedAnnotation listener = findListener(Provides.Type.NODE, withType);
         Map<Class, Object> parameters = new HashMap<Class, Object>();
-        parameters.put(Leaf.class, rootLeaf);
-        return (Leaf) ReflectionHelper.invokeMethod(listener.method, parameters);
+        parameters.put(Node.class, rootNode);
+        return (Node) ReflectionHelper.invokeMethod(listener.method, parameters);
     }
 
-    public static UIElement triggerBlockListener(Class withType, Leaf leaf, Block block) {
-        CachedAnnotation listener = findListener(ProvidesType.BLOCK, withType);
+    public static UIElement triggerSegmentListener(Class withType, Node node, Segment segment) {
+        CachedAnnotation listener = findListener(Provides.Type.SEGMENT, withType);
         Map<Class, Object> parameters = new HashMap<Class, Object>();
-        parameters.put(Leaf.class, leaf);
-        parameters.put(Block.class, block);
+        parameters.put(Node.class, node);
+        parameters.put(Segment.class, segment);
         return (UIElement) ReflectionHelper.invokeMethod(listener.method, parameters);
     }
 
-    public static UIElement triggerFormListener(Class withType, Leaf leaf) {
-        CachedAnnotation listener = findListener(ProvidesType.FORM, withType);
+    public static UIElement triggerFormListener(Class withType, Node node) {
+        CachedAnnotation listener = findListener(Provides.Type.FORM, withType);
         Map<Class, Object> parameters = new HashMap<Class, Object>();
-        parameters.put(Leaf.class, leaf);
+        parameters.put(Node.class, node);
         return (UIElement) ReflectionHelper.invokeMethod(listener.method, parameters);
     }
 
-    public static NavigationElement triggerNavigationListener(Class withType, Leaf leaf, Navigation navigation) {
-        CachedAnnotation listener = findListener(ProvidesType.NAVIGATION, withType);
+    public static NavigationElement triggerNavigationListener(Class withType, Node node, Navigation navigation) {
+        CachedAnnotation listener = findListener(Provides.Type.NAVIGATION, withType);
         Map<Class, Object> parameters = new HashMap<Class, Object>();
-        parameters.put(Leaf.class, leaf);
+        parameters.put(Node.class, node);
         parameters.put(Navigation.class, navigation);
         return (NavigationElement) ReflectionHelper.invokeMethod(listener.method, parameters);
     }
 
-    private static CachedAnnotation findListener(ProvidesType type, Class withType) {
+    private static CachedAnnotation findListener(Provides.Type type, Class withType) {
         CachedAnnotation listener = findListenerForType(type, withType);
         if (listener == null) {
             throw new RuntimeException("Every type (attribute 'with') must have a class annotated with @Provides to instantiate an instance");
@@ -61,7 +60,7 @@ public class ProvidesHelper {
         return listener;
     }
 
-    private static CachedAnnotation findListenerForType(final ProvidesType type, final Class withType) {
+    private static CachedAnnotation findListenerForType(final Provides.Type type, final Class withType) {
         List<CachedAnnotation> listeners = Listeners.getListenersForAnnotationType(Provides.class, new Listeners.ListenerSelector() {
             @Override
             public boolean isCorrectListener(CachedAnnotation listener) {

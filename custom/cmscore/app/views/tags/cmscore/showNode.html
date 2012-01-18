@@ -1,0 +1,7 @@
+<h3>Node ${_node.uuid}</h3>
+
+Title ${_node.title}<br/>
+Version ${_node.version}<br/>
+Type #{if _node.type}${_node.type}#{/if}#{else}&lt;not set&gt;#{/else}<br/>
+Publish #{if _node.publish}${_node.publish}#{/if}#{else}&lt;not set&gt;#{/else}<br/>
+UnPublish #{if _node.unPublish}${_node.unPublish}#{/if}#{else}&lt;not set&gt;#{/else}<br/>
