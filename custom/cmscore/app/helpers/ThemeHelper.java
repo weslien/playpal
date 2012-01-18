@@ -19,10 +19,9 @@ public class ThemeHelper {
     private static final Logger LOG = Logger.getLogger(ThemeHelper.class);
 
     public static RenderedLeaf decorate(Leaf leaf) {
-        RenderedLeaf renderedLeaf = new RenderedLeaf();
+        RenderedLeaf renderedLeaf = new RenderedLeaf(leaf.getLeafId());
         CachedThemeVariant themeVariant = loadTheme(leaf);
         setupRegions(themeVariant, renderedLeaf);
-        renderedLeaf.setNavigation(leaf.getNavigation());
         renderedLeaf.setTitle(leaf.getTitle());
         renderedLeaf.setTemplate(ReflectionHelper.getTemplate(themeVariant));
         RenderingContext renderingContext = new RenderingContext(themeVariant, leaf);

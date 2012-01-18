@@ -1,6 +1,5 @@
 package play.modules.cmscore;
 
-import play.modules.cmscore.ui.NavigationElement;
 import play.modules.cmscore.ui.UIElement;
 
 import java.util.Date;
@@ -61,30 +60,6 @@ public interface Leaf {
      * @see play.modules.cmscore.annotations.ThemeVariant
      */
     String getThemeVariant();
-
-    /**
-     * A list of Navigation objects that are tied to this page.
-     *
-     * @return list of Navigation to be rendered on the page
-     * @see models.cmscore.navigation.Navigation
-     */
-    List<NavigationElement> getNavigation();
-
-    /**
-     * Add a navigation link to the list about to be rendered
-     *
-     * @param navigationElement the link to add
-     * @return the recently added link
-     */
-    NavigationElement addNavigation(NavigationElement navigationElement);
-
-    /**
-     * Remove a navigation link from the list about to be rendered
-     *
-     * @param navigationElement the link to remove
-     * @return if the remove was able to find the object specified
-     */
-    boolean removeNavigation(NavigationElement navigationElement);
 
     /**
      * All the available regions stored on this leaf.

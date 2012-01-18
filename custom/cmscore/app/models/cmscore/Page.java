@@ -3,7 +3,6 @@ package models.cmscore;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import play.modules.cmscore.Leaf;
-import play.modules.cmscore.ui.NavigationElement;
 import play.modules.cmscore.ui.UIElement;
 
 import javax.persistence.*;
@@ -70,21 +69,6 @@ public class Page extends Model implements Leaf {
     @Override
     public Set<String> getRegions() {
         return rootLeaf.getRegions();
-    }
-
-    @Override
-    public List<NavigationElement> getNavigation() {
-        return rootLeaf.getNavigation();
-    }
-
-    @Override
-    public NavigationElement addNavigation(NavigationElement navigationElement) {
-        return rootLeaf.addNavigation(navigationElement);
-    }
-
-    @Override
-    public boolean removeNavigation(NavigationElement navigationElement) {
-        return rootLeaf.removeNavigation(navigationElement);
     }
 
     @Override

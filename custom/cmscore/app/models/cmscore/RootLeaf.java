@@ -4,7 +4,6 @@ import helpers.UIElementHelper;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import play.modules.cmscore.Leaf;
-import play.modules.cmscore.ui.NavigationElement;
 import play.modules.cmscore.ui.UIElement;
 
 import javax.persistence.*;
@@ -30,9 +29,6 @@ public final class RootLeaf extends Model implements Leaf {
     public String type;
 
     public String themeVariant;
-
-    @Transient
-    private List<NavigationElement> navigationElements = new ArrayList<NavigationElement>();
 
     @Transient
     private Map<String, List<UIElement>> uiElements = new HashMap<String, List<UIElement>>();
@@ -88,22 +84,6 @@ public final class RootLeaf extends Model implements Leaf {
     @Override
     public Set<String> getRegions() {
         return this.uiElements.keySet();
-    }
-
-    @Override
-    public List<NavigationElement> getNavigation() {
-        return navigationElements;
-    }
-
-    @Override
-    public NavigationElement addNavigation(NavigationElement navigationElement) {
-        navigationElements.add(navigationElement);
-        return navigationElement;
-    }
-
-    @Override
-    public boolean removeNavigation(NavigationElement navigationElement) {
-        return navigationElements.remove(navigationElement);
     }
 
     /* Interface methods */
@@ -200,7 +180,6 @@ public final class RootLeaf extends Model implements Leaf {
 
     private static void initializeLeaf(RootLeaf leaf) {
         leaf.uiElements = new HashMap<String, List<UIElement>>();
-        leaf.navigationElements = new ArrayList<NavigationElement>();
     }
 
     @Override

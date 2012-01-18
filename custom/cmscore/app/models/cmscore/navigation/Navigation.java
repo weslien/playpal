@@ -42,20 +42,24 @@ public class Navigation extends Model implements Comparable<Navigation> {
         }
     }
 
-    public static Collection<Navigation> findTopWithSection(String section, Navigation parent) {
+    public static Collection<Navigation> findTopWithSection(String section) {
         String query = "select distinct n from Navigation n where n.section=:section and ";
-        List<Navigation> navigations;
-        if (parent != null) {
-            navigations = Navigation.find(query + "parent=:parent").
-                    bind("section", section).
-                    bind("parent", parent).
+        List<Navigation> navigations =
+                Navigation.find(query + "parent is null").
+                        bind("section", section).
+                        fetch();
+        Collections.sort(navigations);
+        return navigations;
+    }
 
-                    fetch();
-        } else {
-            navigations = Navigation.find(query + "parent is null").
-                    bind("section", section).
-                    fetch();
-        }
+    public static Collection<Navigation> findWithSection(String section, Navigation parent) {
+        String query = "select distinct n from Navigation n where n.section=:section and ";
+        List<Navigation> navigations =
+                Navigation.find(query + "parent=:parent").
+                        bind("section", section).
+                        bind("parent", parent).
+
+                        fetch();
         Collections.sort(navigations);
         return navigations;
     }

@@ -1,13 +1,17 @@
 package controllers.cmscore;
 
 import helpers.LeafHelper;
+import helpers.NavigationHelper;
 import helpers.SettingsHelper;
 import helpers.ThemeHelper;
 import listeners.PageNotFoundException;
 import models.cmscore.Alias;
 import org.apache.log4j.Logger;
 import play.modules.cmscore.Leaf;
+import play.modules.cmscore.ui.NavigationElement;
 import play.modules.cmscore.ui.RenderedLeaf;
+
+import java.util.Collection;
 
 public class CoreLoader {
 
@@ -52,16 +56,19 @@ public class CoreLoader {
     }
 
     private static RenderedLeaf loadAndDecoratePage(String identifier, long version) {
+        Leaf leaf = loadLeaf(identifier, version);
+        return decorateLeaf(leaf);
+    }
+
+    private static Leaf loadLeaf(String identifier, long version) {
         LOG.debug("Trying to find alias for [" + identifier + "]");
         Alias alias = Alias.findWithPath(identifier);
         if (alias != null) {
             LOG.trace("Found alias: " + alias.toString());
-            Leaf leaf = loadByUUIDAndVersion(alias.pageId, version);
-            return decorateLeaf(leaf);
+            return loadByUUIDAndVersion(alias.pageId, version);
         } else {
             LOG.trace("Trying to find page with uuid [" + identifier + "]");
-            Leaf leaf = loadByUUIDAndVersion(identifier, version);
-            return decorateLeaf(leaf);
+            return loadByUUIDAndVersion(identifier, version);
         }
     }
 
@@ -84,6 +91,19 @@ public class CoreLoader {
             LOG.debug("Decorated " + renderedLeaf);
         }
         return renderedLeaf;
+    }
+
+    public static Collection<NavigationElement> getNavigation(String identifier) {
+        return getNavigation(identifier, 0);
+    }
+
+    public static Collection<NavigationElement> getNavigation(String identifier, long version) {
+        Leaf leaf = loadLeaf(identifier, version);
+        Collection<NavigationElement> navigationLinks = NavigationHelper.getNavigation(leaf);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Navigation loaded " + navigationLinks);
+        }
+        return navigationLinks;
     }
 
 }

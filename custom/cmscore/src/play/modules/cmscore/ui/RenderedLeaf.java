@@ -1,7 +1,6 @@
 package play.modules.cmscore.ui;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class RenderedLeaf {
@@ -16,11 +15,11 @@ public class RenderedLeaf {
     private String link;
     private String script;
     private String style;
-    private List<NavigationElement> navigation;
 
     private Map<String, String> regions;
 
-    public RenderedLeaf() {
+    public RenderedLeaf(String id) {
+        this.id = id;
         regions = new HashMap<String, String>();
     }
 
@@ -64,14 +63,6 @@ public class RenderedLeaf {
         this.script = script;
     }
 
-    public void setNavigation(List<NavigationElement> navigation) {
-        this.navigation = navigation;
-    }
-
-    public List<NavigationElement> getNavigation() {
-        return navigation;
-    }
-
     public Map<String, String> getRegions() {
         return regions;
     }
@@ -106,10 +97,6 @@ public class RenderedLeaf {
         StringBuilder sb = new StringBuilder(style != null ? style : "");
         sb.append(additionalContent);
         style = sb.toString();
-    }
-
-    public void addNavigation(NavigationElement navigation) {
-        this.getNavigation().add(navigation);
     }
 
     public void add(String region, String additionalContent) {
