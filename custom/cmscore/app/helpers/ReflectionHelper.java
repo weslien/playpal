@@ -69,22 +69,29 @@ public class ReflectionHelper {
             if (parameter != null) {
                 return parameter;
             } else {
-                // Check all interfaces of parameterType
-                for (Class cls : parameterType.getInterfaces()) {
-                    parameter = findParameter(parameters, cls);
-                    if (parameter != null) {
-                        return parameter;
-                    }
-                }
-                // Check super class of parameterType
-                try {
-                    return findParameter(parameters, parameterType.getSuperclass());
-                } catch (UnknownParameterTypeException e) {
-                    throw new UnknownParameterTypeException("No parameter of type [" + parameterType + "] was found and it has no super class or interface", parameterType);
+                parameter = findParameterOfSuperType(parameters, parameterType);
+                if (parameter != null) {
+                    return parameter;
                 }
             }
         }
-        throw new UnknownParameterTypeException(null);
+        throw new UnknownParameterTypeException("No parameter of type [" + parameterType + "] was found and it has no super class or interface", parameterType);
+    }
+
+    private static Object findParameterOfSuperType(Map<Class, Object> parameters, Class parameterType) {
+        if (parameterType != null) {
+            for (Class cls : parameterType.getInterfaces()) {
+                Object parameter = parameters.get(cls);
+                if (parameter != null) {
+                    return parameter;
+                }
+                parameter = findParameterOfSuperType(parameters, cls.getSuperclass());
+                if (parameter != null) {
+                    return parameter;
+                }
+            }
+        }
+        return null;
     }
 
     public static String invokeDecorator(CachedDecorator decorator, Map<Class, Object> parameters) {

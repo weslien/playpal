@@ -25,15 +25,19 @@ public class NavigationHelper {
         return ProvidesHelper.triggerListener(Provides.Type.NAVIGATION, withType, node, Collections.<Class, Object>singletonMap(String.class, section));
     }
 
-    public static void triggerBeforeNavigationLoaded(Class withType, Node node, Collection<NavigationElement> navigationElements) {
-        //TODO: Figure out how to do this with a complete type Collection<NavigationElement>.class? instead of Collection.class
-        OnLoadHelper.triggerBeforeListener(OnLoad.Type.NAVIGATION, withType, node, Collection.class, navigationElements);
-    }
-
-    public static void triggerAfterNavigationLoaded(Class withType, Node node, Collection<NavigationElement> navigationElements) {
+    public static void triggerBeforeNavigationLoaded(Class withType, Node node, Collection<NavigationElement> navigationElements, String section) {
         Map<Class, Object> args = new HashMap<Class, Object>();
         //TODO: Figure out how to do this with a complete type Collection<NavigationElement>.class? instead of Collection.class
         args.put(Collection.class, navigationElements);
+        args.put(String.class, section);
+        OnLoadHelper.triggerBeforeListener(OnLoad.Type.NAVIGATION, withType, node, args);
+    }
+
+    public static void triggerAfterNavigationLoaded(Class withType, Node node, Collection<NavigationElement> navigationElements, String section) {
+        Map<Class, Object> args = new HashMap<Class, Object>();
+        //TODO: Figure out how to do this with a complete type Collection<NavigationElement>.class? instead of Collection.class
+        args.put(Collection.class, navigationElements);
+        args.put(String.class, section);
         OnLoadHelper.triggerAfterListener(OnLoad.Type.NAVIGATION, withType, node, args);
     }
 

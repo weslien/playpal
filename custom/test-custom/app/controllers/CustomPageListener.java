@@ -4,7 +4,10 @@ import models.cmscore.Page;
 import play.modules.cmscore.Node;
 import play.modules.cmscore.annotations.OnLoad;
 import play.modules.cmscore.annotations.UIElementType;
+import play.modules.cmscore.ui.NavigationElement;
 import play.modules.cmscore.ui.UIElement;
+
+import java.util.Collection;
 
 public class CustomPageListener {
 
@@ -42,5 +45,9 @@ public class CustomPageListener {
 
     }
 
+    @OnLoad(type = OnLoad.Type.NAVIGATION)
+    public static void setupTestNavigation(Node node, Collection<NavigationElement> navigationElements, String section) {
+        navigationElements.add(new NavigationElement(section, "Programmatically Added", "http://google.com"));
+    }
 
 }

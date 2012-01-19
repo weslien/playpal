@@ -19,7 +19,7 @@ public class BasicNavigation extends Model implements Navigation<BasicNavigation
     public BasicNavigation parent;
 
     @OneToMany
-    public Collection<BasicNavigation> children;
+    public List<BasicNavigation> children;
 
     @Required
     public String type;
@@ -50,7 +50,7 @@ public class BasicNavigation extends Model implements Navigation<BasicNavigation
     }
 
     @Override
-    public Collection<BasicNavigation> getChildren() {
+    public List<BasicNavigation> getChildren() {
         return children;
     }
 

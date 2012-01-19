@@ -47,7 +47,7 @@ public class PageListener {
     @Provides(type = Provides.Type.NAVIGATION, with = BasicNavigation.class)
     public static Collection<NavigationElement> createNavigation(Node node, String section) {
         Collection<NavigationElement> navigationElements = new ArrayList<NavigationElement>();
-        NavigationHelper.triggerBeforeNavigationLoaded(BasicNavigation.class, node, navigationElements);
+        NavigationHelper.triggerBeforeNavigationLoaded(BasicNavigation.class, node, navigationElements, section);
         Collection<BasicNavigation> navigationModels = BasicNavigation.findTopWithSection(section);
         for (BasicNavigation navigationModel : navigationModels) {
             NavigationHelper.triggerBeforeNavigationItemLoaded(navigationModel.getTypeClass(), node, navigationModel);
@@ -55,7 +55,7 @@ public class PageListener {
             NavigationHelper.triggerAfterNavigationItemLoaded(navigationModel.getTypeClass(), node, navigationModel, navigationElement);
             navigationElements.add(navigationElement);
         }
-        NavigationHelper.triggerAfterNavigationLoaded(BasicNavigation.class, node, navigationElements);
+        NavigationHelper.triggerAfterNavigationLoaded(BasicNavigation.class, node, navigationElements, section);
         return navigationElements;
     }
 
