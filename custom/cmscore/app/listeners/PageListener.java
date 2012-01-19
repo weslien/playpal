@@ -17,6 +17,7 @@ import play.modules.cmscore.ui.UIElement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 public class PageListener {
 
@@ -48,25 +49,40 @@ public class PageListener {
     public static Collection<NavigationElement> createNavigation(Node node, String section) {
         Collection<NavigationElement> navigationElements = new ArrayList<NavigationElement>();
         NavigationHelper.triggerBeforeNavigationLoaded(BasicNavigation.class, node, navigationElements, section);
-        Collection<BasicNavigation> navigationModels = BasicNavigation.findTopWithSection(section);
+        List<BasicNavigation> navigationModels = BasicNavigation.findWithSection(section);
         for (BasicNavigation navigationModel : navigationModels) {
             NavigationHelper.triggerBeforeNavigationItemLoaded(navigationModel.getTypeClass(), node, navigationModel);
             NavigationElement navigationElement = NavigationHelper.triggerProvidesNavigationItemListener(navigationModel.getTypeClass(), node, navigationModel);
             NavigationHelper.triggerAfterNavigationItemLoaded(navigationModel.getTypeClass(), node, navigationModel, navigationElement);
+            List<NavigationElement> children = createNavigationChildren(node, section, navigationModel);
+            navigationElement.children.addAll(children);
             navigationElements.add(navigationElement);
         }
         NavigationHelper.triggerAfterNavigationLoaded(BasicNavigation.class, node, navigationElements, section);
         return navigationElements;
     }
 
+    public static List<NavigationElement> createNavigationChildren(Node node, String section, BasicNavigation navigationModel) {
+        List<NavigationElement> navigationElements = new ArrayList<NavigationElement>();
+        List<BasicNavigation> navigationModels = BasicNavigation.findWithSection(section, navigationModel);
+        for (BasicNavigation childNavigation : navigationModels) {
+            NavigationHelper.triggerBeforeNavigationItemLoaded(childNavigation.getTypeClass(), node, childNavigation);
+            NavigationElement navigationElement = NavigationHelper.triggerProvidesNavigationItemListener(childNavigation.getTypeClass(), node, childNavigation);
+            NavigationHelper.triggerAfterNavigationItemLoaded(childNavigation.getTypeClass(), node, childNavigation, navigationElement);
+            navigationElements.add(navigationElement);
+        }
+        return navigationElements;
+    }
+
     @Provides(type = Provides.Type.NAVIGATION_ITEM, with = AliasNavigation.class)
-    public static NavigationElement createAliasNavigation(Navigation navigation) {
+    public static NavigationElement createAliasNavigation(Node node, Navigation navigation) {
         AliasNavigation navigationModel = AliasNavigation.findWithIdentifier(navigation.getReferenceId());
         Alias alias = Alias.findWithPath(navigationModel.alias);
         if (alias != null) {
             Page page = Page.findCurrentVersion(alias.pageId, new Date());
             if (page != null) {
-                return new NavigationElement(navigation.getSection(), page.title, navigationModel.getLink());
+                boolean selected = node.getNodeId().equals(alias.pageId);
+                return new NavigationElement(navigation.getSection(), page.title, navigationModel.getLink(), selected);
             } else {
                 throw new RuntimeException("Page not found [" + alias.pageId + "]");
             }
@@ -76,11 +92,12 @@ public class PageListener {
     }
 
     @Provides(type = Provides.Type.NAVIGATION_ITEM, with = PageIdNavigation.class)
-    public static NavigationElement createPageIdNavigation(Navigation navigation) {
+    public static NavigationElement createPageIdNavigation(Node node, Navigation navigation) {
         PageIdNavigation navigationModel = PageIdNavigation.findWithIdentifier(navigation.getReferenceId());
         Page page = Page.findCurrentVersion(navigationModel.pageId, new Date());
         if (page != null) {
-            return new NavigationElement(navigation.getSection(), page.title, navigationModel.getLink());
+            boolean selected = node.getNodeId().equals(page.getNodeId());
+            return new NavigationElement(navigation.getSection(), page.title, navigationModel.getLink(), selected);
         } else {
             throw new RuntimeException("Page not found [" + navigationModel.pageId + "]");
         }

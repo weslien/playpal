@@ -1,7 +1,8 @@
-<div class="mainNavigation">
+<div class="navigation tertiary tertiaryNavigation">
     <ul>
-        <li>First 3rd nav</li>
-        <li>Second 3rd nav</li>
-        <li>Third 3rd nav</li>
+    #{list items:_links, as:'link'}
+        <li #{if link.selected}class="selected"#{/if}> -- <a
+                href="#{verbatim }${link.link.raw()}#{/verbatim}">${link.title}</a></li>
+    #{/list}
     </ul>
 </div>

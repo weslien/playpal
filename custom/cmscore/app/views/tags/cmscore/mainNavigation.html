@@ -1,9 +1,14 @@
 <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/navigation.css'}"/>
 
-<div class="mainNavigation">
+<div class="navigation main mainNavigation">
     <ul>
     #{list items:_links, as:'link'}
-        <li><a href="#{verbatim }${link.link.raw()}#{/verbatim}">${link.title}</a></li>
+        <li #{if link.selected}class="selected"#{/if}><a
+                href="#{verbatim }${link.link.raw()}#{/verbatim}">${link.title}</a>
+            #{if _as == 'full'}
+                #{cmscore.secondaryNavigation links:link.children/}
+            #{/if}
+        </li>
     #{/list}
     </ul>
 </div>

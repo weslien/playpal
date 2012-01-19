@@ -7,7 +7,8 @@
     <div class="head">
         <h3>${node.title}</h3>
     </div>
-#{cmscore.mainNavigation links:navigation/}
+#{cmscore.mainNavigation links:navigation, as:'full'/}
+
     <div class="left-column">
         <div class="content">
         #{verbatim}${node.get('left')}#{/verbatim}

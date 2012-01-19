@@ -329,7 +329,7 @@ cmscore.Alias(alias-fourth):
 # /fifth -> page 5
 cmscore.Alias(alias-fifth):
     path:           fifth
-    pageId:         1c7a35d1-5e50-4dc8-8ef9-392745b3c6f9
+    pageId:         c6d14b95-a3a8-4103-a04f-a0eb5b0c2bfa
 
 ### Navigation ###
 # Start Page
@@ -337,7 +337,7 @@ cmscore.navigation.BasicNavigation(navigation-start):
     type:           models.cmscore.navigation.PageIdNavigation
     section:        'front'
     referenceId:    3f2d9e2e-12dc-4917-9a58-40d325e9784e
-    sortOrder:      1
+    order:          1
 cmscore.navigation.PageIdNavigation(navigation-page-start):
     identifier:     3f2d9e2e-12dc-4917-9a58-40d325e9784e
     pageId:         aa1755dd-18c4-4b78-956e-eef7e562c36c
@@ -347,7 +347,7 @@ cmscore.navigation.BasicNavigation(navigation-third):
     type:           models.cmscore.navigation.PageIdNavigation
     section:        'front'
     referenceId:    c1fb6ec5-4312-49b4-8936-133aeeb8bb50
-    sortOrder:      2
+    order:          2
 cmscore.navigation.PageIdNavigation(navigation-page-third):
     identifier:     c1fb6ec5-4312-49b4-8936-133aeeb8bb50
     pageId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
@@ -357,7 +357,7 @@ cmscore.navigation.BasicNavigation(navigation-fourth):
     type:           models.cmscore.navigation.AliasNavigation
     section:        'front'
     referenceId:    a8129a97-70fa-40b7-93e4-2a1caf181a0d
-    sortOrder:      3
+    order:          3
 cmscore.navigation.AliasNavigation(navigation-alias-fourth):
     identifier:     a8129a97-70fa-40b7-93e4-2a1caf181a0d
     alias:          fourth
@@ -368,7 +368,7 @@ cmscore.navigation.BasicNavigation(navigation-fifth):
     section:        'front'
     referenceId:    d0262683-c4f8-4591-994e-0c745be48463
     parent:         [navigation-fourth]
-    sortOrder:      1
+    order:          1
 cmscore.navigation.AliasNavigation(navigation-alias-fifth):
     identifier:     d0262683-c4f8-4591-994e-0c745be48463
     alias:          fifth
@@ -379,7 +379,7 @@ cmscore.navigation.BasicNavigation(navigation-google):
     section:        'front'
     referenceId:    58e15bfa-da4f-4f6b-a15a-51ab6c82e670
     parent:         [navigation-fourth]
-    sortOrder:      2
+    order:          2
 cmscore.navigation.ExternalLinkNavigation(navigation-external-google):
     identifier:     58e15bfa-da4f-4f6b-a15a-51ab6c82e670
     title:          Google

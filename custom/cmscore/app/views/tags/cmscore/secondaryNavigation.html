@@ -1,7 +1,12 @@
-<div class="secondaryNavigation">
+<div class="navigation seconday secondaryNavigation">
     <ul>
-        <li>First secondary nav</li>
-        <li>Second secondary nav</li>
-        <li>Third secondary nav</li>
+    #{list items:_links, as:'link'}
+        <li #{if link.selected}class="selected"#{/if}> - <a
+                href="#{verbatim }${link.link.raw()}#{/verbatim}">${link.title}</a>
+            #{if _as == 'full'}
+                #{cmscore.tertiaryNavigation links:link.children, as: 'full'/}
+            #{/if}
+        </li>
+    #{/list}
     </ul>
 </div>

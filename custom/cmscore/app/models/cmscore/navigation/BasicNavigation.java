@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class BasicNavigation extends Model implements Navigation<BasicNavigation
     @ManyToOne
     public BasicNavigation parent;
 
-    @OneToMany
+    @OneToMany(mappedBy = "parent", orphanRemoval = true)
     public List<BasicNavigation> children;
 
     @Required
@@ -62,7 +61,7 @@ public class BasicNavigation extends Model implements Navigation<BasicNavigation
         }
     }
 
-    public static Collection<BasicNavigation> findTopWithSection(String section) {
+    public static List<BasicNavigation> findWithSection(String section) {
         String query = "select distinct n from BasicNavigation n where n.section=:section and ";
         List<BasicNavigation> navigations =
                 BasicNavigation.find(query + "parent is null").
@@ -72,7 +71,7 @@ public class BasicNavigation extends Model implements Navigation<BasicNavigation
         return navigations;
     }
 
-    public static Collection<BasicNavigation> findWithSection(String section, BasicNavigation parent) {
+    public static List<BasicNavigation> findWithSection(String section, BasicNavigation parent) {
         String query = "select distinct n from BasicNavigation n where n.section=:section and ";
         List<BasicNavigation> navigations =
                 BasicNavigation.find(query + "parent=:parent").
@@ -86,7 +85,7 @@ public class BasicNavigation extends Model implements Navigation<BasicNavigation
 
     @Override
     public int compareTo(BasicNavigation navigation) {
-        return new Integer(navigation.order).compareTo(order);
+        return new Integer(order).compareTo(navigation.order);
     }
 
 }
