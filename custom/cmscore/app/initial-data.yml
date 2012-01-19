@@ -333,7 +333,7 @@ cmscore.Alias(alias-fifth):
 
 ### Navigation ###
 # Start Page
-cmscore.navigation.Navigation(navigation-start):
+cmscore.navigation.BasicNavigation(navigation-start):
     type:           models.cmscore.navigation.PageIdNavigation
     section:        'front'
     referenceId:    3f2d9e2e-12dc-4917-9a58-40d325e9784e
@@ -343,7 +343,7 @@ cmscore.navigation.PageIdNavigation(navigation-page-start):
     pageId:         aa1755dd-18c4-4b78-956e-eef7e562c36c
 
 # Third
-cmscore.navigation.Navigation(navigation-third):
+cmscore.navigation.BasicNavigation(navigation-third):
     type:           models.cmscore.navigation.PageIdNavigation
     section:        'front'
     referenceId:    c1fb6ec5-4312-49b4-8936-133aeeb8bb50
@@ -353,7 +353,7 @@ cmscore.navigation.PageIdNavigation(navigation-page-third):
     pageId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
 
 # Fourth
-cmscore.navigation.Navigation(navigation-fourth):
+cmscore.navigation.BasicNavigation(navigation-fourth):
     type:           models.cmscore.navigation.AliasNavigation
     section:        'front'
     referenceId:    a8129a97-70fa-40b7-93e4-2a1caf181a0d
@@ -363,7 +363,7 @@ cmscore.navigation.AliasNavigation(navigation-alias-fourth):
     alias:          fourth
 
 # Fifth
-cmscore.navigation.Navigation(navigation-fifth):
+cmscore.navigation.BasicNavigation(navigation-fifth):
     type:           models.cmscore.navigation.AliasNavigation
     section:        'front'
     referenceId:    d0262683-c4f8-4591-994e-0c745be48463
@@ -374,7 +374,7 @@ cmscore.navigation.AliasNavigation(navigation-alias-fifth):
     alias:          fifth
 
 # External - Google
-cmscore.navigation.Navigation(navigation-google):
+cmscore.navigation.BasicNavigation(navigation-google):
     type:           models.cmscore.navigation.ExternalLinkNavigation
     section:        'front'
     referenceId:    58e15bfa-da4f-4f6b-a15a-51ab6c82e670

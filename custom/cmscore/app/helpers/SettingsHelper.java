@@ -2,6 +2,8 @@ package helpers;
 
 import models.cmscore.Settings;
 import models.cmscore.SettingsKeys;
+import models.cmscore.navigation.BasicNavigation;
+import play.Logger;
 
 public class SettingsHelper {
 
@@ -19,6 +21,18 @@ public class SettingsHelper {
 
     public static String getThemeVariant() {
         return Settings.load().getValue(SettingsKeys.Core.THEME_VARIANT);
+    }
+
+    public static Class getNavigationType() {
+        String navigationType = Settings.load().getValue(SettingsKeys.Core.NAVIGATION_TYPE);
+        if (navigationType != null) {
+            try {
+                return Class.forName(navigationType);
+            } catch (ClassNotFoundException e) {
+                Logger.error("Unable to find navigation type [" + navigationType + "], using system default navigation type instead");
+            }
+        }
+        return BasicNavigation.class;
     }
 
 }

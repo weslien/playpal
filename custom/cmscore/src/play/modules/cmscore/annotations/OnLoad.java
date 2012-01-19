@@ -19,6 +19,6 @@ public @interface OnLoad {
     boolean after() default true;
 
     public static enum Type {
-        NAVIGATION_ITEM, NODE, SEGMENT, FORM
+        NODE, SEGMENT, FORM, NAVIGATION, NAVIGATION_ITEM
     }
 }

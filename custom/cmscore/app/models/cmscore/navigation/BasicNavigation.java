@@ -2,6 +2,7 @@ package models.cmscore.navigation;
 
 import play.data.validation.Required;
 import play.db.jpa.Model;
+import play.modules.cmscore.Navigation;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,16 +11,15 @@ import javax.persistence.OneToMany;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 @Entity
-public class Navigation extends Model implements Comparable<Navigation> {
+public class BasicNavigation extends Model implements Navigation<BasicNavigation>, Comparable<BasicNavigation> {
 
     @ManyToOne
-    public Navigation parent;
+    public BasicNavigation parent;
 
     @OneToMany
-    public Set<Navigation> children;
+    public Collection<BasicNavigation> children;
 
     @Required
     public String type;
@@ -34,6 +34,26 @@ public class Navigation extends Model implements Comparable<Navigation> {
     @Column(name = "sortOrder")
     public int order;
 
+    @Override
+    public String getReferenceId() {
+        return referenceId;
+    }
+
+    @Override
+    public String getSection() {
+        return section;
+    }
+
+    @Override
+    public BasicNavigation getParent() {
+        return parent;
+    }
+
+    @Override
+    public Collection<BasicNavigation> getChildren() {
+        return children;
+    }
+
     public Class getTypeClass() {
         try {
             return Class.forName(type);
@@ -42,20 +62,20 @@ public class Navigation extends Model implements Comparable<Navigation> {
         }
     }
 
-    public static Collection<Navigation> findTopWithSection(String section) {
-        String query = "select distinct n from Navigation n where n.section=:section and ";
-        List<Navigation> navigations =
-                Navigation.find(query + "parent is null").
+    public static Collection<BasicNavigation> findTopWithSection(String section) {
+        String query = "select distinct n from BasicNavigation n where n.section=:section and ";
+        List<BasicNavigation> navigations =
+                BasicNavigation.find(query + "parent is null").
                         bind("section", section).
                         fetch();
         Collections.sort(navigations);
         return navigations;
     }
 
-    public static Collection<Navigation> findWithSection(String section, Navigation parent) {
-        String query = "select distinct n from Navigation n where n.section=:section and ";
-        List<Navigation> navigations =
-                Navigation.find(query + "parent=:parent").
+    public static Collection<BasicNavigation> findWithSection(String section, BasicNavigation parent) {
+        String query = "select distinct n from BasicNavigation n where n.section=:section and ";
+        List<BasicNavigation> navigations =
+                BasicNavigation.find(query + "parent=:parent").
                         bind("section", section).
                         bind("parent", parent).
 
@@ -65,7 +85,8 @@ public class Navigation extends Model implements Comparable<Navigation> {
     }
 
     @Override
-    public int compareTo(Navigation navigation) {
+    public int compareTo(BasicNavigation navigation) {
         return new Integer(navigation.order).compareTo(order);
     }
+
 }

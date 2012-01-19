@@ -99,7 +99,7 @@ public class CoreLoader {
 
     public static Collection<NavigationElement> getNavigation(String identifier, long version) {
         Node node = loadNode(identifier, version);
-        Collection<NavigationElement> navigationLinks = NavigationHelper.getNavigation(node);
+        Collection<NavigationElement> navigationLinks = NavigationHelper.getNavigation(node, NavigationElement.FRONT);
         if (LOG.isDebugEnabled()) {
             LOG.debug("Navigation loaded " + navigationLinks);
         }

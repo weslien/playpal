@@ -26,7 +26,7 @@ public @interface Provides {
     Class with();
 
     public enum Type {
-        NODE, SEGMENT, FORM, NAVIGATION_ITEM
+        NODE, SEGMENT, FORM, NAVIGATION, NAVIGATION_ITEM
     }
 
 }
