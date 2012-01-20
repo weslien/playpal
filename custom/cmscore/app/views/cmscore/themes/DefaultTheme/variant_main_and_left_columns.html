@@ -7,7 +7,10 @@
     <div class="head">
         <h3>${node.title}</h3>
     </div>
-#{cmscore.mainNavigation links:navigation, as:'full'/}
+
+#{cmscore.navigation links:navigation/}
+#{cmscore.navigation links:navigation, as:'secondary'/}
+#{cmscore.navigation links:navigation, as:'tertiary'/}
 
     <div class="left-column">
         <div class="content">
