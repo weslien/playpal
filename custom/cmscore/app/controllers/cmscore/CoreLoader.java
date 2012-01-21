@@ -4,12 +4,12 @@ import helpers.NavigationHelper;
 import helpers.NodeHelper;
 import helpers.SettingsHelper;
 import helpers.ThemeHelper;
-import listeners.PageNotFoundException;
 import models.cmscore.Alias;
 import org.apache.log4j.Logger;
 import play.modules.cmscore.Node;
 import play.modules.cmscore.ui.NavigationElement;
 import play.modules.cmscore.ui.RenderedNode;
+import play.mvc.results.Redirect;
 
 import java.util.Collection;
 
@@ -20,24 +20,24 @@ public class CoreLoader {
     public static RenderedNode getStartPage() {
         try {
             return loadAndDecorateStartPage();
-        } catch (PageNotFoundException e) {
-            return loadAndDecoratePageNotFoundPage();
+        } catch (Exception e) {
+            throw redirectToPageNotFoundPage();
         }
     }
 
     public static RenderedNode getPage(String uuid) {
         try {
             return CoreLoader.loadAndDecoratePage(uuid, 0);
-        } catch (PageNotFoundException e) {
-            return loadAndDecoratePageNotFoundPage();
+        } catch (Exception e) {
+            throw redirectToPageNotFoundPage();
         }
     }
 
     public static RenderedNode getPage(String uuid, long version) {
         try {
             return CoreLoader.loadAndDecoratePage(uuid, version);
-        } catch (PageNotFoundException e) {
-            return loadAndDecoratePageNotFoundPage();
+        } catch (Exception e) {
+            throw redirectToPageNotFoundPage();
         }
     }
 
@@ -47,12 +47,18 @@ public class CoreLoader {
         return CoreLoader.loadAndDecoratePage(startPage, 0);
     }
 
-    // TODO: This should be a redirect to the /page-not-found page so that it is not cached incorrectly downstream
     // TODO: this method should also be readily accessible by third party modules to all 404 management is streamlined
-    private static RenderedNode loadAndDecoratePageNotFoundPage() {
+    public static Redirect redirectToPageNotFoundPage() {
+        LOG.debug("Redirecting to Page-Not-Found Page");
         String pageNotFoundPage = SettingsHelper.getPageNotFoundPage();
-        LOG.debug("Loading Start Page [" + pageNotFoundPage + "]");
-        return CoreLoader.loadAndDecoratePage(pageNotFoundPage, 0);
+        Collection<Alias> aliases = Alias.findWithPageId(pageNotFoundPage);
+        if (aliases.iterator().hasNext()) {
+            Alias alias = aliases.iterator().next();
+            return new Redirect(SettingsHelper.getBaseUrl() + "" + alias.path, false);
+        } else {
+            // Defaulting to /page-not-found
+            return new Redirect(SettingsHelper.getBaseUrl() + "page-not-found", false);
+        }
     }
 
     private static RenderedNode loadAndDecoratePage(String identifier, long version) {

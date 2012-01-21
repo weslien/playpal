@@ -4,7 +4,6 @@ import play.data.validation.Required;
 import play.db.jpa.Model;
 import play.modules.cmscore.Navigation;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -30,8 +29,7 @@ public class BasicNavigation extends Model implements Navigation<BasicNavigation
     public String referenceId;
 
     @Required
-    @Column(name = "sortOrder")
-    public int order;
+    public int weight;
 
     @Override
     public String getReferenceId() {
@@ -94,7 +92,7 @@ public class BasicNavigation extends Model implements Navigation<BasicNavigation
 
     @Override
     public int compareTo(BasicNavigation navigation) {
-        return new Integer(order).compareTo(navigation.order);
+        return new Integer(weight).compareTo(navigation.weight);
     }
 
 }
