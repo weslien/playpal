@@ -8,30 +8,32 @@
     <div class="objectForm">
     #{form action:@save(object._key()), enctype:'multipart/form-data'}
         #{crud.form}
-            #{crud.custom 'page'}
-                <label for="page">
-                    &{'page'}
+            #{crud.custom 'pageId'}
+                <label for="${fieldName}">
+                &{'page'}
                 </label>
+
                 <div class="page-list">
                     <select name="${fieldName}">
                         #{list items:models.cmscore.Page.findAllCurrentVersions(new Date()), as:'p'}
-                            <option value="${p.uuid}" #{if object.page.equals(p.uuid)} selected="selected"#{/if}>${p.title}</option>
+                            <option value="${p.uuid}" #{if object.pageId.equals(p.uuid)}
+                                    selected="selected"#{/if}>${p.title}</option>
                         #{/list}
                     </select>
                 </div>
             #{/crud.custom}
         #{/crud.form}
         <p class="crudButtons">
-            <input type="submit" name="_save" value="&{'crud.save', type.modelName}" />
-            <input type="submit" name="_saveAndContinue" value="&{'crud.saveAndContinue', type.modelName}" />
+            <input type="submit" name="_save" value="&{'crud.save', type.modelName}"/>
+            <input type="submit" name="_saveAndContinue" value="&{'crud.saveAndContinue', type.modelName}"/>
         </p>
     #{/form}
     </div>
 
-    #{form @delete(object._key())}
-        <p class="crudDelete">
-            <input type="submit" value="&{'crud.delete', type.modelName}" />
-        </p>
-    #{/form}
+#{form @delete(object._key())}
+    <p class="crudDelete">
+        <input type="submit" value="&{'crud.delete', type.modelName}"/>
+    </p>
+#{/form}
 
 </div>
