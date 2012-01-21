@@ -54,7 +54,7 @@ public class PageListener {
             NavigationHelper.triggerBeforeNavigationItemLoaded(navigationModel.getTypeClass(), node, navigationModel);
             NavigationElement navigationElement = NavigationHelper.triggerProvidesNavigationItemListener(navigationModel.getTypeClass(), node, navigationModel);
             NavigationHelper.triggerAfterNavigationItemLoaded(navigationModel.getTypeClass(), node, navigationModel, navigationElement);
-            List<NavigationElement> children = createNavigationChildren(node, section, navigationModel);
+            List<NavigationElement> children = createNavigationChildren(node, section, navigationModel, navigationElement);
             navigationElement.children.addAll(children);
             navigationElements.add(navigationElement);
         }
@@ -62,14 +62,17 @@ public class PageListener {
         return navigationElements;
     }
 
-    public static List<NavigationElement> createNavigationChildren(Node node, String section, BasicNavigation navigationModel) {
+    public static List<NavigationElement> createNavigationChildren(Node node, String section, BasicNavigation navigationModel, NavigationElement parentNavigationElement) {
         List<NavigationElement> navigationElements = new ArrayList<NavigationElement>();
         List<BasicNavigation> navigationModels = BasicNavigation.findWithSection(section, navigationModel);
         for (BasicNavigation childNavigation : navigationModels) {
             NavigationHelper.triggerBeforeNavigationItemLoaded(childNavigation.getTypeClass(), node, childNavigation);
-            NavigationElement navigationElement = NavigationHelper.triggerProvidesNavigationItemListener(childNavigation.getTypeClass(), node, childNavigation);
-            NavigationHelper.triggerAfterNavigationItemLoaded(childNavigation.getTypeClass(), node, childNavigation, navigationElement);
-            navigationElements.add(navigationElement);
+            NavigationElement childNavigationElement = NavigationHelper.triggerProvidesNavigationItemListener(childNavigation.getTypeClass(), node, childNavigation, parentNavigationElement);
+            NavigationHelper.triggerAfterNavigationItemLoaded(childNavigation.getTypeClass(), node, childNavigation, childNavigationElement);
+            if (childNavigationElement.selected) {
+                parentNavigationElement.selected = true;
+            }
+            navigationElements.add(childNavigationElement);
         }
         return navigationElements;
     }

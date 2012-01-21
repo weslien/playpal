@@ -62,9 +62,8 @@ public class BasicNavigation extends Model implements Navigation<BasicNavigation
     }
 
     public static List<BasicNavigation> findWithSection(String section) {
-        String query = "select distinct n from BasicNavigation n where n.section=:section and ";
         List<BasicNavigation> navigations =
-                BasicNavigation.find(query + "parent is null").
+                BasicNavigation.find("select distinct n from BasicNavigation n where n.section=:section and parent is null").
                         bind("section", section).
                         fetch();
         Collections.sort(navigations);
@@ -72,11 +71,21 @@ public class BasicNavigation extends Model implements Navigation<BasicNavigation
     }
 
     public static List<BasicNavigation> findWithSection(String section, BasicNavigation parent) {
-        String query = "select distinct n from BasicNavigation n where n.section=:section and ";
         List<BasicNavigation> navigations =
-                BasicNavigation.find(query + "parent=:parent").
+                BasicNavigation.
+                        find("select distinct n from BasicNavigation n where n.section=:section and parent=:parent").
                         bind("section", section).
                         bind("parent", parent).
+                        fetch();
+        Collections.sort(navigations);
+        return navigations;
+    }
+
+    public static List<BasicNavigation> findWithSection(String section, String parentId) {
+        List<BasicNavigation> navigations =
+                BasicNavigation.
+                        find("select distinct n from BasicNavigation n where n.section=:section and parent=:parentId").
+                        bind("section", section).
 
                         fetch();
         Collections.sort(navigations);

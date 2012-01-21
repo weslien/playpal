@@ -48,6 +48,13 @@ public class NavigationHelper {
         return ProvidesHelper.triggerListener(Provides.Type.NAVIGATION_ITEM, withType, node, Navigation.class, navigation);
     }
 
+    public static NavigationElement triggerProvidesNavigationItemListener(Class withType, Node node, Navigation navigation, NavigationElement navigationElement) {
+        Map<Class, Object> args = new HashMap<Class, Object>();
+        args.put(Navigation.class, navigation);
+        args.put(NavigationElement.class, navigationElement);
+        return ProvidesHelper.triggerListener(Provides.Type.NAVIGATION_ITEM, withType, node, args);
+    }
+
     public static void triggerBeforeNavigationItemLoaded(Class withType, Node node, Navigation navigation) {
         OnLoadHelper.triggerBeforeListener(OnLoad.Type.NAVIGATION_ITEM, withType, node, Navigation.class, navigation);
     }
