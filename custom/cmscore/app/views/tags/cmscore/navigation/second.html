@@ -1,17 +1,17 @@
 #{list items:_links, as:'link'}
-    #{if _as == 'full' || _as == 'secondary'}
-    <div class="navigation secondary secondaryNavigation">
+    #{if _as == 'full' || _as == 'second'}
+    <div class="navigation second secondaryNavigation">
         <ul>
             <li #{if link.selected}class="selected"#{/if}><a
                     href="#{verbatim }${link.link.raw()}#{/verbatim}">${link.title}</a>
                 #{if _as == 'full'}
-                    #{cmscore.navigation.tertiary links:link.children, as:'full'/}
+                    #{cmscore.navigation.third links:link.children, as:'full'/}
                 #{/if}
             </li>
         </ul>
     </div>
     #{/if}
-    #{if _as == 'tertiary', as:'link'}
-        #{cmscore.navigation.tertiary links:link.children/}
+    #{if _as == 'third', as:'link'}
+        #{cmscore.navigation.third links:link.children/}
     #{/if}
 #{/list}

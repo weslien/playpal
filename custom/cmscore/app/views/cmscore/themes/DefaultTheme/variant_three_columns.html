@@ -4,7 +4,9 @@
 <div class="head">
     <h3>${node.title}</h3>
 </div>
-#{cmscore.mainNavigation links:navigation, as:'full'/}
+#{cmscore.mainNavigation links:navigation/}
+#{cmscore.mainNavigation links:navigation, as:'second'/}
+#{cmscore.mainNavigation links:navigation, as:'third'/}
 
 <div style="width: 25%; float: left; clear: none;">
 #{verbatim}${node.get('left')}#{/verbatim}

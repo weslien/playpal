@@ -1,21 +1,21 @@
 <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/navigation.css'}"/>
 
 #{if _as == 'full' || _as == null}
-<div class="navigation main mainNavigation">
+<div class="navigation first mainNavigation">
     <ul>
         #{list items:_links, as:'link'}
             <li #{if link.selected}class="selected"#{/if}><a
                     href="#{verbatim }${link.link.raw()}#{/verbatim}">${link.title}</a>
                 #{if _as == 'full'}
-                    #{cmscore.navigation.secondary links:link.children, as:'full'/}
+                    #{cmscore.navigation.second links:link.children, as:'full'/}
                 #{/if}
             </li>
         #{/list}
     </ul>
 </div>
 #{/if}
-#{if _as == 'secondary' || _as == 'tertiary'}
+#{if _as == 'second' || _as == 'third'}
     #{list items:_links, as:'link'}
-        #{cmscore.navigation.secondary links:link.children, as:_as/}
+        #{cmscore.navigation.second links:link.children, as:_as/}
     #{/list}
 #{/if}
