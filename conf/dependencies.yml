@@ -6,7 +6,7 @@ require:
 ### Modules from the play repository
 #    - play -> morphia [1.2.4)
 #    - play -> router 1.1
-    - play -> cobertura [2,)
+#    - play -> cobertura [2,)
 
     - play -> crud
 #    - play -> deadbolt [1.4,)

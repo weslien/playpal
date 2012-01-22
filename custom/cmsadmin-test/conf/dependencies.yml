@@ -4,7 +4,7 @@ require:
 ### Modules from the play repository
     - play -> crud
     - play -> deadbolt [1.4,)
-    - play -> cobertura [2,)
+#    - play -> cobertura [2,)
 
 ### Internal modules
     - cmscore -> cmscore 0.1
