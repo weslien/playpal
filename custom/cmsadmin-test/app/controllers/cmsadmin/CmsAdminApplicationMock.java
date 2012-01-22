@@ -2,7 +2,7 @@ package controllers.cmsadmin;
 
 import play.mvc.Controller;
 
-public class CmsAdminApplicationTest extends Controller {
+public class CmsAdminApplicationMock extends Controller {
 
     public static void index() {
         render();
