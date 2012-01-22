@@ -1,4 +1,4 @@
-package controllers;
+package controllers.cmscore;
 
 import models.cmscore.Page;
 import play.modules.cmscore.Node;
