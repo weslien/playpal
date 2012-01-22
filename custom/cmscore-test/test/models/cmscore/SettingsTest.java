@@ -1,4 +1,5 @@
-import models.cmscore.Settings;
+package models.cmscore;
+
 import org.junit.Test;
 import play.test.UnitTest;
 

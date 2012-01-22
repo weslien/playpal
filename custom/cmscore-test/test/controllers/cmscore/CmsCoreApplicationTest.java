@@ -1,3 +1,5 @@
+package controllers.cmscore;
+
 import org.junit.Test;
 import play.mvc.Http;
 import play.test.FunctionalTest;
