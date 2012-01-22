@@ -6,10 +6,10 @@ import play.jobs.OnApplicationStart;
 import play.test.Fixtures;
 
 @OnApplicationStart
-public class BootstrapTest extends Job {
+public class CmsCoreBootstrapMock extends Job {
 
-    private static final Logger LOG = Logger.getLogger(BootstrapTest.class);
-    
+    private static final Logger LOG = Logger.getLogger(CmsCoreBootstrapMock.class);
+
     public void doJob() {
         LOG.info("Clearing database");
         Fixtures.deleteDatabase();

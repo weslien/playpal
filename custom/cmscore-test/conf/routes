@@ -2,9 +2,14 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-*       /                                       module:cmscore
+# Modules
 *       /                                       module:cmsadmin
-GET     /                                       cmscore.CmsCoreApplicationTest.index
+*       /                                       module:cmscore
+
+# Home page
+GET     /                                       cmscore.CmsCoreApplicationMock.index
+GET     /{identifier}                           cmscore.CmsCoreApplicationMock.page
+GET     /{identifier}/{<[0-9]+>version}         cmscore.CmsCoreApplicationTest.pageVersion
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

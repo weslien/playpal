@@ -1,7 +1,34 @@
 *{ You can use plain selenium command using the selenium tag }*
 
-#{selenium}
-    // Open the home page, and check that no error occured
-    open('/')
-    assertNotTitle('Application error')
+#{selenium 'Check Title'}
+// Open the home page, and check that no error occured
+open('/')
+assertNotTitle('Application error')
 #{/selenium}
+
+#{selenium 'Verify Programatically Added Head Style'}
+// Open the home page, and check that there is a style element that is added programatically
+open('/')
+verifyElementPresent('//html/head/style')
+verifyElementPresent('//html/head/style[@src=\'test/css/style_head.css\']')
+#{/selenium}
+
+#{selenium 'Verify Programatically Added Inline Style'}
+// Open the home page, and check that there is a style element that is added programatically
+open('/')
+verifyElementPresent('//html/head/style')
+verifyElementPresent('//style[@src=\'test/css/style_inline.css\']')
+#{/selenium}
+
+#{selenium 'Verify Programatically Added Content'}
+// Open the home page, and check that there is a content element that is added programatically
+open('/')
+verifyTextPresent('Bla bla')
+#{/selenium}
+
+#{selenium 'Verify Meta Tag'}
+// Open the home page, and check that there is a meta tag that is added programatically
+open('/')
+verifyElementPresent('//html/head/meta[@content=\'text/html; charset=utf-8\']')
+#{/selenium}
+
