@@ -10,9 +10,6 @@ output_links() {
 
 }
 
-####### Run tests
-#play autotest
-
 ####### Check success
 if [ -e test-result/result.failed ]
 then
