@@ -36,3 +36,12 @@ verifyElementPresent('//html/head/meta[@content=\'text/html; charset=utf-8\']')
 open('/')
 verifyElementPresent('//div[@id=\'cmscoretest\']')
 #{/selenium}
+
+#{selenium 'Verify Internal Server Error Page'}
+open('/fifth')
+verifyTitle('Internal Server Error (500)')
+#{/selenium}
+#{selenium 'Verity Page Not Found Page'}
+open('/non-existant')
+verifyTitle('Page Not Found (404)')
+#{/selenium}

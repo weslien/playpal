@@ -140,7 +140,7 @@ cmscore.RootNode(node-second-1):
 cmscore.Page(page-second-1):
     uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        1
-    title:          Page Not Found
+    title:          Page Not Found (404)
 
 # Page 2 -> Segment
 cmscore.Segment(page-second-segment-1):
@@ -182,17 +182,17 @@ cmscore.RootNode(node-third-3):
 cmscore.Page(page-third-1):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        1
-    title:          Third Page
+    title:          Internal Server Error (500)
 
 cmscore.Page(page-third-2):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        2
-    title:          Third Page second iteration
+    title:          Internal Server Error (500)
 
 cmscore.Page(page-third-3):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        3
-    title:          Third Page third iteration
+    title:          Internal Server Error (500)
 
 # Page 3 -> Segment
 cmscore.Segment(page-third-1-segment-1):
@@ -310,6 +310,14 @@ cmscore.Segment(page-fifth-1-segment-2):
     type:           models.cmscore.Content
     referenceId:    b4f1dfb9-e395-43dd-8574-ec4268efd2ca #content-main-6
 
+cmscore.Segment(page-fifth-1-segment-3):
+    nodeId:         c6d14b95-a3a8-4103-a04f-a0eb5b0c2bfa
+    version:        1
+    weight:         100
+    region:         'main'
+    type:           models.cmscore.Content
+    referenceId:    b4f1dfb9-e395-43dd-8574-ec4268efadfs #non-existant
+
 ### Alias ###
 # /page-not-found -> page 2
 cmscore.Alias(alias-test):
@@ -318,7 +326,7 @@ cmscore.Alias(alias-test):
 
 # /third -> page 3
 cmscore.Alias(alias-third):
-    path:           third
+    path:           error
     pageId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
 
 # /fourth -> page 4
@@ -341,16 +349,6 @@ cmscore.navigation.BasicNavigation(navigation-start):
 cmscore.navigation.PageIdNavigation(navigation-page-start):
     identifier:     3f2d9e2e-12dc-4917-9a58-40d325e9784e
     pageId:         aa1755dd-18c4-4b78-956e-eef7e562c36c
-
-# Third
-cmscore.navigation.BasicNavigation(navigation-third):
-    type:           models.cmscore.navigation.PageIdNavigation
-    section:        'front'
-    referenceId:    c1fb6ec5-4312-49b4-8936-133aeeb8bb50
-    weight:          2
-cmscore.navigation.PageIdNavigation(navigation-page-third):
-    identifier:     c1fb6ec5-4312-49b4-8936-133aeeb8bb50
-    pageId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
 
 # Fourth
 cmscore.navigation.BasicNavigation(navigation-fourth):
@@ -394,6 +392,8 @@ cmscore.Settings(settings):
         : aa1755dd-18c4-4b78-956e-eef7e562c36c
         ? page_not_found_page # Page 2
         : c9615819-0556-4e70-b6a9-a66c5b8d4c1a
+        ? internal_server_error_page # Page 3
+        : 1cf699a7-a0c4-4be0-855f-466042a36a8d
         ? theme_variant
         : default-main_and_left_columns
 

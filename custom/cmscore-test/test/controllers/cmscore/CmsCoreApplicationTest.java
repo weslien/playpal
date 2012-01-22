@@ -21,17 +21,17 @@ public class CmsCoreApplicationTest extends FunctionalTest {
     }
 
     @Test
-    public void thirdPageWorks() {
-        Http.Response response = GET("/third");
+    public void fourthPageWorks() {
+        Http.Response response = GET("/fourth");
         assertIsOk(response);
         assertContentType("text/html", response);
         assertCharset(play.Play.defaultWebEncoding, response);
-        assertContentMatch("Flobble da woggle-shnozzle", response);
+        assertContentMatch("Boo crangle Miss Beasley", response);
     }
 
     @Test
     public void programaticallyAddedContent() {
-        Http.Response response = GET("/third");
+        Http.Response response = GET("/fourth");
         assertIsOk(response);
         assertContentType("text/html", response);
         assertCharset(play.Play.defaultWebEncoding, response);

@@ -15,6 +15,10 @@ public class SettingsHelper {
         return Settings.load().getValue(SettingsKeys.Core.PAGE_NOT_FOUND_PAGE);
     }
 
+    public static String getInternalServerErrorPage() {
+        return Settings.load().getValue(SettingsKeys.Core.INTERNAL_SERVER_ERROR_PAGE);
+    }
+
     public static String getBaseUrl() {
         return Settings.load().getValue(SettingsKeys.Core.BASE_URL);
     }

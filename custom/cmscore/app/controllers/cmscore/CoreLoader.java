@@ -4,6 +4,7 @@ import helpers.NavigationHelper;
 import helpers.NodeHelper;
 import helpers.SettingsHelper;
 import helpers.ThemeHelper;
+import listeners.PageNotFoundException;
 import models.cmscore.Alias;
 import org.apache.log4j.Logger;
 import play.modules.cmscore.Node;
@@ -20,24 +21,30 @@ public class CoreLoader {
     public static RenderedNode getStartPage() {
         try {
             return loadAndDecorateStartPage();
-        } catch (Exception e) {
+        } catch (PageNotFoundException e) {
             throw redirectToPageNotFoundPage();
+        } catch (Exception e) {
+            throw redirectToInternalServerErrorPage();
         }
     }
 
     public static RenderedNode getPage(String uuid) {
         try {
             return CoreLoader.loadAndDecoratePage(uuid, 0);
-        } catch (Exception e) {
+        } catch (PageNotFoundException e) {
             throw redirectToPageNotFoundPage();
+        } catch (Exception e) {
+            throw redirectToInternalServerErrorPage();
         }
     }
 
     public static RenderedNode getPage(String uuid, long version) {
         try {
             return CoreLoader.loadAndDecoratePage(uuid, version);
-        } catch (Exception e) {
+        } catch (PageNotFoundException e) {
             throw redirectToPageNotFoundPage();
+        } catch (Exception e) {
+            throw redirectToInternalServerErrorPage();
         }
     }
 
@@ -47,7 +54,6 @@ public class CoreLoader {
         return CoreLoader.loadAndDecoratePage(startPage, 0);
     }
 
-    // TODO: this method should also be readily accessible by third party modules to all 404 management is streamlined
     public static Redirect redirectToPageNotFoundPage() {
         LOG.debug("Redirecting to Page-Not-Found Page");
         String pageNotFoundPage = SettingsHelper.getPageNotFoundPage();
@@ -58,6 +64,19 @@ public class CoreLoader {
         } else {
             // Defaulting to /page-not-found
             return new Redirect(SettingsHelper.getBaseUrl() + "page-not-found", false);
+        }
+    }
+
+    public static Redirect redirectToInternalServerErrorPage() {
+        LOG.debug("Redirecting to Page-Not-Found Page");
+        String internalServerErrorPage = SettingsHelper.getInternalServerErrorPage();
+        Collection<Alias> aliases = Alias.findWithPageId(internalServerErrorPage);
+        if (aliases.iterator().hasNext()) {
+            Alias alias = aliases.iterator().next();
+            return new Redirect(SettingsHelper.getBaseUrl() + "" + alias.path, false);
+        } else {
+            // Defaulting to /error
+            return new Redirect(SettingsHelper.getBaseUrl() + "error", false);
         }
     }
 
