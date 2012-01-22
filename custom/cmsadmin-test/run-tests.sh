@@ -29,7 +29,7 @@ echo "Tests succeeded."
 
 ####### Output test-result/index.html
 # HTML Header
-echo "<html><head><title>Tests Run - CMSCore</title><body>" > test-result/index.html
+echo "<html><head><title>Tests Run - CMSAdmin</title><body>" > test-result/index.html
 
 # Linking passed tests
 passed_files=$(find test-result -name "*.passed.html" -prune | sed s/test-result\\///)
