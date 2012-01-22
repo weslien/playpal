@@ -42,8 +42,11 @@
         <li class="${request.controller == 'Contents' ? 'selected' : ''}">
             <a href="@{cmsadmin.Contents.list()}">Content</a>
         </li>
-        <li class="${request.controller == 'Alias' ? 'selected' : ''}">
+        <li class="${request.controller == 'Aliases' ? 'selected' : ''}">
             <a href="@{cmsadmin.Aliases.list()}">Alias</a>
+        </li>
+        <li class="${request.controller == 'Navigations' ? 'selected' : ''}">
+            <a href="@{cmsadmin.Navigations.list()}">Navigation</a>
         </li>
     *{#{/secure.check}}*
     </ul>

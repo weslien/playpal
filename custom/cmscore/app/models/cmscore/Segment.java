@@ -45,4 +45,13 @@ public class Segment extends Model {
                 fetch();
     }
 
+    @Override
+    public String toString() {
+        return new StringBuilder().
+                append("Segment{").
+                append("nodeId='").append(nodeId).append('\'').
+                append(", version=").append(version).
+                append(", region='").append(region).append('\'').
+                append('}').toString();
+    }
 }
