@@ -47,11 +47,11 @@ echo "</body></html>" >> test-result/index.html
 
 ###### Create artifact zips
 eval "cd test-result"
-eval "zip -q ../test-result.zip *.passed.html *.failed.html index.html css js"
+eval "zip -q test-result.zip *.passed.html *.failed.html index.html css js"
 
 if [ -d "test-result/cobertura" ]; then
     eval "cd cobertura"
-    eval "zip -q ./../cobertura.zip *"
+    eval "zip -q cobertura.zip *"
 fi
 
 exit 0
