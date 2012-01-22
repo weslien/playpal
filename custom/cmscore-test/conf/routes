@@ -7,9 +7,9 @@
 *       /                                       module:cmscore
 
 # Home page
-GET     /                                       cmscore.CmsCoreApplicationMock.index
-GET     /{identifier}                           cmscore.CmsCoreApplicationMock.page
-GET     /{identifier}/{<[0-9]+>version}         cmscore.CmsCoreApplicationTest.pageVersion
+GET     /                                       cmscoretest.CmsCoreApplicationMock.index
+GET     /{identifier}                           cmscoretest.CmsCoreApplicationMock.page
+GET     /{identifier}/{<[0-9]+>version}         cmscoretest.CmsCoreApplicationTest.pageVersion
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

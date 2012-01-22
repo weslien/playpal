@@ -1,5 +1,6 @@
-package controllers.cmscore;
+package controllers.cmscoretest;
 
+import controllers.cmscore.CoreLoader;
 import play.modules.cmscore.ui.NavigationElement;
 import play.modules.cmscore.ui.RenderedNode;
 import play.mvc.Controller;

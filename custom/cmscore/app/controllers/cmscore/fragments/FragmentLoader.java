@@ -51,13 +51,14 @@ public class FragmentLoader {
     /**
      * Work out the default template to load for the action.
      * E.g. "controllers.Pages.index" returns "views/Pages/index.html".
-     * @param fragmentName
+     *
+     * @param fragmentName the name of the fragment to load
      * @return correct
      */
     protected static String template(String fragmentName) {
         final Http.Request theRequest = Http.Request.current();
         final String format = theRequest.format;
-        String templateName = FRAGMENT_PREFIX +fragmentName.replace(".", "/") + "." + (format == null ? "html" : format);
+        String templateName = FRAGMENT_PREFIX + fragmentName.replace(".", "/") + "." + (format == null ? "html" : format);
         if (templateName.startsWith("@")) {
             templateName = templateName.substring(1);
             if (!templateName.contains(".")) {
