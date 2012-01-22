@@ -1,23 +1,21 @@
 #!/bin/bash
 
 output_links() {
-
     declare -a argArray=("${!1}")
     for name in ${argArray[@]}
     do
-        echo "<a href=\"$name\">$name</a>" >> test-result/index.html
+        echo "<a href=\"$name\">$name</a><br/>" >> test-result/index.html
     done
-
 }
 
 ####### Check success
 if [ -e test-result/result.failed ]
 then
-    echo Tests failed.
+    echo "Tests failed."
     exit 1
 elseif [ -d test-result ]
     # Compilation failed.
-    echo Compiling Play Framework project failed! No tests output exists in \test-result\ folder.
+    echo "Compiling Play Framework project failed! No tests output exists in \test-result\ folder."
     exit 1
 fi
 
@@ -47,9 +45,13 @@ fi
 # HTML Footer
 echo "</body></html>" >> test-result/index.html
 
-#    for name in ${passed_files[@]}
-#    do
-#        echo "<a href=\"$name\">$name</a>" >> test-result/index.html
-#    done
+###### Create artifact zips
+eval "cd test-result"
+eval "zip -q ../test-result.zip *.passed.html *.failed.html index.html css js"
+
+if [ -d "test-result/cobertura" ]; then
+    eval "cd cobertura"
+    eval "zip -q ./../cobertura.zip *"
+fi
 
 exit 0
