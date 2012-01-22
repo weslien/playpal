@@ -12,3 +12,29 @@ open('/admin/crud/pages')
 assertElementPresent('//div[@id=\'crudListTable\']')
 #{/selenium}
 
+#{selenium 'Admin/Aliases available'}
+// Open the home page, and check that no error occured
+open('/admin/crud/aliases')
+assertElementPresent('//div[@id=\'crudListTable\']')
+#{/selenium}
+
+#{selenium 'Admin/Navigations available'}
+// Open the home page, and check that no error occured
+open('/admin/crud/navigations')
+assertElementPresent('//div[@id=\'crudListTable\']')
+#{/selenium}
+
+#{selenium 'Admin/Contents available'}
+// Open the home page, and check that no error occured
+open('/admin/crud/contents')
+assertElementPresent('//div[@id=\'crudListTable\']')
+#{/selenium}
+
+#{selenium 'Admin/Segments available'}
+// Open the home page, and check that no error occured
+open('/admin/crud/segments')
+assertElementPresent('//div[@id=\'crudListTable\']')
+#{/selenium}
+
+
+
