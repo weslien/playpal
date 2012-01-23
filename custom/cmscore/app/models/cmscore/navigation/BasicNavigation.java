@@ -51,14 +51,6 @@ public class BasicNavigation extends Model implements Navigation<BasicNavigation
         return children;
     }
 
-    public Class getTypeClass() {
-        try {
-            return Class.forName(type);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Unable to find the class for navigation type [" + type + "]: " + e.getMessage(), e);
-        }
-    }
-
     public static List<BasicNavigation> findWithSection(String section) {
         List<BasicNavigation> navigations =
                 BasicNavigation.find("select distinct n from BasicNavigation n where n.section=:section and parent is null").

@@ -68,14 +68,6 @@ public final class RootNode extends Model implements Node {
         return unPublish;
     }
 
-    public Class getTypeClass() {
-        try {
-            return Class.forName(type);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Unable to find the class for node type [" + type + "]: " + e.getMessage(), e);
-        }
-    }
-
     @Override
     public String getThemeVariant() {
         return themeVariant;

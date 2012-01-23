@@ -1,5 +1,6 @@
 package helpers;
 
+import org.apache.commons.lang.StringUtils;
 import play.modules.cmscore.CachedAnnotation;
 import play.modules.cmscore.Listeners;
 import play.modules.cmscore.Node;
@@ -23,16 +24,16 @@ public class OnLoadHelper {
         triggerBeforeListener(type, null, node, argType, arg);
     }
 
-    public static void triggerBeforeListener(OnLoad.Type type, Class withType, Node node) {
+    public static void triggerBeforeListener(OnLoad.Type type, String withType, Node node) {
         triggerBeforeListener(type, withType, node, Collections.<Class, Object>emptyMap());
     }
 
-    public static void triggerBeforeListener(OnLoad.Type type, Class withType, Node node, Class argType, Object arg) {
+    public static void triggerBeforeListener(OnLoad.Type type, String withType, Node node, Class argType, Object arg) {
         triggerBeforeListener(type, withType, node, Collections.<Class, Object>singletonMap(argType, arg));
     }
 
-    public static void triggerBeforeListener(OnLoad.Type type, Class withType, Node node, Map<Class, Object> args) {
-        List<CachedAnnotation> listeners = findListenerForType(type, withType != null ? withType : node.getClass(), false);
+    public static void triggerBeforeListener(OnLoad.Type type, String withType, Node node, Map<Class, Object> args) {
+        List<CachedAnnotation> listeners = findListenerForType(type, withType, false);
         if (listeners != null && !listeners.isEmpty()) {
             Map<Class, Object> parameters = new HashMap<Class, Object>();
             parameters.put(Node.class, node);
@@ -47,23 +48,23 @@ public class OnLoadHelper {
         triggerAfterListener(onLoadType, null, node, argType, arg, uiElement);
     }
 
-    public static void triggerAfterListener(OnLoad.Type onLoadType, Class withType, Node node, Class argType, Object arg, UIElement uiElement) {
+    public static void triggerAfterListener(OnLoad.Type onLoadType, String withType, Node node, Class argType, Object arg, UIElement uiElement) {
         Map<Class, Object> args = new HashMap<Class, Object>();
         args.put(argType, arg);
         args.put(UIElement.class, uiElement);
         triggerAfterListener(onLoadType, withType, node, args);
     }
 
-    public static void triggerAfterListener(OnLoad.Type onLoadType, Class withType, Node node, UIElement uiElement) {
+    public static void triggerAfterListener(OnLoad.Type onLoadType, String withType, Node node, UIElement uiElement) {
         triggerAfterListener(onLoadType, withType, node, Collections.<Class, Object>singletonMap(UIElement.class, uiElement));
     }
 
-    public static void triggerAfterListener(OnLoad.Type onLoadType, Class withType, Node node) {
+    public static void triggerAfterListener(OnLoad.Type onLoadType, String withType, Node node) {
         triggerAfterListener(onLoadType, withType, node, Collections.<Class, Object>emptyMap());
     }
 
-    public static void triggerAfterListener(OnLoad.Type onLoadType, Class withType, Node node, Map<Class, Object> args) {
-        List<CachedAnnotation> listeners = findListenerForType(onLoadType, withType != null ? withType : node.getClass(), true);
+    public static void triggerAfterListener(OnLoad.Type onLoadType, String withType, Node node, Map<Class, Object> args) {
+        List<CachedAnnotation> listeners = findListenerForType(onLoadType, !StringUtils.isBlank(withType) ? withType : node.getClass().getName(), true);
         if (listeners != null && !listeners.isEmpty()) {
             Map<Class, Object> parameters = new HashMap<Class, Object>();
             parameters.put(Node.class, node);
@@ -74,12 +75,13 @@ public class OnLoadHelper {
         }
     }
 
-    private static List<CachedAnnotation> findListenerForType(final OnLoad.Type onLoadType, final Class withType, final boolean after) {
+    private static List<CachedAnnotation> findListenerForType(final OnLoad.Type onLoadType, final String withType, final boolean after) {
         return Listeners.getListenersForAnnotationType(OnLoad.class, new Listeners.ListenerSelector() {
             @Override
             public boolean isCorrectListener(CachedAnnotation listener) {
                 OnLoad annotation = ((OnLoad) listener.annotation);
-                return annotation.type().equals(onLoadType) && (annotation.with() == null || annotation.with().equals(withType) || annotation.with().equals(Object.class)) && annotation.after() == after;
+                return annotation.type().equals(onLoadType) && annotation.after() == after &&
+                        (StringUtils.isBlank(annotation.with()) || annotation.with().equals(withType));
             }
         });
     }

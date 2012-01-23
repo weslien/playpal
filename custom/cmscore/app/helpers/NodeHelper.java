@@ -3,6 +3,7 @@ package helpers;
 import listeners.PageNotFoundException;
 import models.cmscore.RootNode;
 import models.cmscore.Segment;
+import org.apache.commons.lang.StringUtils;
 import play.modules.cmscore.Node;
 import play.modules.cmscore.annotations.OnLoad;
 import play.modules.cmscore.annotations.Provides;
@@ -34,18 +35,18 @@ public class NodeHelper {
     }
 
     private static Node load(RootNode rootNode) {
-        boolean hasType = rootNode.type != null && !rootNode.getTypeClass().equals(RootNode.class);
+        boolean hasType = !StringUtils.isBlank(rootNode.type) && !rootNode.type.equals(RootNode.class.getName());
         if (hasType) {
-            triggerBeforeNodeLoaded(rootNode.getTypeClass(), rootNode);
+            triggerBeforeNodeLoaded(rootNode.type, rootNode);
         }
 
         Node node = rootNode;
         if (hasType) {
-            node = triggerProvidesNodeListener(rootNode.getTypeClass(), rootNode);
+            node = triggerProvidesNodeListener(rootNode.type, rootNode);
         }
 
         if (hasType) {
-            triggerAfterNodeLoaded(rootNode.getTypeClass(), node);
+            triggerAfterNodeLoaded(rootNode.type, node);
         }
 
         addSegments(node);
@@ -56,10 +57,10 @@ public class NodeHelper {
     private static void addSegments(Node node) {
         Collection<Segment> segments = Segment.findWithUuidSpecificVersion(node.getNodeId(), node.getVersion());
         for (Segment segment : segments) {
-            triggerBeforeSegmentLoaded(segment.getTypeClass(), node, segment);
-            UIElement uiElement = triggerProvidesSegmentListener(segment.getTypeClass(), node, segment);
+            triggerBeforeSegmentLoaded(segment.type, node, segment);
+            UIElement uiElement = triggerProvidesSegmentListener(segment.type, node, segment);
             if (uiElement != null) {
-                triggerAfterSegmentLoaded(segment.getTypeClass(), node, segment, uiElement);
+                triggerAfterSegmentLoaded(segment.type, node, segment, uiElement);
                 node.addUIElement(segment.region, uiElement);
             }
         }
@@ -68,30 +69,30 @@ public class NodeHelper {
     /*
      * Convenience methods for hooks with SEGMENT type
      */
-    public static UIElement triggerProvidesSegmentListener(Class withType, Node node, Segment segment) {
+    public static UIElement triggerProvidesSegmentListener(String withType, Node node, Segment segment) {
         return ProvidesHelper.triggerListener(Provides.Type.SEGMENT, withType, node, Segment.class, segment);
     }
 
-    private static void triggerBeforeSegmentLoaded(Class nodeType, Node node, Segment segment) {
+    private static void triggerBeforeSegmentLoaded(String nodeType, Node node, Segment segment) {
         OnLoadHelper.triggerBeforeListener(OnLoad.Type.SEGMENT, nodeType, node, Segment.class, segment);
     }
 
-    private static void triggerAfterSegmentLoaded(Class nodeType, Node node, Segment segment, UIElement uiElement) {
-        OnLoadHelper.triggerAfterListener(OnLoad.Type.SEGMENT, nodeType, node, Segment.class, segment, uiElement);
+    private static void triggerAfterSegmentLoaded(String withType, Node node, Segment segment, UIElement uiElement) {
+        OnLoadHelper.triggerAfterListener(OnLoad.Type.SEGMENT, withType, node, Segment.class, segment, uiElement);
     }
 
     /*
      * Convenience methods for hooks with NODE type
      */
-    public static Node triggerProvidesNodeListener(Class withType, RootNode rootNode) {
+    public static Node triggerProvidesNodeListener(String withType, RootNode rootNode) {
         return ProvidesHelper.triggerListener(Provides.Type.NODE, withType, rootNode);
     }
 
-    public static void triggerBeforeNodeLoaded(Class withType, RootNode rootNode) {
+    public static void triggerBeforeNodeLoaded(String withType, RootNode rootNode) {
         OnLoadHelper.triggerBeforeListener(OnLoad.Type.NODE, withType, rootNode);
     }
 
-    public static void triggerAfterNodeLoaded(Class withType, Node node) {
+    public static void triggerAfterNodeLoaded(String withType, Node node) {
         OnLoadHelper.triggerAfterListener(OnLoad.Type.NODE, withType, node);
     }
 

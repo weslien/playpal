@@ -150,13 +150,19 @@ cmscore.Segment(page-second-segment-1):
     region:         'left'
     type:           models.cmscore.Content
     referenceId:    babf45ff-acc5-4340-9413-d68fe68cc7ef #content-side-1
-cmscore.Segment(page-second-segment-3):
+cmscore.Segment(page-second-segment-2):
     nodeId:         c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        1
     weight:         100
     region:         'main'
     type:           models.cmscore.Content
     referenceId:    d52ce214-48c0-4049-b94f-da81b3218536 #content-main-2
+cmscore.Segment(page-second-segment-3):
+    nodeId:         c9615819-0556-4e70-b6a9-a66c5b8d4c1a
+    version:        1
+    weight:         100
+    region:         'main'
+    type:           origo.contactform.ContactForm
 
 ### Page 3 ###
 # Page 3 -> Node

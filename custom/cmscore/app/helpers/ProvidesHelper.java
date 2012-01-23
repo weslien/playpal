@@ -18,17 +18,17 @@ import java.util.Map;
  */
 public class ProvidesHelper {
 
-    public static <T> T triggerListener(Provides.Type providesType, Class withType, Node node) {
+    public static <T> T triggerListener(Provides.Type providesType, String withType, Node node) {
         //noinspection unchecked
         return (T) triggerListener(providesType, withType, node, Collections.<Class, Object>emptyMap());
     }
 
-    public static <T> T triggerListener(Provides.Type providesType, Class withType, Node node, Class argType, Object arg) {
+    public static <T> T triggerListener(Provides.Type providesType, String withType, Node node, Class argType, Object arg) {
         //noinspection unchecked
         return (T) triggerListener(providesType, withType, node, Collections.<Class, Object>singletonMap(argType, arg));
     }
 
-    public static <T> T triggerListener(Provides.Type providesType, Class withType, Node node, Map<Class, Object> args) {
+    public static <T> T triggerListener(Provides.Type providesType, String withType, Node node, Map<Class, Object> args) {
         CachedAnnotation listener = findListener(providesType, withType);
         Map<Class, Object> parameters = new HashMap<Class, Object>();
         parameters.put(Node.class, node);
@@ -37,15 +37,15 @@ public class ProvidesHelper {
         return (T) ReflectionHelper.invokeMethod(listener.method, parameters);
     }
 
-    private static CachedAnnotation findListener(Provides.Type providesType, Class withType) {
+    private static CachedAnnotation findListener(Provides.Type providesType, String withType) {
         CachedAnnotation listener = findListenerForType(providesType, withType);
         if (listener == null) {
-            throw new RuntimeException("Every type (attribute 'with') must have a class annotated with @Provides to instantiate an instance");
+            throw new RuntimeException("Every type (specified by using attribute 'with') must have a class annotated with @Provides to instantiate an instance. Unable to find a Provider for type [" + withType + "]");
         }
         return listener;
     }
 
-    private static CachedAnnotation findListenerForType(final Provides.Type type, final Class withType) {
+    private static CachedAnnotation findListenerForType(final Provides.Type type, final String withType) {
         List<CachedAnnotation> listeners = Listeners.getListenersForAnnotationType(Provides.class, new Listeners.ListenerSelector() {
             @Override
             public boolean isCorrectListener(CachedAnnotation listener) {

@@ -26,6 +26,8 @@ public class DefaultDecorator {
                 return decorateForm(uiElement, renderingContext);
             case INPUT_TEXT:
                 return decorateInputText(uiElement, renderingContext);
+            case LABEL:
+                return decorateLabel(uiElement, renderingContext);
             case INPUT_TEXTAREA:
                 return decorateInputTextArea(uiElement, renderingContext);
             case INPUT_HIDDEN:
@@ -111,6 +113,10 @@ public class DefaultDecorator {
         return loadFragment(getFragmentPrefix(), "input", uiElement, null, Collections.singletonMap("type", "hidden"));
     }
 
+    public static String decorateLabel(UIElement uiElement, RenderingContext renderingContext) {
+        return loadFragment(getFragmentPrefix(), "label", uiElement, uiElement.getBody());
+    }
+
     public static String decorateInputTextArea(UIElement uiElement, RenderingContext renderingContext) {
         if (uiElement.hasChildren()) {
             String body = ThemeHelper.decorateChildren(uiElement, renderingContext);
@@ -166,7 +172,7 @@ public class DefaultDecorator {
         String body = ThemeHelper.decorateChildren(uiElement, renderingContext);
         return loadFragment(getFragmentPrefix(), "panel", uiElement, body);
     }
-    
+
     public static String decorateText(UIElement uiElement, RenderingContext renderingContext) {
         return loadFragment(getFragmentPrefix(), "text", uiElement, uiElement.getBody(), Collections.<String, String>emptyMap());
     }

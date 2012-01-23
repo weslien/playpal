@@ -21,7 +21,7 @@ import java.util.List;
 
 public class PageListener {
 
-    @Provides(type = Provides.Type.NODE, with = Page.class)
+    @Provides(type = Provides.Type.NODE, with = "models.cmscore.Page")
     public static Page createPage(RootNode rootNode) {
 
         Page page = Page.findWithUuidSpecificVersion(rootNode.uuid, rootNode.version);
@@ -33,7 +33,7 @@ public class PageListener {
         return page;
     }
 
-    @Provides(type = Provides.Type.SEGMENT, with = Content.class)
+    @Provides(type = Provides.Type.SEGMENT, with = "models.cmscore.Content")
     public static UIElement createContent(Segment segment) {
         if (!StringUtils.isBlank(segment.referenceId)) {
             Content content = Content.findWithIdentifier(segment.referenceId);
@@ -45,20 +45,20 @@ public class PageListener {
         }
     }
 
-    @Provides(type = Provides.Type.NAVIGATION, with = BasicNavigation.class)
+    @Provides(type = Provides.Type.NAVIGATION, with = "models.cmscore.navigation.BasicNavigation")
     public static Collection<NavigationElement> createNavigation(Node node, String section) {
         Collection<NavigationElement> navigationElements = new ArrayList<NavigationElement>();
-        NavigationHelper.triggerBeforeNavigationLoaded(BasicNavigation.class, node, navigationElements, section);
+        NavigationHelper.triggerBeforeNavigationLoaded(BasicNavigation.class.getName(), node, navigationElements, section);
         List<BasicNavigation> navigationModels = BasicNavigation.findWithSection(section);
         for (BasicNavigation navigationModel : navigationModels) {
-            NavigationHelper.triggerBeforeNavigationItemLoaded(navigationModel.getTypeClass(), node, navigationModel);
-            NavigationElement navigationElement = NavigationHelper.triggerProvidesNavigationItemListener(navigationModel.getTypeClass(), node, navigationModel);
-            NavigationHelper.triggerAfterNavigationItemLoaded(navigationModel.getTypeClass(), node, navigationModel, navigationElement);
+            NavigationHelper.triggerBeforeNavigationItemLoaded(navigationModel.type, node, navigationModel);
+            NavigationElement navigationElement = NavigationHelper.triggerProvidesNavigationItemListener(navigationModel.type, node, navigationModel);
+            NavigationHelper.triggerAfterNavigationItemLoaded(navigationModel.type, node, navigationModel, navigationElement);
             List<NavigationElement> children = createNavigationChildren(node, section, navigationModel, navigationElement);
             navigationElement.children.addAll(children);
             navigationElements.add(navigationElement);
         }
-        NavigationHelper.triggerAfterNavigationLoaded(BasicNavigation.class, node, navigationElements, section);
+        NavigationHelper.triggerAfterNavigationLoaded(BasicNavigation.class.getName(), node, navigationElements, section);
         return navigationElements;
     }
 
@@ -66,9 +66,9 @@ public class PageListener {
         List<NavigationElement> navigationElements = new ArrayList<NavigationElement>();
         List<BasicNavigation> navigationModels = BasicNavigation.findWithSection(section, navigationModel);
         for (BasicNavigation childNavigation : navigationModels) {
-            NavigationHelper.triggerBeforeNavigationItemLoaded(childNavigation.getTypeClass(), node, childNavigation);
-            NavigationElement childNavigationElement = NavigationHelper.triggerProvidesNavigationItemListener(childNavigation.getTypeClass(), node, childNavigation, parentNavigationElement);
-            NavigationHelper.triggerAfterNavigationItemLoaded(childNavigation.getTypeClass(), node, childNavigation, childNavigationElement);
+            NavigationHelper.triggerBeforeNavigationItemLoaded(childNavigation.type, node, childNavigation);
+            NavigationElement childNavigationElement = NavigationHelper.triggerProvidesNavigationItemListener(childNavigation.type, node, childNavigation, parentNavigationElement);
+            NavigationHelper.triggerAfterNavigationItemLoaded(childNavigation.type, node, childNavigation, childNavigationElement);
             if (childNavigationElement.selected) {
                 parentNavigationElement.selected = true;
             }
@@ -77,7 +77,7 @@ public class PageListener {
         return navigationElements;
     }
 
-    @Provides(type = Provides.Type.NAVIGATION_ITEM, with = AliasNavigation.class)
+    @Provides(type = Provides.Type.NAVIGATION_ITEM, with = "models.cmscore.navigation.AliasNavigation")
     public static NavigationElement createAliasNavigation(Node node, Navigation navigation) {
         AliasNavigation navigationModel = AliasNavigation.findWithIdentifier(navigation.getReferenceId());
         Alias alias = Alias.findWithPath(navigationModel.alias);
@@ -94,7 +94,7 @@ public class PageListener {
         }
     }
 
-    @Provides(type = Provides.Type.NAVIGATION_ITEM, with = PageIdNavigation.class)
+    @Provides(type = Provides.Type.NAVIGATION_ITEM, with = "models.cmscore.navigation.PageIdNavigation")
     public static NavigationElement createPageIdNavigation(Node node, Navigation navigation) {
         PageIdNavigation navigationModel = PageIdNavigation.findWithIdentifier(navigation.getReferenceId());
         Page page = Page.findCurrentVersion(navigationModel.pageId, new Date());
@@ -106,7 +106,7 @@ public class PageListener {
         }
     }
 
-    @Provides(type = Provides.Type.NAVIGATION_ITEM, with = ExternalLinkNavigation.class)
+    @Provides(type = Provides.Type.NAVIGATION_ITEM, with = "models.cmscore.navigation.ExternalLinkNavigation")
     public static NavigationElement createExternalLinkNavigation(Navigation navigation) {
         ExternalLinkNavigation navigationModel = ExternalLinkNavigation.findWithIdentifier(navigation.getReferenceId());
         return new NavigationElement(navigation.getSection(), navigationModel.title, navigationModel.getLink());

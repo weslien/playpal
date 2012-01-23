@@ -24,26 +24,29 @@ public class CoreLoader {
         } catch (PageNotFoundException e) {
             throw redirectToPageNotFoundPage();
         } catch (Exception e) {
+            LOG.error("An exception occured while loading the start page", e);
             throw redirectToInternalServerErrorPage();
         }
     }
 
-    public static RenderedNode getPage(String uuid) {
+    public static RenderedNode getPage(String identifier) {
         try {
-            return CoreLoader.loadAndDecoratePage(uuid, 0);
+            return CoreLoader.loadAndDecoratePage(identifier, 0);
         } catch (PageNotFoundException e) {
             throw redirectToPageNotFoundPage();
         } catch (Exception e) {
+            LOG.error("An exception occured while loading the page [" + identifier + "]", e);
             throw redirectToInternalServerErrorPage();
         }
     }
 
-    public static RenderedNode getPage(String uuid, long version) {
+    public static RenderedNode getPage(String identifier, long version) {
         try {
-            return CoreLoader.loadAndDecoratePage(uuid, version);
+            return CoreLoader.loadAndDecoratePage(identifier, version);
         } catch (PageNotFoundException e) {
             throw redirectToPageNotFoundPage();
         } catch (Exception e) {
+            LOG.error("An exception occured while loading the page [" + identifier + "] with specific version [" + version + "]", e);
             throw redirectToInternalServerErrorPage();
         }
     }
@@ -86,13 +89,13 @@ public class CoreLoader {
     }
 
     private static Node loadNode(String identifier, long version) {
-        LOG.debug("Trying to find alias for [" + identifier + "]");
+        LOG.trace("Trying to find alias for [" + identifier + "]");
         Alias alias = Alias.findWithPath(identifier);
         if (alias != null) {
-            LOG.trace("Found alias: " + alias.toString());
+            LOG.debug("Found alias: " + alias.toString());
             return loadByUUIDAndVersion(alias.pageId, version);
         } else {
-            LOG.trace("Trying to find page with uuid [" + identifier + "]");
+            LOG.debug("No Alias found trying [" + identifier + "] as uuid");
             return loadByUUIDAndVersion(identifier, version);
         }
     }

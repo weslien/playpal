@@ -1,5 +1,6 @@
 package helpers;
 
+import play.Logger;
 import play.modules.cmscore.CachedThemeVariant;
 import play.modules.cmscore.annotations.CachedDecorator;
 import play.utils.Java;
@@ -24,7 +25,7 @@ public class ReflectionHelper {
      */
     public static Object invokeMethod(Method method, Map<Class, Object> parameters) {
         Class[] parameterTypes = method.getParameterTypes();
-        Object[] foundParameters = new Object[0];
+        Object[] foundParameters;
         try {
             foundParameters = getInvocationParameters(parameterTypes, parameters);
         } catch (UnknownParameterTypeException e) {
@@ -35,6 +36,7 @@ public class ReflectionHelper {
         } catch (InvocationTargetException e) {
             throw new RuntimeException(e.getTargetException().getMessage(), e);
         } catch (Exception e) {
+            Logger.error("Unable to invoke method [" + method.getDeclaringClass() + "." + method.getName() + "], make sure it is a static method");
             throw new RuntimeException(e.getMessage(), e);
         }
     }

@@ -27,16 +27,16 @@ public class SettingsHelper {
         return Settings.load().getValue(SettingsKeys.Core.THEME_VARIANT);
     }
 
-    public static Class getNavigationType() {
+    public static String getNavigationType() {
         String navigationType = Settings.load().getValue(SettingsKeys.Core.NAVIGATION_TYPE);
         if (navigationType != null) {
             try {
-                return Class.forName(navigationType);
+                return Class.forName(navigationType).getName();
             } catch (ClassNotFoundException e) {
                 Logger.error("Unable to find navigation type [" + navigationType + "], using system default navigation type instead");
             }
         }
-        return BasicNavigation.class;
+        return BasicNavigation.class.getName();
     }
 
 }

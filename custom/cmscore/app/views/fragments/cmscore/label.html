@@ -1,0 +1,6 @@
+#{if element.hasBody()}
+<label #{cmscore.attributes attributes:attributes /}/>
+#{/if}
+#{else}
+<label #{cmscore.attributes attributes:attributes /}>#{verbatim}${body}#{/verbatim}</label>
+#{/else}

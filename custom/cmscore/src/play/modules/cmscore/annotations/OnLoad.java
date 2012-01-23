@@ -14,7 +14,7 @@ public @interface OnLoad {
 
     Type type();
 
-    Class with() default Object.class;
+    String with() default "";
 
     boolean after() default true;
 

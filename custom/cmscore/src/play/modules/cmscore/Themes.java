@@ -26,7 +26,7 @@ public class Themes {
 
     public static void addTheme(String themeId, Class declaringClass) {
         if (themes.containsKey(themeId)) {
-            throw new RuntimeException("Theme [" + themeId + "] declared in both " + declaringClass.getSimpleName() + " and " + themes.get(themeId).getDeclaringClass().getSimpleName());
+            throw new RuntimeException("Theme [" + themeId + "] declared in both " + declaringClass.getName() + " and " + themes.get(themeId).getDeclaringClass().getName());
         }
         themes.put(themeId, new CachedTheme(themeId, declaringClass));
 
