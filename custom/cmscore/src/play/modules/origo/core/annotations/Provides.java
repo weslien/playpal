@@ -29,7 +29,7 @@ public @interface Provides {
     String with();
 
     public enum Type {
-        NODE, SEGMENT, FORM, NAVIGATION, NAVIGATION_ITEM
+        NODE, FORM, NAVIGATION, NAVIGATION_ITEM
     }
 
 }

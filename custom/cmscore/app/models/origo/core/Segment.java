@@ -16,10 +16,6 @@ public class Segment extends Model {
     @Required
     public Long version;
 
-    // Should only have to be Integer but because of defect #521 in play that doesn't work. Should be fixed in 1.3
-    @Required
-    public Long weight;
-
     @Required
     public String region;
 

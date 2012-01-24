@@ -1,12 +1,10 @@
 package origo.helpers;
 
 import models.origo.core.RootNode;
-import models.origo.core.Segment;
 import org.apache.commons.lang.StringUtils;
 import origo.listeners.PageNotFoundException;
 import play.modules.origo.core.Node;
 
-import java.util.Collection;
 import java.util.Date;
 
 public class NodeHelper {
@@ -46,36 +44,7 @@ public class NodeHelper {
             triggerAfterNodeLoaded(rootNode.type, node);
         }
 
-        addSegments(node);
-
         return node;
-    }
-
-    private static void addSegments(play.modules.origo.core.Node node) {
-        Collection<Segment> segments = Segment.findWithUuidSpecificVersion(node.getNodeId(), node.getVersion());
-        for (Segment segment : segments) {
-            triggerBeforeSegmentLoaded(segment.type, node, segment);
-            play.modules.origo.core.ui.UIElement uiElement = triggerProvidesSegmentListener(segment.type, node, segment);
-            if (uiElement != null) {
-                triggerAfterSegmentLoaded(segment.type, node, segment, uiElement);
-                node.addUIElement(segment.region, uiElement);
-            }
-        }
-    }
-
-    /*
-     * Convenience methods for hooks with SEGMENT type
-     */
-    public static play.modules.origo.core.ui.UIElement triggerProvidesSegmentListener(String withType, Node node, Segment segment) {
-        return ProvidesHelper.triggerListener(play.modules.origo.core.annotations.Provides.Type.SEGMENT, withType, node, Segment.class, segment);
-    }
-
-    private static void triggerBeforeSegmentLoaded(String nodeType, play.modules.origo.core.Node node, Segment segment) {
-        OnLoadHelper.triggerBeforeListener(play.modules.origo.core.annotations.OnLoad.Type.SEGMENT, nodeType, node, Segment.class, segment);
-    }
-
-    private static void triggerAfterSegmentLoaded(String withType, play.modules.origo.core.Node node, Segment segment, play.modules.origo.core.ui.UIElement uiElement) {
-        OnLoadHelper.triggerAfterListener(play.modules.origo.core.annotations.OnLoad.Type.SEGMENT, withType, node, Segment.class, segment, uiElement);
     }
 
     /*

@@ -5,6 +5,11 @@ import org.apache.log4j.Logger;
 import play.modules.origo.core.CachedThemeVariant;
 import play.modules.origo.core.Node;
 import play.modules.origo.core.Themes;
+import play.modules.origo.core.annotations.CachedDecorator;
+import play.modules.origo.core.annotations.UIElementType;
+import play.modules.origo.core.ui.RenderedNode;
+import play.modules.origo.core.ui.RenderingContext;
+import play.modules.origo.core.ui.UIElement;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,15 +18,15 @@ public class ThemeHelper {
 
     private static final Logger LOG = Logger.getLogger(ThemeHelper.class);
 
-    public static play.modules.origo.core.ui.RenderedNode decorate(play.modules.origo.core.Node node) {
-        play.modules.origo.core.ui.RenderedNode renderedNode = new play.modules.origo.core.ui.RenderedNode(node.getNodeId());
+    public static RenderedNode decorate(play.modules.origo.core.Node node) {
+        RenderedNode renderedNode = new RenderedNode(node.getNodeId());
         CachedThemeVariant themeVariant = loadTheme(node);
         setupRegions(themeVariant, renderedNode);
         renderedNode.setTitle(node.getTitle());
         renderedNode.setTemplate(ReflectionHelper.getTemplate(themeVariant));
-        play.modules.origo.core.ui.RenderingContext renderingContext = new play.modules.origo.core.ui.RenderingContext(themeVariant, node);
+        RenderingContext renderingContext = new RenderingContext(themeVariant, node);
         for (String region : node.getRegions()) {
-            for (play.modules.origo.core.ui.UIElement uiElement : node.getUIElements(region)) {
+            for (UIElement uiElement : node.getUIElements(region)) {
                 String decoratedContent = decorate(uiElement, renderingContext);
                 switch (uiElement.getType()) {
                     case META:
@@ -63,7 +68,7 @@ public class ThemeHelper {
      * @param themeVariant the theme variant that holds the regions available
      * @param renderedNode the node about to rendered
      */
-    private static void setupRegions(CachedThemeVariant themeVariant, play.modules.origo.core.ui.RenderedNode renderedNode) {
+    private static void setupRegions(CachedThemeVariant themeVariant, RenderedNode renderedNode) {
         Map<String, String> regions = new HashMap<String, String>();
         for (String region : themeVariant.regions) {
             regions.put(region, "");
@@ -71,12 +76,12 @@ public class ThemeHelper {
         renderedNode.setRegions(regions);
     }
 
-    public static String decorate(play.modules.origo.core.ui.UIElement uiElement, play.modules.origo.core.ui.RenderingContext renderingContext) {
-        Map<play.modules.origo.core.annotations.UIElementType, play.modules.origo.core.annotations.CachedDecorator> decorators = Themes.getDecoratorsForTheme(renderingContext.getThemeVariant().themeId);
+    public static String decorate(UIElement uiElement, RenderingContext renderingContext) {
+        Map<UIElementType, CachedDecorator> decorators = Themes.getDecoratorsForTheme(renderingContext.getThemeVariant().themeId);
         renderingContext.nestle(uiElement);
         String decoratedOutput = null;
         if (decorators.containsKey(uiElement.getType())) {
-            play.modules.origo.core.annotations.CachedDecorator decorator = decorators.get(uiElement.getType());
+            CachedDecorator decorator = decorators.get(uiElement.getType());
             decoratedOutput = ReflectionHelper.invokeDecorator(decorator, null);
         }
         if (decoratedOutput == null) {
@@ -86,13 +91,13 @@ public class ThemeHelper {
         return decoratedOutput;
     }
 
-    public static String decorateChildren(play.modules.origo.core.ui.UIElement parent, play.modules.origo.core.ui.RenderingContext renderingContext) {
+    public static String decorateChildren(UIElement parent, RenderingContext renderingContext) {
         if (!parent.hasChildren()) {
             return null;
         }
         StringBuilder sb = new StringBuilder();
         renderingContext.nestle(parent);
-        for (play.modules.origo.core.ui.UIElement childElement : parent.getChildren()) {
+        for (UIElement childElement : parent.getChildren()) {
             sb.append(decorate(childElement, renderingContext));
         }
         renderingContext.unNestle();

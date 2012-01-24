@@ -1,5 +1,7 @@
 package origo.helpers;
 
+import play.modules.origo.core.ui.UIElement;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -9,17 +11,17 @@ import java.util.List;
  */
 public class UIElementHelper {
 
-    public static void reorderUIElements(List<play.modules.origo.core.ui.UIElement> elements) {
-        Collections.sort(elements, new Comparator<play.modules.origo.core.ui.UIElement>() {
+    public static void reorderUIElements(List<UIElement> elements) {
+        Collections.sort(elements, new Comparator<UIElement>() {
             @Override
-            public int compare(play.modules.origo.core.ui.UIElement uiElement, play.modules.origo.core.ui.UIElement uiElement1) {
+            public int compare(UIElement uiElement, UIElement uiElement1) {
                 return (uiElement.getWeight() >= uiElement1.getWeight()) ? 1 : 0;
             }
         });
     }
 
-    public static void repositionUIElements(List<play.modules.origo.core.ui.UIElement> elements, play.modules.origo.core.ui.UIElement element) {
-        for (play.modules.origo.core.ui.UIElement elem : elements) {
+    public static void repositionUIElements(List<UIElement> elements, UIElement element) {
+        for (UIElement elem : elements) {
             if (elem.getWeight() >= element.getWeight()) {
                 elem.setWeight(elem.getWeight() + 1);
             }

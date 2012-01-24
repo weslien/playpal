@@ -4,6 +4,7 @@ import origo.helpers.UIElementHelper;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import play.modules.origo.core.Node;
+import play.modules.origo.core.ui.UIElement;
 
 import javax.persistence.*;
 import java.util.*;
@@ -30,7 +31,7 @@ public final class RootNode extends Model implements Node {
     public String themeVariant;
 
     @Transient
-    private Map<String, List<play.modules.origo.core.ui.UIElement>> uiElements = new HashMap<String, List<play.modules.origo.core.ui.UIElement>>();
+    private Map<String, List<UIElement>> uiElements = new HashMap<String, List<UIElement>>();
 
     public RootNode(Long version) {
         this.uuid = UUID.randomUUID().toString();
@@ -79,25 +80,25 @@ public final class RootNode extends Model implements Node {
 
     /* Interface methods */
     @Override
-    public List<play.modules.origo.core.ui.UIElement> getUIElements(String region) {
+    public List<UIElement> getUIElements(String region) {
         return this.uiElements.get(region.toLowerCase());
     }
 
     @Override
-    public play.modules.origo.core.ui.UIElement addUIElement(play.modules.origo.core.ui.UIElement uiElement) {
+    public UIElement addUIElement(UIElement uiElement) {
         return addUIElement(HEAD, uiElement, false);
     }
 
     @Override
-    public play.modules.origo.core.ui.UIElement addUIElement(String region, play.modules.origo.core.ui.UIElement uiElement) {
+    public UIElement addUIElement(String region, UIElement uiElement) {
         return addUIElement(region, uiElement, false);
     }
 
     @Override
-    public play.modules.origo.core.ui.UIElement addUIElement(String region, play.modules.origo.core.ui.UIElement uiElement, boolean reorderElementsBelow) {
+    public UIElement addUIElement(String region, UIElement uiElement, boolean reorderElementsBelow) {
         String regionKey = region.toLowerCase();
         if (!uiElements.containsKey(regionKey)) {
-            uiElements.put(regionKey, new ArrayList<play.modules.origo.core.ui.UIElement>());
+            uiElements.put(regionKey, new ArrayList<UIElement>());
         }
         uiElements.get(regionKey).add(uiElement);
         if (reorderElementsBelow) {
@@ -108,7 +109,7 @@ public final class RootNode extends Model implements Node {
     }
 
     @Override
-    public boolean removeUIElement(String region, play.modules.origo.core.ui.UIElement uiElement) {
+    public boolean removeUIElement(String region, UIElement uiElement) {
         String regionKey = region.toLowerCase();
         if (uiElements.get(regionKey).remove(uiElement)) {
             UIElementHelper.reorderUIElements(uiElements.get(regionKey));
@@ -170,7 +171,7 @@ public final class RootNode extends Model implements Node {
     }
 
     private static void initializeNode(RootNode node) {
-        node.uiElements = new HashMap<String, List<play.modules.origo.core.ui.UIElement>>();
+        node.uiElements = new HashMap<String, List<UIElement>>();
     }
 
     @Override

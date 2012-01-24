@@ -8,6 +8,8 @@ import origo.helpers.SettingsHelper;
 import origo.helpers.ThemeHelper;
 import origo.listeners.PageNotFoundException;
 import play.modules.origo.core.Node;
+import play.modules.origo.core.ui.NavigationElement;
+import play.modules.origo.core.ui.RenderedNode;
 import play.mvc.results.Redirect;
 
 import java.util.Collection;
@@ -16,7 +18,7 @@ public class CoreLoader {
 
     private final static Logger LOG = Logger.getLogger(CoreLoader.class);
 
-    public static play.modules.origo.core.ui.RenderedNode getStartPage() {
+    public static RenderedNode getStartPage() {
         try {
             return loadAndDecorateStartPage();
         } catch (PageNotFoundException e) {
@@ -27,7 +29,7 @@ public class CoreLoader {
         }
     }
 
-    public static play.modules.origo.core.ui.RenderedNode getPage(String identifier) {
+    public static RenderedNode getPage(String identifier) {
         try {
             return CoreLoader.loadAndDecoratePage(identifier, 0);
         } catch (PageNotFoundException e) {
@@ -38,7 +40,7 @@ public class CoreLoader {
         }
     }
 
-    public static play.modules.origo.core.ui.RenderedNode getPage(String identifier, long version) {
+    public static RenderedNode getPage(String identifier, long version) {
         try {
             return CoreLoader.loadAndDecoratePage(identifier, version);
         } catch (PageNotFoundException e) {
@@ -49,7 +51,7 @@ public class CoreLoader {
         }
     }
 
-    private static play.modules.origo.core.ui.RenderedNode loadAndDecorateStartPage() {
+    private static RenderedNode loadAndDecorateStartPage() {
         String startPage = SettingsHelper.getStartPage();
         LOG.debug("Loading Start Page [" + startPage + "]");
         return CoreLoader.loadAndDecoratePage(startPage, 0);
@@ -81,7 +83,7 @@ public class CoreLoader {
         }
     }
 
-    private static play.modules.origo.core.ui.RenderedNode loadAndDecoratePage(String identifier, long version) {
+    private static RenderedNode loadAndDecoratePage(String identifier, long version) {
         play.modules.origo.core.Node node = loadNode(identifier, version);
         return decorateNode(node);
     }
@@ -111,21 +113,21 @@ public class CoreLoader {
         return node;
     }
 
-    private static play.modules.origo.core.ui.RenderedNode decorateNode(Node node) {
-        play.modules.origo.core.ui.RenderedNode renderedNode = ThemeHelper.decorate(node);
+    private static RenderedNode decorateNode(Node node) {
+        RenderedNode renderedNode = ThemeHelper.decorate(node);
         if (LOG.isDebugEnabled()) {
             LOG.debug("Decorated " + renderedNode);
         }
         return renderedNode;
     }
 
-    public static Collection<play.modules.origo.core.ui.NavigationElement> getNavigation(String identifier) {
+    public static Collection<NavigationElement> getNavigation(String identifier) {
         return getNavigation(identifier, 0);
     }
 
-    public static Collection<play.modules.origo.core.ui.NavigationElement> getNavigation(String identifier, long version) {
+    public static Collection<NavigationElement> getNavigation(String identifier, long version) {
         Node node = loadNode(identifier, version);
-        Collection<play.modules.origo.core.ui.NavigationElement> navigationLinks = NavigationHelper.getNavigation(node, play.modules.origo.core.ui.NavigationElement.FRONT);
+        Collection<NavigationElement> navigationLinks = NavigationHelper.getNavigation(node, NavigationElement.FRONT);
         if (LOG.isDebugEnabled()) {
             LOG.debug("Navigation loaded " + navigationLinks);
         }

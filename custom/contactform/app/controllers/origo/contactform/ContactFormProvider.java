@@ -1,39 +1,43 @@
 package controllers.origo.contactform;
 
+import play.modules.origo.core.annotations.OnLoad;
+import play.modules.origo.core.annotations.UIElementType;
+import play.modules.origo.core.ui.UIElement;
+
 import java.util.Collections;
 
 public class ContactFormProvider {
 
-    @play.modules.origo.core.annotations.Provides(type = play.modules.origo.core.annotations.Provides.Type.SEGMENT, with = "origo.contactform.ContactForm")
-    public static play.modules.origo.core.ui.UIElement createForm() {
+    @OnLoad(type = OnLoad.Type.NODE, with = "origo.contactform.ContactForm")
+    public static UIElement createForm() {
 
-        play.modules.origo.core.ui.UIElement formElement = new play.modules.origo.core.ui.UIElement(play.modules.origo.core.annotations.UIElementType.FORM, Collections.singletonMap("class", "origo-contactform, form"), 30);
+        UIElement formElement = new UIElement(UIElementType.FORM, Collections.singletonMap("class", "origo-contactform, form"));
 
-        play.modules.origo.core.ui.UIElement namePanelElement = new play.modules.origo.core.ui.UIElement(play.modules.origo.core.annotations.UIElementType.PANEL, 10);
-        play.modules.origo.core.ui.UIElement nameLabelElement = new play.modules.origo.core.ui.UIElement(play.modules.origo.core.annotations.UIElementType.LABEL, Collections.singletonMap("for", "origo-contactform-name"), 10);
+        UIElement namePanelElement = new UIElement(UIElementType.PANEL, 10);
+        UIElement nameLabelElement = new UIElement(UIElementType.LABEL, Collections.singletonMap("for", "origo-contactform-name"), 10);
         namePanelElement.addChild(nameLabelElement);
-        play.modules.origo.core.ui.UIElement nameInputElement = new play.modules.origo.core.ui.UIElement(play.modules.origo.core.annotations.UIElementType.INPUT_TEXT, Collections.singletonMap("name", "origo-contactform-name"), 20);
+        UIElement nameInputElement = new UIElement(UIElementType.INPUT_TEXT, Collections.singletonMap("name", "origo-contactform-name"), 20);
         namePanelElement.addChild(nameInputElement);
         formElement.addChild(namePanelElement);
 
-        play.modules.origo.core.ui.UIElement emailPanelElement = new play.modules.origo.core.ui.UIElement(play.modules.origo.core.annotations.UIElementType.PANEL, 20);
-        play.modules.origo.core.ui.UIElement emailLabelElement = new play.modules.origo.core.ui.UIElement(play.modules.origo.core.annotations.UIElementType.LABEL, Collections.singletonMap("for", "origo-contactform-email"), 10);
+        UIElement emailPanelElement = new UIElement(UIElementType.PANEL, 20);
+        UIElement emailLabelElement = new UIElement(UIElementType.LABEL, Collections.singletonMap("for", "origo-contactform-email"), 10);
         namePanelElement.addChild(emailLabelElement);
-        play.modules.origo.core.ui.UIElement emailInputElement = new play.modules.origo.core.ui.UIElement(play.modules.origo.core.annotations.UIElementType.INPUT_TEXT, Collections.singletonMap("name", "origo-contactform-email"), 20);
+        UIElement emailInputElement = new UIElement(UIElementType.INPUT_TEXT, Collections.singletonMap("name", "origo-contactform-email"), 20);
         namePanelElement.addChild(emailInputElement);
         formElement.addChild(emailPanelElement);
 
-        play.modules.origo.core.ui.UIElement textPanelElement = new play.modules.origo.core.ui.UIElement(play.modules.origo.core.annotations.UIElementType.PANEL, 30);
-        play.modules.origo.core.ui.UIElement textLabelElement = new play.modules.origo.core.ui.UIElement(play.modules.origo.core.annotations.UIElementType.LABEL, Collections.singletonMap("for", "origo-contactform-text"), 10);
+        UIElement textPanelElement = new UIElement(UIElementType.PANEL, 30);
+        UIElement textLabelElement = new UIElement(UIElementType.LABEL, Collections.singletonMap("for", "origo-contactform-text"), 10);
         namePanelElement.addChild(textLabelElement);
-        play.modules.origo.core.ui.UIElement textInputElement = new play.modules.origo.core.ui.UIElement(play.modules.origo.core.annotations.UIElementType.INPUT_TEXTAREA, Collections.singletonMap("name", "origo-contactform-text"), 20);
-        namePanelElement.addChild(textInputElement);
+        UIElement textInputElement = new UIElement(UIElementType.INPUT_TEXTAREA, Collections.singletonMap("name", "origo-contactform-text"), 20);
+        textPanelElement.addChild(textInputElement);
+        formElement.addChild(textPanelElement);
 
-        play.modules.origo.core.ui.UIElement buttonPanelElement = new play.modules.origo.core.ui.UIElement(play.modules.origo.core.annotations.UIElementType.PANEL, 40);
-        play.modules.origo.core.ui.UIElement buttonInputElement = new play.modules.origo.core.ui.UIElement(play.modules.origo.core.annotations.UIElementType.INPUT_BUTTON, Collections.singletonMap("name", "origo-contactform-button"), 20);
+        UIElement buttonPanelElement = new UIElement(UIElementType.PANEL, 40);
+        UIElement buttonInputElement = new UIElement(UIElementType.INPUT_BUTTON, Collections.singletonMap("name", "origo-contactform-button"), 20);
         namePanelElement.addChild(buttonInputElement);
         formElement.addChild(buttonPanelElement);
-
 
         return formElement;
     }
