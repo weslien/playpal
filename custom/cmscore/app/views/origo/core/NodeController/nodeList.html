@@ -1,0 +1,8 @@
+#{extends 'origo/core/main.html' /}
+#{set title:'All Nodes' /}
+
+<h3>All nodes</h3>
+
+#{list items:nodes, as:'node'}
+<a href="@{models.origo.core.NodeController.node(node.uuid)}">${node.title} - ${node.uuid}</a><br/>
+#{/list}

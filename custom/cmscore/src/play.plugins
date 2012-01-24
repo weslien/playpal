@@ -1,2 +1,2 @@
-10:play.modules.cmscore.CmsCoreAnnotationsPlugin
-20:play.modules.cmscore.CmsThemeAnnotationsPlugin
+10:play.modules.origo.core.CoreAnnotationsPlugin
+20:play.modules.origo.core.ThemeAnnotationsPlugin
