@@ -19,7 +19,7 @@ import java.util.Set;
  */
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "pageVersion", columnNames = {"parentUuid", "parentVersion"}))
-public class Page extends Model implements Node {
+public class BasicPage extends Model implements Node {
 
     @Required
     @Column(name = "parentUuid")
@@ -77,13 +77,28 @@ public class Page extends Model implements Node {
     }
 
     @Override
+    public UIElement addHeadUIElement(UIElement uiElement) {
+        return rootNode.addHeadUIElement(uiElement);
+    }
+
+    @Override
     public UIElement addUIElement(UIElement uiElement) {
         return rootNode.addUIElement(uiElement, false);
     }
 
     @Override
+    public UIElement addHeadUIElement(UIElement uiElement, boolean reorderElementsBelow) {
+        return rootNode.addHeadUIElement(uiElement, reorderElementsBelow);
+    }
+
+    @Override
     public UIElement addUIElement(UIElement uiElement, boolean reorderElementsBelow) {
         return rootNode.addUIElement(uiElement, reorderElementsBelow);
+    }
+
+    @Override
+    public boolean removeHeadUIElement(UIElement uiElement) {
+        return rootNode.removeHeadUIElement(uiElement);
     }
 
     @Override
@@ -100,10 +115,10 @@ public class Page extends Model implements Node {
                 .toString();
     }
 
-    public static List<Page> findAllCurrentVersions(Date asOfDate) {
-        return Page.
+    public static List<BasicPage> findAllCurrentVersions(Date asOfDate) {
+        return BasicPage.
                 find(
-                        "select p from Page p " +
+                        "select p from BasicPage p " +
                                 "where p.id in (" +
                                 "select l.id from RootNode l " +
                                 "where l.version = (" +
@@ -117,10 +132,10 @@ public class Page extends Model implements Node {
                 fetch();
     }
 
-    public static Page findCurrentVersion(String uuid, Date asOfDate) {
-        return Page.
+    public static BasicPage findCurrentVersion(String uuid, Date asOfDate) {
+        return BasicPage.
                 find(
-                        "select p from Page p " +
+                        "select p from BasicPage p " +
                                 "where p.uuid = :uuid and p.id in (" +
                                 "select l.id from RootNode l " +
                                 "where l.version = (" +
@@ -135,10 +150,10 @@ public class Page extends Model implements Node {
                 first();
     }
 
-    public static Page findWithUuidSpecificVersion(String uuid, Long version) {
+    public static BasicPage findWithUuidSpecificVersion(String uuid, Long version) {
         return RootNode.
                 find(
-                        "select distinct p from Page p " +
+                        "select distinct p from BasicPage p " +
                                 "where p.uuid = :uuid and " +
                                 "p.version = :version").
                 bind("uuid", uuid).

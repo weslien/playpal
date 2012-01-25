@@ -79,6 +79,15 @@ public interface Node {
     List<UIElement> getUIElements(String region);
 
     /**
+     * Add an element that should be rendered in the head region of the page. The head region always exists.
+     *
+     * @param uiElement the element to be rendered
+     * @return the newly added UIElement
+     * @see play.modules.origo.core.annotations.ThemeVariant
+     */
+    UIElement addHeadUIElement(UIElement uiElement);
+
+    /**
      * Add an element that should be rendered on the page. Regions are determined by the theme variant used.
      *
      * @param uiElement the element to be rendered
@@ -86,6 +95,16 @@ public interface Node {
      * @see play.modules.origo.core.annotations.ThemeVariant
      */
     UIElement addUIElement(UIElement uiElement);
+
+    /**
+     * Add an element that should be rendered in the head region of the page. The head region always exists.
+     *
+     * @param uiElement            the element to be rendered
+     * @param reorderElementsBelow if true then all elements below this new element will be reordered according to their individual weight
+     * @return the newly added UIElement
+     * @see play.modules.origo.core.annotations.ThemeVariant
+     */
+    UIElement addHeadUIElement(UIElement uiElement, boolean reorderElementsBelow);
 
     /**
      * Add an element that should be rendered on the page. Regions are determined by the theme variant used.
@@ -96,6 +115,14 @@ public interface Node {
      * @see play.modules.origo.core.annotations.ThemeVariant
      */
     UIElement addUIElement(UIElement uiElement, boolean reorderElementsBelow);
+
+    /**
+     * Removes an element so it is not rendered in the head region of the page. The head region always exists.
+     *
+     * @param uiElement the element to be rendered
+     * @return if an object matching the region and the uiElement could be found and removed
+     */
+    boolean removeHeadUIElement(UIElement uiElement);
 
     /**
      * Removes an element so it is not rendered. Will force a reordering of all elements below.

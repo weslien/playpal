@@ -1,13 +1,13 @@
 package controllers.origo.admin;
 
 import controllers.CRUD;
-import models.origo.core.Page;
+import models.origo.core.BasicPage;
 import play.exceptions.TemplateNotFoundException;
 
 import java.util.Date;
 import java.util.List;
 
-@CRUD.For(Page.class)
+@CRUD.For(BasicPage.class)
 public class Pages extends CRUD {
 
     public static void list(int page, String search, String searchFields, String orderBy, String order) {
@@ -16,7 +16,7 @@ public class Pages extends CRUD {
         if (page < 1) {
             page = 1;
         }
-        List<Page> objects = Page.findAllCurrentVersions(new Date());
+        List<BasicPage> objects = BasicPage.findAllCurrentVersions(new Date());
         Long count = type.count(search, searchFields, (String) request.args.get("where"));
         Long totalCount = type.count(null, null, (String) request.args.get("where"));
         try {

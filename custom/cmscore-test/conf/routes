@@ -7,9 +7,9 @@
 *       /                                       module:cmscore
 
 # Home page
-GET     /                                       cmscoretest.CmsCoreApplicationMock.index
-GET     /{identifier}                           cmscoretest.CmsCoreApplicationMock.page
-GET     /{identifier}/{<[0-9]+>version}         cmscoretest.CmsCoreApplicationTest.pageVersion
+GET     /                                       origo.coretest.CoreApplicationMock.index
+GET     /{identifier}                           origo.coretest.CoreApplicationMock.page
+GET     /{identifier}/{<[0-9]+>version}         origo.coretest.CoreApplicationTest.pageVersion
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

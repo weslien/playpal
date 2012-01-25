@@ -16,7 +16,7 @@ public final class RootNode extends Model implements Node {
     @Required
     public String uuid;
 
-    // Should only have to be Integer but because of defect #521 in play that doesn't work. Should be fixed in 1.3
+    // TODO: Should only have to be Integer but because of defect #521 in play that doesn't work. Should be fixed in 1.3 (2.0?)
     @Required
     public Long version;
 
@@ -85,23 +85,36 @@ public final class RootNode extends Model implements Node {
     }
 
     @Override
+    public UIElement addHeadUIElement(UIElement uiElement) {
+        return addHeadUIElement(uiElement, false);
+    }
+
+    @Override
     public UIElement addUIElement(UIElement uiElement) {
         return addUIElement(uiElement, false);
     }
 
     @Override
-    public UIElement addUIElement(UIElement uiElement, boolean reorderElementsBelow) {
+    public UIElement addHeadUIElement(UIElement uiElement, boolean reorderElementsBelow) {
+        return addUIElement(uiElement, reorderElementsBelow, HEAD, 0);
+    }
 
+    @Override
+    public UIElement addUIElement(UIElement uiElement, boolean reorderElementsBelow) {
         Meta meta = Meta.findWithUuidSpecificVersion(uuid, version, uiElement.id);
         if (meta == null) {
             meta = Meta.defaultMeta();
         }
 
         String regionKey = meta.region.toLowerCase();
+        return addUIElement(uiElement, reorderElementsBelow, regionKey, meta.weight.intValue());
+    }
+
+    private UIElement addUIElement(UIElement uiElement, boolean reorderElementsBelow, String regionKey, int weight) {
         if (!uiElements.containsKey(regionKey)) {
             uiElements.put(regionKey, new ArrayList<UIElement>());
         }
-        uiElement.setWeight(meta.weight.intValue());
+        uiElement.setWeight(weight);
         uiElements.get(regionKey).add(uiElement);
         if (reorderElementsBelow) {
             UIElementHelper.repositionUIElements(uiElements.get(regionKey), uiElement);
@@ -111,12 +124,21 @@ public final class RootNode extends Model implements Node {
     }
 
     @Override
+    public boolean removeHeadUIElement(UIElement uiElement) {
+        return removeUIElement(uiElement, HEAD);
+    }
+
+    @Override
     public boolean removeUIElement(UIElement uiElement) {
         Meta meta = Meta.findWithUuidSpecificVersion(uuid, version, uiElement.id);
         if (meta == null) {
             meta = Meta.defaultMeta();
         }
         String regionKey = meta.region.toLowerCase();
+        return removeUIElement(uiElement, regionKey);
+    }
+
+    private boolean removeUIElement(UIElement uiElement, String regionKey) {
         if (uiElements.get(regionKey).remove(uiElement)) {
             UIElementHelper.reorderUIElements(uiElements.get(regionKey));
             return true;
@@ -178,6 +200,7 @@ public final class RootNode extends Model implements Node {
 
     private static void initializeNode(RootNode node) {
         node.uiElements = new HashMap<String, List<UIElement>>();
+        node.uiElements.put(HEAD, new ArrayList<UIElement>());
     }
 
     @Override

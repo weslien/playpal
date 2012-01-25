@@ -11,14 +11,14 @@ public class Meta extends Model {
     @Required
     public String nodeId;
 
-    // Should only have to be Integer but because of defect #521 in play that doesn't work. Should be fixed in 1.3
+    // TODO: Should only have to be Integer but because of defect #521 in play that doesn't work. Should be fixed in 1.3 (2.0?)
     @Required
     public Long version;
 
     @Required
     public String referenceId;
 
-    // Should only have to be Integer but because of defect #521 in play that doesn't work. Should be fixed in 1.3
+    // TODO: Should only have to be Integer but because of defect #521 in play that doesn't work. Should be fixed in 1.3 (2.0?)
     @Required
     public Long weight;
 

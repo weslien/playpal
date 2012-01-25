@@ -22,10 +22,10 @@ import java.util.List;
 
 public class PageListener {
 
-    @Provides(type = Provides.Type.NODE, with = "models.origo.core.Page")
-    public static Page createPage(RootNode rootNode) {
+    @Provides(type = Provides.Type.NODE, with = "models.origo.core.BasicPage")
+    public static BasicPage createPage(RootNode rootNode) {
 
-        Page page = Page.findWithUuidSpecificVersion(rootNode.uuid, rootNode.version);
+        BasicPage page = BasicPage.findWithUuidSpecificVersion(rootNode.uuid, rootNode.version);
         if (page == null) {
             throw new PageNotFoundException(rootNode.uuid);
         }
@@ -34,7 +34,7 @@ public class PageListener {
         return page;
     }
 
-    @OnLoad(type = OnLoad.Type.NODE, with = "models.origo.core.Page")
+    @OnLoad(type = OnLoad.Type.NODE, with = "models.origo.core.BasicPage")
     public static void createContent(Node node) {
 
         Collection<Segment> segments = Segment.findWithUuidSpecificVersion(node.getNodeId(), node.getVersion());
@@ -99,7 +99,7 @@ public class PageListener {
         AliasNavigation navigationModel = AliasNavigation.findWithIdentifier(navigation.getReferenceId());
         Alias alias = Alias.findWithPath(navigationModel.alias);
         if (alias != null) {
-            Page page = Page.findCurrentVersion(alias.pageId, new Date());
+            BasicPage page = BasicPage.findCurrentVersion(alias.pageId, new Date());
             if (page != null) {
                 boolean selected = node.getNodeId().equals(alias.pageId);
                 return new NavigationElement(navigation.getSection(), page.title, navigationModel.getLink(), selected);
@@ -114,7 +114,7 @@ public class PageListener {
     @Provides(type = Provides.Type.NAVIGATION_ITEM, with = "models.origo.core.navigation.PageIdNavigation")
     public static NavigationElement createPageIdNavigation(Node node, play.modules.origo.core.Navigation navigation) {
         PageIdNavigation navigationModel = PageIdNavigation.findWithIdentifier(navigation.getReferenceId());
-        Page page = Page.findCurrentVersion(navigationModel.pageId, new Date());
+        BasicPage page = BasicPage.findCurrentVersion(navigationModel.pageId, new Date());
         if (page != null) {
             boolean selected = node.getNodeId().equals(page.getNodeId());
             return new NavigationElement(navigation.getSection(), page.title, navigationModel.getLink(), selected);

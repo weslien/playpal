@@ -1,5 +1,5 @@
 ### Content ###
-cmscore.Content(content-main-1):
+origo.core.Content(content-main-1):
     identifier: fc787e18-e149-4be0-bac0-d2b1db6e3198
     value: |
         Yip wiggle the Antichrist...bleebing zippity twiddletangle. Boo roo OJ ingleblong! Wiggle! Hizzy zangle bloodilznoofus, "wooble roo bam wheezer," duh flee shnizzle dubba zip wiggle-quabble...wiggle boo da! Roo tongle zong? Dobba tangle dongely da cakefunk??? "Bam razz nip?" goblin Luke. Blee woggle flibbing ho shnizzleflibble???<br/>
@@ -8,7 +8,7 @@ cmscore.Content(content-main-1):
         Zunk flup bloptizzle, "twaddle nip yap woogle," yip Chef yada bleeb yip wubble-floo...blab roo duh! Flanders yip Stan doo flipping izzle-tingle. Dee ho meep razz zang a dingely gobble razzledoof? Zingle hum zowee nip zung-zangle!! Marge hum OJ yip bleepity zowee-zangle. Dee duh shnozflung hum yip flip, nip flupping ho floo yap. Doo ho Clinton crangleflab! "Doo bananarama yip?" ling You.<br/>
         Principal Skinner bam ling ha zongle blabbing razzcrongle. Doo razz bing razzleflooble ha boo hum "flappity ling-ting". Flibdee-blangity-jingle! Blob zungle? Shnazzle bling da waggle nip dobba? Tizzle dizzle bingblo, "flap yap boo zing," yip whack blab flibble duh hizzy-flop...oodle hum ho! Yap ingle zangle? Flubbing bleepwhack.
 
-cmscore.Content(content-main-2):
+origo.core.Content(content-main-2):
     identifier: d52ce214-48c0-4049-b94f-da81b3218536
     value:          |
         Zap sloppy razzleflap! Nip doo bizzlewibble dee duh flobble, zip bleebity duh blab da. "Doo flong dee?" nizzle Kyle. Goblin weeble ha bling da shnizzle? Dazzledee-blobbing-doof! Do-da woogle blung! Ho dobba Kyle...blingity blongity flubblung. Da bam Chaka Khan zonkwaggle!<br/>
@@ -17,7 +17,7 @@ cmscore.Content(content-main-2):
         Shnuzzle yada ting loo shnazzle zung shnuzzle zap bloo. Boo blabbity flobbing shruberific ho blip da dongely shnuzzlequibble. Shnozzy bla tizzle! Bizzle zowee doo quabble boo twiddle? Blob loo jongely blingwoogle. Ha plop shnoz hizzyyada hum yip roo "bluppity wooble-twiddle". Rizzle blee? Flobble bing zip blung duh ding?<br/>
         Zungle bam blob flibble? Hum hum doo Principal Skinner blameep. Tang! Bling bling tizzleabracadabra, "zing yip nip blap," yap zunk shrubbery oodle boo woogle-dubba...flop nip zap! Da blo dobba dongleflop doo boo zap "zappity zoom-zing". Bam loo weeble zung flanging shizzely bleeb blangcringle? Blip zong zoom yap zoom ding hizzy ho flup. Crongely bleeb razzle!
 
-cmscore.Content(content-main-3):
+origo.core.Content(content-main-3):
     identifier: 56798e9b-a9db-42d4-8806-3bfae8d9828c
     value:          |
         Razzle dee crongely zoomzunk. Hizzy cake yap zingle duh dobba? Zungity wubbledongle. Oodle yip weeble-flip.<br/>
@@ -25,20 +25,20 @@ cmscore.Content(content-main-3):
         Blippity floo kanoodle! Dang dee dingle-doof. Zap nip Timmy whackwibble! Da slap Principal Skinner...flinging crongely dizzleshnazzle. Homer bam Marge yap flibbing flee-weeble. Roo dang flangquabble. Dilznoofus yap whack goblin. Zong kanoodle flobbleflee, "shnizzle roo ho bla," doo the Antichrist twaddle dizzle da jangle-shizzle...crangle loo bam!<br/>
         Blip bloo flib yip quabble ting flip duh wuggle. Flip! Zongle duh flung blab? Flong dongle zungity zip zangrizzle??? Boo izzle blappity flabbity yap flang ha zungity weebleshrubbery. Clinton ho Han Solo da bluppity jingle-tang. Da flonging slap shnoz quibble ho goblin. Nip dee boo Bart wogglemeep.
 
-cmscore.Content(content-main-4):
+origo.core.Content(content-main-4):
     identifier: bc15887a-d4f4-4b6f-a3d8-437559971ade
     value:          |
         Ha gobble fling? Boo nip Trotsky floodazzle! Zangboo-bleebity-dazzle! Zangle dee tingle yip bing zongle duh plop? Flap zong? Tizzle fling? Loo shnizzle yip blong bleebing twaddlewhack, zap bananarama wacko ha blingity abracadabraflee tang. Yap bam tangle whack ting a blingity blo tongleflap?<br/>
         Loo zang Stan...zingity flonging blupzong. "Zip bleep hum?" noodle tingweeble. Abracadabra zangle dingleplop, "flup ho yip fling," bam crangle woogle hizzle boo flop-shnuzzle...zongle zip ho! Hizzy! Meep rizzle crungely zap tanglebizzle??? Blo bla dang loo slap bloo dang loo flip. Cake shnuzzle zangle zap wacko dubba bleeb roo bang. Loo zungle blopflobble.<br/>
         Zoom ho ongle hum flibble bizzle doo dongle? Yap oodle Mr. Hat...flangity jingely izzlewaggle. Shruberific caketangle. Zing zap blap bleeb. "Hum zowee ho?" izzle dilznoofusdizzle. Noodle wobble bing boo crongle blob dingle doo crongle. Blob doo zowee-twaddle. Jackson roo tang roo blip blingity wugglezang.
 
-cmscore.Content(content-main-5):
+origo.core.Content(content-main-5):
     identifier: f373fd7f-423c-44d1-a822-430b723ef678
     value:          |
         Stan bam Mrs. Crabapple doo blobbing shnazzle-slop. Flobbing shnuzzle zunk! Goblin bling tongle doo bananarama plop meep zip tang. Zap fraggle fling? Nip flubbing zong doof dilznoofus duh slop. Mr. Burns nip Krusty duh flippity bla-zunk. Duh woggle zung wibblegobble ha dee loo "ting a zonk-zongle". Ingle ha jangle!<br/>
         "Da twiddle roo?" slop blupquabble. Doo izzle tanglebla! Boo hum quabble blung zang a tongity boo cringleslop? Roo doo dazzleflibble bam yap oodle, hum zangity doo dabba zip. Hum shnoz roo flup flobbity dongleslap, yip fling flup loo zang a janglenoodle quibble. Ha razz shnaz lingblip bam zip yap "flobbing wobble-blop". Shizzleha-rakity flakity-slop! Boo blipping zingity tingity dee flop da jangely tanglebla.
 
-cmscore.Content(content-main-6):
+origo.core.Content(content-main-6):
     identifier: b4f1dfb9-e395-43dd-8574-ec4268efd2ca
     value:          |
         Dee blobbity zingledizzle! Bam zang flop? Tongle nizzle cronglebleep, "flee duh doo fraggle," ha meep zong flib da wooble-ling...flup duh zap! Flongity kanoodle zang! Nip doo yip Chef izzleflop. "Bam woogle nip?" wiggle Clinton. Ongleboo-blobbing-waggle! Zip flubbity doofoodle!<br/>
@@ -47,344 +47,440 @@ cmscore.Content(content-main-6):
         Ha dee quabblehizzy ho ha flob, dee fluppity doo crongle dee. Boo doo ting ding zang a zipping zowee onglebizzle? Fraggle doof yap bing da zong? Hum yap bling wiggle zing a bleeping bleep shnuzzlequibble? Boo yap dilznoofusslap dee roo dubba, yip flabbing yap dong ha. Blip roo flab zip cringle-blop!! Zangity shnoz dazzle! "Nip zingle yap?" blab tanglefunk.<br/>
         Noodle ding flabbity dee crungletongle??? Bling bing shnuzzleingle, "blong boo ho shnizzle," loo Boba Fett crungle flee ha flip-flung...flee zap duh! Boo duh bananarama shnazzle flungity fluppity blung oodleflab? Mary Mother of God bam Miss Beasley duh zappity flup-jingle. Shnozzle roo kanoodle! Duh yada yip cringle blangity dizzlecrongle, hum flibble razzle duh tang a blatang ting. Bam dabba wacko wogglewaggle bam doo zap "funky blob-quabble". Ho zung yip blee flunging zangboo, loo yada ongle dee blupping blipshnizzle dazzle.
 
-cmscore.Content(content-side-1):
+origo.core.Content(content-side-1):
     identifier: babf45ff-acc5-4340-9413-d68fe68cc7ef
     value:          |
         Yada flang fleedobba, "zang da yap blo," hum You zoom zonk hum bang-funk...crongle doo zip! Zap shruberific tongledong! Crangle nip bing zap zong-zunk!! Duh zangity zingity zupping hum zing zip ting a flubwuggle. Dilznoofuszap-flubbing-ling! Hizzle bizzle yap blong zip flung? Da blabbing flongongle! Flung yap cringle tizzle.
 
-cmscore.Content(content-side-2):
+origo.core.Content(content-side-2):
     identifier: 239945c1-8735-4a41-b81c-f825bf140ae6
     value:          |
         Boo crangle Miss Beasley...zonkity flobbing zinglemeep. Rizzle wheezer wibblequibble, "kanoodle zap yip zang," zap Jackson wheezer flup loo flong-bananarama...blang loo da! Bam yip zip Clinton yadazangle.<br/>
         Noodle crungle? Bang zing hum fraggle nip wubble? Zip roo twaddle shnuzzle flobbity flopping whack fragglemeep?
 
-cmscore.Content(content-side-3):
+origo.core.Content(content-side-3):
     identifier: 9769374a-36e2-4fcf-a0ea-8577b3d45954
     value:          |
         Dubba loo bling! Hizzy dee flip fraggle. Flappity whackboo.<br/>
         "Nip boo da?" dang TIMMY. Slapyip-tang a-dingle! Dilznoofus dee bloppity bananaramawoggle.
 
-cmscore.Content(content-side-4):
+origo.core.Content(content-side-4):
     identifier: d31f8559-ec4a-44fe-8c83-01303380a338
     value:          |
         Yada ho shnaz zongle? Duh tingle blo nizzlewooble dee nip dee "blupping hizzy-rizzle". "Bam dabba bam?" nizzle blipdobba. Doo duh fraggleshizzle ho loo zang, nip zappity boo dingle doo. "Da crangle yap?" wuggle Clinton.
 
 ### Page 1 ###
 # Page 1 -> Node
-cmscore.RootNode(node-first-1):
+origo.core.RootNode(node-first-1):
     uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        1
-    type:           models.origo.core.Page
+    type:           models.origo.core.BasicPage
 
-cmscore.RootNode(node-first-2):
+origo.core.RootNode(node-first-2):
     uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        2
-    type:           models.origo.core.Page
+    type:           models.origo.core.BasicPage
 
 # Page 1 -> Page
-cmscore.Page(page-first-1):
+origo.core.BasicPage(page-first-1):
     uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        1
     title:          Start Page
 
-cmscore.Page(page-first-2):
+origo.core.BasicPage(page-first-2):
     uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        2
     title:          Start Page
 
 # Page 1 -> Segment
-cmscore.Segment(page-first-1-segment-1):
+origo.core.Segment(page-first-1-segment-1):
     nodeId:         aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        1
-    weight:         50
-    region:         'left'
     type:           models.origo.core.Content
     referenceId:    239945c1-8735-4a41-b81c-f825bf140ae6 #content-side-2
-cmscore.Segment(page-first-1-segment-2):
+origo.core.Segment(page-first-1-segment-2):
     nodeId:         aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        1
-    weight:         100
-    region:         'main'
     type:           models.origo.core.Content
     referenceId:    fc787e18-e149-4be0-bac0-d2b1db6e3198 #content-main-1
-cmscore.Segment(page-first-2-segment-1):
+origo.core.Segment(page-first-2-segment-1):
+    nodeId:         aa1755dd-18c4-4b78-956e-eef7e562c36c
+    version:        2
+    type:           models.origo.core.Content
+    referenceId:    239945c1-8735-4a41-b81c-f825bf140ae6 #content-side-2
+origo.core.Segment(page-first-2-segment-2):
+    nodeId:         aa1755dd-18c4-4b78-956e-eef7e562c36c
+    version:        2
+    type:           models.origo.core.Content
+    referenceId:    9769374a-36e2-4fcf-a0ea-8577b3d45954 #content-side-3
+origo.core.Segment(page-first-2-segment-3):
+    nodeId:         aa1755dd-18c4-4b78-956e-eef7e562c36c
+    version:        2
+    type:           models.origo.core.Content
+    referenceId:    fc787e18-e149-4be0-bac0-d2b1db6e3198 #content-main-1
+
+# Page 1 -> Meta
+origo.core.Meta(page-first-1-meta-1):
+    nodeId:         aa1755dd-18c4-4b78-956e-eef7e562c36c
+    version:        1
+    weight:         100
+    region:         'left'
+    referenceId:    239945c1-8735-4a41-b81c-f825bf140ae6 #content-side-2
+origo.core.Meta(page-first-1-segment-2):
+    nodeId:         aa1755dd-18c4-4b78-956e-eef7e562c36c
+    version:        1
+    weight:         100
+    region:         'main'
+    referenceId:    fc787e18-e149-4be0-bac0-d2b1db6e3198 #content-main-1
+origo.core.Meta(page-first-2-segment-1):
     nodeId:         aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        2
     weight:         50
     region:         'left'
-    type:           models.origo.core.Content
     referenceId:    239945c1-8735-4a41-b81c-f825bf140ae6 #content-side-2
-cmscore.Segment(page-first-2-segment-2):
+origo.core.Meta(page-first-2-segment-2):
     nodeId:         aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        2
     weight:         100
     region:         'left'
-    type:           models.origo.core.Content
     referenceId:    9769374a-36e2-4fcf-a0ea-8577b3d45954 #content-side-3
-cmscore.Segment(page-first-2-segment-3):
+origo.core.Meta(page-first-2-segment-3):
     nodeId:         aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        2
     weight:         100
     region:         'main'
-    type:           models.origo.core.Content
     referenceId:    fc787e18-e149-4be0-bac0-d2b1db6e3198 #content-main-1
 
 ### Page 2 ###
 # Page 2 -> Node
-cmscore.RootNode(node-second-1):
+origo.core.RootNode(node-second-1):
     uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        1
-    type:           models.origo.core.Page
+    type:           models.origo.core.BasicPage
 
 # Page 2 -> Page
-cmscore.Page(page-second-1):
+origo.core.BasicPage(page-second-1):
     uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        1
     title:          Page Not Found (404)
 
 # Page 2 -> Segment
-cmscore.Segment(page-second-segment-1):
+origo.core.Segment(page-second-segment-1):
+    nodeId:         c9615819-0556-4e70-b6a9-a66c5b8d4c1a
+    version:        1
+    type:           models.origo.core.Content
+    referenceId:    babf45ff-acc5-4340-9413-d68fe68cc7ef #content-side-1
+origo.core.Segment(page-second-segment-2):
+    nodeId:         c9615819-0556-4e70-b6a9-a66c5b8d4c1a
+    version:        1
+    type:           models.origo.core.Content
+    referenceId:    d52ce214-48c0-4049-b94f-da81b3218536 #content-main-2
+
+# Page 2 -> Meta
+origo.core.Meta(page-second-segment-1):
     nodeId:         c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        1
     weight:         50
     region:         'left'
-    type:           models.origo.core.Content
     referenceId:    babf45ff-acc5-4340-9413-d68fe68cc7ef #content-side-1
-cmscore.Segment(page-second-segment-3):
+origo.core.Meta(page-second-segment-2):
     nodeId:         c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        1
     weight:         100
     region:         'main'
-    type:           models.origo.core.Content
     referenceId:    d52ce214-48c0-4049-b94f-da81b3218536 #content-main-2
+origo.core.Meta(page-second-segment-3):
+    nodeId:         c9615819-0556-4e70-b6a9-a66c5b8d4c1a
+    version:        1
+    weight:         100
+    region:         'main'
+    referenceId:    "contactform"
 
 ### Page 3 ###
 # Page 3 -> Node
-cmscore.RootNode(node-third-1):
+origo.core.RootNode(node-third-1):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        1
-    type:           models.origo.core.Page
+    type:           models.origo.core.BasicPage
 
-cmscore.RootNode(node-third-2):
+origo.core.RootNode(node-third-2):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        2
     publish:        2011-01-01 00:00:00
     unpublish:      2012-01-01 00:00:00
-    type:           models.origo.core.Page
+    type:           models.origo.core.BasicPage
 
-cmscore.RootNode(node-third-3):
+origo.core.RootNode(node-third-3):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        3
     publish:        2012-01-01 00:00:00
-    type:           models.origo.core.Page
+    type:           models.origo.core.BasicPage
 
 # Page 3 -> Page
-cmscore.Page(page-third-1):
+origo.core.BasicPage(page-third-1):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        1
     title:          Internal Server Error (500)
 
-cmscore.Page(page-third-2):
+origo.core.BasicPage(page-third-2):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        2
     title:          Internal Server Error (500)
 
-cmscore.Page(page-third-3):
+origo.core.BasicPage(page-third-3):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        3
     title:          Internal Server Error (500)
 
 # Page 3 -> Segment
-cmscore.Segment(page-third-1-segment-1):
+origo.core.Segment(page-third-1-segment-1):
     nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        1
-    weight:         50
-    region:         'left'
     type:           models.origo.core.Content
     referenceId:    239945c1-8735-4a41-b81c-f825bf140ae6 #content-side-2
-cmscore.Segment(page-third-1-segment-2):
+origo.core.Segment(page-third-1-segment-2):
     nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        1
-    weight:         100
-    region:         'main'
     type:           models.origo.core.Content
     referenceId:    56798e9b-a9db-42d4-8806-3bfae8d9828c #content-main-3
-cmscore.Segment(page-third-2-segment-1):
+origo.core.Segment(page-third-2-segment-1):
     nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        2
-    weight:         50
-    region:         'left'
     type:           models.origo.core.Content
     content:        239945c1-8735-4a41-b81c-f825bf140ae6 #content-side-2
-cmscore.Segment(page-third-2-segment-2):
+origo.core.Segment(page-third-2-segment-2):
+    nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
+    version:        2
+    type:           models.origo.core.Content
+    referenceId:    babf45ff-acc5-4340-9413-d68fe68cc7ef #content-side-1
+origo.core.Segment(page-third-2-segment-3):
+    nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
+    version:        2
+    type:           models.origo.core.Content
+    referenceId:    56798e9b-a9db-42d4-8806-3bfae8d9828c #content-main-3
+origo.core.Segment(page-third-3-segment-1):
+    nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
+    version:        3
+    type:           models.origo.core.Content
+    referenceId:    239945c1-8735-4a41-b81c-f825bf140ae6 #content-side-2
+origo.core.Segment(page-third-3-segment-2):
+    nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
+    version:        3
+    type:           models.origo.core.Content
+    referenceId:    56798e9b-a9db-42d4-8806-3bfae8d9828c #content-main-3
+
+# Page 3 -> Meta
+origo.core.Meta(page-third-1-segment-1):
+    nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
+    version:        1
+    weight:         50
+    region:         'left'
+    referenceId:    239945c1-8735-4a41-b81c-f825bf140ae6 #content-side-2
+origo.core.Meta(page-third-1-segment-2):
+    nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
+    version:        1
+    weight:         100
+    region:         'main'
+    referenceId:    56798e9b-a9db-42d4-8806-3bfae8d9828c #content-main-3
+origo.core.Meta(page-third-2-segment-1):
+    nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
+    version:        2
+    weight:         50
+    region:         'left'
+    content:        239945c1-8735-4a41-b81c-f825bf140ae6 #content-side-2
+origo.core.Meta(page-third-2-segment-2):
     nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        2
     weight:         100
     region:         'left'
-    type:           models.origo.core.Content
     referenceId:    babf45ff-acc5-4340-9413-d68fe68cc7ef #content-side-1
-cmscore.Segment(page-third-2-segment-3):
+origo.core.Meta(page-third-2-segment-3):
     nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        2
     weight:         100
     region:         'main'
-    type:           models.origo.core.Content
     referenceId:    56798e9b-a9db-42d4-8806-3bfae8d9828c #content-main-3
-cmscore.Segment(page-third-3-segment-1):
+origo.core.Meta(page-third-3-segment-1):
     nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        3
     weight:         50
     region:         'left'
-    type:           models.origo.core.Content
     referenceId:    239945c1-8735-4a41-b81c-f825bf140ae6 #content-side-2
-cmscore.Segment(page-third-3-segment-2):
+origo.core.Meta(page-third-3-segment-2):
     nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        3
     weight:         100
     region:         'main'
-    type:           models.origo.core.Content
     referenceId:    56798e9b-a9db-42d4-8806-3bfae8d9828c #content-main-3
 
 ### Page 4 ###
 # Page 4 -> Node
-cmscore.RootNode(node-fourth-1):
+origo.core.RootNode(node-fourth-1):
     uuid:           1c7a35d1-5e50-4dc8-8ef9-392745b3c6f9
     version:        1
-    type:           models.origo.core.Page
+    type:           models.origo.core.BasicPage
 
 # Page 4 -> Page
-cmscore.Page(page-fourth-1):
+origo.core.BasicPage(page-fourth-1):
     uuid:           1c7a35d1-5e50-4dc8-8ef9-392745b3c6f9
     version:        1
     title:          Fourth Page
 
 # Page 4 -> Segment
-cmscore.Segment(page-fourth-1-segment-1):
+origo.core.Segment(page-fourth-1-segment-1):
+    nodeId:         1c7a35d1-5e50-4dc8-8ef9-392745b3c6f9
+    version:        1
+    type:           models.origo.core.Content
+    referenceId:    239945c1-8735-4a41-b81c-f825bf140ae6 #content-side-2
+origo.core.Segment(page-fourth-1-segment-2):
+    nodeId:         1c7a35d1-5e50-4dc8-8ef9-392745b3c6f9
+    version:        1
+    type:           models.origo.core.Content
+    referenceId:    bc15887a-d4f4-4b6f-a3d8-437559971ade #content-main-4
+origo.core.Segment(page-fourth-1-segment-3):
+    nodeId:         1c7a35d1-5e50-4dc8-8ef9-392745b3c6f9
+    version:        1
+    type:           models.origo.core.Content
+    referenceId:    f373fd7f-423c-44d1-a822-430b723ef678 #content-main-5
+
+# Page 4 -> Meta
+origo.core.Meta(page-fourth-1-segment-1):
     nodeId:         1c7a35d1-5e50-4dc8-8ef9-392745b3c6f9
     version:        1
     weight:         50
     region:         'left'
-    type:           models.origo.core.Content
     referenceId:    239945c1-8735-4a41-b81c-f825bf140ae6 #content-side-2
-cmscore.Segment(page-fourth-1-segment-2):
+origo.core.Meta(page-fourth-1-segment-2):
     nodeId:         1c7a35d1-5e50-4dc8-8ef9-392745b3c6f9
     version:        1
     weight:         100
     region:         'main'
-    type:           models.origo.core.Content
     referenceId:    bc15887a-d4f4-4b6f-a3d8-437559971ade #content-main-4
-cmscore.Segment(page-fourth-1-segment-3):
+origo.core.Meta(page-fourth-1-segment-3):
     nodeId:         1c7a35d1-5e50-4dc8-8ef9-392745b3c6f9
     version:        1
     weight:         200
     region:         'main'
-    type:           models.origo.core.Content
     referenceId:    f373fd7f-423c-44d1-a822-430b723ef678 #content-main-5
+
 
 ### Page 5 ###
 # Page 5 -> Node
-cmscore.RootNode(node-fifth-1):
+origo.core.RootNode(node-fifth-1):
     uuid:           c6d14b95-a3a8-4103-a04f-a0eb5b0c2bfa
     version:        1
-    type:           models.origo.core.Page
+    type:           models.origo.core.BasicPage
 
 # Page 5 -> Page
-cmscore.Page(page-fifth-1):
+origo.core.BasicPage(page-fifth-1):
     uuid:           c6d14b95-a3a8-4103-a04f-a0eb5b0c2bfa
     version:        1
     title:          Fifth Page
 
 # Page 5 -> Segment
-cmscore.Segment(page-fifth-1-segment-1):
+origo.core.Segment(page-fifth-1-segment-1):
+    nodeId:         c6d14b95-a3a8-4103-a04f-a0eb5b0c2bfa
+    version:        1
+    type:           models.origo.core.Content
+    referenceId:    d31f8559-ec4a-44fe-8c83-01303380a338 #content-side-4
+origo.core.Segment(page-fifth-1-segment-2):
+    nodeId:         c6d14b95-a3a8-4103-a04f-a0eb5b0c2bfa
+    version:        1
+    type:           models.origo.core.Content
+    referenceId:    b4f1dfb9-e395-43dd-8574-ec4268efd2ca #content-main-6
+origo.core.Segment(page-fifth-1-segment-3):
+    nodeId:         c6d14b95-a3a8-4103-a04f-a0eb5b0c2bfa
+    version:        1
+    type:           models.origo.core.Content
+    referenceId:    b4f1dfb9-e395-43dd-8574-ec4268efadfs #non-existant
+
+# Page 5 -> Meta
+origo.core.Meta(page-fifth-1-segment-1):
     nodeId:         c6d14b95-a3a8-4103-a04f-a0eb5b0c2bfa
     version:        1
     weight:         50
     region:         'left'
-    type:           models.origo.core.Content
     referenceId:    d31f8559-ec4a-44fe-8c83-01303380a338 #content-side-4
-cmscore.Segment(page-fifth-1-segment-2):
+origo.core.Meta(page-fifth-1-segment-2):
     nodeId:         c6d14b95-a3a8-4103-a04f-a0eb5b0c2bfa
     version:        1
     weight:         100
     region:         'main'
-    type:           models.origo.core.Content
     referenceId:    b4f1dfb9-e395-43dd-8574-ec4268efd2ca #content-main-6
-
-cmscore.Segment(page-fifth-1-segment-3):
+origo.core.Meta(page-fifth-1-segment-3):
     nodeId:         c6d14b95-a3a8-4103-a04f-a0eb5b0c2bfa
     version:        1
     weight:         100
     region:         'main'
-    type:           models.origo.core.Content
     referenceId:    b4f1dfb9-e395-43dd-8574-ec4268efadfs #non-existant
 
 ### Alias ###
 # /page-not-found -> page 2
-cmscore.Alias(alias-test):
+origo.core.Alias(alias-test):
     path:           page-not-found
     pageId:         c9615819-0556-4e70-b6a9-a66c5b8d4c1a
 
 # /third -> page 3
-cmscore.Alias(alias-third):
+origo.core.Alias(alias-third):
     path:           error
     pageId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
 
 # /fourth -> page 4
-cmscore.Alias(alias-fourth):
+origo.core.Alias(alias-fourth):
     path:           fourth
     pageId:         1c7a35d1-5e50-4dc8-8ef9-392745b3c6f9
 
 # /fifth -> page 5
-cmscore.Alias(alias-fifth):
+origo.core.Alias(alias-fifth):
     path:           fifth
     pageId:         c6d14b95-a3a8-4103-a04f-a0eb5b0c2bfa
 
 ### Navigation ###
 # Start Page
-cmscore.navigation.BasicNavigation(navigation-start):
+origo.core.navigation.BasicNavigation(navigation-start):
     type:           models.origo.core.navigation.PageIdNavigation
     section:        'front'
     referenceId:    3f2d9e2e-12dc-4917-9a58-40d325e9784e
     weight:          1
-cmscore.navigation.PageIdNavigation(navigation-page-start):
+origo.core.navigation.PageIdNavigation(navigation-page-start):
     identifier:     3f2d9e2e-12dc-4917-9a58-40d325e9784e
     pageId:         aa1755dd-18c4-4b78-956e-eef7e562c36c
 
 # Fourth
-cmscore.navigation.BasicNavigation(navigation-fourth):
+origo.core.navigation.BasicNavigation(navigation-fourth):
     type:           models.origo.core.navigation.AliasNavigation
     section:        'front'
     referenceId:    a8129a97-70fa-40b7-93e4-2a1caf181a0d
     weight:          3
-cmscore.navigation.AliasNavigation(navigation-alias-fourth):
+origo.core.navigation.AliasNavigation(navigation-alias-fourth):
     identifier:     a8129a97-70fa-40b7-93e4-2a1caf181a0d
     alias:          fourth
 
 # Fifth
-cmscore.navigation.BasicNavigation(navigation-fifth):
+origo.core.navigation.BasicNavigation(navigation-fifth):
     type:           models.origo.core.navigation.AliasNavigation
     section:        'front'
     referenceId:    d0262683-c4f8-4591-994e-0c745be48463
     parent:         [navigation-fourth]
     weight:          1
-cmscore.navigation.AliasNavigation(navigation-alias-fifth):
+origo.core.navigation.AliasNavigation(navigation-alias-fifth):
     identifier:     d0262683-c4f8-4591-994e-0c745be48463
     alias:          fifth
 
 # External - Google
-cmscore.navigation.BasicNavigation(navigation-google):
+origo.core.navigation.BasicNavigation(navigation-google):
     type:           models.origo.core.navigation.ExternalLinkNavigation
     section:        'front'
     referenceId:    58e15bfa-da4f-4f6b-a15a-51ab6c82e670
     parent:         [navigation-fourth]
     weight:          2
-cmscore.navigation.ExternalLinkNavigation(navigation-external-google):
+origo.core.navigation.ExternalLinkNavigation(navigation-external-google):
     identifier:     58e15bfa-da4f-4f6b-a15a-51ab6c82e670
     title:          Google
     link:           http://www.google.com
 
 ### Settings ###
-cmscore.Settings(settings):
+origo.core.Settings(settings):
     values:
         ? base_url # Base url of the site
         : '/'

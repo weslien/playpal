@@ -1,7 +1,7 @@
 package models.origo.core.navigation;
 
 import models.origo.core.Alias;
-import models.origo.core.Page;
+import models.origo.core.BasicPage;
 import origo.helpers.SettingsHelper;
 import play.data.validation.Required;
 import play.data.validation.Unique;
@@ -27,7 +27,7 @@ public class PageIdNavigation extends Model {
             if (SettingsHelper.getStartPage().equals(pageId)) {
                 return SettingsHelper.getBaseUrl();
             }
-            return SettingsHelper.getBaseUrl() + Page.findCurrentVersion(pageId, new Date()).getNodeId();
+            return SettingsHelper.getBaseUrl() + BasicPage.findCurrentVersion(pageId, new Date()).getNodeId();
         } else {
             Alias alias = aliases.iterator().next();
             return SettingsHelper.getBaseUrl() + alias.path;
