@@ -1,6 +1,6 @@
 #{if element.hasBody()}
-<label #{origo.core.attributes attributes:attributes /}/>
+<label #{origo.core.attributes attributes:attributes /}>#{verbatim}${body}#{/verbatim}</label>
 #{/if}
 #{else}
-<label #{origo.core.attributes attributes:attributes /}>#{verbatim}${body}#{/verbatim}</label>
+<label #{origo.core.attributes attributes:attributes /}/>
 #{/else}

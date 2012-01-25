@@ -11,9 +11,9 @@ public class CoreBootstrapMock extends Job {
     private static final Logger LOG = Logger.getLogger(CoreBootstrapMock.class);
 
     public void doJob() {
-        LOG.info("Clearing database");
+        play.Logger.info("Clearing database");
         Fixtures.deleteDatabase();
-        LOG.info("Loading initial-data.yml");
+        LOG.info("Loading cmscore-test/initial-data.yml");
         Fixtures.loadModels("initial-data.yml");
     }
 

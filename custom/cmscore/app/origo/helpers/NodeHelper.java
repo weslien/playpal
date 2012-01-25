@@ -4,12 +4,14 @@ import models.origo.core.RootNode;
 import org.apache.commons.lang.StringUtils;
 import origo.listeners.PageNotFoundException;
 import play.modules.origo.core.Node;
+import play.modules.origo.core.annotations.OnLoad;
+import play.modules.origo.core.annotations.Provides;
 
 import java.util.Date;
 
 public class NodeHelper {
 
-    public static play.modules.origo.core.Node load(String uuid) {
+    public static Node load(String uuid) {
         //Load RootNode model
         RootNode rootNode = RootNode.findWithUuidLatestPublishedVersion(uuid, new Date());
         if (rootNode == null) {
@@ -19,7 +21,7 @@ public class NodeHelper {
         return load(rootNode);
     }
 
-    public static play.modules.origo.core.Node load(String uuid, long version) {
+    public static Node load(String uuid, long version) {
         //Load RootNode model
         RootNode rootNode = RootNode.findWithUuidSpecificVersion(uuid, version);
         if (rootNode == null) {
@@ -35,7 +37,7 @@ public class NodeHelper {
             triggerBeforeNodeLoaded(rootNode.type, rootNode);
         }
 
-        play.modules.origo.core.Node node = rootNode;
+        Node node = rootNode;
         if (hasType) {
             node = triggerProvidesNodeListener(rootNode.type, rootNode);
         }
@@ -51,15 +53,15 @@ public class NodeHelper {
      * Convenience methods for hooks with NODE type
      */
     public static Node triggerProvidesNodeListener(String withType, RootNode rootNode) {
-        return ProvidesHelper.triggerListener(play.modules.origo.core.annotations.Provides.Type.NODE, withType, rootNode);
+        return ProvidesHelper.triggerListener(Provides.Type.NODE, withType, rootNode);
     }
 
     public static void triggerBeforeNodeLoaded(String withType, RootNode rootNode) {
-        OnLoadHelper.triggerBeforeListener(play.modules.origo.core.annotations.OnLoad.Type.NODE, withType, rootNode);
+        OnLoadHelper.triggerBeforeListener(OnLoad.Type.NODE, withType, rootNode);
     }
 
     public static void triggerAfterNodeLoaded(String withType, Node node) {
-        OnLoadHelper.triggerAfterListener(play.modules.origo.core.annotations.OnLoad.Type.NODE, withType, node);
+        OnLoadHelper.triggerAfterListener(OnLoad.Type.NODE, withType, node);
     }
 
 }

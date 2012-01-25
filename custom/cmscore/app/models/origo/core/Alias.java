@@ -47,8 +47,8 @@ public class Alias extends Model {
     public String toString() {
         return new StringBuilder().
                 append("Alias {").
-                append("path='").append(path).append('\'').
-                append(", page='").append(pageId).append('\'').
+                append("path='").append(path).append("\', ").
+                append("page='").append(pageId).append('\'').
                 append('}').
                 toString();
     }
