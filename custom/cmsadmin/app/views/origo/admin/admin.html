@@ -30,23 +30,23 @@
 
     <ul id="adminMenu">
         <li class="${request.controller == 'Dashboard' ? 'selected' : ''}">
-            <a href="@{cmsadmin.Dashboard.index()}">Dashboard</a>
+            <a href="@{origo.admin.Dashboard.index()}">Dashboard</a>
         </li>
     *{#{secure.check 'admin'}}*
         <li class="${request.controller == 'Pages' ? 'selected' : ''}">
-            <a href="@{cmsadmin.Pages.list()}">Pages</a>
+            <a href="@{origo.admin.Pages.list()}">Pages</a>
         </li>
         <li class="${request.controller == 'Segments' ? 'selected' : ''}">
-            <a href="@{cmsadmin.Segments.list()}">Segments</a>
+            <a href="@{origo.admin.Segments.list()}">Segments</a>
         </li>
         <li class="${request.controller == 'Contents' ? 'selected' : ''}">
-            <a href="@{cmsadmin.Contents.list()}">Content</a>
+            <a href="@{origo.admin.Contents.list()}">Content</a>
         </li>
         <li class="${request.controller == 'Aliases' ? 'selected' : ''}">
-            <a href="@{cmsadmin.Aliases.list()}">Alias</a>
+            <a href="@{origo.admin.Aliases.list()}">Alias</a>
         </li>
         <li class="${request.controller == 'Navigations' ? 'selected' : ''}">
-            <a href="@{cmsadmin.Navigations.list()}">Navigation</a>
+            <a href="@{origo.admin.Navigations.list()}">Navigation</a>
         </li>
     *{#{/secure.check}}*
     </ul>
