@@ -1,5 +1,7 @@
 package play.modules.origo.core;
 
+import play.modules.origo.core.ui.UIElement;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -11,7 +13,7 @@ import java.util.Set;
  *
  * @see play.modules.origo.core.annotations.Provides
  * @see play.modules.origo.core.annotations.ThemeVariant
- * @see play.modules.origo.core.ui.UIElement
+ * @see UIElement
  */
 public interface Node {
 
@@ -74,45 +76,33 @@ public interface Node {
      * @param region the area of the screen where this element should be rendered
      * @return all uiElements for the region
      */
-    List<play.modules.origo.core.ui.UIElement> getUIElements(String region);
+    List<UIElement> getUIElements(String region);
 
     /**
-     * Add an element that should be rendered in the HEAD of the page. Regions are determined by the theme variant used.
+     * Add an element that should be rendered on the page. Regions are determined by the theme variant used.
      *
      * @param uiElement the element to be rendered
      * @return the newly added UIElement
      * @see play.modules.origo.core.annotations.ThemeVariant
      */
-    play.modules.origo.core.ui.UIElement addUIElement(play.modules.origo.core.ui.UIElement uiElement);
+    UIElement addUIElement(UIElement uiElement);
 
     /**
      * Add an element that should be rendered on the page. Regions are determined by the theme variant used.
      *
-     * @param region    the area of the screen where this element should be rendered
-     * @param uiElement the element to be rendered
-     * @return the newly added UIElement
-     * @see play.modules.origo.core.annotations.ThemeVariant
-     */
-    play.modules.origo.core.ui.UIElement addUIElement(String region, play.modules.origo.core.ui.UIElement uiElement);
-
-    /**
-     * Add an element that should be rendered on the page. Regions are determined by the theme variant used.
-     *
-     * @param region               the area of the screen where this element should be rendered
      * @param uiElement            the element to be rendered
      * @param reorderElementsBelow if true then all elements below this new element will be reordered according to their individual weight
      * @return the newly added UIElement
      * @see play.modules.origo.core.annotations.ThemeVariant
      */
-    play.modules.origo.core.ui.UIElement addUIElement(String region, play.modules.origo.core.ui.UIElement uiElement, boolean reorderElementsBelow);
+    UIElement addUIElement(UIElement uiElement, boolean reorderElementsBelow);
 
     /**
      * Removes an element so it is not rendered. Will force a reordering of all elements below.
      *
-     * @param region    the area of the screen where this element should be rendered
      * @param uiElement the element to be rendered
      * @return if an object matching the region and the uiElement could be found and removed
      */
-    boolean removeUIElement(String region, play.modules.origo.core.ui.UIElement uiElement);
+    boolean removeUIElement(UIElement uiElement);
 
 }

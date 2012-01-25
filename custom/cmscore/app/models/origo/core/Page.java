@@ -3,6 +3,7 @@ package models.origo.core;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import play.modules.origo.core.Node;
+import play.modules.origo.core.ui.UIElement;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -71,28 +72,23 @@ public class Page extends Model implements Node {
     }
 
     @Override
-    public List<play.modules.origo.core.ui.UIElement> getUIElements(String region) {
+    public List<UIElement> getUIElements(String region) {
         return rootNode.getUIElements(region);
     }
 
     @Override
-    public play.modules.origo.core.ui.UIElement addUIElement(play.modules.origo.core.ui.UIElement uiElement) {
-        return rootNode.addUIElement(HEAD, uiElement, false);
+    public UIElement addUIElement(UIElement uiElement) {
+        return rootNode.addUIElement(uiElement, false);
     }
 
     @Override
-    public play.modules.origo.core.ui.UIElement addUIElement(String region, play.modules.origo.core.ui.UIElement uiElement) {
-        return rootNode.addUIElement(region, uiElement, false);
+    public UIElement addUIElement(UIElement uiElement, boolean reorderElementsBelow) {
+        return rootNode.addUIElement(uiElement, reorderElementsBelow);
     }
 
     @Override
-    public play.modules.origo.core.ui.UIElement addUIElement(String region, play.modules.origo.core.ui.UIElement uiElement, boolean reorderElementsBelow) {
-        return rootNode.addUIElement(region, uiElement, reorderElementsBelow);
-    }
-
-    @Override
-    public boolean removeUIElement(String region, play.modules.origo.core.ui.UIElement uiElement) {
-        return rootNode.removeUIElement(region, uiElement);
+    public boolean removeUIElement(UIElement uiElement) {
+        return rootNode.removeUIElement(uiElement);
     }
 
     @Override

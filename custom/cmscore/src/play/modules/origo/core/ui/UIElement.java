@@ -1,6 +1,7 @@
 package play.modules.origo.core.ui;
 
 import org.apache.commons.lang.StringUtils;
+import play.modules.origo.core.annotations.UIElementType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ public class UIElement {
 
     public String id;
 
-    public play.modules.origo.core.annotations.UIElementType type;
+    public UIElementType type;
 
     public Map<String, String> attributes;
 
@@ -22,55 +23,67 @@ public class UIElement {
 
     private String body;
 
-    public UIElement(play.modules.origo.core.annotations.UIElementType type) {
+    public UIElement(UIElementType type) {
         this("", type, new WeakHashMap<String, String>(), 0, null);
     }
 
-    public UIElement(play.modules.origo.core.annotations.UIElementType type, int weight) {
+    public UIElement(UIElementType type, int weight) {
         this("", type, new WeakHashMap<String, String>(), weight, null);
     }
 
-    public UIElement(play.modules.origo.core.annotations.UIElementType type, String body) {
+    public UIElement(UIElementType type, String body) {
         this("", type, new WeakHashMap<String, String>(), 0, body);
     }
 
-    public UIElement(play.modules.origo.core.annotations.UIElementType type, int weight, String body) {
+    public UIElement(UIElementType type, int weight, String body) {
         this("", type, new WeakHashMap<String, String>(), weight, body);
     }
 
-    public UIElement(String id, play.modules.origo.core.annotations.UIElementType type) {
+    public UIElement(String id, UIElementType type) {
         this(id, type, new WeakHashMap<String, String>(), 0, null);
     }
 
-    public UIElement(String id, play.modules.origo.core.annotations.UIElementType type, int weight) {
+    public UIElement(String id, UIElementType type, int weight) {
         this(id, type, new WeakHashMap<String, String>(), weight, null);
     }
 
-    public UIElement(String id, play.modules.origo.core.annotations.UIElementType type, String body) {
+    public UIElement(String id, UIElementType type, String body) {
         this(id, type, new WeakHashMap<String, String>(), 0, body);
     }
 
-    public UIElement(String id, play.modules.origo.core.annotations.UIElementType type, int weight, String body) {
+    public UIElement(String id, UIElementType type, int weight, String body) {
         this(id, type, new WeakHashMap<String, String>(), weight, body);
     }
 
-    public UIElement(play.modules.origo.core.annotations.UIElementType type, Map<String, String> attributes) {
+    public UIElement(UIElementType type, Map<String, String> attributes) {
         this("", type, attributes, 0, null);
     }
 
-    public UIElement(play.modules.origo.core.annotations.UIElementType type, Map<String, String> attributes, int weight) {
+    public UIElement(String id, UIElementType type, Map<String, String> attributes) {
+        this(id, type, attributes, 0, null);
+    }
+
+    public UIElement(UIElementType type, Map<String, String> attributes, int weight) {
         this("", type, attributes, weight, null);
     }
 
-    public UIElement(play.modules.origo.core.annotations.UIElementType type, Map<String, String> attributes, String body) {
+    public UIElement(String id, UIElementType type, Map<String, String> attributes, int weight) {
+        this(id, type, attributes, weight, null);
+    }
+
+    public UIElement(UIElementType type, Map<String, String> attributes, String body) {
         this("", type, attributes, 0, body);
     }
 
-    public UIElement(play.modules.origo.core.annotations.UIElementType type, Map<String, String> attributes, int weight, String body) {
+    public UIElement(String id, UIElementType type, Map<String, String> attributes, String body) {
+        this(id, type, attributes, 0, body);
+    }
+
+    public UIElement(UIElementType type, Map<String, String> attributes, int weight, String body) {
         this("", type, attributes, weight, body);
     }
 
-    public UIElement(String id, play.modules.origo.core.annotations.UIElementType type, Map<String, String> attributes, int weight, String body) {
+    public UIElement(String id, UIElementType type, Map<String, String> attributes, int weight, String body) {
         this.id = id;
         this.type = type;
         this.attributes = attributes;
@@ -86,11 +99,11 @@ public class UIElement {
         this.id = id;
     }
 
-    public play.modules.origo.core.annotations.UIElementType getType() {
+    public UIElementType getType() {
         return type;
     }
 
-    public void setType(play.modules.origo.core.annotations.UIElementType type) {
+    public void setType(UIElementType type) {
         this.type = type;
     }
 

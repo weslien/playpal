@@ -7,6 +7,7 @@ import models.origo.core.navigation.ExternalLinkNavigation;
 import models.origo.core.navigation.PageIdNavigation;
 import org.apache.commons.lang.StringUtils;
 import origo.helpers.NavigationHelper;
+import play.Logger;
 import play.modules.origo.core.Node;
 import play.modules.origo.core.annotations.OnLoad;
 import play.modules.origo.core.annotations.Provides;
@@ -35,21 +36,26 @@ public class PageListener {
 
     @OnLoad(type = OnLoad.Type.NODE, with = "models.origo.core.Page")
     public static void createContent(Node node) {
+
         Collection<Segment> segments = Segment.findWithUuidSpecificVersion(node.getNodeId(), node.getVersion());
         for (Segment segment : segments) {
             UIElement uiElement = createContent(segment);
             if (uiElement != null) {
-                node.addUIElement(segment.region, uiElement);
+                node.addUIElement(uiElement);
             }
         }
     }
 
     public static UIElement createContent(Segment segment) {
         if (!StringUtils.isBlank(segment.referenceId)) {
-            Content content = Content.findWithIdentifier(segment.referenceId);
-            if (content != null) {
-                // TODO: Remove segment.weight.intValue when the long/int defect (#521) is fixed
-                return new UIElement(segment.nodeId, UIElementType.TEXT, content.value);
+            if (segment.type.equals(Content.class.getName())) {
+                Content content = Content.findWithIdentifier(segment.referenceId);
+                if (content != null) {
+                    // TODO: Remove segment.weight.intValue when the long/int defect (#521) is fixed
+                    return new UIElement(content.identifier, UIElementType.TEXT, content.value);
+                }
+            } else {
+                Logger.warn("Unknown type [" + segment.type + "] for segment [" + segment + "]");
             }
         }
         //TODO: Handle this somehow, in dev/admin maybe show a UIElement with a warning message and in prod swallow error?

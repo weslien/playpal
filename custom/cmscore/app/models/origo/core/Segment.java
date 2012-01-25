@@ -17,25 +17,14 @@ public class Segment extends Model {
     public Long version;
 
     @Required
-    public String region;
-
-    @Required
     public String type;
 
     @Required
     public String referenceId;
 
-    public Class getTypeClass() {
-        try {
-            return Class.forName(type);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Unable to find the class for segment type [" + type + "]: " + e.getMessage(), e);
-        }
-    }
-
     public static Collection<Segment> findWithUuidSpecificVersion(String nodeId, Long version) {
         return Segment.
-                find("select distinct b from Segment b where b.nodeId = :nodeId and b.version = :version").
+                find("select distinct s from Segment s where s.nodeId = :nodeId and s.version = :version").
                 bind("nodeId", nodeId).
                 bind("version", version).
                 fetch();
@@ -44,10 +33,9 @@ public class Segment extends Model {
     @Override
     public String toString() {
         return new StringBuilder().
-                append("Segment{").
-                append("nodeId='").append(nodeId).append('\'').
-                append(", version=").append(version).
-                append(", region='").append(region).append('\'').
+                append("Segment {").
+                append("nodeId='").append(nodeId).append("', ").
+                append("version=").append(version).append(", ").
                 append('}').toString();
     }
 }

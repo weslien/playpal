@@ -86,20 +86,22 @@ public final class RootNode extends Model implements Node {
 
     @Override
     public UIElement addUIElement(UIElement uiElement) {
-        return addUIElement(HEAD, uiElement, false);
+        return addUIElement(uiElement, false);
     }
 
     @Override
-    public UIElement addUIElement(String region, UIElement uiElement) {
-        return addUIElement(region, uiElement, false);
-    }
+    public UIElement addUIElement(UIElement uiElement, boolean reorderElementsBelow) {
 
-    @Override
-    public UIElement addUIElement(String region, UIElement uiElement, boolean reorderElementsBelow) {
-        String regionKey = region.toLowerCase();
+        Meta meta = Meta.findWithUuidSpecificVersion(uuid, version, uiElement.id);
+        if (meta == null) {
+            meta = Meta.defaultMeta();
+        }
+
+        String regionKey = meta.region.toLowerCase();
         if (!uiElements.containsKey(regionKey)) {
             uiElements.put(regionKey, new ArrayList<UIElement>());
         }
+        uiElement.setWeight(meta.weight.intValue());
         uiElements.get(regionKey).add(uiElement);
         if (reorderElementsBelow) {
             UIElementHelper.repositionUIElements(uiElements.get(regionKey), uiElement);
@@ -109,8 +111,12 @@ public final class RootNode extends Model implements Node {
     }
 
     @Override
-    public boolean removeUIElement(String region, UIElement uiElement) {
-        String regionKey = region.toLowerCase();
+    public boolean removeUIElement(UIElement uiElement) {
+        Meta meta = Meta.findWithUuidSpecificVersion(uuid, version, uiElement.id);
+        if (meta == null) {
+            meta = Meta.defaultMeta();
+        }
+        String regionKey = meta.region.toLowerCase();
         if (uiElements.get(regionKey).remove(uiElement)) {
             UIElementHelper.reorderUIElements(uiElements.get(regionKey));
             return true;
