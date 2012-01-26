@@ -1,10 +1,10 @@
-package models.origo.core;
+package models.origo.structuredcontent;
 
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
 import javax.persistence.Entity;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class Segment extends Model {
@@ -22,7 +22,7 @@ public class Segment extends Model {
     @Required
     public String referenceId;
 
-    public static Collection<Segment> findWithUuidSpecificVersion(String nodeId, Long version) {
+    public static List<Segment> findWithUuidSpecificVersion(String nodeId, Long version) {
         return Segment.
                 find("select distinct s from Segment s where s.nodeId = :nodeId and s.version = :version").
                 bind("nodeId", nodeId).

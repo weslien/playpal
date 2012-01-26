@@ -9,7 +9,7 @@ import java.util.Collections;
 
 public class ContactFormProvider {
 
-    @OnLoad(type = OnLoad.Type.NODE, with = "models.origo.core.BasicPage")
+    @OnLoad(type = OnLoad.TYPE_NODE, with = "models.origo.core.BasicPage")
     public static void createForm(Node node) {
 
         // TODO: Statically linked to page 2 - Page Not Found - for now

@@ -1,6 +1,7 @@
 package controllers;
 
 import controllers.origo.core.CoreLoader;
+import play.modules.origo.core.ui.NavigationElement;
 import play.mvc.Controller;
 
 import java.util.Collection;
@@ -11,7 +12,7 @@ public class Application extends Controller {
         //TODO: Check if config !exists and redirect to wizard
 
         play.modules.origo.core.ui.RenderedNode node = CoreLoader.getStartPage();
-        Collection<play.modules.origo.core.ui.NavigationElement> navigation = CoreLoader.getNavigation(node.getId());
+        Collection<NavigationElement> navigation = CoreLoader.getNavigation(node.getId());
         render(node.getTemplate(), node, navigation);
     }
 
@@ -19,7 +20,7 @@ public class Application extends Controller {
         //TODO: Check if config !exists and redirect to wizard
 
         play.modules.origo.core.ui.RenderedNode node = CoreLoader.getPage(identifier);
-        Collection<play.modules.origo.core.ui.NavigationElement> navigation = CoreLoader.getNavigation(identifier);
+        Collection<NavigationElement> navigation = CoreLoader.getNavigation(identifier);
         render(node.getTemplate(), node, navigation);
     }
 
@@ -27,7 +28,7 @@ public class Application extends Controller {
         //TODO: Check if config !exists and redirect to wizard
 
         play.modules.origo.core.ui.RenderedNode node = CoreLoader.getPage(identifier, version);
-        Collection<play.modules.origo.core.ui.NavigationElement> navigation = CoreLoader.getNavigation(identifier, version);
+        Collection<NavigationElement> navigation = CoreLoader.getNavigation(identifier, version);
         render(node.getTemplate(), node, navigation);
     }
 

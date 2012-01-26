@@ -1,5 +1,6 @@
-package models.origo.core;
+package models.origo.structuredcontent;
 
+import models.origo.core.RootNode;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import play.modules.origo.core.Node;
@@ -10,16 +11,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-/**
- * The basic type for a page. Directly linked to a RootNode, both it's version and id.
- *
- * @see play.modules.origo.core.Node
- * @see RootNode
- * @see origo.listeners.BasicPageProvider
- */
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "pageVersion", columnNames = {"parentUuid", "parentVersion"}))
-public class BasicPage extends Model implements Node {
+public class StructuredPage extends Model implements Node {
 
     @Required
     @Column(name = "parentUuid")
@@ -35,12 +29,6 @@ public class BasicPage extends Model implements Node {
 
     @Required
     public String title;
-
-    @Required
-    public String leadReferenceId;
-
-    @Required
-    public String bodyReferenceId;
 
     @Override
     public String getNodeId() {
@@ -65,22 +53,6 @@ public class BasicPage extends Model implements Node {
     @Override
     public String getTitle() {
         return title;
-    }
-
-    public String getLeadReferenceId() {
-        return leadReferenceId;
-    }
-
-    public void setLeadReferenceId(String leadReferenceId) {
-        this.leadReferenceId = leadReferenceId;
-    }
-
-    public String getBodyReferenceId() {
-        return bodyReferenceId;
-    }
-
-    public void setBodyReferenceId(String bodyReferenceId) {
-        this.bodyReferenceId = bodyReferenceId;
     }
 
     @Override
@@ -130,17 +102,19 @@ public class BasicPage extends Model implements Node {
 
     @Override
     public String toString() {
-        return new StringBuilder().append("Page (")
-                .append(uuid).append(",")
-                .append(version).append(") - ")
-                .append(title)
-                .toString();
+        return new StringBuilder().
+                append("StructuredPage {").
+                append("uuid='").append(uuid).append("\', ").
+                append("version=").append(version).append(", ").
+                append("rootNode=").append(rootNode).append(", ").
+                append("title='").append(title).append("\'").
+                append("}").toString();
     }
 
-    public static List<BasicPage> findAllCurrentVersions(Date asOfDate) {
-        return BasicPage.
+    public static List<StructuredPage> findAllCurrentVersions(Date asOfDate) {
+        return StructuredPage.
                 find(
-                        "select p from BasicPage p " +
+                        "select p from StructuredPage p " +
                                 "where p.id in (" +
                                 "select l.id from RootNode l " +
                                 "where l.version = (" +
@@ -154,10 +128,10 @@ public class BasicPage extends Model implements Node {
                 fetch();
     }
 
-    public static BasicPage findCurrentVersion(String uuid, Date asOfDate) {
-        return BasicPage.
+    public static StructuredPage findCurrentVersion(String uuid, Date asOfDate) {
+        return StructuredPage.
                 find(
-                        "select p from BasicPage p " +
+                        "select p from StructuredPage p " +
                                 "where p.uuid = :uuid and p.id in (" +
                                 "select l.id from RootNode l " +
                                 "where l.version = (" +
@@ -172,10 +146,10 @@ public class BasicPage extends Model implements Node {
                 first();
     }
 
-    public static BasicPage findWithUuidSpecificVersion(String uuid, Long version) {
+    public static StructuredPage findWithUuidSpecificVersion(String uuid, Long version) {
         return RootNode.
                 find(
-                        "select distinct p from BasicPage p " +
+                        "select distinct p from StructuredPage p " +
                                 "where p.uuid = :uuid and " +
                                 "p.version = :version").
                 bind("uuid", uuid).
@@ -184,4 +158,3 @@ public class BasicPage extends Model implements Node {
     }
 
 }
-

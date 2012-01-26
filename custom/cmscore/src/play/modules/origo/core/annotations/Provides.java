@@ -24,12 +24,12 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 public @interface Provides {
 
-    Type type();
+    String type();
 
     String with();
 
-    public enum Type {
-        NODE, FORM, NAVIGATION, NAVIGATION_ITEM
-    }
-
+    public static final String TYPE_NODE = "node";
+    public static final String TYPE_FORM = "form";
+    public static final String TYPE_NAVIGATION = "navigation";
+    public static final String TYPE_NAVIGATION_ITEM = "navigation_item";
 }

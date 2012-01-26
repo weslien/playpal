@@ -20,19 +20,19 @@ import java.util.Map;
  */
 public class OnLoadHelper {
 
-    public static void triggerBeforeListener(OnLoad.Type type, Node node, Class argType, Object arg) {
+    public static void triggerBeforeListener(String type, Node node, Class argType, Object arg) {
         triggerBeforeListener(type, null, node, argType, arg);
     }
 
-    public static void triggerBeforeListener(OnLoad.Type type, String withType, Node node) {
+    public static void triggerBeforeListener(String type, String withType, Node node) {
         triggerBeforeListener(type, withType, node, Collections.<Class, Object>emptyMap());
     }
 
-    public static void triggerBeforeListener(OnLoad.Type type, String withType, Node node, Class argType, Object arg) {
+    public static void triggerBeforeListener(String type, String withType, Node node, Class argType, Object arg) {
         triggerBeforeListener(type, withType, node, Collections.<Class, Object>singletonMap(argType, arg));
     }
 
-    public static void triggerBeforeListener(OnLoad.Type type, String withType, Node node, Map<Class, Object> args) {
+    public static void triggerBeforeListener(String type, String withType, Node node, Map<Class, Object> args) {
         List<CachedAnnotation> listeners = findListenerForType(type, withType, false);
         if (listeners != null && !listeners.isEmpty()) {
             Map<Class, Object> parameters = new HashMap<Class, Object>();
@@ -44,26 +44,26 @@ public class OnLoadHelper {
         }
     }
 
-    public static void triggerAfterListener(OnLoad.Type onLoadType, Node node, Class argType, Object arg, UIElement uiElement) {
+    public static void triggerAfterListener(String onLoadType, Node node, Class argType, Object arg, UIElement uiElement) {
         triggerAfterListener(onLoadType, null, node, argType, arg, uiElement);
     }
 
-    public static void triggerAfterListener(OnLoad.Type onLoadType, String withType, Node node, Class argType, Object arg, UIElement uiElement) {
+    public static void triggerAfterListener(String onLoadType, String withType, Node node, Class argType, Object arg, UIElement uiElement) {
         Map<Class, Object> args = new HashMap<Class, Object>();
         args.put(argType, arg);
         args.put(UIElement.class, uiElement);
         triggerAfterListener(onLoadType, withType, node, args);
     }
 
-    public static void triggerAfterListener(OnLoad.Type onLoadType, String withType, Node node, UIElement uiElement) {
+    public static void triggerAfterListener(String onLoadType, String withType, Node node, UIElement uiElement) {
         triggerAfterListener(onLoadType, withType, node, Collections.<Class, Object>singletonMap(UIElement.class, uiElement));
     }
 
-    public static void triggerAfterListener(OnLoad.Type onLoadType, String withType, Node node) {
+    public static void triggerAfterListener(String onLoadType, String withType, Node node) {
         triggerAfterListener(onLoadType, withType, node, Collections.<Class, Object>emptyMap());
     }
 
-    public static void triggerAfterListener(OnLoad.Type onLoadType, String withType, Node node, Map<Class, Object> args) {
+    public static void triggerAfterListener(String onLoadType, String withType, Node node, Map<Class, Object> args) {
         List<CachedAnnotation> listeners = findListenerForType(onLoadType, !StringUtils.isBlank(withType) ? withType : node.getClass().getName(), true);
         if (listeners != null && !listeners.isEmpty()) {
             Map<Class, Object> parameters = new HashMap<Class, Object>();
@@ -75,7 +75,7 @@ public class OnLoadHelper {
         }
     }
 
-    private static List<CachedAnnotation> findListenerForType(final OnLoad.Type onLoadType, final String withType, final boolean after) {
+    private static List<CachedAnnotation> findListenerForType(final String onLoadType, final String withType, final boolean after) {
         return Listeners.getListenersForAnnotationType(OnLoad.class, new Listeners.ListenerSelector() {
             @Override
             public boolean isCorrectListener(CachedAnnotation listener) {
