@@ -29,7 +29,7 @@ echo "Tests succeeded."
 echo "<html><head><title>Tests Run - Application</title><body>" > ../test-result/index.html
 
 # Linking passed tests
-passed_files=$(find ../test-result -name "*.passed.html" -prune | sed s/../test-result\\///)
+passed_files=$(find ../test-result -name "*.passed.html" -prune | sed s/..\\/test-result\\///)
 if [ -n "${passed_files[@]}" ]; then
     echo "<h3>Tests Passed</h3>" >> ../test-result/index.html
 
@@ -37,7 +37,7 @@ if [ -n "${passed_files[@]}" ]; then
 fi
 
 # Linking failed tests
-passed_files=$(find ../test-result -name "*.failed.html" -prune | sed s/../test-result\\///)
+passed_files=$(find ../test-result -name "*.failed.html" -prune | sed s/..\\/test-result\\///)
 if [ -n "${failed_files[@]}" ]; then
     echo "<h3>Tests Failed</h3>" >> ../test-result/index.html
 
