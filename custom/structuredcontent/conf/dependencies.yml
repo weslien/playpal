@@ -1,0 +1,15 @@
+self: play -> structuredcontent 0.1
+
+require:
+    - play [1.2,)
+
+### Internal modules
+    - cmscore -> cmscore 0.1
+
+repositories:
+    - localModules:
+        type: local
+        artifact: "${application.path}/../[module]/"
+        contains:
+            - cmscore
+

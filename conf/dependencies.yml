@@ -14,12 +14,14 @@ require:
 ### Internal modules
     - cmscore -> cmscore 0.1
     - cmsadmin -> cmsadmin 0.1
+    - structuredcontent -> structuredcontent 0.1
     - contactform -> contactform 0.1
 
 ### Only needed when generating the IDEA project
 #    - cmscore-test -> cmscore-test 0.1
 #    - cmsadmin-test -> cmsadmin-test 0.1
 #    - contactform-test -> contactform-test 0.1
+#    - structuredcontent-test -> structuredcontent-test 0.1
 
 repositories:
     - localModules:
@@ -32,3 +34,5 @@ repositories:
             - cmsadmin-test
             - contactform
             - contactform-test
+            - structuredcontent
+            - structuredcontent-test
