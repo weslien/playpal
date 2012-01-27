@@ -1,4 +1,15 @@
 # Application dependencies
 
 require:
-    - play
+    - play [1.2,)
+    - cmscore -> cmscore 0.1
+    - structuredcontent -> structuredcontent 0.1
+#    - play -> cobertura [2,)
+
+repositories:
+    - localModules:
+        type: local
+        artifact: "${application.path}/../[module]/"
+        contains:
+            - cmscore
+            - structuredcontent
