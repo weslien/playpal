@@ -26,7 +26,7 @@ public class CoreApplicationTest extends FunctionalTest {
         assertIsOk(response);
         assertContentType("text/html", response);
         assertCharset(play.Play.defaultWebEncoding, response);
-        assertContentMatch("Boo crangle Miss Beasley", response);
+        assertContentMatch("Stan bam Mrs. Crabapple", response);
     }
 
     @Test

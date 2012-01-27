@@ -15,7 +15,7 @@ public class CustomPageListenerMock {
      *
      * @param node the node to modify
      */
-    @OnLoad(type = OnLoad.Type.NODE, with = "models.origo.core.BasicPage")
+    @OnLoad(type = OnLoad.TYPE_NODE, with = "models.origo.core.BasicPage")
     public static void setupTestData(Node node) {
 
         UIElement metaElement = new UIElement(UIElementType.META, 10);
@@ -44,7 +44,7 @@ public class CustomPageListenerMock {
 
     }
 
-    @OnLoad(type = OnLoad.Type.NAVIGATION)
+    @OnLoad(type = OnLoad.TYPE_NAVIGATION)
     public static void setupTestNavigation(Node node, Collection<NavigationElement> navigationElements, String section) {
         navigationElements.add(new NavigationElement(section, "Programmatically Added", "http://google.com"));
     }
