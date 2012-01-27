@@ -1,7 +1,8 @@
 package controllers.origo.contactform;
 
+import origo.listeners.SegmentProvider;
 import play.modules.origo.core.Node;
-import play.modules.origo.core.annotations.OnLoad;
+import play.modules.origo.core.annotations.Provides;
 import play.modules.origo.core.annotations.UIElementType;
 import play.modules.origo.core.ui.UIElement;
 
@@ -9,8 +10,8 @@ import java.util.Collections;
 
 public class ContactFormProvider {
 
-    @OnLoad(type = OnLoad.TYPE_NODE, with = "models.origo.core.BasicPage")
-    public static void createForm(Node node) {
+    @Provides(type = SegmentProvider.TYPE_SEGMENT, with = "origo.contactform.ContactForm")
+    public static UIElement createForm(Node node) {
 
         // TODO: Statically linked to page 2 - Page Not Found - for now
         if (node.getNodeId().equals("c9615819-0556-4e70-b6a9-a66c5b8d4c1a")) {
@@ -36,9 +37,10 @@ public class ContactFormProvider {
             buttonPanelElement.addChild(new UIElement(UIElementType.INPUT_BUTTON, Collections.singletonMap("name", "origo-contactform-button"), 20, "Send"));
             formElement.addChild(buttonPanelElement);
 
-            node.addUIElement(formElement);
+            return formElement;
         }
 
+        return null;
     }
 
 }

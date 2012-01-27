@@ -1,8 +1,10 @@
+package origo.structuredcontenttest;
+
 import org.junit.Test;
 import play.mvc.Http.Response;
 import play.test.FunctionalTest;
 
-public class ApplicationTest extends FunctionalTest {
+public class StructuredContentApplicationTest extends FunctionalTest {
 
     @Test
     public void testThatIndexPageWorks() {

@@ -1,3 +1,5 @@
+package origo.structuredcontenttest;
+
 import org.junit.Test;
 import play.test.UnitTest;
 

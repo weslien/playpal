@@ -1,3 +1,5 @@
+package origo.contactformtest;
+
 import org.junit.Test;
 import play.test.UnitTest;
 

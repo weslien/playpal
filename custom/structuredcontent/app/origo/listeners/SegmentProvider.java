@@ -9,7 +9,9 @@ import play.modules.origo.core.ui.UIElement;
 
 public class SegmentProvider {
 
-    @Provides(type = "segment", with = "models.origo.core.Content")
+    public static final String TYPE_SEGMENT = "segment";
+
+    @Provides(type = TYPE_SEGMENT, with = "models.origo.core.Content")
     public static UIElement createSegment(Segment segment) {
         if (!StringUtils.isBlank(segment.referenceId)) {
             Content content = Content.findWithIdentifier(segment.referenceId);

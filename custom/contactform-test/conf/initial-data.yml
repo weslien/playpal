@@ -74,46 +74,46 @@ origo.core.Content(content-side-4):
 origo.core.RootNode(node-first-1):
     uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        1
-    type:           models.origo.core.BasicPage
+    type:           models.origo.structuredcontent.StructuredPage
 
 origo.core.RootNode(node-first-2):
     uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        2
-    type:           models.origo.core.BasicPage
+    type:           models.origo.structuredcontent.StructuredPage
 
 # Page 1 -> Page
-origo.core.BasicPage(page-first-1):
+origo.structuredcontent.StructuredPage(page-first-1):
     uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        1
     title:          Start Page
 
-origo.core.BasicPage(page-first-2):
+origo.structuredcontent.StructuredPage(page-first-2):
     uuid:           aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        2
     title:          Start Page
 
 # Page 1 -> Segment
-origo.core.Segment(page-first-1-segment-1):
+origo.structuredcontent.Segment(page-first-1-segment-1):
     nodeId:         aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        1
     type:           models.origo.core.Content
     referenceId:    239945c1-8735-4a41-b81c-f825bf140ae6 #content-side-2
-origo.core.Segment(page-first-1-segment-2):
+origo.structuredcontent.Segment(page-first-1-segment-2):
     nodeId:         aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        1
     type:           models.origo.core.Content
     referenceId:    fc787e18-e149-4be0-bac0-d2b1db6e3198 #content-main-1
-origo.core.Segment(page-first-2-segment-1):
+origo.structuredcontent.Segment(page-first-2-segment-1):
     nodeId:         aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        2
     type:           models.origo.core.Content
     referenceId:    239945c1-8735-4a41-b81c-f825bf140ae6 #content-side-2
-origo.core.Segment(page-first-2-segment-2):
+origo.structuredcontent.Segment(page-first-2-segment-2):
     nodeId:         aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        2
     type:           models.origo.core.Content
     referenceId:    9769374a-36e2-4fcf-a0ea-8577b3d45954 #content-side-3
-origo.core.Segment(page-first-2-segment-3):
+origo.structuredcontent.Segment(page-first-2-segment-3):
     nodeId:         aa1755dd-18c4-4b78-956e-eef7e562c36c
     version:        2
     type:           models.origo.core.Content
@@ -156,21 +156,21 @@ origo.core.Meta(page-first-2-segment-3):
 origo.core.RootNode(node-second-1):
     uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        1
-    type:           models.origo.core.BasicPage
+    type:           models.origo.structuredcontent.StructuredPage
 
 # Page 2 -> Page
-origo.core.BasicPage(page-second-1):
+origo.structuredcontent.StructuredPage(page-second-1):
     uuid:           c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        1
     title:          Page Not Found (404)
 
 # Page 2 -> Segment
-origo.core.Segment(page-second-segment-1):
+origo.structuredcontent.Segment(page-second-segment-1):
     nodeId:         c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        1
     type:           models.origo.core.Content
     referenceId:    babf45ff-acc5-4340-9413-d68fe68cc7ef #content-side-1
-origo.core.Segment(page-second-segment-2):
+origo.structuredcontent.Segment(page-second-segment-2):
     nodeId:         c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        1
     type:           models.origo.core.Content
@@ -201,69 +201,69 @@ origo.core.Meta(page-second-segment-3):
 origo.core.RootNode(node-third-1):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        1
-    type:           models.origo.core.BasicPage
+    type:           models.origo.structuredcontent.StructuredPage
 
 origo.core.RootNode(node-third-2):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        2
     publish:        2011-01-01 00:00:00
     unpublish:      2012-01-01 00:00:00
-    type:           models.origo.core.BasicPage
+    type:           models.origo.structuredcontent.StructuredPage
 
 origo.core.RootNode(node-third-3):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        3
     publish:        2012-01-01 00:00:00
-    type:           models.origo.core.BasicPage
+    type:           models.origo.structuredcontent.StructuredPage
 
 # Page 3 -> Page
-origo.core.BasicPage(page-third-1):
+origo.structuredcontent.StructuredPage(page-third-1):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        1
     title:          Internal Server Error (500)
 
-origo.core.BasicPage(page-third-2):
+origo.structuredcontent.StructuredPage(page-third-2):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        2
     title:          Internal Server Error (500)
 
-origo.core.BasicPage(page-third-3):
+origo.structuredcontent.StructuredPage(page-third-3):
     uuid:           1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        3
     title:          Internal Server Error (500)
 
 # Page 3 -> Segment
-origo.core.Segment(page-third-1-segment-1):
+origo.structuredcontent.Segment(page-third-1-segment-1):
     nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        1
     type:           models.origo.core.Content
     referenceId:    239945c1-8735-4a41-b81c-f825bf140ae6 #content-side-2
-origo.core.Segment(page-third-1-segment-2):
+origo.structuredcontent.Segment(page-third-1-segment-2):
     nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        1
     type:           models.origo.core.Content
     referenceId:    56798e9b-a9db-42d4-8806-3bfae8d9828c #content-main-3
-origo.core.Segment(page-third-2-segment-1):
+origo.structuredcontent.Segment(page-third-2-segment-1):
     nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        2
     type:           models.origo.core.Content
     content:        239945c1-8735-4a41-b81c-f825bf140ae6 #content-side-2
-origo.core.Segment(page-third-2-segment-2):
+origo.structuredcontent.Segment(page-third-2-segment-2):
     nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        2
     type:           models.origo.core.Content
     referenceId:    babf45ff-acc5-4340-9413-d68fe68cc7ef #content-side-1
-origo.core.Segment(page-third-2-segment-3):
+origo.structuredcontent.Segment(page-third-2-segment-3):
     nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        2
     type:           models.origo.core.Content
     referenceId:    56798e9b-a9db-42d4-8806-3bfae8d9828c #content-main-3
-origo.core.Segment(page-third-3-segment-1):
+origo.structuredcontent.Segment(page-third-3-segment-1):
     nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        3
     type:           models.origo.core.Content
     referenceId:    239945c1-8735-4a41-b81c-f825bf140ae6 #content-side-2
-origo.core.Segment(page-third-3-segment-2):
+origo.structuredcontent.Segment(page-third-3-segment-2):
     nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        3
     type:           models.origo.core.Content
@@ -318,26 +318,26 @@ origo.core.Meta(page-third-3-segment-2):
 origo.core.RootNode(node-fourth-1):
     uuid:           1c7a35d1-5e50-4dc8-8ef9-392745b3c6f9
     version:        1
-    type:           models.origo.core.BasicPage
+    type:           models.origo.structuredcontent.StructuredPage
 
 # Page 4 -> Page
-origo.core.BasicPage(page-fourth-1):
+origo.structuredcontent.StructuredPage(page-fourth-1):
     uuid:           1c7a35d1-5e50-4dc8-8ef9-392745b3c6f9
     version:        1
     title:          Fourth Page
 
 # Page 4 -> Segment
-origo.core.Segment(page-fourth-1-segment-1):
+origo.structuredcontent.Segment(page-fourth-1-segment-1):
     nodeId:         1c7a35d1-5e50-4dc8-8ef9-392745b3c6f9
     version:        1
     type:           models.origo.core.Content
     referenceId:    239945c1-8735-4a41-b81c-f825bf140ae6 #content-side-2
-origo.core.Segment(page-fourth-1-segment-2):
+origo.structuredcontent.Segment(page-fourth-1-segment-2):
     nodeId:         1c7a35d1-5e50-4dc8-8ef9-392745b3c6f9
     version:        1
     type:           models.origo.core.Content
     referenceId:    bc15887a-d4f4-4b6f-a3d8-437559971ade #content-main-4
-origo.core.Segment(page-fourth-1-segment-3):
+origo.structuredcontent.Segment(page-fourth-1-segment-3):
     nodeId:         1c7a35d1-5e50-4dc8-8ef9-392745b3c6f9
     version:        1
     type:           models.origo.core.Content
@@ -369,26 +369,26 @@ origo.core.Meta(page-fourth-1-segment-3):
 origo.core.RootNode(node-fifth-1):
     uuid:           c6d14b95-a3a8-4103-a04f-a0eb5b0c2bfa
     version:        1
-    type:           models.origo.core.BasicPage
+    type:           models.origo.structuredcontent.StructuredPage
 
 # Page 5 -> Page
-origo.core.BasicPage(page-fifth-1):
+origo.structuredcontent.StructuredPage(page-fifth-1):
     uuid:           c6d14b95-a3a8-4103-a04f-a0eb5b0c2bfa
     version:        1
     title:          Fifth Page
 
 # Page 5 -> Segment
-origo.core.Segment(page-fifth-1-segment-1):
+origo.structuredcontent.Segment(page-fifth-1-segment-1):
     nodeId:         c6d14b95-a3a8-4103-a04f-a0eb5b0c2bfa
     version:        1
     type:           models.origo.core.Content
     referenceId:    d31f8559-ec4a-44fe-8c83-01303380a338 #content-side-4
-origo.core.Segment(page-fifth-1-segment-2):
+origo.structuredcontent.Segment(page-fifth-1-segment-2):
     nodeId:         c6d14b95-a3a8-4103-a04f-a0eb5b0c2bfa
     version:        1
     type:           models.origo.core.Content
     referenceId:    b4f1dfb9-e395-43dd-8574-ec4268efd2ca #content-main-6
-origo.core.Segment(page-fifth-1-segment-3):
+origo.structuredcontent.Segment(page-fifth-1-segment-3):
     nodeId:         c6d14b95-a3a8-4103-a04f-a0eb5b0c2bfa
     version:        1
     type:           models.origo.core.Content
@@ -495,6 +495,12 @@ origo.core.Settings(settings):
 
 
 ################### Extra for test module ########################
+origo.structuredcontent.Segment(page-second-segment-1):
+    nodeId:         c9615819-0556-4e70-b6a9-a66c5b8d4c1a
+    version:        1
+    type:           origo.contactform.ContactForm
+    referenceId:    # Not used for now
+
 origo.core.Meta(page-second-1-meta):
     nodeId:         c9615819-0556-4e70-b6a9-a66c5b8d4c1a
     version:        1
