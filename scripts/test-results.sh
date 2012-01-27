@@ -11,8 +11,7 @@ output_links() {
 }
 
 ####### Check success
-if [ -e ../test-result/result.failed ]
-then
+if [ ! -e ../test-result/result.passed ]; then
     echo Tests failed.
     exit 1
 elseif [ -d ../test-result ]
