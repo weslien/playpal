@@ -1,7 +1,7 @@
-== Playpal ==
+== Origo ==
 
 === Description ===
-Play! framework adaptation of the drupal CMS
+Play! framework adaptation of the Drupal CMS.
 
 === How to run ===
 To run the application you first need to build the modules.<br/>
@@ -74,7 +74,7 @@ Just access the <i>very</i> basic admin application by going to [http://localhos
 
 === How to test ===
 
-To test the CMS core module you run autotest on a separate application bundled with the application.<br/>
+To test the modules you run autotest on a separate application bundled with the application.<br/>
 <code>play autotest custom/cmscore-test</code>
 <code>play autotest custom/cmsadmin-test</code>
 <code>play autotest custom/structuredcontent-test #optional</code>
