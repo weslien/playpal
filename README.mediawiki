@@ -4,8 +4,11 @@
 Play! framework adaptation of the drupal CMS
 
 === How to run ===
-To run the application you first need to build the CMS core module.<br/>
+To run the application you first need to build the modules.<br/>
 <code>play build-module custom/cmscore</code>
+<code>play build-module custom/cmsadmin</code>
+<code>play build-module custom/structuredcontent #optional</code>
+<code>play build-module custom/contactform #optional</code>
 
 And any other custom modules you might like to build or include.<br/>
 <code>play build-module custom/test-custom #optional</code>
@@ -73,6 +76,9 @@ Just access the <i>very</i> basic admin application by going to [http://localhos
 
 To test the CMS core module you run autotest on a separate application bundled with the application.<br/>
 <code>play autotest custom/cmscore-test</code>
+<code>play autotest custom/cmsadmin-test</code>
+<code>play autotest custom/structuredcontent-test #optional</code>
+<code>play autotest custom/contactform-test #optional</code>
 
 To test the application itself you only need run autotest.<br/>
 <code>play autotest</code>
