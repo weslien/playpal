@@ -1,4 +1,4 @@
-package controllers;
+package controllers.origo;
 
 import controllers.origo.core.CoreLoader;
 import play.modules.origo.core.ui.NavigationElement;
