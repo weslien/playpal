@@ -23,8 +23,8 @@ public class AdminApplicationTest extends FunctionalTest {
     }
 
     @Test
-    public void segmentsPageWorks() {
-        Http.Response response = GET("/admin/crud/segments");
+    public void navigationsPageWorks() {
+        Http.Response response = GET("/admin/crud/navigations");
         assertIsOk(response);
         assertContentType("text/html", response);
         assertCharset(play.Play.defaultWebEncoding, response);
