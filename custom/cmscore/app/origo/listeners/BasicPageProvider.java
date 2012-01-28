@@ -8,7 +8,6 @@ import org.apache.commons.lang.StringUtils;
 import play.modules.origo.core.Node;
 import play.modules.origo.core.annotations.OnLoad;
 import play.modules.origo.core.annotations.Provides;
-import play.modules.origo.core.annotations.UIElementType;
 import play.modules.origo.core.ui.UIElement;
 
 public class BasicPageProvider {
@@ -35,7 +34,7 @@ public class BasicPageProvider {
         if (!StringUtils.isBlank(referenceId)) {
             Content content = Content.findWithIdentifier(referenceId);
             if (content != null) {
-                return new UIElement(content.identifier, UIElementType.TEXT, content.value);
+                return new UIElement(content.identifier, UIElement.TEXT, content.value);
             }
         }
         //TODO: Handle this somehow, in dev/admin maybe show a UIElement with a warning message and in prod swallow error?

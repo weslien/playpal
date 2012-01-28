@@ -2,7 +2,6 @@ package controllers.origo.coretest;
 
 import play.modules.origo.core.Node;
 import play.modules.origo.core.annotations.OnLoad;
-import play.modules.origo.core.annotations.UIElementType;
 import play.modules.origo.core.ui.NavigationElement;
 import play.modules.origo.core.ui.UIElement;
 

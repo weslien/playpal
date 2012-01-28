@@ -3,7 +3,6 @@ package controllers.origo.contactform;
 import origo.listeners.SegmentProvider;
 import play.modules.origo.core.Node;
 import play.modules.origo.core.annotations.Provides;
-import play.modules.origo.core.annotations.UIElementType;
 import play.modules.origo.core.ui.UIElement;
 
 import java.util.Collections;
@@ -16,25 +15,25 @@ public class ContactFormProvider {
         // TODO: Statically linked to page 2 - Page Not Found - for now
         if (node.getNodeId().equals("c9615819-0556-4e70-b6a9-a66c5b8d4c1a")) {
 
-            UIElement formElement = new UIElement("contactform", UIElementType.FORM, Collections.singletonMap("class", "origo-contactform, form"));
+            UIElement formElement = new UIElement("contactform", UIElement.FORM, Collections.singletonMap("class", "origo-contactform, form"));
 
-            UIElement namePanelElement = new UIElement(UIElementType.PANEL, 10);
-            namePanelElement.addChild(new UIElement(UIElementType.LABEL, Collections.singletonMap("for", "origo-contactform-name"), 10, "Name"));
-            namePanelElement.addChild(new UIElement(UIElementType.INPUT_TEXT, Collections.singletonMap("name", "origo-contactform-name"), 20));
+            UIElement namePanelElement = new UIElement(UIElement.PANEL, 10).addAttribute("class", "field");
+            namePanelElement.addChild(new UIElement(UIElement.LABEL, 10, "Name").addAttribute("for", "origo-contactform-name"));
+            namePanelElement.addChild(new UIElement(UIElement.INPUT_TEXT, 20).addAttribute("name", "origo-contactform-name"));
             formElement.addChild(namePanelElement);
 
-            UIElement emailPanelElement = new UIElement(UIElementType.PANEL, 20);
-            emailPanelElement.addChild(new UIElement(UIElementType.LABEL, Collections.singletonMap("for", "origo-contactform-email"), 10, "Email"));
-            emailPanelElement.addChild(new UIElement(UIElementType.INPUT_TEXT, Collections.singletonMap("name", "origo-contactform-email"), 20));
+            UIElement emailPanelElement = new UIElement(UIElement.PANEL, 20).addAttribute("class", "field");
+            emailPanelElement.addChild(new UIElement(UIElement.LABEL, 10, "Email").addAttribute("for", "origo-contactform-email"));
+            emailPanelElement.addChild(new UIElement(UIElement.INPUT_TEXT, 20).addAttribute("name", "origo-contactform-email"));
             formElement.addChild(emailPanelElement);
 
-            UIElement textPanelElement = new UIElement(UIElementType.PANEL, 30);
-            textPanelElement.addChild(new UIElement(UIElementType.LABEL, Collections.singletonMap("for", "origo-contactform-text"), 10, "Question/Comment"));
-            textPanelElement.addChild(new UIElement(UIElementType.INPUT_TEXTAREA, Collections.singletonMap("name", "origo-contactform-text"), 20));
+            UIElement textPanelElement = new UIElement(UIElement.PANEL, 30).addAttribute("class", "field");
+            textPanelElement.addChild(new UIElement(UIElement.LABEL, 10, "Question/Comment").addAttribute("for", "origo-contactform-text"));
+            textPanelElement.addChild(new UIElement(UIElement.INPUT_TEXTAREA, 20).addAttribute("name", "origo-contactform-text"));
             formElement.addChild(textPanelElement);
 
-            UIElement buttonPanelElement = new UIElement(UIElementType.PANEL, 40);
-            buttonPanelElement.addChild(new UIElement(UIElementType.INPUT_BUTTON, Collections.singletonMap("name", "origo-contactform-button"), 20, "Send"));
+            UIElement buttonPanelElement = new UIElement(UIElement.PANEL, 40).addAttribute("class", "field");
+            buttonPanelElement.addChild(new UIElement(UIElement.INPUT_BUTTON, 20, "Send").addAttribute("name", "origo-contactform-button"));
             formElement.addChild(buttonPanelElement);
 
             return formElement;

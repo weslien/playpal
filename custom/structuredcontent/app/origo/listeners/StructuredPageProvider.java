@@ -13,7 +13,7 @@ import java.util.List;
 
 public class StructuredPageProvider {
 
-    @Provides(type = Provides.TYPE_NODE, with = "models.origo.structuredcontent.StructuredPage")
+    @Provides(type = Provides.NODE, with = "models.origo.structuredcontent.StructuredPage")
     public static Node loadPage(RootNode rootNode) {
         StructuredPage page = StructuredPage.findWithUuidSpecificVersion(rootNode.uuid, rootNode.version);
         if (page == null) {

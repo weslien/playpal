@@ -6,7 +6,6 @@ import play.modules.origo.core.CachedThemeVariant;
 import play.modules.origo.core.Node;
 import play.modules.origo.core.Themes;
 import play.modules.origo.core.annotations.CachedDecorator;
-import play.modules.origo.core.annotations.UIElementType;
 import play.modules.origo.core.ui.RenderedNode;
 import play.modules.origo.core.ui.RenderingContext;
 import play.modules.origo.core.ui.UIElement;
@@ -28,33 +27,32 @@ public class ThemeHelper {
         for (String region : node.getRegions()) {
             for (UIElement uiElement : node.getUIElements(region)) {
                 String decoratedContent = decorate(uiElement, renderingContext);
-                switch (uiElement.getType()) {
-                    case META:
-                        if (Node.HEAD.equalsIgnoreCase(region)) {
-                            renderedNode.addMeta(decoratedContent);
-                            break;
-                        } else {
-                            throw new RuntimeException("META is not allowed outside of head");
-                        }
-                    case LINK:
-                        if (Node.HEAD.equalsIgnoreCase(region)) {
-                            renderedNode.addLink(decoratedContent);
-                            break;
-                        } else {
-                            throw new RuntimeException("LINK is not allowed outside of head");
-                        }
-                    case SCRIPT:
-                        if (Node.HEAD.equalsIgnoreCase(region)) {
-                            renderedNode.addScript(decoratedContent);
-                            break;
-                        }
-                    case STYLE:
-                        if (Node.HEAD.equalsIgnoreCase(region)) {
-                            renderedNode.addStyle(decoratedContent);
-                            break;
-                        }
-                    default:
-                        renderedNode.add(region, decoratedContent);
+                if (UIElement.META.equalsIgnoreCase(uiElement.getType())) {
+                    if (Node.HEAD.equalsIgnoreCase(region)) {
+                        renderedNode.addMeta(decoratedContent);
+                        break;
+                    } else {
+                        throw new RuntimeException("META is not allowed outside of head");
+                    }
+                } else if (UIElement.LINK.equalsIgnoreCase(uiElement.getType())) {
+                    if (Node.HEAD.equalsIgnoreCase(region)) {
+                        renderedNode.addLink(decoratedContent);
+                        break;
+                    } else {
+                        throw new RuntimeException("LINK is not allowed outside of head");
+                    }
+                } else if (UIElement.SCRIPT.equalsIgnoreCase(uiElement.getType())) {
+                    if (Node.HEAD.equalsIgnoreCase(region)) {
+                        renderedNode.addScript(decoratedContent);
+                        break;
+                    }
+                } else if (UIElement.STYLE.equalsIgnoreCase(uiElement.getType())) {
+                    if (Node.HEAD.equalsIgnoreCase(region)) {
+                        renderedNode.addStyle(decoratedContent);
+                        break;
+                    }
+                } else {
+                    renderedNode.add(region, decoratedContent);
                 }
             }
         }
@@ -77,7 +75,7 @@ public class ThemeHelper {
     }
 
     public static String decorate(UIElement uiElement, RenderingContext renderingContext) {
-        Map<UIElementType, CachedDecorator> decorators = Themes.getDecoratorsForTheme(renderingContext.getThemeVariant().themeId);
+        Map<String, CachedDecorator> decorators = Themes.getDecoratorsForTheme(renderingContext.getThemeVariant().themeId);
         renderingContext.nestle(uiElement);
         String decoratedOutput = null;
         if (decorators.containsKey(uiElement.getType())) {

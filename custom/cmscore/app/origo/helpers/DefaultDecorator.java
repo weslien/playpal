@@ -13,56 +13,54 @@ public class DefaultDecorator {
     private static final String FRAGMENT_PREFIX = "origo.core.";
 
     public static String decorate(UIElement uiElement, RenderingContext renderingContext) {
-        switch (uiElement.getType()) {
-            case META:
-                return decorateMeta(uiElement, renderingContext);
-            case SCRIPT:
-                return decorateScript(uiElement, renderingContext);
-            case STYLE:
-                return decorateStyle(uiElement, renderingContext);
-            case LINK:
-                return decorateLink(uiElement, renderingContext);
-            case FORM:
-                return decorateForm(uiElement, renderingContext);
-            case INPUT_TEXT:
-                return decorateInputText(uiElement, renderingContext);
-            case LABEL:
-                return decorateLabel(uiElement, renderingContext);
-            case INPUT_TEXTAREA:
-                return decorateInputTextArea(uiElement, renderingContext);
-            case INPUT_HIDDEN:
-                return decorateInputHidden(uiElement, renderingContext);
-            case INPUT_PASSWORD:
-                return decorateInputPassword(uiElement, renderingContext);
-            case INPUT_FILE:
-                return decorateInputFile(uiElement, renderingContext);
-            case INPUT_IMAGE:
-                return decorateInputImage(uiElement, renderingContext);
-            case INPUT_RADIO_BUTTON:
-                return decorateInputRadioButton(uiElement, renderingContext);
-            case INPUT_SELECT:
-                return decorateInputSelect(uiElement, renderingContext);
-            case INPUT_SELECT_OPTION:
-                return decorateInputSelectOption(uiElement, renderingContext);
-            case INPUT_BUTTON:
-                return decorateInputButton(uiElement, renderingContext);
-            case INPUT_SUBMIT:
-                return decorateInputSubmit(uiElement, renderingContext);
-            case INPUT_RESET:
-                return decorateInputReset(uiElement, renderingContext);
-            case LIST_BULLET:
-                return decorateListBulleted(uiElement, renderingContext);
-            case LIST_ORDERED:
-                return decorateListNumbered(uiElement, renderingContext);
-            case LIST_ITEM:
-                return decorateListItem(uiElement, renderingContext);
-            case PANEL:
-                return decoratePanel(uiElement, renderingContext);
-            case TEXT:
-                return decorateText(uiElement, renderingContext);
-            default:
-                return null;
+        if (UIElement.META.equalsIgnoreCase(uiElement.getType())) {
+            return decorateMeta(uiElement, renderingContext);
+        } else if (UIElement.SCRIPT.equalsIgnoreCase(uiElement.getType())) {
+            return decorateScript(uiElement, renderingContext);
+        } else if (UIElement.STYLE.equalsIgnoreCase(uiElement.getType())) {
+            return decorateStyle(uiElement, renderingContext);
+        } else if (UIElement.LINK.equalsIgnoreCase(uiElement.getType())) {
+            return decorateLink(uiElement, renderingContext);
+        } else if (UIElement.FORM.equalsIgnoreCase(uiElement.getType())) {
+            return decorateForm(uiElement, renderingContext);
+        } else if (UIElement.INPUT_TEXT.equalsIgnoreCase(uiElement.getType())) {
+            return decorateInputText(uiElement, renderingContext);
+        } else if (UIElement.LABEL.equalsIgnoreCase(uiElement.getType())) {
+            return decorateLabel(uiElement, renderingContext);
+        } else if (UIElement.INPUT_TEXTAREA.equalsIgnoreCase(uiElement.getType())) {
+            return decorateInputTextArea(uiElement, renderingContext);
+        } else if (UIElement.INPUT_HIDDEN.equalsIgnoreCase(uiElement.getType())) {
+            return decorateInputHidden(uiElement, renderingContext);
+        } else if (UIElement.INPUT_PASSWORD.equalsIgnoreCase(uiElement.getType())) {
+            return decorateInputPassword(uiElement, renderingContext);
+        } else if (UIElement.INPUT_FILE.equalsIgnoreCase(uiElement.getType())) {
+            return decorateInputFile(uiElement, renderingContext);
+        } else if (UIElement.INPUT_IMAGE.equalsIgnoreCase(uiElement.getType())) {
+            return decorateInputImage(uiElement, renderingContext);
+        } else if (UIElement.INPUT_RADIO_BUTTON.equalsIgnoreCase(uiElement.getType())) {
+            return decorateInputRadioButton(uiElement, renderingContext);
+        } else if (UIElement.INPUT_SELECT.equalsIgnoreCase(uiElement.getType())) {
+            return decorateInputSelect(uiElement, renderingContext);
+        } else if (UIElement.INPUT_SELECT_OPTION.equalsIgnoreCase(uiElement.getType())) {
+            return decorateInputSelectOption(uiElement, renderingContext);
+        } else if (UIElement.INPUT_BUTTON.equalsIgnoreCase(uiElement.getType())) {
+            return decorateInputButton(uiElement, renderingContext);
+        } else if (UIElement.INPUT_SUBMIT.equalsIgnoreCase(uiElement.getType())) {
+            return decorateInputSubmit(uiElement, renderingContext);
+        } else if (UIElement.INPUT_RESET.equalsIgnoreCase(uiElement.getType())) {
+            return decorateInputReset(uiElement, renderingContext);
+        } else if (UIElement.LIST_BULLET.equalsIgnoreCase(uiElement.getType())) {
+            return decorateListBulleted(uiElement, renderingContext);
+        } else if (UIElement.LIST_ORDERED.equalsIgnoreCase(uiElement.getType())) {
+            return decorateListNumbered(uiElement, renderingContext);
+        } else if (UIElement.LIST_ITEM.equalsIgnoreCase(uiElement.getType())) {
+            return decorateListItem(uiElement, renderingContext);
+        } else if (UIElement.PANEL.equalsIgnoreCase(uiElement.getType())) {
+            return decoratePanel(uiElement, renderingContext);
+        } else if (UIElement.TEXT.equalsIgnoreCase(uiElement.getType())) {
+            return decorateText(uiElement, renderingContext);
         }
+        return null;
     }
 
     public static String decorateMeta(UIElement uiElement, RenderingContext renderingContext) {

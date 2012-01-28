@@ -53,7 +53,7 @@ public class NodeHelper {
      * Convenience methods for hooks with NODE type
      */
     public static Node triggerProvidesNodeListener(String withType, RootNode rootNode) {
-        return ProvidesHelper.triggerListener(Provides.TYPE_NODE, withType, rootNode);
+        return ProvidesHelper.triggerListener(Provides.NODE, withType, rootNode);
     }
 
     public static void triggerBeforeNodeLoaded(String withType, RootNode rootNode) {
