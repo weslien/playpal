@@ -2,8 +2,13 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+# Modules
+*       /                                       module:cmscore
+
 # Home page
 GET     /                                       origo.structuredcontenttest.StructuredContentMock.index
+GET     /{identifier}                           origo.structuredcontenttest.StructuredContentMock.page
+GET     /{identifier}/{<[0-9]+>version}         origo.structuredcontenttest.StructuredContentMock.pageVersion
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

@@ -5,3 +5,19 @@
 open('/')
 assertNotTitle('Application error')
 #{/selenium}
+
+#{selenium 'Verify Programatically Added Content'}
+// Open the home page, and check that there is a content element that is added with a meta
+open('/')
+verifyTextPresent('Boo crangle Miss Beasley')
+#{/selenium}
+
+#{selenium 'Verify Internal Server Error Page'}
+open('/fifth')
+verifyTitle('Internal Server Error (500)')
+#{/selenium}
+
+#{selenium 'Verity Page Not Found Page'}
+open('/non-existant')
+verifyTitle('Page Not Found (404)')
+#{/selenium}
