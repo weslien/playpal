@@ -175,6 +175,11 @@ origo.structuredcontent.Segment(page-second-segment-2):
     version:        1
     type:           models.origo.core.Content
     referenceId:    d52ce214-48c0-4049-b94f-da81b3218536 #content-main-2
+origo.structuredcontent.Segment(page-second-segment-3):
+    nodeId:         c9615819-0556-4e70-b6a9-a66c5b8d4c1a
+    version:        1
+    type:           origo.contactform.ContactForm
+    referenceId:    # Not used for now
 
 # Page 2 -> Meta
 origo.core.Meta(page-second-segment-1):
