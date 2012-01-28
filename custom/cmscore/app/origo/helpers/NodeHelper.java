@@ -57,11 +57,11 @@ public class NodeHelper {
     }
 
     public static void triggerBeforeNodeLoaded(String withType, RootNode rootNode) {
-        OnLoadHelper.triggerBeforeListener(OnLoad.TYPE_NODE, withType, rootNode);
+        OnLoadHelper.triggerBeforeListener(OnLoad.NODE, withType, rootNode);
     }
 
     public static void triggerAfterNodeLoaded(String withType, Node node) {
-        OnLoadHelper.triggerAfterListener(OnLoad.TYPE_NODE, withType, node);
+        OnLoadHelper.triggerAfterListener(OnLoad.NODE, withType, node);
     }
 
 }

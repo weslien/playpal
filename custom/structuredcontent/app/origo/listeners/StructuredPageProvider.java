@@ -24,7 +24,7 @@ public class StructuredPageProvider {
         return page;
     }
 
-    @OnLoad(type = OnLoad.TYPE_NODE, with = "models.origo.structuredcontent.StructuredPage")
+    @OnLoad(type = OnLoad.NODE, with = "models.origo.structuredcontent.StructuredPage")
     public static void loadContent(Node node) {
 
         List<Segment> segmentModels = Segment.findWithUuidSpecificVersion(node.getNodeId(), node.getVersion());

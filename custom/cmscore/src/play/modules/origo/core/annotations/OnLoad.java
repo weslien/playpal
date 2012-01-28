@@ -18,8 +18,8 @@ public @interface OnLoad {
 
     boolean after() default true;
 
-    public static final String TYPE_NODE = "node";
-    public static final String TYPE_FORM = "form";
-    public static final String TYPE_NAVIGATION = "navigation";
-    public static final String TYPE_NAVIGATION_ITEM = "navigation_item";
+    public static final String NODE = "node";
+    public static final String FORM = "form";
+    public static final String NAVIGATION = "navigation";
+    public static final String NAVIGATION_ITEM = "navigation_item";
 }

@@ -30,26 +30,26 @@ public class ThemeHelper {
                 if (UIElement.META.equalsIgnoreCase(uiElement.getType())) {
                     if (Node.HEAD.equalsIgnoreCase(region)) {
                         renderedNode.addMeta(decoratedContent);
-                        break;
                     } else {
                         throw new RuntimeException("META is not allowed outside of head");
                     }
                 } else if (UIElement.LINK.equalsIgnoreCase(uiElement.getType())) {
                     if (Node.HEAD.equalsIgnoreCase(region)) {
                         renderedNode.addLink(decoratedContent);
-                        break;
                     } else {
                         throw new RuntimeException("LINK is not allowed outside of head");
                     }
                 } else if (UIElement.SCRIPT.equalsIgnoreCase(uiElement.getType())) {
                     if (Node.HEAD.equalsIgnoreCase(region)) {
                         renderedNode.addScript(decoratedContent);
-                        break;
+                    } else {
+                        renderedNode.add(region, decoratedContent);
                     }
                 } else if (UIElement.STYLE.equalsIgnoreCase(uiElement.getType())) {
                     if (Node.HEAD.equalsIgnoreCase(region)) {
                         renderedNode.addStyle(decoratedContent);
-                        break;
+                    } else {
+                        renderedNode.add(region, decoratedContent);
                     }
                 } else {
                     renderedNode.add(region, decoratedContent);
