@@ -87,25 +87,10 @@ public class Themes {
     }
 
     /**
-     * Invalidates all themes and all theme variants that have been created with annotations in the class
-     * specified so that we can reload the themes and theme variants from the new class.
-     *
-     * @param cls the class that has been re-compiled
+     * Invalidates all themes and all theme variants so that we can reload the themes and theme variants from the classes.
      */
-    public static void invalidate(Class cls) {
-        for (Iterator<CachedTheme> themeIterator = themes.values().iterator(); themeIterator.hasNext(); ) {
-            CachedTheme theme = themeIterator.next();
-            if (theme.getDeclaringClass().getCanonicalName().equals(cls.getCanonicalName())) {
-                themeIterator.remove();
-                for (Iterator<play.modules.origo.core.CachedThemeVariant> themeVariantIterator = theme.getThemeVariants().values().iterator(); themeVariantIterator.hasNext(); ) {
-                    play.modules.origo.core.CachedThemeVariant themeVariant = themeVariantIterator.next();
-                    if (themeVariant.templateMethod.getDeclaringClass().getCanonicalName().equals(cls.getCanonicalName())) {
-                        themeVariantsToThemeMapping.remove(themeVariant.variantId);
-                        themeVariantIterator.remove();
-                    }
-                }
-            }
-        }
+    public static void invalidate() {
+        themes.clear();
     }
 
 }

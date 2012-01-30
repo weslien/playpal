@@ -1,4 +1,4 @@
-package controllers.origo.core;
+package controllers.origo.admin;
 
 import models.origo.core.Alias;
 import origo.helpers.NavigationHelper;
@@ -14,7 +14,7 @@ import play.mvc.results.Redirect;
 
 import java.util.Collection;
 
-public class CoreLoader {
+public class AdminLoader {
 
     public static RenderedNode getStartPage() {
         try {
@@ -125,11 +125,12 @@ public class CoreLoader {
 
     public static Collection<NavigationElement> getNavigation(String identifier, long version) {
         Node node = loadNode(identifier, version);
-        Collection<NavigationElement> navigationLinks = NavigationHelper.getNavigation(node, NavigationElement.FRONT);
+        Collection<NavigationElement> navigationLinks = NavigationHelper.getNavigation(node, NavigationElement.ADMIN);
         if (Logger.isDebugEnabled()) {
             Logger.debug("Navigation loaded " + navigationLinks);
         }
         return navigationLinks;
     }
+
 
 }

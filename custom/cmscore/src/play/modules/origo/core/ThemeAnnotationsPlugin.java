@@ -3,6 +3,8 @@ package play.modules.origo.core;
 import play.Play;
 import play.PlayPlugin;
 import play.classloading.ApplicationClasses;
+import play.modules.origo.core.annotations.Theme;
+import play.modules.origo.core.annotations.ThemeVariant;
 import play.utils.Java;
 
 import java.lang.reflect.Method;
@@ -24,21 +26,24 @@ public class ThemeAnnotationsPlugin extends PlayPlugin {
 
     @Override
     public List<ApplicationClasses.ApplicationClass> onClassesChange(List<ApplicationClasses.ApplicationClass> modifiedClasses) {
-        List<Class> modifiedJavaClasses = AnnotationPluginHelper.getJavaClasses(modifiedClasses);
+        //TODO: Should only have to look at modified classes but the invalidation isn't working so for now we reload all classes
+        List<Class> modifiedJavaClasses = AnnotationPluginHelper.getJavaClasses(Play.classes.all());
+        Themes.invalidate();
+
+        //List<Class> modifiedJavaClasses = AnnotationPluginHelper.getJavaClasses(modifiedClasses);
         findAndCacheAnnotation(modifiedJavaClasses);
         return modifiedClasses;
     }
 
     private void findAndCacheAnnotation(List<Class> modifiedClasses) {
         for (Class cls : modifiedClasses) {
-            if (cls.isAnnotationPresent(play.modules.origo.core.annotations.Theme.class)) {
-                Themes.invalidate(cls);
+            if (cls.isAnnotationPresent(Theme.class)) {
                 @SuppressWarnings("unchecked")
-                play.modules.origo.core.annotations.Theme theme = (play.modules.origo.core.annotations.Theme) cls.getAnnotation(play.modules.origo.core.annotations.Theme.class);
+                Theme theme = (Theme) cls.getAnnotation(Theme.class);
                 Themes.addTheme(theme.id(), cls);
-                List<Method> annotatedMethods = Java.findAllAnnotatedMethods(cls, play.modules.origo.core.annotations.ThemeVariant.class);
+                List<Method> annotatedMethods = Java.findAllAnnotatedMethods(cls, ThemeVariant.class);
                 for (Method m : annotatedMethods) {
-                    play.modules.origo.core.annotations.ThemeVariant themeVariant = m.getAnnotation(play.modules.origo.core.annotations.ThemeVariant.class);
+                    ThemeVariant themeVariant = m.getAnnotation(ThemeVariant.class);
                     // TODO: check that the return type of the method is a String (template)
                     // TODO: check that at least 1 content area is supplied
                     Themes.addThemeVariant(theme.id(), themeVariant.id(), m, themeVariant.regions());

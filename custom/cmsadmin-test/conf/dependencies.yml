@@ -7,16 +7,12 @@ require:
 #    - play -> cobertura [2,)
 
 ### Internal modules
-    - cmscore -> cmscore 0.1
-    - cmsadmin -> cmsadmin 0.1
+    - origo -> cmscore 0.1
+    - origo -> cmsadmin 0.1
 
 repositories:
     - localModules:
         type: local
         artifact: "${application.path}/../[module]/"
         contains:
-            - cmscore
-            - cmscore-test
-            - cmsadmin
-            - cmsadmin-test
-            - test-custom
+            - origo -> *

@@ -2,9 +2,9 @@
 
 require:
     - play [1.2,)
-    - cmscore -> cmscore 0.1
-    - structuredcontent -> structuredcontent 0.1
-    - contactform -> contactform 0.1
+    - origo -> cmscore 0.1
+    - origo -> structuredcontent 0.1
+    - origo -> contactform 0.1
 #    - play -> cobertura [2,)
 
 repositories:
@@ -12,6 +12,4 @@ repositories:
         type: local
         artifact: "${application.path}/../[module]/"
         contains:
-            - cmscore
-            - structuredcontent
-            - contactform
+            - origo -> *

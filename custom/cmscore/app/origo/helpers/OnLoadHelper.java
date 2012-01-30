@@ -76,7 +76,7 @@ public class OnLoadHelper {
     }
 
     private static List<CachedAnnotation> findListenerForType(final String onLoadType, final String withType, final boolean after) {
-        return Listeners.getListenersForAnnotationType(OnLoad.class, new Listeners.ListenerSelector() {
+        return Listeners.getListenersForAnnotationType(OnLoad.class, new CachedAnnotation.ListenerSelector() {
             @Override
             public boolean isCorrectListener(CachedAnnotation listener) {
                 OnLoad annotation = ((OnLoad) listener.annotation);

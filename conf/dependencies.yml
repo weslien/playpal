@@ -12,10 +12,10 @@ require:
 #    - play -> deadbolt [1.4,)
 
 ### Internal modules
-    - cmscore -> cmscore 0.1
-    - cmsadmin -> cmsadmin 0.1
-    - structuredcontent -> structuredcontent 0.1
-    - contactform -> contactform 0.1
+    - origo -> cmscore 0.1
+    - origo -> cmsadmin 0.1
+    - origo -> structuredcontent 0.1
+    - origo -> contactform 0.1
 
 ### Only needed when generating the IDEA project
 #    - cmscore-test -> cmscore-test 0.1
@@ -28,11 +28,4 @@ repositories:
         type: local
         artifact: "${application.path}/custom/[module]/"
         contains:
-            - cmscore
-            - cmscore-test
-            - cmsadmin
-            - cmsadmin-test
-            - contactform
-            - contactform-test
-            - structuredcontent
-            - structuredcontent-test
+            - origo -> *

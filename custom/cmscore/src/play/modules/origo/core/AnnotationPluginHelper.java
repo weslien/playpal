@@ -11,7 +11,6 @@ public class AnnotationPluginHelper {
         List<Class> returnValues = new ArrayList<Class>();
         for (ApplicationClasses.ApplicationClass cls : classes) {
             if (cls.javaClass != null && !cls.javaClass.isInterface() && !cls.javaClass.isAnnotation()) {
-                Listeners.invalidate(cls.javaClass);
                 returnValues.add(cls.javaClass);
             }
         }

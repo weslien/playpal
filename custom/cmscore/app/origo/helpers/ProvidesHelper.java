@@ -46,7 +46,7 @@ public class ProvidesHelper {
     }
 
     private static CachedAnnotation findListenerForType(final String type, final String withType) {
-        List<CachedAnnotation> listeners = Listeners.getListenersForAnnotationType(Provides.class, new Listeners.ListenerSelector() {
+        List<CachedAnnotation> listeners = Listeners.getListenersForAnnotationType(Provides.class, new CachedAnnotation.ListenerSelector() {
             @Override
             public boolean isCorrectListener(CachedAnnotation listener) {
                 Provides annotation = (Provides) listener.annotation;

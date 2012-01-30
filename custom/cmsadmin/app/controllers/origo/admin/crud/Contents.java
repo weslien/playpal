@@ -1,4 +1,4 @@
-package controllers.origo.admin;
+package controllers.origo.admin.crud;
 
 import controllers.CRUD;
 import models.origo.core.Content;
