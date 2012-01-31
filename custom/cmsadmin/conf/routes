@@ -7,9 +7,13 @@
 
 GET     /admin/public/                              staticDir:/custom/cmsadmin/public/
 
-*       /admin/crud                                 module:crud
+#*       /admin/crud                                 module:crud
 
-*       /admin                                      origo.admin.Dashboard.index
-*       /admin/                                     origo.admin.Dashboard.index
-*       /admin/dashboard                            origo.admin.Dashboard.index
+GET     /admin/                                     origo.admin.Application.index
+GET     /admin/{type}/{identifier}                  origo.admin.Application.page
+
+
+#*       /admin                                      origo.admin.Dashboard.index
+#*       /admin/                                     origo.admin.Dashboard.index
+#*       /admin/dashboard                            origo.admin.Dashboard.index
 

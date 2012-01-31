@@ -18,12 +18,12 @@ import java.util.Set;
  * @see origo.listeners.BasicPageProvider
  */
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(name = "pageVersion", columnNames = {"parentUuid", "parentVersion"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "pageVersion", columnNames = {"parentNodeId", "parentVersion"}))
 public class BasicPage extends Model implements Node {
 
     @Required
-    @Column(name = "parentUuid")
-    public String uuid;
+    @Column(name = "parentNodeId")
+    public String nodeId;
 
     // TODO: Should only have to be Integer but because of defect #521 in play that doesn't work. Should be fixed in 1.3 (2.0?)
     @Required
@@ -44,7 +44,7 @@ public class BasicPage extends Model implements Node {
 
     @Override
     public String getNodeId() {
-        return this.uuid;
+        return this.nodeId;
     }
 
     @Override
@@ -130,11 +130,15 @@ public class BasicPage extends Model implements Node {
 
     @Override
     public String toString() {
-        return new StringBuilder().append("Page (")
-                .append(uuid).append(",")
-                .append(version).append(") - ")
-                .append(title)
-                .toString();
+        return new StringBuilder().
+                append("BasicPage {").
+                append("nodeId='").append(nodeId).append("\', ").
+                append("version=").append(version).
+                append("rootNode=").append(rootNode).
+                append("title='").append(title).append("\', ").
+                append("leadReferenceId='").append(leadReferenceId).append("\', ").
+                append("bodyReferenceId='").append(bodyReferenceId).append("\', ").
+                append('}').toString();
     }
 
     public static List<BasicPage> findAllCurrentVersions(Date asOfDate) {
@@ -145,7 +149,7 @@ public class BasicPage extends Model implements Node {
                                 "select l.id from RootNode l " +
                                 "where l.version = (" +
                                 "select max(l2.version) from RootNode l2 " +
-                                "where l2.uuid = l.uuid and " +
+                                "where l2.nodeId = l.nodeId and " +
                                 "(l2.publish = null or l2.publish < :today) and " +
                                 "(l2.unPublish = null or l2.unPublish >= :today)" +
                                 ")" +
@@ -154,31 +158,31 @@ public class BasicPage extends Model implements Node {
                 fetch();
     }
 
-    public static BasicPage findCurrentVersion(String uuid, Date asOfDate) {
+    public static BasicPage findCurrentVersion(String nodeId, Date asOfDate) {
         return BasicPage.
                 find(
                         "select p from BasicPage p " +
-                                "where p.uuid = :uuid and p.id in (" +
+                                "where p.nodeId = :nodeId and p.id in (" +
                                 "select l.id from RootNode l " +
                                 "where l.version = (" +
                                 "select max(l2.version) from RootNode l2 " +
-                                "where l2.uuid = l.uuid and " +
+                                "where l2.nodeId = l.nodeId and " +
                                 "(l2.publish = null or l2.publish < :today) and " +
                                 "(l2.unPublish = null or l2.unPublish >= :today)" +
                                 ")" +
                                 ")").
-                bind("uuid", uuid).
+                bind("nodeId", nodeId).
                 bind("today", asOfDate).
                 first();
     }
 
-    public static BasicPage findWithUuidSpecificVersion(String uuid, Long version) {
+    public static BasicPage findWithNodeIdAndSpecificVersion(String nodeId, Long version) {
         return RootNode.
                 find(
                         "select distinct p from BasicPage p " +
-                                "where p.uuid = :uuid and " +
+                                "where p.nodeId = :nodeId and " +
                                 "p.version = :version").
-                bind("uuid", uuid).
+                bind("nodeId", nodeId).
                 bind("version", version).
                 first();
     }

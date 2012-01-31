@@ -15,9 +15,9 @@ public class StructuredPageProvider {
 
     @Provides(type = Provides.NODE, with = "models.origo.structuredcontent.StructuredPage")
     public static Node loadPage(RootNode rootNode) {
-        StructuredPage page = StructuredPage.findWithUuidSpecificVersion(rootNode.uuid, rootNode.version);
+        StructuredPage page = StructuredPage.findWithNodeIdAndSpecificVersion(rootNode.nodeId, rootNode.version);
         if (page == null) {
-            throw new PageNotFoundException(rootNode.uuid);
+            throw new PageNotFoundException(rootNode.nodeId);
         }
         page.rootNode = rootNode;
 
@@ -27,7 +27,7 @@ public class StructuredPageProvider {
     @OnLoad(type = OnLoad.NODE, with = "models.origo.structuredcontent.StructuredPage")
     public static void loadContent(Node node) {
 
-        List<Segment> segmentModels = Segment.findWithUuidSpecificVersion(node.getNodeId(), node.getVersion());
+        List<Segment> segmentModels = Segment.findWithNodeIdAndSpecificVersion(node.getNodeId(), node.getVersion());
         for (Segment segment : segmentModels) {
             SegmentHelper.triggerBeforeSegmentLoaded(segment.type, node, segment);
             UIElement element = SegmentHelper.triggerSegmentProvider(segment.type, node, segment);

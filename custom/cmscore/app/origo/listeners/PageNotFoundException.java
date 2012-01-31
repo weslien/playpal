@@ -2,10 +2,10 @@ package origo.listeners;
 
 public class PageNotFoundException extends RuntimeException {
 
-    public final String pageUuid;
+    public final String nodeId;
 
-    public PageNotFoundException(String pageUuid) {
-        this.pageUuid = pageUuid;
+    public PageNotFoundException(String nodeId) {
+        this.nodeId = nodeId;
     }
 
 }

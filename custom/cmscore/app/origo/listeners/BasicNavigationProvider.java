@@ -57,7 +57,7 @@ public class BasicNavigationProvider {
         AliasNavigation navigationModel = AliasNavigation.findWithIdentifier(navigation.getReferenceId());
         Alias alias = Alias.findWithPath(navigationModel.alias);
         if (alias != null) {
-            RootNode referencedRootNode = RootNode.findWithUuidLatestPublishedVersion(alias.pageId, new Date());
+            RootNode referencedRootNode = RootNode.findWithNodeIdLatestPublishedVersion(alias.pageId, new Date());
             if (referencedRootNode != null) {
                 Node referencedNode = ProvidesHelper.triggerListener(Provides.NODE, referencedRootNode.type, referencedRootNode);
                 boolean selected = referencedNode.getNodeId().equals(alias.pageId);
@@ -73,7 +73,7 @@ public class BasicNavigationProvider {
     @Provides(type = Provides.NAVIGATION_ITEM, with = "models.origo.core.navigation.PageIdNavigation")
     public static NavigationElement createPageIdNavigation(Node node, Navigation navigation) {
         PageIdNavigation navigationModel = PageIdNavigation.findWithIdentifier(navigation.getReferenceId());
-        RootNode referencedRootNode = RootNode.findWithUuidLatestPublishedVersion(navigationModel.pageId, new Date());
+        RootNode referencedRootNode = RootNode.findWithNodeIdLatestPublishedVersion(navigationModel.pageId, new Date());
         if (referencedRootNode != null) {
             Node referencedNode = ProvidesHelper.triggerListener(Provides.NODE, referencedRootNode.type, referencedRootNode);
             boolean selected = referencedRootNode.getNodeId().equals(referencedRootNode.getNodeId());

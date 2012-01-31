@@ -50,34 +50,34 @@ public class CoreLoader {
     }
 
     private static RenderedNode loadAndDecorateStartPage() {
-        String startPage = SettingsHelper.getStartPage();
+        String startPage = SettingsHelper.Core.getStartPage();
         Logger.debug("Loading Start Page [" + startPage + "]");
         return loadAndDecoratePage(startPage, 0);
     }
 
     public static Redirect redirectToPageNotFoundPage() {
         Logger.debug("Redirecting to Page-Not-Found Page");
-        String pageNotFoundPage = SettingsHelper.getPageNotFoundPage();
+        String pageNotFoundPage = SettingsHelper.Core.getPageNotFoundPage();
         Collection<Alias> aliases = Alias.findWithPageId(pageNotFoundPage);
         if (aliases.iterator().hasNext()) {
             Alias alias = aliases.iterator().next();
-            return new Redirect(SettingsHelper.getBaseUrl() + "" + alias.path, false);
+            return new Redirect(SettingsHelper.Core.getBaseUrl() + "" + alias.path, false);
         } else {
             // Defaulting to /page-not-found
-            return new Redirect(SettingsHelper.getBaseUrl() + "page-not-found", false);
+            return new Redirect(SettingsHelper.Core.getBaseUrl() + "page-not-found", false);
         }
     }
 
     public static Redirect redirectToInternalServerErrorPage() {
         Logger.debug("Redirecting to Page-Not-Found Page");
-        String internalServerErrorPage = SettingsHelper.getInternalServerErrorPage();
+        String internalServerErrorPage = SettingsHelper.Core.getInternalServerErrorPage();
         Collection<Alias> aliases = Alias.findWithPageId(internalServerErrorPage);
         if (aliases.iterator().hasNext()) {
             Alias alias = aliases.iterator().next();
-            return new Redirect(SettingsHelper.getBaseUrl() + "" + alias.path, false);
+            return new Redirect(SettingsHelper.Core.getBaseUrl() + "" + alias.path, false);
         } else {
             // Defaulting to /error
-            return new Redirect(SettingsHelper.getBaseUrl() + "error", false);
+            return new Redirect(SettingsHelper.Core.getBaseUrl() + "error", false);
         }
     }
 
@@ -91,14 +91,14 @@ public class CoreLoader {
         Alias alias = Alias.findWithPath(identifier);
         if (alias != null) {
             Logger.debug("Found alias: " + alias.toString());
-            return loadByUUIDAndVersion(alias.pageId, version);
+            return loadByNodeIdAndVersion(alias.pageId, version);
         } else {
-            Logger.debug("No Alias found trying [" + identifier + "] as uuid");
-            return loadByUUIDAndVersion(identifier, version);
+            Logger.debug("No Alias found trying [" + identifier + "] as nodeId");
+            return loadByNodeIdAndVersion(identifier, version);
         }
     }
 
-    private static Node loadByUUIDAndVersion(String identifier, long version) {
+    private static Node loadByNodeIdAndVersion(String identifier, long version) {
         Node node;
         if (version != 0) {
             node = NodeHelper.load(identifier, version);

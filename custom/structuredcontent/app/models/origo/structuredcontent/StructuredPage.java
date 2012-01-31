@@ -12,12 +12,12 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(name = "pageVersion", columnNames = {"parentUuid", "parentVersion"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "pageVersion", columnNames = {"parentNodeId", "parentVersion"}))
 public class StructuredPage extends Model implements Node {
 
     @Required
-    @Column(name = "parentUuid")
-    public String uuid;
+    @Column(name = "parentNodeId")
+    public String nodeId;
 
     // TODO: Should only have to be Integer but because of defect #521 in play that doesn't work. Should be fixed in 1.3 (2.0?)
     @Required
@@ -32,7 +32,7 @@ public class StructuredPage extends Model implements Node {
 
     @Override
     public String getNodeId() {
-        return this.uuid;
+        return this.nodeId;
     }
 
     @Override
@@ -104,7 +104,7 @@ public class StructuredPage extends Model implements Node {
     public String toString() {
         return new StringBuilder().
                 append("StructuredPage {").
-                append("uuid='").append(uuid).append("\', ").
+                append("nodeId='").append(nodeId).append("\', ").
                 append("version=").append(version).append(", ").
                 append("rootNode=").append(rootNode).append(", ").
                 append("title='").append(title).append("\'").
@@ -119,7 +119,7 @@ public class StructuredPage extends Model implements Node {
                                 "select l.id from RootNode l " +
                                 "where l.version = (" +
                                 "select max(l2.version) from RootNode l2 " +
-                                "where l2.uuid = l.uuid and " +
+                                "where l2.nodeId = l.nodeId and " +
                                 "(l2.publish = null or l2.publish < :today) and " +
                                 "(l2.unPublish = null or l2.unPublish >= :today)" +
                                 ")" +
@@ -128,31 +128,31 @@ public class StructuredPage extends Model implements Node {
                 fetch();
     }
 
-    public static StructuredPage findCurrentVersion(String uuid, Date asOfDate) {
+    public static StructuredPage findCurrentVersion(String nodeId, Date asOfDate) {
         return StructuredPage.
                 find(
                         "select p from StructuredPage p " +
-                                "where p.uuid = :uuid and p.id in (" +
+                                "where p.nodeId = :nodeId and p.id in (" +
                                 "select l.id from RootNode l " +
                                 "where l.version = (" +
                                 "select max(l2.version) from RootNode l2 " +
-                                "where l2.uuid = l.uuid and " +
+                                "where l2.nodeId = l.nodeId and " +
                                 "(l2.publish = null or l2.publish < :today) and " +
                                 "(l2.unPublish = null or l2.unPublish >= :today)" +
                                 ")" +
                                 ")").
-                bind("uuid", uuid).
+                bind("nodeId", nodeId).
                 bind("today", asOfDate).
                 first();
     }
 
-    public static StructuredPage findWithUuidSpecificVersion(String uuid, Long version) {
+    public static StructuredPage findWithNodeIdAndSpecificVersion(String nodeId, Long version) {
         return RootNode.
                 find(
                         "select distinct p from StructuredPage p " +
-                                "where p.uuid = :uuid and " +
+                                "where p.nodeId = :nodeId and " +
                                 "p.version = :version").
-                bind("uuid", uuid).
+                bind("nodeId", nodeId).
                 bind("version", version).
                 first();
     }

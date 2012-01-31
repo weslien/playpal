@@ -17,19 +17,11 @@ public class Application extends Controller {
         render(node.getTemplate(), node, navigation);
     }
 
-    public static void page(String identifier) {
+    public static void page(String identifier, String type) {
         //TODO: Check if config !exists and redirect to wizard
 
-        RenderedNode node = CoreLoader.getPage(identifier);
+        RenderedNode node = AdminLoader.getPage(identifier, type);
         Collection<NavigationElement> navigation = CoreLoader.getNavigation(identifier);
-        render(node.getTemplate(), node, navigation);
-    }
-
-    public static void pageVersion(String identifier, long version) {
-        //TODO: Check if config !exists and redirect to wizard
-
-        RenderedNode node = CoreLoader.getPage(identifier, version);
-        Collection<NavigationElement> navigation = CoreLoader.getNavigation(identifier, version);
         render(node.getTemplate(), node, navigation);
     }
 

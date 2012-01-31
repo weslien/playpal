@@ -22,7 +22,7 @@ public class Segment extends Model {
     @Required
     public String referenceId;
 
-    public static List<Segment> findWithUuidSpecificVersion(String nodeId, Long version) {
+    public static List<Segment> findWithNodeIdAndSpecificVersion(String nodeId, Long version) {
         return Segment.
                 find("select distinct s from Segment s where s.nodeId = :nodeId and s.version = :version").
                 bind("nodeId", nodeId).

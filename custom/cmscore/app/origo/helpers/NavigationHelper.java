@@ -14,7 +14,7 @@ import java.util.Map;
 public class NavigationHelper {
 
     public static Collection<NavigationElement> getNavigation(Node node, String section) {
-        String navigationType = SettingsHelper.getNavigationType();
+        String navigationType = SettingsHelper.Core.getNavigationType();
         return triggerProvidesNavigationListener(navigationType, node, section);
     }
 

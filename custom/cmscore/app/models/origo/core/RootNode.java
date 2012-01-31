@@ -10,11 +10,11 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(name = "nodeVersion", columnNames = {"uuid", "version"}))
+@Table(uniqueConstraints = @UniqueConstraint(name = "nodeVersion", columnNames = {"nodeId", "version"}))
 public final class RootNode extends Model implements Node {
 
     @Required
-    public String uuid;
+    public String nodeId;
 
     // TODO: Should only have to be Integer but because of defect #521 in play that doesn't work. Should be fixed in 1.3 (2.0?)
     @Required
@@ -34,12 +34,11 @@ public final class RootNode extends Model implements Node {
     private Map<String, List<UIElement>> uiElements = new HashMap<String, List<UIElement>>();
 
     public RootNode(Long version) {
-        this.uuid = UUID.randomUUID().toString();
-        this.version = version;
+        this(UUID.randomUUID().toString(), version);
     }
 
-    public RootNode(String uuid, Long version) {
-        this.uuid = uuid;
+    public RootNode(String nodeId, Long version) {
+        this.nodeId = nodeId;
         this.version = version;
     }
 
@@ -50,7 +49,7 @@ public final class RootNode extends Model implements Node {
 
     @Override
     public String getNodeId() {
-        return uuid;
+        return nodeId;
     }
 
     @Override
@@ -101,7 +100,7 @@ public final class RootNode extends Model implements Node {
 
     @Override
     public UIElement addUIElement(UIElement uiElement, boolean reorderElementsBelow) {
-        Meta meta = Meta.findWithUuidSpecificVersion(uuid, version, uiElement.id);
+        Meta meta = Meta.findWithNodeIdAndSpecificVersion(nodeId, version, uiElement.id);
         if (meta == null) {
             meta = Meta.defaultMeta();
         }
@@ -130,7 +129,7 @@ public final class RootNode extends Model implements Node {
 
     @Override
     public boolean removeUIElement(UIElement uiElement) {
-        Meta meta = Meta.findWithUuidSpecificVersion(uuid, version, uiElement.id);
+        Meta meta = Meta.findWithNodeIdAndSpecificVersion(nodeId, version, uiElement.id);
         if (meta == null) {
             meta = Meta.defaultMeta();
         }
@@ -151,7 +150,7 @@ public final class RootNode extends Model implements Node {
                 "select l from RootNode l " +
                         "where l.version = (" +
                         "select max(l2.version) from RootNode l2 " +
-                        "where l2.uuid = l.uuid and " +
+                        "where l2.nodeId = l.nodeId and " +
                         "(l2.publish = null or l2.publish < :today) and " +
                         "(l2.unPublish = null or l2.unPublish >= :today)" +
                         ")"
@@ -162,36 +161,36 @@ public final class RootNode extends Model implements Node {
         return leaves;
     }
 
-    public static RootNode findWithUuidSpecificVersion(String uuid, Long version) {
+    public static RootNode findWithNodeIdAndSpecificVersion(String nodeId, Long version) {
         RootNode node = RootNode.find(
                 "select distinct l from RootNode l " +
-                        "where l.uuid = :uuid and " +
+                        "where l.nodeId = :nodeId and " +
                         "l.version = :version"
-        ).bind("uuid", uuid).bind("version", version).first();
+        ).bind("nodeId", nodeId).bind("version", version).first();
         if (node != null) {
             initializeNode(node);
         }
         return node;
     }
 
-    public static RootNode findWithUuidLatestPublishedVersion(String uuid, Date today) {
+    public static RootNode findWithNodeIdLatestPublishedVersion(String nodeId, Date today) {
         RootNode node = RootNode.find(
                 "select distinct l from RootNode l " +
-                        "where l.uuid = :uuid and " +
+                        "where l.nodeId = :nodeId and " +
                         "(l.publish = null or l.publish < :today) and " +
                         "(l.unPublish = null OR l.unPublish >= :today)" +
                         "order by version desc"
-        ).bind("uuid", uuid).bind("today", today).first();
+        ).bind("nodeId", nodeId).bind("today", today).first();
         if (node != null) {
             initializeNode(node);
         }
         return node;
     }
 
-    public static List<RootNode> findWithUuidAllVersions(String uuid) {
+    public static List<RootNode> findWithNodeIdAllVersions(String nodeId) {
         List<RootNode> leaves = RootNode.find(
-                "select distinct l from RootNode l where l.uuid = :uuid"
-        ).bind("uuid", uuid).fetch();
+                "select distinct l from RootNode l where l.nodeId = :nodeId"
+        ).bind("nodeId", nodeId).fetch();
         for (RootNode node : leaves) {
             initializeNode(node);
         }
@@ -205,6 +204,6 @@ public final class RootNode extends Model implements Node {
 
     @Override
     public String toString() {
-        return "Node (" + uuid + "," + version + ")";
+        return "Node (" + nodeId + "," + version + ")";
     }
 }

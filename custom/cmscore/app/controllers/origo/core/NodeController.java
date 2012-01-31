@@ -18,27 +18,27 @@ public class NodeController extends Controller {
         render(leaves);
     }
 
-    //@Get("/node/{uuid}")
-    public static void node(@Required String uuid) {
+    //@Get("/node/{nodeId}")
+    public static void node(@Required String nodeId) {
 
         //Load NodeModel
-        RootNode node = RootNode.findWithUuidLatestPublishedVersion(uuid, new Date());
+        RootNode node = RootNode.findWithNodeIdLatestPublishedVersion(nodeId, new Date());
 
         render(node);
     }
 
-    //@Get("/node/{uuid}/all")
-    public static void nodeVersions(@Required String uuid) {
+    //@Get("/node/{nodeId}/all")
+    public static void nodeVersions(@Required String nodeId) {
 
-        List<RootNode> nodes = RootNode.findWithUuidAllVersions(uuid);
+        List<RootNode> nodes = RootNode.findWithNodeIdAllVersions(nodeId);
 
         render(nodes);
     }
 
-    //@Get("/node/{uuid}/{<[0-9]+>version}")
-    public static void nodeVersion(@Required String uuid, @Required Long version) {
+    //@Get("/node/{nodeId}/{<[0-9]+>version}")
+    public static void nodeVersion(@Required String nodeId, @Required Long version) {
 
-        RootNode node = RootNode.findWithUuidSpecificVersion(uuid, version);
+        RootNode node = RootNode.findWithNodeIdAndSpecificVersion(nodeId, version);
 
         render(node);
     }

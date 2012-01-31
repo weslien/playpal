@@ -11,27 +11,27 @@ import java.util.Date;
 
 public class NodeHelper {
 
-    public static Node load(String uuid) {
+    public static Node load(String nodeId) {
         //Load RootNode model
-        RootNode rootNode = RootNode.findWithUuidLatestPublishedVersion(uuid, new Date());
+        RootNode rootNode = RootNode.findWithNodeIdLatestPublishedVersion(nodeId, new Date());
         if (rootNode == null) {
-            throw new PageNotFoundException(uuid);
+            throw new PageNotFoundException(nodeId);
         }
 
         return load(rootNode);
     }
 
-    public static Node load(String uuid, long version) {
+    public static Node load(String nodeId, long version) {
         //Load RootNode model
-        RootNode rootNode = RootNode.findWithUuidSpecificVersion(uuid, version);
+        RootNode rootNode = RootNode.findWithNodeIdAndSpecificVersion(nodeId, version);
         if (rootNode == null) {
-            throw new PageNotFoundException(uuid);
+            throw new PageNotFoundException(nodeId);
         }
 
         return load(rootNode);
     }
 
-    private static Node load(RootNode rootNode) {
+    public static Node load(RootNode rootNode) {
         boolean hasType = !StringUtils.isBlank(rootNode.type) && !rootNode.type.equals(RootNode.class.getName());
         if (hasType) {
             triggerBeforeNodeLoaded(rootNode.type, rootNode);

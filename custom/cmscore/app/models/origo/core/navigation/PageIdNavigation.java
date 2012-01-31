@@ -24,13 +24,13 @@ public class PageIdNavigation extends Model {
     public String getLink() {
         Collection<Alias> aliases = Alias.findWithPageId(pageId);
         if (aliases == null || aliases.isEmpty()) {
-            if (SettingsHelper.getStartPage().equals(pageId)) {
-                return SettingsHelper.getBaseUrl();
+            if (SettingsHelper.Core.getStartPage().equals(pageId)) {
+                return SettingsHelper.Core.getBaseUrl();
             }
-            return SettingsHelper.getBaseUrl() + BasicPage.findCurrentVersion(pageId, new Date()).getNodeId();
+            return SettingsHelper.Core.getBaseUrl() + BasicPage.findCurrentVersion(pageId, new Date()).getNodeId();
         } else {
             Alias alias = aliases.iterator().next();
-            return SettingsHelper.getBaseUrl() + alias.path;
+            return SettingsHelper.Core.getBaseUrl() + alias.path;
         }
     }
 

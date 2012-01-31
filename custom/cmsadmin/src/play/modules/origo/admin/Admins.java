@@ -2,68 +2,53 @@ package play.modules.origo.admin;
 
 import org.apache.commons.lang.StringUtils;
 import play.modules.origo.admin.annotations.Admin;
-import play.modules.origo.core.CachedAnnotation;
+import play.modules.origo.core.annotations.Provides;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class Admins {
 
     public static Set<String> pages = new HashSet<String>();
-    public static Map<String, CachedAnnotation> aliases = new HashMap<String, CachedAnnotation>();
-    public static Map<Class<? extends Annotation>, List<CachedAnnotation>> listeners = new HashMap<Class<? extends Annotation>, List<CachedAnnotation>>();
-
-    public static void addListener(Annotation annotation, Method method) {
-        if (!listeners.containsKey(annotation.annotationType())) {
-            listeners.put(annotation.annotationType(), new CopyOnWriteArrayList<CachedAnnotation>());
-        }
-        List<CachedAnnotation> annotationTypes = listeners.get(annotation.annotationType());
-        annotationTypes.add(new CachedAnnotation(annotation, method));
-    }
-
-    public static List<CachedAnnotation> getListenersForAnnotationType(Class<? extends Annotation> annotationType) {
-        return getListenersForAnnotationType(annotationType, null);
-    }
-
-    public static List<CachedAnnotation> getListenersForAnnotationType(Class<? extends Annotation> annotationType, CachedAnnotation.ListenerSelector listenerSelector) {
-        if (listeners.containsKey(annotationType)) {
-            List<CachedAnnotation> listenerList = listeners.get(annotationType);
-            if (listenerSelector == null) {
-                return listenerList;
-            }
-            List<CachedAnnotation> matchingListeners = new ArrayList<CachedAnnotation>();
-            for (CachedAnnotation listener : listenerList) {
-                if (listenerSelector.isCorrectListener(listener)) {
-                    matchingListeners.add(listener);
-                }
-            }
-            return matchingListeners;
-        } else {
-            return Collections.emptyList();
-        }
-    }
+    public static Map<String, String> aliases = new HashMap<String, String>();
 
     public static void invalidate() {
-        listeners.clear();
         pages.clear();
         aliases.clear();
     }
 
-    public static void addPage(Admin.Page annotation, Method m) {
-        if (StringUtils.isBlank(annotation.name())) {
+    public static void addPage(Method m) {
+        Admin.Page pageAnnotation = m.getAnnotation(Admin.Page.class);
+        if (StringUtils.isBlank(pageAnnotation.name())) {
             throw new RuntimeException("Admin.Page can not have an empty name attribute");
         }
-        if (pages.contains(StringUtils.trim(annotation.name()))) {
+        String pageName = getSafeString(pageAnnotation.name());
+        if (pages.contains(pageName)) {
             throw new RuntimeException("Admin.Page must have a unique name attribute");
         }
-        pages.add(annotation.name());
-        if (StringUtils.isBlank(annotation.alias())) {
-            aliases.put(annotation.name(), new CachedAnnotation(annotation, m));
-        } else {
-            aliases.put(annotation.alias(), new CachedAnnotation(annotation, m));
+
+        Provides providesAnnotation = m.getAnnotation(Provides.class);
+        if (providesAnnotation == null) {
+            throw new RuntimeException("Methods annotated with Admin.Page must also be annotated with a @Provides annotation");
         }
+
+        pages.add(pageName);
+        if (StringUtils.isBlank(pageAnnotation.alias())) {
+            aliases.put(pageAnnotation.name(), pageName);
+        } else {
+            aliases.put(pageAnnotation.alias(), pageName);
+        }
+    }
+
+    public static String getSafeString(String name) {
+        if (name != null) {
+            String trimmedValue = StringUtils.trim(name);
+            return trimmedValue.replaceAll("/", "_");
+        }
+        return "";
     }
 
 }

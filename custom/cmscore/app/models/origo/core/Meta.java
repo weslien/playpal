@@ -25,7 +25,7 @@ public class Meta extends Model {
     @Required
     public String region;
 
-    public static Meta findWithUuidSpecificVersion(String nodeId, Long version, String referenceId) {
+    public static Meta findWithNodeIdAndSpecificVersion(String nodeId, Long version, String referenceId) {
         return Meta.
                 find("select distinct m from Meta m where m.nodeId = :nodeId and m.version = :version and m.referenceId = :referenceId").
                 bind("nodeId", nodeId).

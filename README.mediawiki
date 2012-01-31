@@ -23,16 +23,16 @@ Start your application.<br/>
 
 ==== Patterns ====
 Leaves are available undecorated with the following pattern:<br/>
-<code>http://localhost:9000/node/{uuid}</code>
+<code>http://localhost:9000/node/{nodeId}</code>
 
 Accessing a specific version of a node would be the following pattern:<br/>
-<code>http://localhost:9000/node/{uuid}/{version}</code>
+<code>http://localhost:9000/node/{nodeId}/{version}</code>
 
 Fully decorated pages are available with the following pattern:<br/>
-<code>http://localhost:9000/{uuid}</code>
+<code>http://localhost:9000/{nodeId}</code>
 
 And similarly you can access a specific version by the following pattern:<br/>
-<code>http://localhost:9000/{uuid}/{version}</code>
+<code>http://localhost:9000/{nodeId}/{version}</code>
 
 ==== Examples ====
 A couple of examples from the default data is:<br/>

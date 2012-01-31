@@ -6,9 +6,9 @@
 # ~~~~
 
 #Node routing
-GET     /node/{uuid}/{<[0-9]+>version}      origo.core.NodeController.nodeVersion
-GET     /node/{uuid}/all                    origo.core.NodeController.nodeVersions
-GET     /node/{uuid}                        origo.core.NodeController.node
+GET     /node/{nodeId}/{<[0-9]+>version}      origo.core.NodeController.nodeVersion
+GET     /node/{nodeId}/all                    origo.core.NodeController.nodeVersions
+GET     /node/{nodeId}                        origo.core.NodeController.node
 GET     /node                               origo.core.NodeController.nodeList
 
 #the public dir for this module

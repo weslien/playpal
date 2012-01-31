@@ -15,9 +15,9 @@ public class BasicPageProvider {
     @Provides(type = "node", with = "models.origo.core.BasicPage")
     public static BasicPage loadPage(RootNode rootNode) {
 
-        BasicPage page = BasicPage.findWithUuidSpecificVersion(rootNode.uuid, rootNode.version);
+        BasicPage page = BasicPage.findWithNodeIdAndSpecificVersion(rootNode.nodeId, rootNode.version);
         if (page == null) {
-            throw new PageNotFoundException(rootNode.uuid);
+            throw new PageNotFoundException(rootNode.nodeId);
         }
         page.rootNode = rootNode;
 

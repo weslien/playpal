@@ -22,10 +22,10 @@ public class AliasNavigation extends Model {
 
     public String getLink() {
         Alias aliasModel = Alias.findWithPath(alias);
-        if (aliasModel != null && SettingsHelper.getStartPage().equals(aliasModel.pageId)) {
-            return SettingsHelper.getBaseUrl();
+        if (aliasModel != null && SettingsHelper.Core.getStartPage().equals(aliasModel.pageId)) {
+            return SettingsHelper.Core.getBaseUrl();
         }
-        return SettingsHelper.getBaseUrl() + alias;
+        return SettingsHelper.Core.getBaseUrl() + alias;
     }
 
     public static AliasNavigation findWithIdentifier(String identifier) {

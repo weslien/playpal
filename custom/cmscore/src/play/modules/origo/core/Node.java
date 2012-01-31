@@ -20,7 +20,7 @@ public interface Node {
     static final String HEAD = "head";
 
     /**
-     * The uuid of the node
+     * The node id (uuid for now) of the node
      *
      * @return a unique key for this node
      */
