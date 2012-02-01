@@ -4,6 +4,6 @@
 <h3>Node ${nodes[0].nodeId}</h3>
 
 #{list items:nodes, as:'node'}
-Version ${node.version} <a href="@{models.origo.core.Core.nodeVersion(node.nodeId, node.version)}">${node.title}</a>
+Version ${node.version} <a href="@{origo.core.Core.nodeVersion(node.nodeId, node.version)}">${node.title}</a>
 <br/>
 #{/list}

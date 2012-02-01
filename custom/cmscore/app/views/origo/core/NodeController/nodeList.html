@@ -4,5 +4,5 @@
 <h3>All nodes</h3>
 
 #{list items:nodes, as:'node'}
-<a href="@{models.origo.core.NodeController.node(node.nodeId)}">${node.title} - ${node.nodeId}</a><br/>
+<a href="@{origo.core.NodeController.node(node.nodeId)}">${node.title} - ${node.nodeId}</a><br/>
 #{/list}
