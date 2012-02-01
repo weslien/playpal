@@ -1,6 +1,6 @@
 package origo.helpers;
 
-import controllers.origo.core.fragments.FragmentLoader;
+import origo.fragments.FragmentLoader;
 import play.modules.origo.core.ui.RenderingContext;
 import play.modules.origo.core.ui.UIElement;
 

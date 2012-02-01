@@ -1,4 +1,4 @@
-package controllers.origo.core.themes;
+package origo.themes;
 
 import play.modules.origo.core.annotations.Theme;
 import play.modules.origo.core.annotations.ThemeVariant;

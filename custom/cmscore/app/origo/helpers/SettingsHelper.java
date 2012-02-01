@@ -37,20 +37,8 @@ public class SettingsHelper {
 
     public static class Admin {
 
-        public static String getBaseUrl() {
-            return Settings.load().getValue(SettingsKeys.Admin.BASE_URL);
-        }
-
         public static String getStartPage() {
             return Settings.load().getValue(SettingsKeys.Admin.START_PAGE);
-        }
-
-        public static String getPageNotFoundPage() {
-            return Settings.load().getValue(SettingsKeys.Admin.PAGE_NOT_FOUND_PAGE);
-        }
-
-        public static String getInternalServerErrorPage() {
-            return Settings.load().getValue(SettingsKeys.Admin.INTERNAL_SERVER_ERROR_PAGE);
         }
 
         public static String getThemeVariant() {
@@ -61,6 +49,9 @@ public class SettingsHelper {
             return SettingsHelper.getNavigationType(SettingsKeys.Admin.NAVIGATION_TYPE);
         }
 
+        public static String getDashboardType() {
+            return Settings.load().getValue(SettingsKeys.Admin.DASHBOARD_TYPE);
+        }
     }
 
     private static String getNavigationType(String settingName) {

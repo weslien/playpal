@@ -69,7 +69,7 @@ public class CoreLoader {
     }
 
     public static Redirect redirectToInternalServerErrorPage() {
-        Logger.debug("Redirecting to Page-Not-Found Page");
+        Logger.debug("Redirecting to Internal Error Page");
         String internalServerErrorPage = SettingsHelper.Core.getInternalServerErrorPage();
         Collection<Alias> aliases = Alias.findWithPageId(internalServerErrorPage);
         if (aliases.iterator().hasNext()) {

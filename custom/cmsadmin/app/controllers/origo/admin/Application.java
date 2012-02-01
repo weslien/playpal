@@ -1,6 +1,7 @@
 package controllers.origo.admin;
 
-import controllers.origo.core.CoreLoader;
+import origo.listeners.PageNotFoundException;
+import play.Logger;
 import play.modules.origo.core.ui.NavigationElement;
 import play.modules.origo.core.ui.RenderedNode;
 import play.mvc.Controller;
@@ -9,20 +10,36 @@ import java.util.Collection;
 
 public class Application extends Controller {
 
-    public static void index() {
+    public static void dashboard() {
         //TODO: Check if config !exists and redirect to wizard
 
-        RenderedNode node = AdminLoader.getStartPage();
-        Collection<NavigationElement> navigation = CoreLoader.getNavigation(node.getId());
-        render(node.getTemplate(), node, navigation);
+        try {
+            RenderedNode node = AdminLoader.getStartPage();
+            Collection<NavigationElement> navigation = AdminLoader.getNavigation(node.getId());
+            render(node.getTemplate(), node, navigation);
+        } catch (PageNotFoundException e) {
+            Logger.error("Page Not Found [dashboard]" + e.getLocalizedMessage(), e);
+            notFound();
+        } catch (Exception e) {
+            Logger.error("Error: " + e.getMessage(), e);
+            error(e);
+        }
     }
 
     public static void page(String identifier, String type) {
         //TODO: Check if config !exists and redirect to wizard
 
-        RenderedNode node = AdminLoader.getPage(identifier, type);
-        Collection<NavigationElement> navigation = CoreLoader.getNavigation(identifier);
-        render(node.getTemplate(), node, navigation);
+        try {
+            RenderedNode node = AdminLoader.getPage(identifier, type);
+            Collection<NavigationElement> navigation = AdminLoader.getNavigation(identifier);
+            render(node.getTemplate(), node, navigation);
+        } catch (PageNotFoundException e) {
+            Logger.error("Page Not Found [" + identifier + "]" + e.getLocalizedMessage(), e);
+            notFound();
+        } catch (Exception e) {
+            Logger.error("Error: " + e.getMessage(), e);
+            error(e);
+        }
     }
 
 }

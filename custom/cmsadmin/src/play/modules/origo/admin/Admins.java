@@ -51,4 +51,14 @@ public class Admins {
         return "";
     }
 
+    public static String getAliasForPageName(String page) {
+        for (String alias : aliases.keySet()) {
+            String aliasPage = aliases.get(alias);
+            if (aliasPage.equals(page)) {
+                return alias;
+            }
+        }
+        return null;
+    }
+
 }

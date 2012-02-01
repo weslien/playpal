@@ -6,6 +6,7 @@ open('/admin')
 assertNotTitle('CmsAdminApplicationTest error')
 #{/selenium}
 
+*{
 #{selenium 'Admin/Pages available'}
 // Open the home page, and check that no error occured
 open('/admin/crud/pages')
@@ -29,4 +30,4 @@ assertElementPresent('//div[@id=\'crudListTable\']')
 open('/admin/crud/contents')
 assertElementPresent('//div[@id=\'crudListTable\']')
 #{/selenium}
-
+}*

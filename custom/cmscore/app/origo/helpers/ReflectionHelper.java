@@ -1,6 +1,8 @@
 package origo.helpers;
 
 import play.Logger;
+import play.modules.origo.core.CachedThemeVariant;
+import play.modules.origo.core.annotations.CachedDecorator;
 import play.utils.Java;
 
 import java.lang.reflect.InvocationTargetException;
@@ -94,11 +96,11 @@ public class ReflectionHelper {
         return null;
     }
 
-    public static String invokeDecorator(play.modules.origo.core.annotations.CachedDecorator decorator, Map<Class, Object> parameters) {
+    public static String invokeDecorator(CachedDecorator decorator, Map<Class, Object> parameters) {
         return (String) invokeMethod(decorator.method, parameters);
     }
 
-    public static String getTemplate(play.modules.origo.core.CachedThemeVariant themeVariant) {
+    public static String getTemplate(CachedThemeVariant themeVariant) {
         try {
             return (String) invokeMethod(themeVariant.templateMethod, null);
         } catch (Exception e) {

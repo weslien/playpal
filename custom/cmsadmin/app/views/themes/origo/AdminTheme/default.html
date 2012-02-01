@@ -1,26 +1,20 @@
-#{extends 'themes/origo/DefaultTheme/theme.html' /}
+#{extends 'themes/origo/AdminTheme/theme.html' /}
 #{set title:node.title /}
-
 #{set 'moreStyles'}
 <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main_and_left_columns.css'}"/>
 #{/set}
-
-<div class="layout-main-and-left">
+<div class="main-layout">
     <div class="head">
         <h3>${node.title}</h3>
     </div>
 
 #{origo.core.navigation links:navigation, as:'full'/}
 
-    <div class="left-column">
-        <div class="content">
-        #{verbatim}${node.get('left')}#{/verbatim}
-        </div>
-    </div>
-
     <div class="main-column">
         <div class="content">
         #{verbatim}${node.get('main')}#{/verbatim}
         </div>
     </div>
+
 </div>
+

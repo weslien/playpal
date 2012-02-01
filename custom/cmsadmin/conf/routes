@@ -9,11 +9,10 @@ GET     /admin/public/                              staticDir:/custom/cmsadmin/p
 
 #*       /admin/crud                                 module:crud
 
-GET     /admin/                                     origo.admin.Application.index
+GET     /admin/                                     origo.admin.Application.dashboard
 GET     /admin/{type}/{identifier}                  origo.admin.Application.page
 
 
 #*       /admin                                      origo.admin.Dashboard.index
 #*       /admin/                                     origo.admin.Dashboard.index
 #*       /admin/dashboard                            origo.admin.Dashboard.index
-

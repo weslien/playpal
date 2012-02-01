@@ -1,4 +1,4 @@
-package controllers.origo.core.fragments;
+package origo.fragments;
 
 import play.Play;
 import play.data.validation.Validation;

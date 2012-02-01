@@ -1,10 +1,12 @@
 package models.origo.admin;
 
-import origo.helpers.UIElementHelper;
+import models.origo.core.RootNode;
 import play.modules.origo.core.Node;
 import play.modules.origo.core.ui.UIElement;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 public class AdminPage implements Node {
 
@@ -14,9 +16,7 @@ public class AdminPage implements Node {
 
     public String title;
 
-    public String themeVariant;
-
-    private Map<String, List<UIElement>> uiElements = new HashMap<String, List<UIElement>>();
+    public RootNode rootNode;
 
     public AdminPage(String nodeId) {
         this.nodeId = nodeId;
@@ -53,73 +53,48 @@ public class AdminPage implements Node {
 
     @Override
     public String getThemeVariant() {
-        return themeVariant;
-    }
-
-    public void setThemeVariant(String themeVariant) {
-        this.themeVariant = themeVariant;
+        return rootNode.getThemeVariant();
     }
 
     @Override
     public Set<String> getRegions() {
-        return this.uiElements.keySet();
+        return rootNode.getRegions();
     }
 
     /* Interface methods */
     @Override
     public List<UIElement> getUIElements(String region) {
-        return this.uiElements.get(region.toLowerCase());
+        return rootNode.getUIElements(region);
     }
 
     @Override
     public UIElement addHeadUIElement(UIElement uiElement) {
-        return addHeadUIElement(uiElement, false);
+        return rootNode.addHeadUIElement(uiElement);
     }
 
     @Override
     public UIElement addUIElement(UIElement uiElement) {
-        return addUIElement(uiElement, false);
+        return rootNode.addUIElement(uiElement);
     }
 
     @Override
     public UIElement addHeadUIElement(UIElement uiElement, boolean reorderElementsBelow) {
-        return addUIElement(uiElement, reorderElementsBelow, HEAD, 0);
+        return rootNode.addUIElement(uiElement, reorderElementsBelow);
     }
 
     @Override
     public UIElement addUIElement(UIElement uiElement, boolean reorderElementsBelow) {
-        return addUIElement(uiElement, reorderElementsBelow, CONTENT, uiElement.getWeight());
-    }
-
-    private UIElement addUIElement(UIElement uiElement, boolean reorderElementsBelow, String regionKey, int weight) {
-        if (!uiElements.containsKey(regionKey)) {
-            uiElements.put(regionKey, new ArrayList<UIElement>());
-        }
-        uiElement.setWeight(weight);
-        uiElements.get(regionKey).add(uiElement);
-        if (reorderElementsBelow) {
-            UIElementHelper.repositionUIElements(uiElements.get(regionKey), uiElement);
-        }
-        UIElementHelper.reorderUIElements(uiElements.get(regionKey));
-        return uiElement;
+        return rootNode.addUIElement(uiElement, reorderElementsBelow);
     }
 
     @Override
     public boolean removeHeadUIElement(UIElement uiElement) {
-        return removeUIElement(uiElement, HEAD);
+        return rootNode.removeHeadUIElement(uiElement);
     }
 
     @Override
     public boolean removeUIElement(UIElement uiElement) {
-        return removeUIElement(uiElement, CONTENT);
-    }
-
-    private boolean removeUIElement(UIElement uiElement, String regionKey) {
-        if (uiElements.get(regionKey).remove(uiElement)) {
-            UIElementHelper.reorderUIElements(uiElements.get(regionKey));
-            return true;
-        }
-        return false;
+        return rootNode.removeUIElement(uiElement);
     }
 
     @Override
@@ -127,8 +102,7 @@ public class AdminPage implements Node {
         return new StringBuilder().append("AdminPage {").
                 append("nodeId='").append(nodeId).append("\', ").
                 append("title='").append(title).append("\', ").
-                append("themeVariant='").append(themeVariant).append("\', ").
-                append("uiElements=").append(uiElements).append('}').
+                append("themeVariant='").append(getThemeVariant()).append("\', ").
                 toString();
     }
 }

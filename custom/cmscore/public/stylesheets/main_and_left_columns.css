@@ -1,63 +1,64 @@
-html, body{
+html, body {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 0.9em;
-    color:#2E2E2E;
+    color: #2E2E2E;
 }
 
 /* wrapper div */
-.main-and-left-layout{
-    width:900px;
+.layout-main-and-left {
+    width: 900px;
     margin-left: auto;
-    margin-right:auto;
+    margin-right: auto;
 }
 
-.head{
+.head {
 
     background-color: #2E2E2E;
-    color:#FFEF00;
+    color: #FFEF00;
     height: 150px;
 }
 
-.head > h3{
-    position:relative;
-    top:50px;
-    left:70px;
+.head > h3 {
+    position: relative;
+    top: 50px;
+    left: 70px;
     font-size: 2em;
 }
 
-h1{
+h1 {
     font-size: 1.3em;
     margin-bottom: 0.4em;
 }
-h2{
+
+h2 {
     font-size: 1.4em;
     margin-bottom: 0.3em;
 }
-h3{
+
+h3 {
     font-size: 1.3em;
     margin-bottom: 0.2em;
 }
 
-.left-column{
+.left-column {
 
     width: 30%;
     float: left;
     clear: left;
     background: #99BF38;
 
-
-
 }
 
-.main-column{
-    width: 70%; float: right;
+.main-column {
+    width: 70%;
+    float: right;
     background: #404F48;
     color: #fff;
 
 }
 
-.left-column .content, .main-column .content{
-    margin-top:10px;
+.left-column .content, .main-column .content {
+    margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 5px;
     margin-right: 5px;

@@ -4,18 +4,23 @@
 <div class="head">
     <h3>${node.title}</h3>
 </div>
+
 #{origo.core.mainNavigation links:navigation/}
 #{origo.core.mainNavigation links:navigation, as:'second'/}
 #{origo.core.mainNavigation links:navigation, as:'third'/}
 
-<div style="width: 25%; float: left; clear: none;">
-#{verbatim}${node.get('left')}#{/verbatim}
-</div>
+<div class="layout-three-columns">
 
-<div style="width: 50%; float: right">
-#{verbatim}${node.get('main')}#{/verbatim}
-</div>
+    <div style="width: 25%; float: left; clear: none;">
+    #{verbatim}${node.get('left')}#{/verbatim}
+    </div>
 
-<div style="width: 25%; float: right; clear: none;">
-#{verbatim}${node.get('right')}#{/verbatim}
+    <div style="width: 50%; float: right">
+    #{verbatim}${node.get('main')}#{/verbatim}
+    </div>
+
+    <div style="width: 25%; float: right; clear: none;">
+    #{verbatim}${node.get('right')}#{/verbatim}
+    </div>
+
 </div>
