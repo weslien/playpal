@@ -8,7 +8,9 @@ public class NavigationElement {
 
     // Plugins can define their own sections, for example an Intranet module could define a private navigation section
     public final static String FRONT = "front";
-    public final static String ADMIN = "admin";
+    public final static String INTRANET = "intranet";
+    public final static String EXTRANET = "extranet";
+    public final static String ADMIN = "TO BE REMOVED"; // TODO: TO BE REMOVED since we can't store this in the db
 
     public String section;
     public String title;

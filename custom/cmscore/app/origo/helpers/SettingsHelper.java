@@ -37,6 +37,10 @@ public class SettingsHelper {
 
     public static class Admin {
 
+        public static String getBaseUrl() {
+            return Settings.load().getValue(SettingsKeys.Admin.BASE_URL);
+        }
+
         public static String getStartPage() {
             return Settings.load().getValue(SettingsKeys.Admin.START_PAGE);
         }

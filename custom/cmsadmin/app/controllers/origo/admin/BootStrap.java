@@ -3,6 +3,7 @@ package controllers.origo.admin;
 import models.origo.core.Settings;
 import models.origo.core.SettingsKeys;
 import org.apache.commons.lang.StringUtils;
+import origo.helpers.SettingsHelper;
 import origo.listeners.DashboardAdminProvider;
 import origo.themes.AdminTheme;
 import play.jobs.Job;
@@ -13,6 +14,7 @@ public class BootStrap extends Job {
 
     public void doJob() {
         Settings settings = Settings.load();
+        setValueIfMissing(settings, SettingsKeys.Admin.BASE_URL, SettingsHelper.Core.getBaseUrl() + "/admin/");
         setValueIfMissing(settings, SettingsKeys.Admin.DASHBOARD_TYPE, DashboardAdminProvider.TYPE);
         setValueIfMissing(settings, SettingsKeys.Admin.START_PAGE, DashboardAdminProvider.START_PAGE);
         setValueIfMissing(settings, SettingsKeys.Admin.THEME_VARIANT, AdminTheme.DEFAULT_VARIANT_NAME);

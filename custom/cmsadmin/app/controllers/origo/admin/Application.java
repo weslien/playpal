@@ -26,15 +26,15 @@ public class Application extends Controller {
         }
     }
 
-    public static void page(String identifier, String type) {
+    public static void page(String type) {
         //TODO: Check if config !exists and redirect to wizard
 
         try {
-            RenderedNode node = AdminLoader.getPage(identifier, type);
-            Collection<NavigationElement> navigation = AdminLoader.getNavigation(identifier);
+            RenderedNode node = AdminLoader.getPage(type);
+            Collection<NavigationElement> navigation = AdminLoader.getNavigation(type);
             render(node.getTemplate(), node, navigation);
         } catch (PageNotFoundException e) {
-            Logger.error("Page Not Found [" + identifier + "]" + e.getLocalizedMessage(), e);
+            Logger.error("Page Not Found [" + type + "]" + e.getLocalizedMessage(), e);
             notFound();
         } catch (Exception e) {
             Logger.error("Error: " + e.getMessage(), e);

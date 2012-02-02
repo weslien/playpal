@@ -5,8 +5,6 @@ import play.modules.origo.core.Node;
 import play.modules.origo.core.annotations.Provides;
 import play.modules.origo.core.ui.UIElement;
 
-import java.util.Collections;
-
 public class ContactFormProvider {
 
     @Provides(type = SegmentProvider.TYPE_SEGMENT, with = "origo.contactform.ContactForm")
@@ -15,7 +13,7 @@ public class ContactFormProvider {
         // TODO: Statically linked to page 2 - Page Not Found - for now
         if (node.getNodeId().equals("c9615819-0556-4e70-b6a9-a66c5b8d4c1a")) {
 
-            UIElement formElement = new UIElement("contactform", UIElement.FORM, Collections.singletonMap("class", "origo-contactform, form"));
+            UIElement formElement = new UIElement("contactform", UIElement.FORM).addAttribute("class", "origo-contactform, form");
 
             UIElement namePanelElement = new UIElement(UIElement.PANEL, 10).addAttribute("class", "field");
             namePanelElement.addChild(new UIElement(UIElement.LABEL, 10, "Name").addAttribute("for", "origo-contactform-name"));

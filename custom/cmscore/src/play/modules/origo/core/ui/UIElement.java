@@ -36,6 +36,7 @@ public class UIElement {
 
     public static final String PANEL = "panel";
     public static final String TEXT = "text";
+    public static final String ANCHOR = "anchor";
 
 
     public String id;
@@ -51,65 +52,33 @@ public class UIElement {
     private String body;
 
     public UIElement(String type) {
-        this("", type, new WeakHashMap<String, String>(), 0, null);
+        this("", type, 0, null);
     }
 
     public UIElement(String type, int weight) {
-        this("", type, new WeakHashMap<String, String>(), weight, null);
+        this("", type, weight, null);
     }
 
     public UIElement(String type, int weight, String body) {
-        this("", type, new WeakHashMap<String, String>(), weight, body);
+        this("", type, weight, body);
     }
 
     public UIElement(String id, String type) {
-        this(id, type, new WeakHashMap<String, String>(), 0, null);
+        this(id, type, 0, null);
     }
 
     public UIElement(String id, String type, int weight) {
-        this(id, type, new WeakHashMap<String, String>(), weight, null);
+        this(id, type, weight, null);
     }
 
     public UIElement(String id, String type, String body) {
-        this(id, type, new WeakHashMap<String, String>(), 0, body);
+        this(id, type, 0, body);
     }
 
     public UIElement(String id, String type, int weight, String body) {
-        this(id, type, new WeakHashMap<String, String>(), weight, body);
-    }
-
-    public UIElement(String type, Map<String, String> attributes) {
-        this("", type, attributes, 0, null);
-    }
-
-    public UIElement(String id, String type, Map<String, String> attributes) {
-        this(id, type, attributes, 0, null);
-    }
-
-    public UIElement(String type, Map<String, String> attributes, int weight) {
-        this("", type, attributes, weight, null);
-    }
-
-    public UIElement(String id, String type, Map<String, String> attributes, int weight) {
-        this(id, type, attributes, weight, null);
-    }
-
-    public UIElement(String type, Map<String, String> attributes, String body) {
-        this("", type, attributes, 0, body);
-    }
-
-    public UIElement(String id, String type, Map<String, String> attributes, String body) {
-        this(id, type, attributes, 0, body);
-    }
-
-    public UIElement(String type, Map<String, String> attributes, int weight, String body) {
-        this("", type, attributes, weight, body);
-    }
-
-    public UIElement(String id, String type, Map<String, String> attributes, int weight, String body) {
         this.id = id;
         this.type = type;
-        this.attributes = attributes;
+        this.attributes = new WeakHashMap<String, String>();
         this.weight = weight;
         this.body = body;
     }
@@ -184,7 +153,8 @@ public class UIElement {
         return body;
     }
 
-    public void setBody(String body) {
+    public UIElement setBody(String body) {
         this.body = body;
+        return this;
     }
 }

@@ -176,6 +176,21 @@ public class BasicPage extends Model implements Node {
                 first();
     }
 
+    public static BasicPage findLatestVersion(String nodeId) {
+        return BasicPage.
+                find(
+                        "select p from BasicPage p " +
+                                "where p.nodeId = :nodeId and p.id in (" +
+                                "select l.id from RootNode l " +
+                                "where l.version = (" +
+                                "select max(l2.version) from RootNode l2 " +
+                                "where l2.nodeId = l.nodeId" +
+                                ")" +
+                                ")").
+                bind("nodeId", nodeId).
+                first();
+    }
+
     public static BasicPage findWithNodeIdAndSpecificVersion(String nodeId, Long version) {
         return RootNode.
                 find(
@@ -187,5 +202,18 @@ public class BasicPage extends Model implements Node {
                 first();
     }
 
+    public static List<BasicPage> findAllLatestVersions() {
+        return BasicPage.
+                find(
+                        "select p from BasicPage p " +
+                                "where p.id in (" +
+                                "select l.id from RootNode l " +
+                                "where l.version = (" +
+                                "select max(l2.version) from RootNode l2 " +
+                                "where l2.nodeId = l.nodeId" +
+                                ")" +
+                                ")").
+                fetch();
+    }
 }
 

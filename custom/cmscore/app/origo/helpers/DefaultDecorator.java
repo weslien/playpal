@@ -55,12 +55,15 @@ public class DefaultDecorator {
             return decorateListNumbered(uiElement, renderingContext);
         } else if (UIElement.LIST_ITEM.equalsIgnoreCase(uiElement.getType())) {
             return decorateListItem(uiElement, renderingContext);
+        } else if (UIElement.ANCHOR.equalsIgnoreCase(uiElement.getType())) {
+            return decorateAnchor(uiElement, renderingContext);
         } else if (UIElement.PANEL.equalsIgnoreCase(uiElement.getType())) {
             return decoratePanel(uiElement, renderingContext);
         } else if (UIElement.TEXT.equalsIgnoreCase(uiElement.getType())) {
             return decorateText(uiElement, renderingContext);
+        } else {
+            return decorateUnknownType(uiElement, renderingContext);
         }
-        return null;
     }
 
     public static String decorateMeta(UIElement uiElement, RenderingContext renderingContext) {
@@ -95,12 +98,11 @@ public class DefaultDecorator {
     }
 
     public static String decorateListItem(UIElement uiElement, RenderingContext renderingContext) {
+        String body = uiElement.getBody();
         if (uiElement.hasChildren()) {
-            String body = ThemeHelper.decorateChildren(uiElement, renderingContext);
-            return loadFragment(getFragmentPrefix(), "li", uiElement, body);
-        } else {
-            return loadFragment(getFragmentPrefix(), "li", uiElement, uiElement.getBody());
+            body = ThemeHelper.decorateChildren(uiElement, renderingContext);
         }
+        return loadFragment(getFragmentPrefix(), "li", uiElement, body);
     }
 
     public static String decorateInputText(UIElement uiElement, RenderingContext renderingContext) {
@@ -116,12 +118,11 @@ public class DefaultDecorator {
     }
 
     public static String decorateInputTextArea(UIElement uiElement, RenderingContext renderingContext) {
+        String body = uiElement.getBody();
         if (uiElement.hasChildren()) {
-            String body = ThemeHelper.decorateChildren(uiElement, renderingContext);
-            return loadFragment(getFragmentPrefix(), "textarea", uiElement, body);
-        } else {
-            return loadFragment(getFragmentPrefix(), "textarea", uiElement, uiElement.getBody());
+            body = ThemeHelper.decorateChildren(uiElement, renderingContext);
         }
+        return loadFragment(getFragmentPrefix(), "textarea", uiElement, body);
     }
 
     public static String decorateInputRadioButton(UIElement uiElement, RenderingContext renderingContext) {
@@ -134,12 +135,11 @@ public class DefaultDecorator {
     }
 
     private static String decorateInputSelectOption(UIElement uiElement, RenderingContext renderingContext) {
+        String body = uiElement.getBody();
         if (uiElement.hasChildren()) {
-            String body = ThemeHelper.decorateChildren(uiElement, renderingContext);
-            return loadFragment(getFragmentPrefix(), "select_option", uiElement, body);
-        } else {
-            return loadFragment(getFragmentPrefix(), "select_option", uiElement, uiElement.getBody());
+            body = ThemeHelper.decorateChildren(uiElement, renderingContext);
         }
+        return loadFragment(getFragmentPrefix(), "select_option", uiElement, body);
     }
 
     public static String decorateInputButton(UIElement uiElement, RenderingContext renderingContext) {
@@ -173,6 +173,22 @@ public class DefaultDecorator {
 
     public static String decorateText(UIElement uiElement, RenderingContext renderingContext) {
         return loadFragment(getFragmentPrefix(), "text", uiElement, uiElement.getBody(), Collections.<String, String>emptyMap());
+    }
+
+    public static String decorateAnchor(UIElement uiElement, RenderingContext renderingContext) {
+        String body = uiElement.getBody();
+        if (uiElement.hasChildren()) {
+            body = ThemeHelper.decorateChildren(uiElement, renderingContext);
+        }
+        return loadFragment(getFragmentPrefix(), "anchor", uiElement, body);
+    }
+
+    public static String decorateUnknownType(UIElement uiElement, RenderingContext renderingContext) {
+        String body = uiElement.getBody();
+        if (uiElement.hasChildren()) {
+            body = ThemeHelper.decorateChildren(uiElement, renderingContext);
+        }
+        return loadFragment(getFragmentPrefix(), uiElement.getType(), uiElement, body, Collections.<String, String>emptyMap());
     }
 
     protected static String loadFragment(String prefix, String tagName, UIElement uiElement, String body) {
