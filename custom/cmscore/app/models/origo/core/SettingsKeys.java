@@ -18,9 +18,6 @@ public class SettingsKeys {
     }
 
     public static interface Admin {
-        public static final String BASE_URL = "admin_base_url";
-        public static final String START_PAGE = "admin_start_page";
-
         public static final String THEME_VARIANT = "admin_theme_variant";
         public static final String NAVIGATION_TYPE = "admin_navigation_type";
         public static final String DASHBOARD_TYPE = "admin_dashboard_type";

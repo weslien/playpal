@@ -206,12 +206,9 @@ public class BasicPage extends Model implements Node {
         return BasicPage.
                 find(
                         "select p from BasicPage p " +
-                                "where p.id in (" +
-                                "select l.id from RootNode l " +
-                                "where l.version = (" +
-                                "select max(l2.version) from RootNode l2 " +
-                                "where l2.nodeId = l.nodeId" +
-                                ")" +
+                                "where p.version = (" +
+                                "select max(l.version) from RootNode l " +
+                                "where p.nodeId = l.nodeId" +
                                 ")").
                 fetch();
     }

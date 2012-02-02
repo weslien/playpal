@@ -26,7 +26,7 @@ public class Application extends Controller {
         }
     }
 
-    public static void page(String type) {
+    public static void pageWithType(String type) {
         //TODO: Check if config !exists and redirect to wizard
 
         try {
@@ -35,6 +35,22 @@ public class Application extends Controller {
             render(node.getTemplate(), node, navigation);
         } catch (PageNotFoundException e) {
             Logger.error("Page Not Found [" + type + "]" + e.getLocalizedMessage(), e);
+            notFound();
+        } catch (Exception e) {
+            Logger.error("Error: " + e.getMessage(), e);
+            error(e);
+        }
+    }
+
+    public static void pageWithTypeAndIdentifier(String type, String identifier) {
+        //TODO: Check if config !exists and redirect to wizard
+
+        try {
+            RenderedNode node = AdminLoader.getPage(type, identifier);
+            Collection<NavigationElement> navigation = AdminLoader.getNavigation(type);
+            render(node.getTemplate(), node, navigation);
+        } catch (PageNotFoundException e) {
+            Logger.error("Page Not Found [" + type + "] and identifier [" + identifier + "]" + e.getLocalizedMessage(), e);
             notFound();
         } catch (Exception e) {
             Logger.error("Error: " + e.getMessage(), e);

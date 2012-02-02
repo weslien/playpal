@@ -16,9 +16,7 @@ public class DashboardAdminProvider {
 
     public static final String TYPE = "origo.admin.dashboard";
 
-    public static final String START_PAGE = "dashboard";
-
-    @Admin.Page(name = START_PAGE)
+    //@Admin.Page(name = START_PAGE)
     @Provides(type = Provides.NODE, with = TYPE)
     public static Node createPage(RootNode rootNode) {
         AdminPage page = new AdminPage(rootNode.nodeId);

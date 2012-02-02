@@ -13,18 +13,18 @@ public class AdminHelper {
     public static String getURLForAdminAction(String type) {
         Map<String, Object> args = new HashMap<String, Object>();
         args.put("type", type);
-        return getURLForAdminAction(args);
+        Router.ActionDefinition actionDefinition = Router.reverse("origo.admin.Application.pageWithType", args);
+        if (actionDefinition != null) {
+            return actionDefinition.url;
+        }
+        return null;
     }
 
     public static String getURLForAdminAction(String type, String identifier) {
         Map<String, Object> args = new HashMap<String, Object>();
         args.put("type", type);
         args.put("identifier", identifier);
-        return getURLForAdminAction(args);
-    }
-
-    private static String getURLForAdminAction(Map<String, Object> args) {
-        Router.ActionDefinition actionDefinition = Router.reverse("origo.admin.Application.page", args);
+        Router.ActionDefinition actionDefinition = Router.reverse("origo.admin.Application.pageWithTypeAndIdentifier", args);
         if (actionDefinition != null) {
             return actionDefinition.url;
         }

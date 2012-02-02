@@ -15,16 +15,22 @@ import java.util.List;
 public class BasicPageAdminProvider {
 
     private static final String PAGE_TYPE_PREFIX = "origo.admin.basicpage";
+    private static final String LIST_TYPE = PAGE_TYPE_PREFIX + ".list";
+    private static final String EDIT_TYPE = PAGE_TYPE_PREFIX + ".edit";
+    private static final String DASHBOARD_TYPE = PAGE_TYPE_PREFIX + ".dashboard";
 
-    @Provides(type = Provides.NODE, with = PAGE_TYPE_PREFIX + ".edit")
-    public static Node createEditPage(RootNode rootNode) {
-        AdminPage page = new AdminPage(rootNode.nodeId);
-        page.setTitle("Edit Basic Page");
-        page.rootNode = rootNode;
-        return page;
+    @Provides(type = Admin.DASHBOARD, with = DASHBOARD_TYPE)
+    public static UIElement createDashboardItem() {
+
+        String url = AdminHelper.getURLForAdminAction(PAGE_TYPE_PREFIX + ".list");
+
+        UIElement linkElement = new UIElement(UIElement.ANCHOR, 10, "List").addAttribute("href", url).addAttribute("class", "dashboard item link");
+        UIElement dashboardElement = new UIElement(Admin.DASHBOARD, 10, "Pages").addChild(linkElement);
+
+        return dashboardElement;
     }
 
-    @Provides(type = Provides.NODE, with = PAGE_TYPE_PREFIX + ".list")
+    @Provides(type = Provides.NODE, with = LIST_TYPE)
     public static Node createListPage(RootNode rootNode) {
         AdminPage page = new AdminPage(rootNode.nodeId);
         page.setTitle("List Basic Pages");
@@ -33,25 +39,33 @@ public class BasicPageAdminProvider {
     }
 
     //@Admin.Page(name = "list")
-    @OnLoad(type = Provides.NODE, with = PAGE_TYPE_PREFIX + ".list")
+    @OnLoad(type = Provides.NODE, with = LIST_TYPE)
     public static void createListPage(Node node) {
-        List<BasicPage> basicPages = BasicPage.findAll();
+        List<BasicPage> basicPages = BasicPage.findAllLatestVersions();
 
         UIElement panelElement = new UIElement(UIElement.PANEL, 10).addAttribute("class", "panel pages");
         for (BasicPage page : basicPages) {
-            String editURL = AdminHelper.getURLForAdminAction(PAGE_TYPE_PREFIX + ".edit", page.getNodeId());
+            String editURL = AdminHelper.getURLForAdminAction(EDIT_TYPE, page.getNodeId());
             UIElement element = new UIElement(UIElement.ANCHOR, 10, page.getTitle()).addAttribute("href", editURL);
             panelElement.addChild(element);
         }
         node.addUIElement(panelElement);
     }
 
+    @Provides(type = Provides.NODE, with = EDIT_TYPE)
+    public static Node createEditPage(RootNode rootNode) {
+        AdminPage page = new AdminPage(rootNode.nodeId);
+        page.setTitle("Edit Basic Page");
+        page.rootNode = rootNode;
+        return page;
+    }
+
     //@Admin.Page(name = "edit")
-    @OnLoad(type = Provides.NODE, with = PAGE_TYPE_PREFIX)
-    public static void createEditPage(Node node, String identifier) {
-        BasicPage basicPage = BasicPage.findLatestVersion(identifier);
+    @OnLoad(type = Provides.NODE, with = EDIT_TYPE)
+    public static void createEditPage(Node node) {
+        BasicPage basicPage = BasicPage.findLatestVersion(node.getNodeId());
         if (basicPage == null) {
-            node.addUIElement(new UIElement(UIElement.TEXT, 10, "Page '" + identifier + "' does not exist."));
+            node.addUIElement(new UIElement(UIElement.TEXT, 10, "Page '" + node.getNodeId() + "' does not exist."));
             return;
         }
 
@@ -63,17 +77,6 @@ public class BasicPageAdminProvider {
         formElement.addChild(namePanelElement);
 
         node.addUIElement(formElement);
-    }
-
-    @Provides(type = Admin.DASHBOARD, with = "origo.admin.basicpage.dashboard")
-    public static UIElement createDashboardItem() {
-
-        String url = AdminHelper.getURLForAdminAction(PAGE_TYPE_PREFIX + ".list");
-
-        UIElement linkElement = new UIElement(UIElement.ANCHOR, 10, "List").addAttribute("href", url).addAttribute("class", "dashboard item link");
-        UIElement dashboardElement = new UIElement(Admin.DASHBOARD, 10, "Pages").addChild(linkElement);
-
-        return dashboardElement;
     }
 
 }

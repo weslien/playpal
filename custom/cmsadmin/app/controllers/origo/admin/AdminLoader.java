@@ -22,6 +22,10 @@ public class AdminLoader {
         return loadAndDecoratePage(withType);
     }
 
+    public static RenderedNode getPage(String withType, String identifier) {
+        return loadAndDecoratePage(withType, identifier);
+    }
+
     private static RenderedNode loadAndDecorateStartPage() {
         return loadAndDecoratePage(SettingsHelper.Admin.getDashboardType());
     }
@@ -31,9 +35,19 @@ public class AdminLoader {
         return decorateNode(node);
     }
 
+    private static RenderedNode loadAndDecoratePage(String withType, String identifier) {
+        Node node = loadNode(withType, identifier);
+        return decorateNode(node);
+    }
+
     private static Node loadNode(String withType) {
         Logger.debug("Loading [" + withType + "] as type");
         return loadByType(withType);
+    }
+
+    private static Node loadNode(String withType, String identifier) {
+        Logger.debug("Loading [" + withType + "] as type and identifier [" + identifier + "]");
+        return loadByType(withType, identifier);
     }
 
     private static Node loadByType(final String withType) {
@@ -41,10 +55,21 @@ public class AdminLoader {
         return NodeHelper.load(rootNode);
     }
 
+    private static Node loadByType(String withType, String identifier) {
+        RootNode rootNode = loadRootNode(withType, identifier);
+        return NodeHelper.load(rootNode);
+    }
+
     private static RootNode loadRootNode(String withType) {
         RootNode rootNode = new RootNode(0L);
         rootNode.type = withType;
         rootNode.themeVariant = SettingsHelper.Admin.getThemeVariant();
+        return rootNode;
+    }
+
+    private static RootNode loadRootNode(String withType, String identifier) {
+        RootNode rootNode = loadRootNode(withType);
+        rootNode.nodeId = identifier;
         return rootNode;
     }
 

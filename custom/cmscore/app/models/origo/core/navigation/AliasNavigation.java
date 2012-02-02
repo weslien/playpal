@@ -7,7 +7,6 @@ import play.data.validation.Unique;
 import play.db.jpa.Model;
 
 import javax.persistence.Entity;
-import java.util.Collection;
 
 @Entity
 public class AliasNavigation extends Model {
@@ -29,7 +28,6 @@ public class AliasNavigation extends Model {
     }
 
     public static AliasNavigation findWithIdentifier(String identifier) {
-        Collection<AliasNavigation> aliases = AliasNavigation.findAll();
         return AliasNavigation.find("select distinct n from AliasNavigation n where identifier=:identifier").
                 bind("identifier", identifier).
                 first();
