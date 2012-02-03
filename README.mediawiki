@@ -63,11 +63,16 @@ There is also a 404 page set in settings, it will be shown any time a page is no
 : or
 :: [http://localhost:9000/c9615819-0556-4e70-b6a9-a66c5b8d4c1a]<br/>
 
+Similarly there is a 500 page set in settings, it will be shown any time a page not able to render:<br/>
+:: [http://localhost:9000/error] - This is an alias, explained below.
+: or
+:: [http://localhost:9000/1cf699a7-a0c4-4be0-855f-466042a36a8d]<br/>
+
 ==== Aliases ====
 There are also aliases, they can have any path, for example:<br/>
 :: Page 3 [http://localhost:9000/third]<br/>
 :: Page 4 [http://localhost:9000/fourth]<br/>
-:: Page 5 [http://localhost:9000/fifth]<br/>
+:: Page 6 [http://localhost:9000/sixth]<br/>
 
 === How to edit ===
 Just access the <i>very</i> basic admin application by going to [http://localhost:9000/admin/]

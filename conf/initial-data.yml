@@ -218,36 +218,36 @@ origo.core.Meta(page-second-segment-3):
 ### Page 3 ###
 # Page 3 -> Node
 origo.core.RootNode(node-third-1):
-    nodeId:           1cf699a7-a0c4-4be0-855f-466042a36a8d
+    nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        1
     type:           models.origo.structuredcontent.StructuredPage
 
 origo.core.RootNode(node-third-2):
-    nodeId:           1cf699a7-a0c4-4be0-855f-466042a36a8d
+    nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        2
     publish:        2011-01-01 00:00:00
     unpublish:      2012-01-01 00:00:00
     type:           models.origo.structuredcontent.StructuredPage
 
 origo.core.RootNode(node-third-3):
-    nodeId:           1cf699a7-a0c4-4be0-855f-466042a36a8d
+    nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        3
     publish:        2012-01-01 00:00:00
     type:           models.origo.structuredcontent.StructuredPage
 
 # Page 3 -> Page
 origo.structuredcontent.StructuredPage(page-third-1):
-    nodeId:           1cf699a7-a0c4-4be0-855f-466042a36a8d
+    nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        1
     title:          Internal Server Error (500)
 
 origo.structuredcontent.StructuredPage(page-third-2):
-    nodeId:           1cf699a7-a0c4-4be0-855f-466042a36a8d
+    nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        2
     title:          Internal Server Error (500)
 
 origo.structuredcontent.StructuredPage(page-third-3):
-    nodeId:           1cf699a7-a0c4-4be0-855f-466042a36a8d
+    nodeId:         1cf699a7-a0c4-4be0-855f-466042a36a8d
     version:        3
     title:          Internal Server Error (500)
 
