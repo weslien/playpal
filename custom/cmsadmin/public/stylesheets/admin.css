@@ -49,20 +49,34 @@ body {
     -moz-border-radius: 16px;
 }
 
-#title h1 {
+h1 {
     font-size: 64px;
     margin: 0;
 }
 
-#title h1 a {
+h1 a {
     text-decoration: none;
     color: inherit;
 }
 
-#title h2 {
+h2 {
     font-size: 26px;
     margin: 0;
-    font-weight: normal;
+}
+
+h2 a {
+    text-decoration: none;
+    color: inherit;
+}
+
+h3 {
+    font-size: 18px;
+    margin: 0;
+}
+
+h3 a {
+    text-decoration: none;
+    color: inherit;
 }
 
 #main {
@@ -112,7 +126,7 @@ form label {
     margin-bottom: 3px;
 }
 
-#captcha{
+#captcha {
     display: block;
     height: 50px;
 }
@@ -270,7 +284,6 @@ tr.odd {
     color: #161D28 !important;
     font-size: 110% !important;
 }
-
 
 #remember-field {
     display: none;

@@ -120,8 +120,9 @@ public class UIElement {
         return this.weight;
     }
 
-    public void setWeight(int weight) {
+    public UIElement setWeight(int weight) {
         this.weight = weight;
+        return this;
     }
 
     public boolean hasChildren() {

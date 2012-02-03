@@ -21,5 +21,6 @@ public class SettingsKeys {
         public static final String THEME_VARIANT = "admin_theme_variant";
         public static final String NAVIGATION_TYPE = "admin_navigation_type";
         public static final String DASHBOARD_TYPE = "admin_dashboard_type";
+        public static final String RICHTEXT_EDITOR_TYPE = "admin_editor_type";
     }
 }

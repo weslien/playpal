@@ -48,6 +48,11 @@ public class SettingsHelper {
         public static String getDashboardType() {
             return Settings.load().getValue(SettingsKeys.Admin.DASHBOARD_TYPE);
         }
+
+        public static String getEditorType() {
+            return Settings.load().getValue(SettingsKeys.Admin.RICHTEXT_EDITOR_TYPE);
+        }
+
     }
 
     private static String getNavigationType(String settingName) {

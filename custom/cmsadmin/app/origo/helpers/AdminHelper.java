@@ -1,6 +1,6 @@
 package origo.helpers;
 
-import play.modules.origo.admin.annotations.Admin;
+import models.origo.core.Content;
 import play.modules.origo.core.Node;
 import play.modules.origo.core.ui.UIElement;
 import play.mvc.Router;
@@ -31,19 +31,18 @@ public class AdminHelper {
         return null;
     }
 
-    /*
-    * Convenience methods for hooks with DASHBOARD_ITEM type
-    */
-    public static UIElement triggerProvidesDashboardItemListener(String withType, Node node) {
-        return ProvidesHelper.triggerListener(Admin.DASHBOARD, withType, node);
+    public static UIElement createRichTextEditor(Node node, Content content) {
+        String editorType = SettingsHelper.Admin.getEditorType();
+        EditorHelper.triggerBeforeRichTextEditorLoaded(editorType, node, content);
+        UIElement richTextEditor = EditorHelper.triggerProvidesRichTextEditorListener(editorType, node, content);
+        EditorHelper.triggerAfterRichTextEditorLoaded(editorType, node, richTextEditor, content);
+        return richTextEditor;
     }
 
-    public static void triggerBeforeDashboardItemLoaded(String withType, Node node) {
-        OnLoadHelper.triggerBeforeListener(Admin.DASHBOARD, withType, node);
+    public static UIElement createDashboardItem(String dashboardItemName, Node node) {
+        DashboardHelper.triggerBeforeDashboardItemLoaded(dashboardItemName, node);
+        UIElement uiElement = DashboardHelper.triggerProvidesDashboardItemListener(dashboardItemName, node);
+        DashboardHelper.triggerAfterDashboardItemLoaded(dashboardItemName, node);
+        return uiElement;
     }
-
-    public static void triggerAfterDashboardItemLoaded(String withType, Node node) {
-        OnLoadHelper.triggerAfterListener(Admin.DASHBOARD, withType, node);
-    }
-
 }

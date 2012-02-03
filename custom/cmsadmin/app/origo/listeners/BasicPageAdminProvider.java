@@ -2,6 +2,7 @@ package origo.listeners;
 
 import models.origo.admin.AdminPage;
 import models.origo.core.BasicPage;
+import models.origo.core.Content;
 import models.origo.core.RootNode;
 import origo.helpers.AdminHelper;
 import play.modules.origo.admin.annotations.Admin;
@@ -69,12 +70,31 @@ public class BasicPageAdminProvider {
             return;
         }
 
+        Content bodyContent = Content.findWithIdentifier(basicPage.getBodyReferenceId());
+        Content leadContent = Content.findWithIdentifier(basicPage.getLeadReferenceId());
+
         UIElement formElement = new UIElement("basicpageform", UIElement.FORM).addAttribute("class", "origo-basicpageform, form");
 
-        UIElement namePanelElement = new UIElement(UIElement.PANEL, 10).addAttribute("class", "field");
-        namePanelElement.addChild(new UIElement(UIElement.LABEL, 10, "Title").addAttribute("for", "origo-basicpageform-title"));
-        namePanelElement.addChild(new UIElement(UIElement.INPUT_TEXT, 20).addAttribute("name", "origo-basicpageform-title")).addAttribute("value", basicPage.getTitle());
-        formElement.addChild(namePanelElement);
+        UIElement titleElement = new UIElement(UIElement.PANEL, 10).addAttribute("class", "field");
+        titleElement.addChild(new UIElement(UIElement.LABEL, 10, "Title").addAttribute("for", "origo-basicpageform-title"));
+        titleElement.addChild(new UIElement(UIElement.INPUT_TEXT, 20).addAttribute("name", "origo-basicpageform-title").addAttribute("value", basicPage.getTitle()));
+        formElement.addChild(titleElement);
+
+        UIElement leadElement = new UIElement(UIElement.PANEL, 20).addAttribute("class", "field");
+        leadElement.addChild(new UIElement(UIElement.LABEL, 10, "Lead").addAttribute("for", "origo-basicpageform-lead"));
+        leadElement.addChild(AdminHelper.createRichTextEditor(node, leadContent).setWeight(20).addAttribute("class", "editor richtext").
+                addAttribute("name", "origo-basicpageform-lead").addAttribute("cols", "80").addAttribute("rows", "10"));
+        formElement.addChild(leadElement);
+
+        UIElement bodyElement = new UIElement(UIElement.PANEL, 30).addAttribute("class", "field");
+        bodyElement.addChild(new UIElement(UIElement.LABEL, 10, "Body").addAttribute("for", "origo-basicpageform-body"));
+        bodyElement.addChild(AdminHelper.createRichTextEditor(node, bodyContent).setWeight(20).addAttribute("class", "editor richtext").
+                addAttribute("name", "origo-basicpageform-body").addAttribute("cols", "80").addAttribute("rows", "20"));
+        formElement.addChild(bodyElement);
+
+        UIElement actionPanel = new UIElement(UIElement.PANEL, 40).addAttribute("class", "field");
+        actionPanel.addChild(new UIElement(UIElement.INPUT_BUTTON, 10, "Save").addAttribute("type", "submit"));
+        formElement.addChild(actionPanel);
 
         node.addUIElement(formElement);
     }

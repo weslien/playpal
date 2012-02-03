@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 public class Admin {
 
     public static final String DASHBOARD = "dashboard_item";
+    public static final String RICHTEXT_EDITOR = "richtext_editor";
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.METHOD})

@@ -95,7 +95,7 @@ public final class RootNode extends Model implements Node {
 
     @Override
     public UIElement addHeadUIElement(UIElement uiElement, boolean reorderElementsBelow) {
-        return addUIElement(uiElement, reorderElementsBelow, HEAD, 0);
+        return addUIElement(uiElement, reorderElementsBelow, HEAD, uiElement.getWeight());
     }
 
     @Override
