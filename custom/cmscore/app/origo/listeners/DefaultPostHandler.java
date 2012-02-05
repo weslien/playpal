@@ -1,18 +1,16 @@
-package controllers.origo.core;
+package origo.listeners;
 
 import models.origo.core.RootNode;
 import origo.helpers.NodeHelper;
 import origo.helpers.OnPostHelper;
 import play.modules.origo.core.Node;
-import play.mvc.Controller;
+import play.modules.origo.core.annotations.PostHandler;
 import play.mvc.Scope;
 
-public class BasicPostController extends Controller {
+public class DefaultPostHandler {
 
-    public static void submit() {
-
-        String nodeId = params.get("_core_node_id");
-
+    @PostHandler
+    public void handlePost(String nodeId, String formType, Scope.Params params) {
         RootNode rootNode = RootNode.findWithNodeIdAndLatestVersion(nodeId);
         if (rootNode == null) {
             throw new RuntimeException("Root node + " + nodeId + " does not exist");
@@ -20,7 +18,7 @@ public class BasicPostController extends Controller {
 
         Node node = NodeHelper.triggerProvidesNodeListener(rootNode.type, rootNode);
 
-        OnPostHelper.triggerListener(rootNode.type, node, Scope.Params.class, params);
+        OnPostHelper.triggerListener(formType, node, Scope.Params.class, params);
     }
 
 }

@@ -37,6 +37,10 @@ public class SettingsHelper {
             return Settings.load().getValue(SettingsKeys.Core.DEFAULT_FORM_TYPE);
         }
 
+        public static String getPostHandler() {
+            return Settings.load().getValue(SettingsKeys.Core.POST_HANDLER);
+        }
+
     }
 
     public static class Admin {

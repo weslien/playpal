@@ -1,5 +1,6 @@
 package origo.helpers;
 
+import org.apache.commons.lang.StringUtils;
 import play.modules.origo.core.CachedAnnotation;
 import play.modules.origo.core.Listeners;
 import play.modules.origo.core.Node;
@@ -73,7 +74,7 @@ public class ProvidesHelper {
             @Override
             public boolean isCorrectListener(CachedAnnotation listener) {
                 Provides annotation = (Provides) listener.annotation;
-                return annotation.type().equals(type) && annotation.with().equals(withType);
+                return annotation.type().equals(type) && (annotation.with().equals(withType) || StringUtils.isBlank(withType));
             }
         });
         if (!providers.isEmpty()) {
