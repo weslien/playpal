@@ -15,6 +15,7 @@ public class SettingsKeys {
 
         public static final String THEME_VARIANT = "theme_variant";
         public static final String NAVIGATION_TYPE = "navigation_type";
+        public static final String DEFAULT_FORM_TYPE = "default_form_type";
     }
 
     public static interface Admin {

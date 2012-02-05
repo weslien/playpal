@@ -33,6 +33,10 @@ public class SettingsHelper {
             return SettingsHelper.getNavigationType(SettingsKeys.Core.NAVIGATION_TYPE);
         }
 
+        public static String getDefaultFormType() {
+            return Settings.load().getValue(SettingsKeys.Core.DEFAULT_FORM_TYPE);
+        }
+
     }
 
     public static class Admin {

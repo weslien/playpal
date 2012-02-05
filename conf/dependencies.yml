@@ -8,7 +8,6 @@ require:
 #    - play -> router 1.1
 #    - play -> cobertura [2,)
 
-#    - play -> crud
 #    - play -> deadbolt [1.4,)
 
 ### Internal modules

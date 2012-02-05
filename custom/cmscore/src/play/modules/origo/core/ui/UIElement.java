@@ -87,16 +87,18 @@ public class UIElement {
         return id;
     }
 
-    public void setId(String id) {
+    public UIElement setId(String id) {
         this.id = id;
+        return this;
     }
 
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public UIElement setType(String type) {
         this.type = type;
+        return this;
     }
 
     public boolean hasAttributes() {

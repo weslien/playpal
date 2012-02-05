@@ -1,22 +1,18 @@
-package controllers.origo.admin;
+package controllers.origo.core;
 
 import models.origo.core.Settings;
 import models.origo.core.SettingsKeys;
 import org.apache.commons.lang.StringUtils;
-import origo.listeners.DashboardAdminProvider;
-import origo.listeners.TinyMCEEditorProvider;
-import origo.themes.AdminTheme;
+import origo.listeners.BasicFormProvider;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 
 @OnApplicationStart
-public class BootStrap extends Job {
+public class CoreBootStrap extends Job {
 
     public void doJob() {
         Settings settings = Settings.load();
-        setValueIfMissing(settings, SettingsKeys.Admin.DASHBOARD_TYPE, DashboardAdminProvider.TYPE);
-        setValueIfMissing(settings, SettingsKeys.Admin.THEME_VARIANT, AdminTheme.DEFAULT_VARIANT_NAME);
-        setValueIfMissing(settings, SettingsKeys.Admin.RICHTEXT_EDITOR_TYPE, TinyMCEEditorProvider.EDITOR_TYPE);
+        setValueIfMissing(settings, SettingsKeys.Core.DEFAULT_FORM_TYPE, BasicFormProvider.TYPE);
         settings.save();
     }
 
@@ -25,4 +21,5 @@ public class BootStrap extends Job {
             settings.setValue(settingKey, newValue);
         }
     }
+
 }

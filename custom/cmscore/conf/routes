@@ -6,10 +6,12 @@
 # ~~~~
 
 #Node routing
-GET     /node/{nodeId}/{<[0-9]+>version}      origo.core.NodeController.nodeVersion
-GET     /node/{nodeId}/all                    origo.core.NodeController.nodeVersions
-GET     /node/{nodeId}                        origo.core.NodeController.node
+GET     /node/{nodeId}/{<[0-9]+>version}    origo.core.NodeController.nodeVersion
+GET     /node/{nodeId}/all                  origo.core.NodeController.nodeVersions
+GET     /node/{nodeId}                      origo.core.NodeController.node
 GET     /node                               origo.core.NodeController.nodeList
+
+POST    /submit                             origo.core.BasicPostController.submit
 
 #the public dir for this module
 GET     /cmscore/public/                    staticDir:custom/cmscore/public

@@ -10,8 +10,6 @@ import java.util.Set;
 
 public class AdminPage implements Node {
 
-    private static final String CONTENT = "content";
-
     public String nodeId;
 
     public String title;

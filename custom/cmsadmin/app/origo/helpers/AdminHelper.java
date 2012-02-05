@@ -1,5 +1,6 @@
 package origo.helpers;
 
+import controllers.origo.admin.Application;
 import models.origo.core.Content;
 import play.modules.origo.core.Node;
 import play.modules.origo.core.ui.UIElement;
@@ -13,7 +14,7 @@ public class AdminHelper {
     public static String getURLForAdminAction(String type) {
         Map<String, Object> args = new HashMap<String, Object>();
         args.put("type", type);
-        Router.ActionDefinition actionDefinition = Router.reverse("origo.admin.Application.pageWithType", args);
+        Router.ActionDefinition actionDefinition = Router.reverse(Application.class.getName() + ".pageWithType", args);
         if (actionDefinition != null) {
             return actionDefinition.url;
         }
@@ -24,7 +25,7 @@ public class AdminHelper {
         Map<String, Object> args = new HashMap<String, Object>();
         args.put("type", type);
         args.put("identifier", identifier);
-        Router.ActionDefinition actionDefinition = Router.reverse("origo.admin.Application.pageWithTypeAndIdentifier", args);
+        Router.ActionDefinition actionDefinition = Router.reverse(Application.class.getName() + ".pageWithTypeAndIdentifier", args);
         if (actionDefinition != null) {
             return actionDefinition.url;
         }

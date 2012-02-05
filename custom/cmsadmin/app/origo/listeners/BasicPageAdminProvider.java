@@ -5,11 +5,15 @@ import models.origo.core.BasicPage;
 import models.origo.core.Content;
 import models.origo.core.RootNode;
 import origo.helpers.AdminHelper;
+import origo.helpers.FormHelper;
+import play.Logger;
 import play.modules.origo.admin.annotations.Admin;
 import play.modules.origo.core.Node;
 import play.modules.origo.core.annotations.OnLoad;
+import play.modules.origo.core.annotations.OnPost;
 import play.modules.origo.core.annotations.Provides;
 import play.modules.origo.core.ui.UIElement;
+import play.mvc.Scope;
 
 import java.util.List;
 
@@ -73,7 +77,7 @@ public class BasicPageAdminProvider {
         Content bodyContent = Content.findWithIdentifier(basicPage.getBodyReferenceId());
         Content leadContent = Content.findWithIdentifier(basicPage.getLeadReferenceId());
 
-        UIElement formElement = new UIElement("basicpageform", UIElement.FORM).addAttribute("class", "origo-basicpageform, form");
+        UIElement formElement = FormHelper.createDefaultFormElement(node).setId("basicpageform").addAttribute("class", "origo-basicpageform, form");
 
         UIElement titleElement = new UIElement(UIElement.PANEL, 10).addAttribute("class", "field");
         titleElement.addChild(new UIElement(UIElement.LABEL, 10, "Title").addAttribute("for", "origo-basicpageform-title"));
@@ -97,6 +101,13 @@ public class BasicPageAdminProvider {
         formElement.addChild(actionPanel);
 
         node.addUIElement(formElement);
+    }
+
+    @OnPost(with = "models.origo.core.BasicPage")
+    public static void storePage(BasicPage page, Scope.Params params) {
+        String title = params.get("origo-basicpageform-title");
+        Logger.info("Title = " + title);
+        //page.save()
     }
 
 }

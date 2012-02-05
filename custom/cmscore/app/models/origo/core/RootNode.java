@@ -187,6 +187,18 @@ public final class RootNode extends Model implements Node {
         return node;
     }
 
+    public static RootNode findWithNodeIdAndLatestVersion(String nodeId) {
+        RootNode node = RootNode.find(
+                "select distinct r from RootNode r " +
+                        "where r.nodeId = :nodeId " +
+                        "order by version desc"
+        ).bind("nodeId", nodeId).first();
+        if (node != null) {
+            initializeNode(node);
+        }
+        return node;
+    }
+
     public static List<RootNode> findWithNodeIdAllVersions(String nodeId) {
         List<RootNode> leaves = RootNode.find(
                 "select distinct l from RootNode l where l.nodeId = :nodeId"

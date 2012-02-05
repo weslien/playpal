@@ -2,7 +2,6 @@ self: origo -> cmsadmin 0.1
 
 require:
     - play [1.2,)
-    - play -> crud
     - play -> deadbolt [1.4,)
 
 ### Internal modules
@@ -11,6 +10,6 @@ require:
 repositories:
     - localModules:
         type: local
-        artifact: "${application.path}/custom/[module]/"
+        artifact: "${application.path}/../[module]/"
         contains:
             - origo -> *
