@@ -4,7 +4,7 @@ import models.origo.core.Settings;
 import models.origo.core.SettingsKeys;
 import org.apache.commons.lang.StringUtils;
 import origo.listeners.DefaultFormProvider;
-import origo.listeners.DefaultPostHandler;
+import origo.listeners.DefaultSubmitHandler;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 
@@ -14,7 +14,7 @@ public class CoreBootStrap extends Job {
     public void doJob() {
         Settings settings = Settings.load();
         setValueIfMissing(settings, SettingsKeys.Core.DEFAULT_FORM_TYPE, DefaultFormProvider.TYPE);
-        setValueIfMissing(settings, SettingsKeys.Core.POST_HANDLER, DefaultPostHandler.class.getName());
+        setValueIfMissing(settings, SettingsKeys.Core.POST_HANDLER, DefaultSubmitHandler.class.getName());
         settings.save();
     }
 

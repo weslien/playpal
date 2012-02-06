@@ -10,7 +10,7 @@ import play.Logger;
 import play.modules.origo.admin.annotations.Admin;
 import play.modules.origo.core.Node;
 import play.modules.origo.core.annotations.OnLoad;
-import play.modules.origo.core.annotations.OnPost;
+import play.modules.origo.core.annotations.OnSubmit;
 import play.modules.origo.core.annotations.Provides;
 import play.modules.origo.core.ui.UIElement;
 
@@ -103,7 +103,7 @@ public class BasicPageAdminProvider {
         node.addUIElement(formElement);
     }
 
-    @OnPost(with = SUBMIT_TYPE)
+    @OnSubmit(with = SUBMIT_TYPE)
     public static void storePage() {
 
         /*

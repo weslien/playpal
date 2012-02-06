@@ -32,8 +32,8 @@ public class CoreAnnotationsPlugin extends PlayPlugin {
         findAndAddListenerAnnotation(Provides.class, modifiedJavaClasses);
         findAndAddListenerAnnotation(Decorates.class, modifiedJavaClasses);
         findAndAddListenerAnnotation(OnLoad.class, modifiedJavaClasses);
-        findAndAddListenerAnnotation(OnPost.class, modifiedJavaClasses);
-        findAndAddListenerAnnotation(PostHandler.class, modifiedJavaClasses);
+        findAndAddListenerAnnotation(OnSubmit.class, modifiedJavaClasses);
+        findAndAddListenerAnnotation(SubmitHandler.class, modifiedJavaClasses);
 
         return super.onClassesChange(modifiedClasses);
     }

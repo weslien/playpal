@@ -5,7 +5,7 @@ import origo.helpers.ReflectionHelper;
 import origo.helpers.SettingsHelper;
 import play.modules.origo.core.CachedAnnotation;
 import play.modules.origo.core.Listeners;
-import play.modules.origo.core.annotations.PostHandler;
+import play.modules.origo.core.annotations.SubmitHandler;
 import play.mvc.Controller;
 import play.mvc.Scope;
 
@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PostController extends Controller {
+public class SubmitController extends Controller {
 
     public static void submit() {
 
@@ -37,7 +37,7 @@ public class PostController extends Controller {
     private static String getRegisteredPostHandlerName() {
         final String postHandler = SettingsHelper.Core.getPostHandler();
         if (StringUtils.isBlank(postHandler)) {
-            throw new RuntimeException("No PostHandler defined in the settings");
+            throw new RuntimeException("No SubmitHandler defined in the settings");
         }
         return postHandler;
     }
@@ -45,7 +45,7 @@ public class PostController extends Controller {
     // TODO: Cache this instead of looking it up every time
     private static CachedAnnotation getPostHandler(final String postHandler) {
         List<CachedAnnotation> postHandlers = Listeners.
-                getListenersForAnnotationType(PostHandler.class, new CachedAnnotation.ListenerSelector() {
+                getListenersForAnnotationType(SubmitHandler.class, new CachedAnnotation.ListenerSelector() {
                     @Override
                     public boolean isCorrectListener(CachedAnnotation listener) {
                         return postHandler.equals(listener.method.getDeclaringClass().getName());

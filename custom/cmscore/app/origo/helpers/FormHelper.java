@@ -1,6 +1,6 @@
 package origo.helpers;
 
-import controllers.origo.core.PostController;
+import controllers.origo.core.SubmitController;
 import play.modules.origo.core.Node;
 import play.modules.origo.core.annotations.OnLoad;
 import play.modules.origo.core.annotations.Provides;
@@ -27,7 +27,7 @@ public class FormHelper {
     }
 
     public static String getPostURL() {
-        Router.ActionDefinition actionDefinition = Router.reverse(PostController.class.getName() + ".submit");
+        Router.ActionDefinition actionDefinition = Router.reverse(SubmitController.class.getName() + ".submit");
         if (actionDefinition != null) {
             return actionDefinition.url;
         }
