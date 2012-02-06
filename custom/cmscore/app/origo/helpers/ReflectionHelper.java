@@ -7,6 +7,7 @@ import play.utils.Java;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,22 +22,25 @@ public class ReflectionHelper {
      *
      * @param method     a cached annotated method
      * @param parameters possible parameters for this invocation
-     * @return whatever object the listener/trigger/hook returns, if any.
+     * @return whatever object the listener returns, if any.
      */
     public static Object invokeMethod(Method method, Map<Class, Object> parameters) {
+        if (!Modifier.isStatic(method.getModifiers())) {
+            throw new RuntimeException("Method \'" + method.getDeclaringClass().getName() + "." + method.getName() + "\' is not static");
+        }
         Class[] parameterTypes = method.getParameterTypes();
         Object[] foundParameters;
         try {
             foundParameters = getInvocationParameters(parameterTypes, parameters);
         } catch (UnknownParameterTypeException e) {
-            throw new RuntimeException("Method [" + method + "] has a parameter of type [" + e.getParameterType() + "] specified. No parameter of that type exists in the calling parameters");
+            throw new RuntimeException("Method \'" + method + "\' has a parameter of type \'" + e.getParameterType() + "\' specified. No parameter of that type exists in the calling parameters");
         }
         try {
             return Java.invokeStatic(method, foundParameters);
         } catch (InvocationTargetException e) {
             throw new RuntimeException(e.getTargetException().getMessage(), e);
         } catch (Exception e) {
-            Logger.error("Unable to invoke method [" + method.getDeclaringClass() + "." + method.getName() + "], make sure it is a static method");
+            Logger.error("Unable to invoke method \'" + method.getDeclaringClass().getName() + "." + method.getName() + "\'");
             throw new RuntimeException(e.getMessage(), e);
         }
     }
@@ -77,7 +81,7 @@ public class ReflectionHelper {
                 }
             }
         }
-        throw new UnknownParameterTypeException("No parameter of type [" + parameterType + "] was found and it has no super class or interface", parameterType);
+        throw new UnknownParameterTypeException("No parameter of type \'" + parameterType + "\' was found and it has no super class or interface", parameterType);
     }
 
     private static Object findParameterOfSuperType(Map<Class, Object> parameters, Class parameterType) {

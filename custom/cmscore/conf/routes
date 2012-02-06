@@ -11,7 +11,7 @@ GET     /node/{nodeId}/all                  origo.core.NodeController.nodeVersio
 GET     /node/{nodeId}                      origo.core.NodeController.node
 GET     /node                               origo.core.NodeController.nodeList
 
-POST    /submit                             PostController.submit
+POST    /submit                             origo.core.PostController.submit
 
 #the public dir for this module
 GET     /cmscore/public/                    staticDir:custom/cmscore/public

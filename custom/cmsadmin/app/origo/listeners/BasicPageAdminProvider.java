@@ -13,7 +13,6 @@ import play.modules.origo.core.annotations.OnLoad;
 import play.modules.origo.core.annotations.OnPost;
 import play.modules.origo.core.annotations.Provides;
 import play.modules.origo.core.ui.UIElement;
-import play.mvc.Scope;
 
 import java.util.List;
 
@@ -22,6 +21,7 @@ public class BasicPageAdminProvider {
     private static final String PAGE_TYPE_PREFIX = "origo.admin.basicpage";
     private static final String LIST_TYPE = PAGE_TYPE_PREFIX + ".list";
     private static final String EDIT_TYPE = PAGE_TYPE_PREFIX + ".edit";
+    private static final String SUBMIT_TYPE = PAGE_TYPE_PREFIX + ".submit";
     private static final String DASHBOARD_TYPE = PAGE_TYPE_PREFIX + ".dashboard";
 
     @Provides(type = Admin.DASHBOARD, with = DASHBOARD_TYPE)
@@ -77,7 +77,7 @@ public class BasicPageAdminProvider {
         Content bodyContent = Content.findWithIdentifier(basicPage.getBodyReferenceId());
         Content leadContent = Content.findWithIdentifier(basicPage.getLeadReferenceId());
 
-        UIElement formElement = FormHelper.createDefaultFormElement(node).setId("basicpageform").addAttribute("class", "origo-basicpageform, form");
+        UIElement formElement = FormHelper.createDefaultFormElement(node, SUBMIT_TYPE).setId("basicpageform").addAttribute("class", "origo-basicpageform, form");
 
         UIElement titleElement = new UIElement(UIElement.PANEL, 10).addAttribute("class", "field");
         titleElement.addChild(new UIElement(UIElement.LABEL, 10, "Title").addAttribute("for", "origo-basicpageform-title"));
@@ -103,11 +103,24 @@ public class BasicPageAdminProvider {
         node.addUIElement(formElement);
     }
 
-    @OnPost(with = "models.origo.core.BasicPage")
-    public static void storePage(BasicPage page, Scope.Params params) {
-        String title = params.get("origo-basicpageform-title");
-        Logger.info("Title = " + title);
+    @OnPost(with = SUBMIT_TYPE)
+    public static void storePage() {
+
+        /*
+        String nodeId = DefaultFormProvider.getNodeId(params);
+        RootNode rootNode = RootNode.findLatestVersionWithNodeId(nodeId);
+        if (rootNode == null) {
+            throw new RuntimeException("Root node with id=\'" + nodeId + "\' does not exist");
+        }
+
+        Node node = NodeHelper.triggerProvidesNodeListener(rootNode.type, rootNode);
+        */
+
+
+        //String title = params.get("origo-basicpageform-title");
+        //Logger.info("Title = " + title);
         //page.save()
+        Logger.info("Bla bla");
     }
 
 }

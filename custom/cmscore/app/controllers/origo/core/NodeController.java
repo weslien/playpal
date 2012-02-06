@@ -22,7 +22,7 @@ public class NodeController extends Controller {
     public static void node(@Required String nodeId) {
 
         //Load NodeModel
-        RootNode node = RootNode.findWithNodeIdLatestPublishedVersion(nodeId, new Date());
+        RootNode node = RootNode.findLatestPublishedVersionWithNodeId(nodeId, new Date());
 
         render(node);
     }
@@ -30,7 +30,7 @@ public class NodeController extends Controller {
     //@Get("/node/{nodeId}/all")
     public static void nodeVersions(@Required String nodeId) {
 
-        List<RootNode> nodes = RootNode.findWithNodeIdAllVersions(nodeId);
+        List<RootNode> nodes = RootNode.findAllVersionsWithNodeId(nodeId);
 
         render(nodes);
     }

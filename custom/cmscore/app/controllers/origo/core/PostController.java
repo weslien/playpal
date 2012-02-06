@@ -1,7 +1,6 @@
 package controllers.origo.core;
 
 import org.apache.commons.lang.StringUtils;
-import origo.helpers.FormHelper;
 import origo.helpers.ReflectionHelper;
 import origo.helpers.SettingsHelper;
 import play.modules.origo.core.CachedAnnotation;
@@ -23,11 +22,14 @@ public class PostController extends Controller {
         invokePostHandler(cachedAnnotation);
     }
 
+    public static Class getActivePostHandler() {
+        final String postHandlerName = getRegisteredPostHandlerName();
+        CachedAnnotation cachedAnnotation = getPostHandler(postHandlerName);
+        return cachedAnnotation.method.getDeclaringClass();
+    }
+
     private static void invokePostHandler(CachedAnnotation cachedAnnotation) {
         Map<Class, Object> parameters = new HashMap<Class, Object>();
-        parameters.put(String.class, FormHelper.getNodeIdFromForm(params));
-        // FIXME: This won't work, reflection needs to be changed to look at variable names AND types not just types
-        parameters.put(String.class, FormHelper.getFormTypeFromForm(params));
         parameters.put(Scope.Params.class, params);
         ReflectionHelper.invokeMethod(cachedAnnotation.method, parameters);
     }
@@ -40,6 +42,7 @@ public class PostController extends Controller {
         return postHandler;
     }
 
+    // TODO: Cache this instead of looking it up every time
     private static CachedAnnotation getPostHandler(final String postHandler) {
         List<CachedAnnotation> postHandlers = Listeners.
                 getListenersForAnnotationType(PostHandler.class, new CachedAnnotation.ListenerSelector() {

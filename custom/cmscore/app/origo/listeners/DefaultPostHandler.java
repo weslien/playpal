@@ -1,24 +1,38 @@
 package origo.listeners;
 
-import models.origo.core.RootNode;
-import origo.helpers.NodeHelper;
+import controllers.origo.core.PostController;
 import origo.helpers.OnPostHelper;
-import play.modules.origo.core.Node;
+import play.Logger;
+import play.modules.origo.core.annotations.OnLoad;
 import play.modules.origo.core.annotations.PostHandler;
+import play.modules.origo.core.ui.UIElement;
 import play.mvc.Scope;
 
 public class DefaultPostHandler {
 
+    private static final String WITH_TYPE = "_core_with_type";
+
     @PostHandler
-    public void handlePost(String nodeId, String formType, Scope.Params params) {
-        RootNode rootNode = RootNode.findWithNodeIdAndLatestVersion(nodeId);
-        if (rootNode == null) {
-            throw new RuntimeException("Root node + " + nodeId + " does not exist");
+    public static void handlePost(Scope.Params params) {
+
+        String withType = getWithType(params);
+        if (withType == null) {
+            Logger.error("DefaultPostHandler requires a request parameter  named \'" + WITH_TYPE + "\' to be present in the request");
         }
 
-        Node node = NodeHelper.triggerProvidesNodeListener(rootNode.type, rootNode);
+        OnPostHelper.triggerListeners(withType, Scope.Params.class, params);
 
-        OnPostHelper.triggerListener(formType, node, Scope.Params.class, params);
+    }
+
+    @OnLoad(type = UIElement.FORM)
+    public static void addWithTypeField(UIElement uiElement, String withType) {
+        if (DefaultPostHandler.class.isAssignableFrom(PostController.getActivePostHandler())) {
+            uiElement.addChild(new UIElement(UIElement.INPUT_HIDDEN).addAttribute("name", WITH_TYPE).addAttribute("value", withType));
+        }
+    }
+
+    public static String getWithType(Scope.Params params) {
+        return params.get(WITH_TYPE);
     }
 
 }

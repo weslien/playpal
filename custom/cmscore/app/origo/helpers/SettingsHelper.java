@@ -33,7 +33,7 @@ public class SettingsHelper {
             return SettingsHelper.getNavigationType(SettingsKeys.Core.NAVIGATION_TYPE);
         }
 
-        public static String getDefaultFormType() {
+        public static String getDefaultFormProviderType() {
             return Settings.load().getValue(SettingsKeys.Core.DEFAULT_FORM_TYPE);
         }
 

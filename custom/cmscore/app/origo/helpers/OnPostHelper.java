@@ -3,35 +3,30 @@ package origo.helpers;
 import play.Logger;
 import play.modules.origo.core.CachedAnnotation;
 import play.modules.origo.core.Listeners;
-import play.modules.origo.core.Node;
 import play.modules.origo.core.annotations.OnPost;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class OnPostHelper {
 
-    public static void triggerListener(String withType, Node node) {
-        triggerListener(withType, node, Collections.<Class, Object>emptyMap());
+    public static void triggerListeners(String withType) {
+        triggerListeners(withType, Collections.<Class, Object>emptyMap());
     }
 
-    public static void triggerListener(String withType, Node node, Class argType, Object arg) {
-        triggerListener(withType, node, Collections.<Class, Object>singletonMap(argType, arg));
+    public static void triggerListeners(String withType, Class argType, Object arg) {
+        triggerListeners(withType, Collections.<Class, Object>singletonMap(argType, arg));
     }
 
-    public static void triggerListener(String withType, Node node, Map<Class, Object> args) {
-        List<CachedAnnotation> cachedAnnotations = findOnPostListsersWithType(withType);
-        Map<Class, Object> parameters = new HashMap<Class, Object>();
-        parameters.put(Node.class, node);
-        parameters.putAll(args);
+    public static void triggerListeners(String withType, Map<Class, Object> args) {
+        List<CachedAnnotation> cachedAnnotations = findOnPostListenersWithType(withType);
         for (CachedAnnotation cachedAnnotation : cachedAnnotations) {
-            ReflectionHelper.invokeMethod(cachedAnnotation.method, parameters);
+            ReflectionHelper.invokeMethod(cachedAnnotation.method, args);
         }
     }
 
-    private static List<CachedAnnotation> findOnPostListsersWithType(final String withType) {
+    private static List<CachedAnnotation> findOnPostListenersWithType(final String withType) {
         List<CachedAnnotation> onPostListeners = Listeners.getListenersForAnnotationType(OnPost.class, new CachedAnnotation.ListenerSelector() {
             @Override
             public boolean isCorrectListener(CachedAnnotation listener) {
@@ -40,7 +35,7 @@ public class OnPostHelper {
             }
         });
         if (onPostListeners.isEmpty()) {
-            Logger.warn("No @OnPost listener for with=" + withType);
+            Logger.warn("No @OnPost listener for with=\'" + withType + "\'");
         }
         return onPostListeners;
     }

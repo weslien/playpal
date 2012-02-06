@@ -13,7 +13,7 @@ public class NodeHelper {
 
     public static Node load(String nodeId) {
         //Load RootNode model
-        RootNode rootNode = RootNode.findWithNodeIdLatestPublishedVersion(nodeId, new Date());
+        RootNode rootNode = RootNode.findLatestPublishedVersionWithNodeId(nodeId, new Date());
         if (rootNode == null) {
             throw new PageNotFoundException(nodeId);
         }

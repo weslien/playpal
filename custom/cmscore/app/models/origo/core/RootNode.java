@@ -173,7 +173,7 @@ public final class RootNode extends Model implements Node {
         return node;
     }
 
-    public static RootNode findWithNodeIdLatestPublishedVersion(String nodeId, Date today) {
+    public static RootNode findLatestPublishedVersionWithNodeId(String nodeId, Date today) {
         RootNode node = RootNode.find(
                 "select distinct l from RootNode l " +
                         "where l.nodeId = :nodeId and " +
@@ -187,7 +187,7 @@ public final class RootNode extends Model implements Node {
         return node;
     }
 
-    public static RootNode findWithNodeIdAndLatestVersion(String nodeId) {
+    public static RootNode findLatestVersionWithNodeId(String nodeId) {
         RootNode node = RootNode.find(
                 "select distinct r from RootNode r " +
                         "where r.nodeId = :nodeId " +
@@ -199,7 +199,7 @@ public final class RootNode extends Model implements Node {
         return node;
     }
 
-    public static List<RootNode> findWithNodeIdAllVersions(String nodeId) {
+    public static List<RootNode> findAllVersionsWithNodeId(String nodeId) {
         List<RootNode> leaves = RootNode.find(
                 "select distinct l from RootNode l where l.nodeId = :nodeId"
         ).bind("nodeId", nodeId).fetch();
