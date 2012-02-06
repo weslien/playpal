@@ -5,7 +5,6 @@ import org.apache.log4j.Logger;
 import play.modules.origo.core.CachedThemeVariant;
 import play.modules.origo.core.Node;
 import play.modules.origo.core.Themes;
-import play.modules.origo.core.annotations.CachedDecorator;
 import play.modules.origo.core.ui.RenderedNode;
 import play.modules.origo.core.ui.RenderingContext;
 import play.modules.origo.core.ui.UIElement;
@@ -75,11 +74,11 @@ public class ThemeHelper {
     }
 
     public static String decorate(UIElement uiElement, RenderingContext renderingContext) {
-        Map<String, CachedDecorator> decorators = Themes.getDecoratorsForTheme(renderingContext.getThemeVariant().themeId);
+        Map<String, play.modules.origo.core.CachedDecorator> decorators = Themes.getDecoratorsForTheme(renderingContext.getThemeVariant().themeId);
         renderingContext.nestle(uiElement);
         String decoratedOutput = null;
         if (decorators.containsKey(uiElement.getType())) {
-            CachedDecorator decorator = decorators.get(uiElement.getType());
+            play.modules.origo.core.CachedDecorator decorator = decorators.get(uiElement.getType());
             decoratedOutput = ReflectionHelper.invokeDecorator(decorator, null);
         }
         if (decoratedOutput == null) {

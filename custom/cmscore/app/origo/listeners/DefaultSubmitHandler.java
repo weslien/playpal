@@ -2,9 +2,11 @@ package origo.listeners;
 
 import controllers.origo.core.SubmitController;
 import origo.helpers.OnSubmitHelper;
+import origo.helpers.SubmitStateHelper;
 import play.Logger;
 import play.modules.origo.core.annotations.OnLoad;
 import play.modules.origo.core.annotations.SubmitHandler;
+import play.modules.origo.core.annotations.SubmitState;
 import play.modules.origo.core.ui.UIElement;
 import play.mvc.Scope;
 
@@ -20,8 +22,11 @@ public class DefaultSubmitHandler {
             Logger.error("DefaultSubmitHandler requires a request parameter  named \'" + WITH_TYPE + "\' to be present in the request");
         }
 
+        // TODO: insert validation here
+
         OnSubmitHelper.triggerListeners(withType, Scope.Params.class, params);
 
+        SubmitStateHelper.triggerListener(SubmitState.SUCCESS, withType, Scope.Params.class, params);
     }
 
     @OnLoad(type = UIElement.FORM)

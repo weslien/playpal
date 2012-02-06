@@ -2,7 +2,7 @@ package origo.helpers;
 
 import play.Logger;
 import play.modules.origo.core.CachedThemeVariant;
-import play.modules.origo.core.annotations.CachedDecorator;
+import play.mvc.results.Redirect;
 import play.utils.Java;
 
 import java.lang.reflect.InvocationTargetException;
@@ -37,7 +37,12 @@ public class ReflectionHelper {
         }
         try {
             return Java.invokeStatic(method, foundParameters);
+        } catch (Redirect redirect) {
+            throw redirect;
         } catch (InvocationTargetException e) {
+            if (e.getTargetException() instanceof Redirect) {
+                throw (Redirect) e.getTargetException();
+            }
             throw new RuntimeException(e.getTargetException().getMessage(), e);
         } catch (Exception e) {
             Logger.error("Unable to invoke method \'" + method.getDeclaringClass().getName() + "." + method.getName() + "\'");
@@ -100,7 +105,7 @@ public class ReflectionHelper {
         return null;
     }
 
-    public static String invokeDecorator(CachedDecorator decorator, Map<Class, Object> parameters) {
+    public static String invokeDecorator(play.modules.origo.core.CachedDecorator decorator, Map<Class, Object> parameters) {
         return (String) invokeMethod(decorator.method, parameters);
     }
 

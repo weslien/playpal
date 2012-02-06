@@ -1,4 +1,4 @@
-package play.modules.origo.core.annotations;
+package play.modules.origo.core;
 
 import java.lang.reflect.Method;
 

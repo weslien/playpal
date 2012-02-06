@@ -1,33 +1,39 @@
 package origo.listeners;
 
+import controllers.origo.admin.Application;
 import models.origo.admin.AdminPage;
 import models.origo.core.BasicPage;
 import models.origo.core.Content;
 import models.origo.core.RootNode;
 import origo.helpers.AdminHelper;
 import origo.helpers.FormHelper;
+import origo.helpers.URLHelper;
 import play.Logger;
 import play.modules.origo.admin.annotations.Admin;
 import play.modules.origo.core.Node;
 import play.modules.origo.core.annotations.OnLoad;
 import play.modules.origo.core.annotations.OnSubmit;
 import play.modules.origo.core.annotations.Provides;
+import play.modules.origo.core.annotations.SubmitState;
 import play.modules.origo.core.ui.UIElement;
+import play.mvc.Scope;
+import play.mvc.results.Redirect;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BasicPageAdminProvider {
 
-    private static final String PAGE_TYPE_PREFIX = "origo.admin.basicpage";
-    private static final String LIST_TYPE = PAGE_TYPE_PREFIX + ".list";
-    private static final String EDIT_TYPE = PAGE_TYPE_PREFIX + ".edit";
-    private static final String SUBMIT_TYPE = PAGE_TYPE_PREFIX + ".submit";
-    private static final String DASHBOARD_TYPE = PAGE_TYPE_PREFIX + ".dashboard";
+    private static final String BASE_TYPE = "origo.admin.basicpage";
+    private static final String LIST_TYPE = BASE_TYPE + ".list";
+    private static final String EDIT_TYPE = BASE_TYPE + ".edit";
+    private static final String DASHBOARD_TYPE = BASE_TYPE + ".dashboard";
 
     @Provides(type = Admin.DASHBOARD, with = DASHBOARD_TYPE)
     public static UIElement createDashboardItem() {
 
-        String url = AdminHelper.getURLForAdminAction(PAGE_TYPE_PREFIX + ".list");
+        String url = AdminHelper.getURLForAdminAction(BASE_TYPE + ".list");
 
         UIElement linkElement = new UIElement(UIElement.ANCHOR, 10, "List").addAttribute("href", url).addAttribute("class", "dashboard item link");
         UIElement dashboardElement = new UIElement(Admin.DASHBOARD, 10, "Pages").addChild(linkElement);
@@ -43,7 +49,6 @@ public class BasicPageAdminProvider {
         return page;
     }
 
-    //@Admin.Page(name = "list")
     @OnLoad(type = Provides.NODE, with = LIST_TYPE)
     public static void createListPage(Node node) {
         List<BasicPage> basicPages = BasicPage.findAllLatestVersions();
@@ -65,7 +70,6 @@ public class BasicPageAdminProvider {
         return page;
     }
 
-    //@Admin.Page(name = "edit")
     @OnLoad(type = Provides.NODE, with = EDIT_TYPE)
     public static void createEditPage(Node node) {
         BasicPage basicPage = BasicPage.findLatestVersion(node.getNodeId());
@@ -77,7 +81,7 @@ public class BasicPageAdminProvider {
         Content bodyContent = Content.findWithIdentifier(basicPage.getBodyReferenceId());
         Content leadContent = Content.findWithIdentifier(basicPage.getLeadReferenceId());
 
-        UIElement formElement = FormHelper.createDefaultFormElement(node, SUBMIT_TYPE).setId("basicpageform").addAttribute("class", "origo-basicpageform, form");
+        UIElement formElement = FormHelper.createDefaultFormElement(node, BASE_TYPE).setId("basicpageform").addAttribute("class", "origo-basicpageform, form");
 
         UIElement titleElement = new UIElement(UIElement.PANEL, 10).addAttribute("class", "field");
         titleElement.addChild(new UIElement(UIElement.LABEL, 10, "Title").addAttribute("for", "origo-basicpageform-title"));
@@ -103,8 +107,8 @@ public class BasicPageAdminProvider {
         node.addUIElement(formElement);
     }
 
-    @OnSubmit(with = SUBMIT_TYPE)
-    public static void storePage() {
+    @OnSubmit(with = BASE_TYPE)
+    public static void storePage(Scope.Params params) {
 
         /*
         String nodeId = DefaultFormProvider.getNodeId(params);
@@ -117,10 +121,16 @@ public class BasicPageAdminProvider {
         */
 
 
-        //String title = params.get("origo-basicpageform-title");
-        //Logger.info("Title = " + title);
+        String title = params.get("origo-basicpageform-title");
+        Logger.info("Title = " + title);
         //page.save()
-        Logger.info("Bla bla");
     }
 
+    @SubmitState(with = BASE_TYPE)
+    public static void handleSuccess(Scope.Params params) {
+        Map<String, Object> args = new HashMap<String, Object>();
+        args.put("type", LIST_TYPE);
+        String endpointURL = URLHelper.getReverseURL(Application.class, "pageWithType", args);
+        throw new Redirect(endpointURL);
+    }
 }

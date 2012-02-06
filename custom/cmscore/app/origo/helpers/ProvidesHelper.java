@@ -64,7 +64,7 @@ public class ProvidesHelper {
     private static CachedAnnotation findListener(String providesType, String withType) {
         CachedAnnotation listener = findProvidersForType(providesType, withType);
         if (listener == null) {
-            throw new RuntimeException("Every type (specified by using attribute 'with') must have a class annotated with @Provides to instantiate an instance. Unable to find a Provider for type [" + withType + "]");
+            throw new RuntimeException("Every type (specified by using attribute 'with') must have a class annotated with @Provides to instantiate an instance. Unable to find a provider for type \'" + withType + "\'");
         }
         return listener;
     }

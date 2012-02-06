@@ -1,7 +1,5 @@
 package play.modules.origo.core;
 
-import play.modules.origo.core.annotations.CachedDecorator;
-
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -44,9 +42,9 @@ public class Themes {
 
     public static void addDecorator(String themeId, String uiElementType, Method method) {
         // Themes are declared on the class level and should be parsed first so we don't need to check if the themeId exists before accessing
-        Map<String, CachedDecorator> themeDecorators = themes.get(themeId).getDecorators();
+        Map<String, play.modules.origo.core.CachedDecorator> themeDecorators = themes.get(themeId).getDecorators();
 
-        themeDecorators.put(uiElementType, new play.modules.origo.core.annotations.CachedDecorator(method));
+        themeDecorators.put(uiElementType, new play.modules.origo.core.CachedDecorator(method));
     }
 
     public static CachedTheme getTheme(String themeId) {
@@ -72,9 +70,9 @@ public class Themes {
         return Collections.emptyList();
     }
 
-    public static Map<String, CachedDecorator> getDecoratorsForTheme(String themeId) {
+    public static Map<String, play.modules.origo.core.CachedDecorator> getDecoratorsForTheme(String themeId) {
         if (themes.containsKey(themeId)) {
-            Map<String, CachedDecorator> decorators = themes.get(themeId).getDecorators();
+            Map<String, play.modules.origo.core.CachedDecorator> decorators = themes.get(themeId).getDecorators();
             if (decorators != null) {
                 return decorators;
             }
@@ -82,7 +80,7 @@ public class Themes {
         return Collections.emptyMap();
     }
 
-    public static play.modules.origo.core.annotations.CachedDecorator getDecoratorForTheme(String themeId, String uiElementType) {
+    public static play.modules.origo.core.CachedDecorator getDecoratorForTheme(String themeId, String uiElementType) {
         return getDecoratorsForTheme(themeId).get(uiElementType);
     }
 

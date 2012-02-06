@@ -1,7 +1,5 @@
 package play.modules.origo.core;
 
-import play.modules.origo.core.annotations.CachedDecorator;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +28,7 @@ public class CachedTheme {
      * @see play.modules.origo.core.ui.UIElement
      * @see play.modules.origo.core.ui.RenderedNode
      */
-    public final Map<String, CachedDecorator> decorators = new HashMap<String, CachedDecorator>();
+    public final Map<String, play.modules.origo.core.CachedDecorator> decorators = new HashMap<String, play.modules.origo.core.CachedDecorator>();
 
     public CachedTheme(String themeId, Class declaringClass) {
         this.themeId = themeId;
@@ -49,7 +47,7 @@ public class CachedTheme {
         return themeVariants;
     }
 
-    public Map<String, CachedDecorator> getDecorators() {
+    public Map<String, play.modules.origo.core.CachedDecorator> getDecorators() {
         return decorators;
     }
 

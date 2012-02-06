@@ -12,14 +12,6 @@ public class Admin {
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.METHOD})
-    public static @interface Page {
-        String name();
-
-        String alias() default "";
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD})
     public static @interface Navigation {
         String name();
 

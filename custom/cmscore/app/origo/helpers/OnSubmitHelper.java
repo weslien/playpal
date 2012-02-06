@@ -6,6 +6,7 @@ import play.modules.origo.core.Listeners;
 import play.modules.origo.core.annotations.OnSubmit;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,8 +22,10 @@ public class OnSubmitHelper {
 
     public static void triggerListeners(String withType, Map<Class, Object> args) {
         List<CachedAnnotation> cachedAnnotations = findOnPostListenersWithType(withType);
+        Map<Class, Object> params = new HashMap<Class, Object>();
+        params.putAll(args);
         for (CachedAnnotation cachedAnnotation : cachedAnnotations) {
-            ReflectionHelper.invokeMethod(cachedAnnotation.method, args);
+            ReflectionHelper.invokeMethod(cachedAnnotation.method, params);
         }
     }
 

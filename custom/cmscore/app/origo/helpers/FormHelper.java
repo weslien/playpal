@@ -5,7 +5,6 @@ import play.modules.origo.core.Node;
 import play.modules.origo.core.annotations.OnLoad;
 import play.modules.origo.core.annotations.Provides;
 import play.modules.origo.core.ui.UIElement;
-import play.mvc.Router;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,10 +26,6 @@ public class FormHelper {
     }
 
     public static String getPostURL() {
-        Router.ActionDefinition actionDefinition = Router.reverse(SubmitController.class.getName() + ".submit");
-        if (actionDefinition != null) {
-            return actionDefinition.url;
-        }
-        return null;
+        return URLHelper.getReverseURL(SubmitController.class, "submit");
     }
 }
