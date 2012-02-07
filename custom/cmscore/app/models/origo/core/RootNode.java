@@ -218,4 +218,13 @@ public final class RootNode extends Model implements Node {
     public String toString() {
         return "Node (" + nodeId + "," + version + ")";
     }
+
+    public RootNode copy() {
+        RootNode copy = new RootNode(nodeId, version);
+        copy.publish = publish;
+        copy.unPublish = unPublish;
+        copy.type = type;
+        copy.themeVariant = themeVariant;
+        return copy;
+    }
 }

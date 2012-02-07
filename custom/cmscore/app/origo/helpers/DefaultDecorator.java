@@ -61,6 +61,8 @@ public class DefaultDecorator {
             return decoratePanel(uiElement, renderingContext);
         } else if (UIElement.TEXT.equalsIgnoreCase(uiElement.getType())) {
             return decorateText(uiElement, renderingContext);
+        } else if (UIElement.PARAGRAPH.equalsIgnoreCase(uiElement.getType())) {
+            return decorateParagraph(uiElement, renderingContext);
         } else {
             return decorateUnknownType(uiElement, renderingContext);
         }
@@ -173,6 +175,10 @@ public class DefaultDecorator {
 
     public static String decorateText(UIElement uiElement, RenderingContext renderingContext) {
         return loadFragment(getFragmentPrefix(), "text", uiElement, uiElement.getBody(), Collections.<String, String>emptyMap());
+    }
+
+    public static String decorateParagraph(UIElement uiElement, RenderingContext renderingContext) {
+        return loadFragment(getFragmentPrefix(), "paragraph", uiElement, uiElement.getBody(), Collections.<String, String>emptyMap());
     }
 
     public static String decorateAnchor(UIElement uiElement, RenderingContext renderingContext) {

@@ -63,7 +63,6 @@ public class AdminLoader {
     private static RootNode loadRootNode(String withType) {
         RootNode rootNode = new RootNode(0L);
         rootNode.type = withType;
-        rootNode.themeVariant = SettingsHelper.Admin.getThemeVariant();
         return rootNode;
     }
 

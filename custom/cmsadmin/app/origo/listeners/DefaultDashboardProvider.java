@@ -11,11 +11,10 @@ import play.modules.origo.core.annotations.Provides;
 
 import java.util.Set;
 
-public class DashboardAdminProvider {
+public class DefaultDashboardProvider {
 
     public static final String TYPE = "origo.admin.dashboard";
 
-    //@Admin.Page(name = START_PAGE)
     @Provides(type = Provides.NODE, with = TYPE)
     public static Node createPage(RootNode rootNode) {
         AdminPage page = new AdminPage(rootNode.nodeId);
@@ -24,7 +23,7 @@ public class DashboardAdminProvider {
         return page;
     }
 
-    @OnLoad(type = Provides.NODE, with = DashboardAdminProvider.TYPE)
+    @OnLoad(type = Provides.NODE, with = DefaultDashboardProvider.TYPE)
     public static void addContent(Node node) {
 
         Set<String> dashboardItemNames = ProvidesHelper.getAllProvidesWithForType(Admin.DASHBOARD);

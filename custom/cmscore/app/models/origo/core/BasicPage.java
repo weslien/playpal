@@ -67,22 +67,6 @@ public class BasicPage extends Model implements Node {
         return title;
     }
 
-    public String getLeadReferenceId() {
-        return leadReferenceId;
-    }
-
-    public void setLeadReferenceId(String leadReferenceId) {
-        this.leadReferenceId = leadReferenceId;
-    }
-
-    public String getBodyReferenceId() {
-        return bodyReferenceId;
-    }
-
-    public void setBodyReferenceId(String bodyReferenceId) {
-        this.bodyReferenceId = bodyReferenceId;
-    }
-
     @Override
     public String getThemeVariant() {
         return rootNode.themeVariant;
@@ -126,6 +110,16 @@ public class BasicPage extends Model implements Node {
     @Override
     public boolean removeUIElement(UIElement uiElement) {
         return rootNode.removeUIElement(uiElement);
+    }
+
+    public BasicPage copy() {
+        BasicPage newPage = new BasicPage();
+        newPage.nodeId = nodeId;
+        newPage.version = version;
+        newPage.title = title;
+        newPage.leadReferenceId = leadReferenceId;
+        newPage.bodyReferenceId = bodyReferenceId;
+        return newPage;
     }
 
     @Override
@@ -181,8 +175,8 @@ public class BasicPage extends Model implements Node {
                 find(
                         "select p from BasicPage p " +
                                 "where p.nodeId = :nodeId and p.version = (" +
-                                "select max(l.version) from RootNode l " +
-                                "where p.nodeId = l.nodeId" +
+                                "select max(n.version) from RootNode n " +
+                                "where p.nodeId = n.nodeId" +
                                 ")").
                 bind("nodeId", nodeId).
                 first();
@@ -190,10 +184,7 @@ public class BasicPage extends Model implements Node {
 
     public static BasicPage findWithNodeIdAndSpecificVersion(String nodeId, Long version) {
         return RootNode.
-                find(
-                        "select distinct p from BasicPage p " +
-                                "where p.nodeId = :nodeId and " +
-                                "p.version = :version").
+                find("select distinct p from BasicPage p where p.nodeId = :nodeId and p.version = :version").
                 bind("nodeId", nodeId).
                 bind("version", version).
                 first();
@@ -204,8 +195,8 @@ public class BasicPage extends Model implements Node {
                 find(
                         "select p from BasicPage p " +
                                 "where p.version = (" +
-                                "select max(l.version) from RootNode l " +
-                                "where p.nodeId = l.nodeId" +
+                                "select max(n.version) from RootNode n " +
+                                "where p.nodeId = n.nodeId" +
                                 ")").
                 fetch();
     }

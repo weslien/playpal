@@ -35,6 +35,7 @@ public class UIElement {
     public static final String INPUT_PASSWORD = "input_password";
 
     public static final String PANEL = "panel";
+    public static final String PARAGRAPH = "paragraph";
     public static final String TEXT = "text";
     public static final String ANCHOR = "anchor";
 

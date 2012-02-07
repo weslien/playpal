@@ -27,17 +27,17 @@ public class AdminPage implements Node {
 
     @Override
     public Long getVersion() {
-        return 1L;
+        return rootNode.getVersion();
     }
 
     @Override
     public Date getDatePublished() {
-        return new Date();
+        return rootNode.getDatePublished();
     }
 
     @Override
     public Date getDateUnpublished() {
-        return new Date();
+        return rootNode.getDateUnpublished();
     }
 
     @Override

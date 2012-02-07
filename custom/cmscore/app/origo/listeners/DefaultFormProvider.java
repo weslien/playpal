@@ -10,11 +10,13 @@ public class DefaultFormProvider {
 
     public static final String TYPE = "origo.core.basicform";
     private static final String NODE_ID = "_core_node_id";
+    private static final String NODE_VERSION = "_core_node_version";
 
     @Provides(type = Provides.FORM, with = TYPE)
     public static UIElement createBasicForm(Node node) {
         return new UIElement(UIElement.FORM).
                 addChild(new UIElement(UIElement.INPUT_HIDDEN).addAttribute("name", NODE_ID).addAttribute("value", node.getNodeId())).
+                addChild(new UIElement(UIElement.INPUT_HIDDEN).addAttribute("name", NODE_VERSION).addAttribute("value", String.valueOf(node.getVersion()))).
                 addAttribute("action", FormHelper.getPostURL()).
                 addAttribute("method", "POST");
     }
@@ -23,4 +25,11 @@ public class DefaultFormProvider {
         return params.get(NODE_ID);
     }
 
+    public static Long getNodeVersion(Scope.Params params) {
+        try {
+            return Long.parseLong(params.get(NODE_VERSION));
+        } catch (NumberFormatException e) {
+            throw new RuntimeException("Version is not a number: " + e.getLocalizedMessage(), e);
+        }
+    }
 }

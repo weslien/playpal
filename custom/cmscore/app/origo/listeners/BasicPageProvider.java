@@ -26,15 +26,15 @@ public class BasicPageProvider {
 
     @OnLoad(type = "node", with = "models.origo.core.BasicPage")
     public static void loadContent(Node node) {
-        node.addUIElement(loadContent(((BasicPage) node).getLeadReferenceId()));
-        node.addUIElement(loadContent(((BasicPage) node).getBodyReferenceId()));
+        node.addUIElement(loadContent(((BasicPage) node).leadReferenceId));
+        node.addUIElement(loadContent(((BasicPage) node).bodyReferenceId));
     }
 
     public static UIElement loadContent(String referenceId) {
         if (!StringUtils.isBlank(referenceId)) {
             Content content = Content.findWithIdentifier(referenceId);
             if (content != null) {
-                return new UIElement(content.identifier, UIElement.TEXT, content.value);
+                return new UIElement(content.identifier, UIElement.PARAGRAPH, content.value);
             }
         }
         //TODO: Handle this somehow, in dev/admin maybe show a UIElement with a warning message and in prod swallow error?
