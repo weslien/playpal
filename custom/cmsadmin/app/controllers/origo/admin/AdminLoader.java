@@ -6,7 +6,9 @@ import origo.helpers.NodeHelper;
 import origo.helpers.SettingsHelper;
 import origo.helpers.ThemeHelper;
 import play.Logger;
+import play.modules.origo.core.CachedThemeVariant;
 import play.modules.origo.core.Node;
+import play.modules.origo.core.Themes;
 import play.modules.origo.core.ui.NavigationElement;
 import play.modules.origo.core.ui.RenderedNode;
 
@@ -73,7 +75,8 @@ public class AdminLoader {
     }
 
     private static RenderedNode decorateNode(Node node) {
-        RenderedNode renderedNode = ThemeHelper.decorate(node);
+        CachedThemeVariant themeVariant = Themes.getThemeVariant(SettingsHelper.Admin.getThemeVariant());
+        RenderedNode renderedNode = ThemeHelper.decorate(node, themeVariant);
         if (Logger.isDebugEnabled()) {
             Logger.debug("Decorated " + renderedNode);
         }

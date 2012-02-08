@@ -6,7 +6,6 @@ import models.origo.core.Content;
 import models.origo.core.RootNode;
 import origo.helpers.AdminHelper;
 import origo.helpers.FormHelper;
-import origo.helpers.SettingsHelper;
 import play.Logger;
 import play.modules.origo.admin.annotations.Admin;
 import play.modules.origo.core.Node;
@@ -49,7 +48,6 @@ public class BasicPageAdminProvider {
         AdminPage page = new AdminPage(rootNode.nodeId);
         page.setTitle("List Basic Pages");
         page.rootNode = rootNode;
-        page.rootNode.themeVariant = SettingsHelper.Admin.getThemeVariant();
         return page;
     }
 
@@ -81,7 +79,6 @@ public class BasicPageAdminProvider {
         } else {
             page.rootNode = rootNode;
         }
-        page.rootNode.themeVariant = SettingsHelper.Admin.getThemeVariant();
         return page;
     }
 

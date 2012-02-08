@@ -16,9 +16,13 @@ public class ThemeHelper {
 
     private static final Logger LOG = Logger.getLogger(ThemeHelper.class);
 
-    public static RenderedNode decorate(play.modules.origo.core.Node node) {
-        RenderedNode renderedNode = new RenderedNode(node.getNodeId());
+    public static RenderedNode decorate(Node node) {
         CachedThemeVariant themeVariant = loadTheme(node);
+        return decorate(node, themeVariant);
+    }
+
+    public static RenderedNode decorate(Node node, CachedThemeVariant themeVariant) {
+        RenderedNode renderedNode = new RenderedNode(node.getNodeId());
         setupRegions(themeVariant, renderedNode);
         renderedNode.setTitle(node.getTitle());
         renderedNode.setTemplate(ReflectionHelper.getTemplate(themeVariant));
@@ -109,7 +113,7 @@ public class ThemeHelper {
                 throw new RuntimeException("No theme set for node and no default theme variant set");
             }
             LOG.debug("Using default theme variant [" + themeVariantId + "]");
-            themeVariant = play.modules.origo.core.Themes.getThemeVariant(themeVariantId);
+            themeVariant = Themes.getThemeVariant(themeVariantId);
         }
         if (themeVariant == null) {
             // TODO: Add some sort of fallback for when a theme is removed
