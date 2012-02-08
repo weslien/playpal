@@ -22,7 +22,7 @@ Start your application.<br/>
 === How to access ===
 
 ==== Patterns ====
-Leaves are available undecorated with the following pattern:<br/>
+Nodes are available undecorated with the following pattern:<br/>
 <code>http://localhost:9000/node/{nodeId}</code>
 
 Accessing a specific version of a node would be the following pattern:<br/>
@@ -40,12 +40,12 @@ A couple of examples from the default data is:<br/>
 :: Node 3 - [http://localhost:9000/node/1cf699a7-a0c4-4be0-855f-466042a36a8d]<br/>
 
 
-Accessing the same leaves but other versions would be:<br/>
+Accessing the same nodes but other versions would be:<br/>
 :: Node 1 - [http://localhost:9000/node/aa1755dd-18c4-4b78-956e-eef7e562c36c/2]<br/>
 :: Node 3 - [http://localhost:9000/node/1cf699a7-a0c4-4be0-855f-466042a36a8d/3]<br/>
 
 
-Accessing the same leaves but as decorated full pages:<br/>
+Accessing the same nodes but as decorated full pages:<br/>
 :: Page 1 - [http://localhost:9000/aa1755dd-18c4-4b78-956e-eef7e562c36c]<br/>
 :: Page 3 - [http://localhost:9000/1cf699a7-a0c4-4be0-855f-466042a36a8d]<br/>
 
