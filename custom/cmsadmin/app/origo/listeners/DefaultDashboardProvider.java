@@ -11,6 +11,11 @@ import play.modules.origo.core.annotations.Provides;
 
 import java.util.Set;
 
+/**
+ * Dashboard is the front page of the admin UI. Any \@Provides annotation with type DASHBOARD will be picked up and
+ * displayed along with the others. This is the default implementation of a DashBoardProvider. If a module would
+ * like to change this behaviour it can be done by changing the dashboard type in settings.
+ */
 public class DefaultDashboardProvider {
 
     public static final String TYPE = "origo.admin.dashboard";

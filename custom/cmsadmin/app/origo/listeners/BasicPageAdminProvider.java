@@ -18,6 +18,11 @@ import play.mvc.results.Redirect;
 
 import java.util.List;
 
+/**
+ * Admin provider for the BasicPage type. It provides a dashboard element, a method to list existing pages, a method
+ * to edit a page's content and a method to store the content.
+ * TODO: Needs validation
+ */
 public class BasicPageAdminProvider {
 
     private static final String BASE_TYPE = "origo.admin.basicpage";
@@ -29,6 +34,11 @@ public class BasicPageAdminProvider {
     private static final String LEAD_PARAM = "origo-basicpageform-lead";
     private static final String BODY_PARAM = "origo-basicpageform-body";
 
+    /**
+     * Dashboard element for the admin front page.
+     *
+     * @return a UIElement that contains a dashboard element.
+     */
     @Provides(type = Admin.DASHBOARD, with = DASHBOARD_TYPE)
     public static UIElement createDashboardItem() {
 
@@ -42,6 +52,12 @@ public class BasicPageAdminProvider {
                 );
     }
 
+    /**
+     * Provides a type with the static name 'origo.admin.basicpage.list'.
+     *
+     * @param rootNode a root node with an node id
+     * @return a node to be presented as part of the admin UI
+     */
     @Provides(type = Provides.NODE, with = LIST_TYPE)
     public static Node createListPage(RootNode rootNode) {
         AdminPage page = new AdminPage(rootNode.nodeId);
@@ -50,6 +66,11 @@ public class BasicPageAdminProvider {
         return page;
     }
 
+    /**
+     * Adds content to the nodes with the static name 'origo.admin.basicpage.list'.
+     *
+     * @param node a node of the type 'origo.admin.basicpage.list'.
+     */
     @OnLoad(type = Provides.NODE, with = LIST_TYPE)
     public static void createListPage(Node node) {
         List<BasicPage> basicPages = BasicPage.findAllLatestVersions();
@@ -65,6 +86,12 @@ public class BasicPageAdminProvider {
         node.addUIElement(panelElement);
     }
 
+    /**
+     * Provides a type with the static name 'origo.admin.basicpage.edit'.
+     *
+     * @param rootNode a root node with an node id
+     * @return a node to be presented as part of the admin UI
+     */
     @Provides(type = Provides.NODE, with = EDIT_TYPE)
     public static Node createEditPage(RootNode rootNode) {
         AdminPage page = new AdminPage(rootNode.nodeId);
@@ -77,6 +104,11 @@ public class BasicPageAdminProvider {
         return page;
     }
 
+    /**
+     * Adds content to the nodes with the static name 'origo.admin.basicpage.edit'.
+     *
+     * @param node a node of the type 'origo.admin.basicpage.edit'.
+     */
     @OnLoad(type = Provides.NODE, with = EDIT_TYPE)
     public static void createEditPage(Node node) {
         BasicPage basicPage = BasicPage.findLatestVersion(node.getNodeId());
@@ -114,6 +146,11 @@ public class BasicPageAdminProvider {
         node.addUIElement(formElement);
     }
 
+    /**
+     * Hooks in to the submit process and stores a BasicPage when it is submitted.
+     *
+     * @param params The request params
+     */
     @OnSubmit(with = BASE_TYPE)
     public static void storePage(Scope.Params params) {
 
@@ -165,6 +202,11 @@ public class BasicPageAdminProvider {
 
     }
 
+    /**
+     * Handling the routing at the end of the submit process, it redirects to listing the pages.
+     *
+     * @param params The request params
+     */
     @SubmitState(with = BASE_TYPE)
     public static void handleSuccess(Scope.Params params) {
         String endpointURL = AdminHelper.getURLForAdminAction(LIST_TYPE);

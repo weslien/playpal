@@ -8,6 +8,9 @@ import play.modules.origo.core.annotations.Provides;
 import play.modules.origo.core.ui.UIElement;
 import play.mvc.Router;
 
+/**
+ * This is the default editor in the system. A module can provide a different editor provider by changing it in the settings.
+ */
 public class TinyMCEEditorProvider {
 
     public static final String EDITOR_TYPE = "origo.admin.editor.tinymce";

@@ -14,7 +14,7 @@ public class CoreBootStrap extends Job {
     public void doJob() {
         Settings settings = Settings.load();
         setValueIfMissing(settings, SettingsKeys.Core.DEFAULT_FORM_TYPE, DefaultFormProvider.TYPE);
-        setValueIfMissing(settings, SettingsKeys.Core.POST_HANDLER, DefaultSubmitHandler.class.getName());
+        setValueIfMissing(settings, SettingsKeys.Core.SUBMIT_HANDLER, DefaultSubmitHandler.class.getName());
         settings.save();
     }
 

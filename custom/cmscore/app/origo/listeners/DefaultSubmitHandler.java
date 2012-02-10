@@ -10,6 +10,10 @@ import play.modules.origo.core.annotations.SubmitState;
 import play.modules.origo.core.ui.UIElement;
 import play.mvc.Scope;
 
+/**
+ * Default implementation of the submit handler. Alternate submit handlers can be used by changing the settings.
+ * This submit handler is based on a 'type' which is added to the form using an \@OnLoad hook by this handler.
+ */
 public class DefaultSubmitHandler {
 
     private static final String WITH_TYPE = "_core_with_type";
@@ -31,7 +35,7 @@ public class DefaultSubmitHandler {
 
     @OnLoad(type = UIElement.FORM)
     public static void addWithTypeField(UIElement uiElement, String withType) {
-        if (DefaultSubmitHandler.class.isAssignableFrom(SubmitController.getActivePostHandler())) {
+        if (DefaultSubmitHandler.class.isAssignableFrom(SubmitController.getActiveSubmitHandler())) {
             uiElement.addChild(new UIElement(UIElement.INPUT_HIDDEN).addAttribute("name", WITH_TYPE).addAttribute("value", withType));
         }
     }

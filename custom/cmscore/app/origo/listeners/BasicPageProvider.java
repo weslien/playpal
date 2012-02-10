@@ -10,6 +10,9 @@ import play.modules.origo.core.annotations.OnLoad;
 import play.modules.origo.core.annotations.Provides;
 import play.modules.origo.core.ui.UIElement;
 
+/**
+ * Provides and populates pages of type BasicPage.
+ */
 public class BasicPageProvider {
 
     @Provides(type = "node", with = "models.origo.core.BasicPage")

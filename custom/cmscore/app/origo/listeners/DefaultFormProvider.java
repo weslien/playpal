@@ -6,6 +6,13 @@ import play.modules.origo.core.annotations.Provides;
 import play.modules.origo.core.ui.UIElement;
 import play.mvc.Scope;
 
+/**
+ * Default implementation for a form provider, a different form provider can be used at any time by creating a
+ * different form (see FormHelper). A default form provider is set up in the settings but can be changed to any
+ * other provider.
+ *
+ * @see FormHelper
+ */
 public class DefaultFormProvider {
 
     public static final String TYPE = "origo.core.basicform";

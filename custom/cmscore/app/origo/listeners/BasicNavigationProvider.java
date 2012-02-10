@@ -18,6 +18,16 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Standard implementation of navigation. An alternate navigation provider can be used by changing the the navigation
+ * type in the settings. This provider uses a standard tree based navigation stored in a database with parent->child
+ * relationships. It provides the type BasicNavigation.
+ *
+ * @see BasicNavigation
+ * @see AliasNavigation
+ * @see PageIdNavigation
+ * @see ExternalLinkNavigation
+ */
 public class BasicNavigationProvider {
 
     @Provides(type = Provides.NAVIGATION, with = "models.origo.core.navigation.BasicNavigation")

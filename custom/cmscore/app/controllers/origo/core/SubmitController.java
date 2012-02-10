@@ -17,13 +17,13 @@ public class SubmitController extends Controller {
 
     public static void submit() {
 
-        final String postHandlerName = getRegisteredPostHandlerName();
+        final String postHandlerName = getRegisteredSubmitHandlerName();
         CachedAnnotation cachedAnnotation = getPostHandler(postHandlerName);
         invokePostHandler(cachedAnnotation);
     }
 
-    public static Class getActivePostHandler() {
-        final String postHandlerName = getRegisteredPostHandlerName();
+    public static Class getActiveSubmitHandler() {
+        final String postHandlerName = getRegisteredSubmitHandlerName();
         CachedAnnotation cachedAnnotation = getPostHandler(postHandlerName);
         return cachedAnnotation.method.getDeclaringClass();
     }
@@ -34,8 +34,8 @@ public class SubmitController extends Controller {
         ReflectionHelper.invokeMethod(cachedAnnotation.method, parameters);
     }
 
-    private static String getRegisteredPostHandlerName() {
-        final String postHandler = SettingsHelper.Core.getPostHandler();
+    private static String getRegisteredSubmitHandlerName() {
+        final String postHandler = SettingsHelper.Core.getSubmitHandler();
         if (StringUtils.isBlank(postHandler)) {
             throw new RuntimeException("No SubmitHandler defined in the settings");
         }
