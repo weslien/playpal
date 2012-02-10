@@ -6,7 +6,6 @@ import models.origo.core.Content;
 import models.origo.core.RootNode;
 import origo.helpers.AdminHelper;
 import origo.helpers.FormHelper;
-import play.Logger;
 import play.modules.origo.admin.annotations.Admin;
 import play.modules.origo.core.Node;
 import play.modules.origo.core.annotations.OnLoad;
@@ -53,10 +52,6 @@ public class BasicPageAdminProvider {
 
     @OnLoad(type = Provides.NODE, with = LIST_TYPE)
     public static void createListPage(Node node) {
-        List<BasicPage> allPages = BasicPage.findAll();
-        for (BasicPage page : allPages) {
-            Logger.info("Page \'" + page.title + "\' [" + page.nodeId + "/" + page.version + "]");
-        }
         List<BasicPage> basicPages = BasicPage.findAllLatestVersions();
 
         UIElement panelElement = new UIElement(UIElement.PANEL, 10).addAttribute("class", "panel pages");
