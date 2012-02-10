@@ -161,4 +161,30 @@ public class UIElement {
         this.body = body;
         return this;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UIElement uiElement = (UIElement) o;
+
+        return weight == uiElement.weight &&
+                !(attributes != null ? !attributes.equals(uiElement.attributes) : uiElement.attributes != null) &&
+                !(body != null ? !body.equals(uiElement.body) : uiElement.body != null) &&
+                !(children != null ? !children.equals(uiElement.children) : uiElement.children != null) &&
+                !(id != null ? !id.equals(uiElement.id) : uiElement.id != null) &&
+                !(type != null ? !type.equals(uiElement.type) : uiElement.type != null);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (attributes != null ? attributes.size() : 0);
+        result = 31 * result + weight;
+        result = 31 * result + (children != null ? children.size() : 0);
+        result = 31 * result + (body != null ? body.hashCode() : 0);
+        return result;
+    }
 }

@@ -30,6 +30,14 @@ public final class RootNode extends Model implements Node {
 
     public String themeVariant;
 
+    /**
+     * Only kept to make sure all elements added to the HEAD region are unique (we don't want duplicate javascript or css resources.)
+     */
+    @Transient
+    private Map<String, UIElement> headElement = new HashMap<String, UIElement>();
+    /**
+     * A list of UIElements for each region on the page. The key is the region name.
+     */
     @Transient
     private Map<String, List<UIElement>> uiElements = new HashMap<String, List<UIElement>>();
 
@@ -95,7 +103,13 @@ public final class RootNode extends Model implements Node {
 
     @Override
     public UIElement addHeadUIElement(UIElement uiElement, boolean reorderElementsBelow) {
-        return addUIElement(uiElement, reorderElementsBelow, HEAD, uiElement.getWeight());
+        String elementKey = String.valueOf(uiElement.hashCode());
+        if (headElement.containsKey(elementKey)) {
+            return headElement.get(elementKey);
+        } else {
+            headElement.put(elementKey, uiElement);
+            return addUIElement(uiElement, reorderElementsBelow, HEAD, uiElement.getWeight());
+        }
     }
 
     @Override
@@ -163,9 +177,9 @@ public final class RootNode extends Model implements Node {
 
     public static RootNode findWithNodeIdAndSpecificVersion(String nodeId, Long version) {
         RootNode node = RootNode.find(
-                "select distinct l from RootNode l " +
-                        "where l.nodeId = :nodeId and " +
-                        "l.version = :version"
+                "select distinct n from RootNode n " +
+                        "where n.nodeId = :nodeId and " +
+                        "n.version = :version"
         ).bind("nodeId", nodeId).bind("version", version).first();
         if (node != null) {
             initializeNode(node);
@@ -175,10 +189,10 @@ public final class RootNode extends Model implements Node {
 
     public static RootNode findLatestPublishedVersionWithNodeId(String nodeId, Date today) {
         RootNode node = RootNode.find(
-                "select distinct l from RootNode l " +
-                        "where l.nodeId = :nodeId and " +
-                        "(l.publish = null or l.publish < :today) and " +
-                        "(l.unPublish = null OR l.unPublish >= :today)" +
+                "select distinct n from RootNode n " +
+                        "where n.nodeId = :nodeId and " +
+                        "(n.publish = null or n.publish < :today) and " +
+                        "(n.unPublish = null OR n.unPublish >= :today)" +
                         "order by version desc"
         ).bind("nodeId", nodeId).bind("today", today).first();
         if (node != null) {
@@ -189,8 +203,8 @@ public final class RootNode extends Model implements Node {
 
     public static RootNode findLatestVersionWithNodeId(String nodeId) {
         RootNode node = RootNode.find(
-                "select distinct r from RootNode r " +
-                        "where r.nodeId = :nodeId " +
+                "select distinct n from RootNode n " +
+                        "where n.nodeId = :nodeId " +
                         "order by version desc"
         ).bind("nodeId", nodeId).first();
         if (node != null) {
@@ -201,7 +215,7 @@ public final class RootNode extends Model implements Node {
 
     public static List<RootNode> findAllVersionsWithNodeId(String nodeId) {
         List<RootNode> leaves = RootNode.find(
-                "select distinct l from RootNode l where l.nodeId = :nodeId"
+                "select distinct n from RootNode n where n.nodeId = :nodeId"
         ).bind("nodeId", nodeId).fetch();
         for (RootNode node : leaves) {
             initializeNode(node);
@@ -212,6 +226,7 @@ public final class RootNode extends Model implements Node {
     private static void initializeNode(RootNode node) {
         node.uiElements = new HashMap<String, List<UIElement>>();
         node.uiElements.put(HEAD, new ArrayList<UIElement>());
+        node.headElement = new HashMap<String, UIElement>();
     }
 
     @Override
