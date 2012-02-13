@@ -1,9 +1,9 @@
-package origo.helpers;
+package origo.helpers.forms;
 
+import origo.helpers.ReflectionHelper;
 import play.Logger;
 import play.modules.origo.core.CachedAnnotation;
 import play.modules.origo.core.Listeners;
-import play.modules.origo.core.annotations.OnSubmit;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -30,10 +30,10 @@ public class OnSubmitHelper {
     }
 
     private static List<CachedAnnotation> findOnPostListenersWithType(final String withType) {
-        List<CachedAnnotation> onPostListeners = Listeners.getListenersForAnnotationType(OnSubmit.class, new CachedAnnotation.ListenerSelector() {
+        List<CachedAnnotation> onPostListeners = Listeners.getListenersForAnnotationType(play.modules.origo.core.annotations.forms.OnSubmit.class, new CachedAnnotation.ListenerSelector() {
             @Override
             public boolean isCorrectListener(CachedAnnotation listener) {
-                OnSubmit annotation = (OnSubmit) listener.annotation;
+                play.modules.origo.core.annotations.forms.OnSubmit annotation = (play.modules.origo.core.annotations.forms.OnSubmit) listener.annotation;
                 return annotation.with().equals(withType);
             }
         });

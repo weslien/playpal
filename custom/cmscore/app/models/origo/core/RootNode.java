@@ -235,7 +235,11 @@ public final class RootNode extends Model implements Node {
     }
 
     public RootNode copy() {
-        RootNode copy = new RootNode(nodeId, version);
+        return copy(false);
+    }
+
+    public RootNode copy(boolean increaseVersion) {
+        RootNode copy = new RootNode(nodeId, increaseVersion ? ++version : version);
         copy.publish = publish;
         copy.unPublish = unPublish;
         copy.type = type;

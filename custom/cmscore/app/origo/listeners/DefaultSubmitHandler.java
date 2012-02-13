@@ -1,12 +1,11 @@
 package origo.listeners;
 
 import controllers.origo.core.SubmitController;
-import origo.helpers.OnSubmitHelper;
-import origo.helpers.SubmitStateHelper;
+import origo.helpers.forms.OnSubmitHelper;
+import origo.helpers.forms.SubmitStateHelper;
 import play.Logger;
-import play.modules.origo.core.annotations.OnLoad;
-import play.modules.origo.core.annotations.SubmitHandler;
-import play.modules.origo.core.annotations.SubmitState;
+import play.modules.origo.core.annotations.forms.OnLoadForm;
+import play.modules.origo.core.annotations.forms.SubmitState;
 import play.modules.origo.core.ui.UIElement;
 import play.mvc.Scope;
 
@@ -18,7 +17,7 @@ public class DefaultSubmitHandler {
 
     private static final String WITH_TYPE = "_core_with_type";
 
-    @SubmitHandler
+    @play.modules.origo.core.annotations.forms.SubmitHandler
     public static void handleSubmit(Scope.Params params) {
 
         String withType = getWithType(params);
@@ -33,7 +32,7 @@ public class DefaultSubmitHandler {
         SubmitStateHelper.triggerListener(SubmitState.SUCCESS, withType, Scope.Params.class, params);
     }
 
-    @OnLoad(type = UIElement.FORM)
+    @OnLoadForm
     public static void addWithTypeField(UIElement uiElement, String withType) {
         if (DefaultSubmitHandler.class.isAssignableFrom(SubmitController.getActiveSubmitHandler())) {
             uiElement.addChild(new UIElement(UIElement.INPUT_HIDDEN).addAttribute("name", WITH_TYPE).addAttribute("value", withType));

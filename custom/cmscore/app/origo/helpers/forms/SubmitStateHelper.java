@@ -1,8 +1,8 @@
-package origo.helpers;
+package origo.helpers.forms;
 
+import origo.helpers.ReflectionHelper;
 import play.modules.origo.core.CachedAnnotation;
 import play.modules.origo.core.Listeners;
-import play.modules.origo.core.annotations.SubmitState;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -27,10 +27,10 @@ public class SubmitStateHelper {
     }
 
     private static CachedAnnotation findOnPostListenersWithType(final String state, final String withType) {
-        List<CachedAnnotation> submitStateListeners = Listeners.getListenersForAnnotationType(SubmitState.class, new CachedAnnotation.ListenerSelector() {
+        List<CachedAnnotation> submitStateListeners = Listeners.getListenersForAnnotationType(play.modules.origo.core.annotations.forms.SubmitState.class, new CachedAnnotation.ListenerSelector() {
             @Override
             public boolean isCorrectListener(CachedAnnotation listener) {
-                SubmitState annotation = (SubmitState) listener.annotation;
+                play.modules.origo.core.annotations.forms.SubmitState annotation = (play.modules.origo.core.annotations.forms.SubmitState) listener.annotation;
                 return annotation.state().equals(state) && annotation.with().equals(withType);
             }
         });

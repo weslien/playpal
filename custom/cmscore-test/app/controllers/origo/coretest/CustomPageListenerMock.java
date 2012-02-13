@@ -2,6 +2,7 @@ package controllers.origo.coretest;
 
 import play.modules.origo.core.Node;
 import play.modules.origo.core.annotations.OnLoad;
+import play.modules.origo.core.annotations.Types;
 import play.modules.origo.core.ui.NavigationElement;
 import play.modules.origo.core.ui.UIElement;
 
@@ -12,7 +13,7 @@ public class CustomPageListenerMock {
     /**
      * @param node the node to modify
      */
-    @OnLoad(type = OnLoad.NODE, with = "models.origo.core.BasicPage")
+    @OnLoad(type = Types.NODE, with = "models.origo.core.BasicPage")
     public static void setupTestData(Node node) {
 
         node.addHeadUIElement(new UIElement(UIElement.META, 10).addAttribute("http-equiv", "Content-Type").addAttribute("content", "text/html; charset=utf-8"));
@@ -23,7 +24,7 @@ public class CustomPageListenerMock {
         node.addUIElement(new UIElement(UIElement.PANEL, 10).addChild(new UIElement(UIElement.TEXT, 12, "Bla bla")));
     }
 
-    @OnLoad(type = OnLoad.NAVIGATION)
+    @OnLoad(type = Types.NAVIGATION)
     public static void setupTestNavigation(Node node, Collection<NavigationElement> navigationElements, String section) {
         navigationElements.add(new NavigationElement(section, "Programmatically Added", "http://google.com"));
     }

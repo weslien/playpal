@@ -112,10 +112,12 @@ public class BasicPage extends Model implements Node {
         return rootNode.removeUIElement(uiElement);
     }
 
-    public BasicPage copy() {
+    public BasicPage copy(RootNode oldRootNode) {
         BasicPage newPage = new BasicPage();
+        RootNode rootNodeCopy = oldRootNode.copy(true);
+        newPage.rootNode = rootNodeCopy;
         newPage.nodeId = nodeId;
-        newPage.version = version;
+        newPage.version = rootNodeCopy.version;
         newPage.title = title;
         newPage.leadReferenceId = leadReferenceId;
         newPage.bodyReferenceId = bodyReferenceId;
@@ -127,8 +129,8 @@ public class BasicPage extends Model implements Node {
         return new StringBuilder().
                 append("BasicPage {").
                 append("nodeId='").append(nodeId).append("\', ").
-                append("version=").append(version).
-                append("rootNode=").append(rootNode).
+                append("version=").append(version).append(", ").
+                append("rootNode=").append(rootNode).append(", ").
                 append("title='").append(title).append("\', ").
                 append("leadReferenceId='").append(leadReferenceId).append("\', ").
                 append("bodyReferenceId='").append(bodyReferenceId).append("\', ").

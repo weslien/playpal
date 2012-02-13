@@ -3,7 +3,10 @@ package play.modules.origo.core;
 import play.Play;
 import play.PlayPlugin;
 import play.classloading.ApplicationClasses;
-import play.modules.origo.core.annotations.*;
+import play.modules.origo.core.annotations.Decorates;
+import play.modules.origo.core.annotations.OnLoad;
+import play.modules.origo.core.annotations.Provides;
+import play.modules.origo.core.annotations.forms.*;
 import play.utils.Java;
 
 import java.lang.annotation.Annotation;
@@ -35,6 +38,8 @@ public class CoreAnnotationsPlugin extends PlayPlugin {
         findAndAddListenerAnnotation(OnSubmit.class, modifiedJavaClasses);
         findAndAddListenerAnnotation(SubmitHandler.class, modifiedJavaClasses);
         findAndAddListenerAnnotation(SubmitState.class, modifiedJavaClasses);
+        findAndAddListenerAnnotation(OnLoadForm.class, modifiedJavaClasses);
+        findAndAddListenerAnnotation(ProvidesForm.class, modifiedJavaClasses);
 
         return super.onClassesChange(modifiedClasses);
     }

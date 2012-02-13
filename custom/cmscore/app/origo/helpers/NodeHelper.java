@@ -4,8 +4,7 @@ import models.origo.core.RootNode;
 import org.apache.commons.lang.StringUtils;
 import origo.listeners.PageNotFoundException;
 import play.modules.origo.core.Node;
-import play.modules.origo.core.annotations.OnLoad;
-import play.modules.origo.core.annotations.Provides;
+import play.modules.origo.core.annotations.Types;
 
 import java.util.Date;
 
@@ -53,15 +52,15 @@ public class NodeHelper {
      * Convenience methods for hooks with NODE type
      */
     public static Node triggerProvidesNodeListener(String withType, RootNode rootNode) {
-        return ProvidesHelper.triggerListener(Provides.NODE, withType, rootNode);
+        return ProvidesHelper.triggerListener(Types.NODE, withType, rootNode);
     }
 
     public static void triggerBeforeNodeLoaded(String withType, RootNode rootNode) {
-        OnLoadHelper.triggerBeforeListener(OnLoad.NODE, withType, rootNode);
+        OnLoadHelper.triggerBeforeListener(Types.NODE, withType, rootNode);
     }
 
     public static void triggerAfterNodeLoaded(String withType, Node node) {
-        OnLoadHelper.triggerAfterListener(OnLoad.NODE, withType, node);
+        OnLoadHelper.triggerAfterListener(Types.NODE, withType, node);
     }
 
 }

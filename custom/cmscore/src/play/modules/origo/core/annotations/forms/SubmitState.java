@@ -1,4 +1,4 @@
-package play.modules.origo.core.annotations;
+package play.modules.origo.core.annotations.forms;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -28,9 +28,4 @@ public @interface Provides {
 
     String with();
 
-    public static final String FORM = "form";
-    public static final String NODE = "node";
-    public static final String NAVIGATION = "navigation";
-    public static final String NAVIGATION_ITEM = "navigation_item";
-
 }

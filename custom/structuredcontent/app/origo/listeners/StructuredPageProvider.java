@@ -7,13 +7,14 @@ import origo.helpers.SegmentHelper;
 import play.modules.origo.core.Node;
 import play.modules.origo.core.annotations.OnLoad;
 import play.modules.origo.core.annotations.Provides;
+import play.modules.origo.core.annotations.Types;
 import play.modules.origo.core.ui.UIElement;
 
 import java.util.List;
 
 public class StructuredPageProvider {
 
-    @Provides(type = Provides.NODE, with = "models.origo.structuredcontent.StructuredPage")
+    @Provides(type = Types.NODE, with = "models.origo.structuredcontent.StructuredPage")
     public static Node loadPage(RootNode rootNode) {
         StructuredPage page = StructuredPage.findWithNodeIdAndSpecificVersion(rootNode.nodeId, rootNode.version);
         if (page == null) {
@@ -24,7 +25,7 @@ public class StructuredPageProvider {
         return page;
     }
 
-    @OnLoad(type = OnLoad.NODE, with = "models.origo.structuredcontent.StructuredPage")
+    @OnLoad(type = Types.NODE, with = "models.origo.structuredcontent.StructuredPage")
     public static void loadContent(Node node) {
 
         List<Segment> segmentModels = Segment.findWithNodeIdAndSpecificVersion(node.getNodeId(), node.getVersion());

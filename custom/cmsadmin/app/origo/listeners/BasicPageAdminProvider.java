@@ -5,13 +5,15 @@ import models.origo.core.BasicPage;
 import models.origo.core.Content;
 import models.origo.core.RootNode;
 import origo.helpers.AdminHelper;
-import origo.helpers.FormHelper;
+import origo.helpers.forms.FormHelper;
 import play.modules.origo.admin.annotations.Admin;
 import play.modules.origo.core.Node;
 import play.modules.origo.core.annotations.OnLoad;
-import play.modules.origo.core.annotations.OnSubmit;
 import play.modules.origo.core.annotations.Provides;
-import play.modules.origo.core.annotations.SubmitState;
+import play.modules.origo.core.annotations.Types;
+import play.modules.origo.core.annotations.forms.OnLoadForm;
+import play.modules.origo.core.annotations.forms.OnSubmit;
+import play.modules.origo.core.annotations.forms.SubmitState;
 import play.modules.origo.core.ui.UIElement;
 import play.mvc.Scope;
 import play.mvc.results.Redirect;
@@ -58,7 +60,7 @@ public class BasicPageAdminProvider {
      * @param rootNode a root node with an node id
      * @return a node to be presented as part of the admin UI
      */
-    @Provides(type = Provides.NODE, with = LIST_TYPE)
+    @Provides(type = Types.NODE, with = LIST_TYPE)
     public static Node createListPage(RootNode rootNode) {
         AdminPage page = new AdminPage(rootNode.nodeId);
         page.setTitle("List Basic Pages");
@@ -71,7 +73,7 @@ public class BasicPageAdminProvider {
      *
      * @param node a node of the type 'origo.admin.basicpage.list'.
      */
-    @OnLoad(type = Provides.NODE, with = LIST_TYPE)
+    @OnLoad(type = Types.NODE, with = LIST_TYPE)
     public static void createListPage(Node node) {
         List<BasicPage> basicPages = BasicPage.findAllLatestVersions();
 
@@ -92,7 +94,7 @@ public class BasicPageAdminProvider {
      * @param rootNode a root node with an node id
      * @return a node to be presented as part of the admin UI
      */
-    @Provides(type = Provides.NODE, with = EDIT_TYPE)
+    @Provides(type = Types.NODE, with = EDIT_TYPE)
     public static Node createEditPage(RootNode rootNode) {
         AdminPage page = new AdminPage(rootNode.nodeId);
         page.setTitle("Edit Basic Page");
@@ -101,16 +103,18 @@ public class BasicPageAdminProvider {
         } else {
             page.rootNode = rootNode;
         }
+        page.addUIElement(FormHelper.createFormElement(page, BASE_TYPE));
         return page;
     }
 
     /**
      * Adds content to the nodes with the static name 'origo.admin.basicpage.edit'.
      *
-     * @param node a node of the type 'origo.admin.basicpage.edit'.
+     * @param node        a node of the type 'origo.admin.basicpage.edit'.
+     * @param formElement the form element created with \@ProvidesForm
      */
-    @OnLoad(type = Provides.NODE, with = EDIT_TYPE)
-    public static void createEditPage(Node node) {
+    @OnLoadForm(with = BASE_TYPE)
+    public static void loadEditForm(Node node, UIElement formElement) {
         BasicPage basicPage = BasicPage.findLatestVersion(node.getNodeId());
         if (basicPage == null) {
             node.addUIElement(new UIElement(UIElement.PARAGRAPH, 10, "Page '" + node.getNodeId() + "' does not exist."));
@@ -120,7 +124,7 @@ public class BasicPageAdminProvider {
         Content leadContent = Content.findWithIdentifier(basicPage.leadReferenceId);
         Content bodyContent = Content.findWithIdentifier(basicPage.bodyReferenceId);
 
-        UIElement formElement = FormHelper.createFormElement(DefaultFormProvider.TYPE, node, BASE_TYPE).setId("basicpageform").addAttribute("class", "origo-basicpageform, form");
+        formElement.setId("basicpageform").addAttribute("class", "origo-basicpageform, form");
 
         UIElement titleElement = new UIElement(UIElement.PANEL, 10).addAttribute("class", "field");
         titleElement.addChild(new UIElement(UIElement.LABEL, 10, "Title").addAttribute("for", TITLE_PARAM));
@@ -142,8 +146,6 @@ public class BasicPageAdminProvider {
         UIElement actionPanel = new UIElement(UIElement.PANEL, 40).addAttribute("class", "field");
         actionPanel.addChild(new UIElement(UIElement.INPUT_BUTTON, 10, "Save").addAttribute("type", "submit"));
         formElement.addChild(actionPanel);
-
-        node.addUIElement(formElement);
     }
 
     /**
@@ -154,24 +156,17 @@ public class BasicPageAdminProvider {
     @OnSubmit(with = BASE_TYPE)
     public static void storePage(Scope.Params params) {
 
-        String nodeId = DefaultFormProvider.getNodeId(params);
-        Long version = DefaultFormProvider.getNodeVersion(params);
+        String nodeId = FormHelper.getNodeId(params);
+        Long version = FormHelper.getNodeVersion(params);
         RootNode oldRootNode = RootNode.findWithNodeIdAndSpecificVersion(nodeId, version);
         if (oldRootNode == null) {
             throw new RuntimeException("Root node with id=\'" + nodeId + "\' does not exist");
         }
 
-        BasicPage oldPageVersion = BasicPage.findLatestVersion(nodeId);
-        if (!oldPageVersion.version.equals(version)) {
-            // TODO: Maybe add this as validation instead of storing over it
-        }
-
-        BasicPage newPageVersion = oldPageVersion.copy();
-        newPageVersion.version = newPageVersion.version++;
-        newPageVersion.nodeId = nodeId;
+        BasicPage newPageVersion = BasicPage.findLatestVersion(nodeId).copy(oldRootNode);
 
         boolean changed = false;
-        Content leadContent = Content.findWithIdentifier(oldPageVersion.leadReferenceId);
+        Content leadContent = Content.findWithIdentifier(newPageVersion.leadReferenceId);
         if (!leadContent.value.equals(params.get(LEAD_PARAM))) {
             Content newLeadContent = new Content();
             newLeadContent.value = params.get(LEAD_PARAM);
@@ -179,7 +174,7 @@ public class BasicPageAdminProvider {
             newLeadContent.save();
             changed = true;
         }
-        Content bodyContent = Content.findWithIdentifier(oldPageVersion.bodyReferenceId);
+        Content bodyContent = Content.findWithIdentifier(newPageVersion.bodyReferenceId);
         if (!bodyContent.value.equals(params.get(BODY_PARAM))) {
             Content newBodyContent = new Content();
             newBodyContent.value = params.get(BODY_PARAM);
@@ -188,15 +183,13 @@ public class BasicPageAdminProvider {
             changed = true;
         }
 
-        if (!oldPageVersion.title.equals(params.get(TITLE_PARAM))) {
+        if (!newPageVersion.title.equals(params.get(TITLE_PARAM))) {
             newPageVersion.title = params.get(TITLE_PARAM);
             changed = true;
         }
+
         if (changed) {
-            RootNode rootNode = oldRootNode.copy();
-            rootNode.version++;
-            rootNode.save();
-            newPageVersion.version = rootNode.version;
+            newPageVersion.rootNode.save();
             newPageVersion.save();
         }
 

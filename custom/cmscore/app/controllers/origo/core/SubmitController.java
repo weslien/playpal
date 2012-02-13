@@ -5,7 +5,6 @@ import origo.helpers.ReflectionHelper;
 import origo.helpers.SettingsHelper;
 import play.modules.origo.core.CachedAnnotation;
 import play.modules.origo.core.Listeners;
-import play.modules.origo.core.annotations.SubmitHandler;
 import play.mvc.Controller;
 import play.mvc.Scope;
 
@@ -45,7 +44,7 @@ public class SubmitController extends Controller {
     // TODO: Cache this instead of looking it up every time
     private static CachedAnnotation getPostHandler(final String postHandler) {
         List<CachedAnnotation> postHandlers = Listeners.
-                getListenersForAnnotationType(SubmitHandler.class, new CachedAnnotation.ListenerSelector() {
+                getListenersForAnnotationType(play.modules.origo.core.annotations.forms.SubmitHandler.class, new CachedAnnotation.ListenerSelector() {
                     @Override
                     public boolean isCorrectListener(CachedAnnotation listener) {
                         return postHandler.equals(listener.method.getDeclaringClass().getName());
